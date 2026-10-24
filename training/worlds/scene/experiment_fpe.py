@@ -21,12 +21,16 @@ Readout (read by displacing and comparing, not learned):
   inside(a,c)   the four corners' sides: tl left of and above c^_a, br right of and below c^_a (q_tl = S (x) conj(E_c (x) R_tl), ...)
   nearest(j)    the tip t^ decoded; the element whose decoded centre has the most similar address, Re<A(t^), A(c^_k)>, wins
   margin        |side score| for the binary relations, best minus second similarity for nearest
+  --readout decoded (default): every address in a relation is first decoded from the superposed state (the step where crosstalk and
+                capacity bite), then the clean addresses are displaced and compared. --readout direct: the second address stays the
+                noisy unbound vector q_b (q_tl, q_br) and is compared with the displaced half-plane bundle; purely algebraic, but the
+                bundle spreads the signal over every displacement of the half plane (a recorded alternative, run separately).
 
 Modes:
   --smoke       CPU, tiny sizes (D 256, one seed, a few scenes): checks that the pipeline runs; its numbers are NOT results.
-  DGX command (see training/TODO_DGX.parts/sketch_scene.md):
-    ./run.sh training/worlds/scene/experiment_fpe.py --D 1024 4096 --seeds 0 1 2 3 4 --n_dev 100 --n_heldout 400 \\
-        --capacity 4 8 16 32 64 128 --n_cap 60 --sep_trials 200 --out logs/scene_fpe [--xp cupy]
+  DGX command (see training/TODO_DGX.parts/sketch_scene.md), from the repository root, on a clean tree:
+    python3 training/worlds/scene/experiment_fpe.py --D 1024 4096 --seeds 0 1 2 3 4 --n_dev 100 --n_heldout 400 \\
+        --capacity 4 8 16 32 64 128 --n_cap 60 --sep_trials 200 --out logs/scene_fpe_<commit> 2>&1 | tee logs/scene_fpe_<commit>.log
 Resumable: each (D, seed) writes <out>/D<D>_seed<seed>.json and is skipped when that file exists.
 """
 import argparse, json, os, resource, sys, time
@@ -48,8 +52,8 @@ def rss_mb():
 class Reader:
     """the readout of one (fpe, algebra) pair; half-plane templates built once"""
 
-    def __init__(self, fpe, alg):
-        self.f, self.a = fpe, alg
+    def __init__(self, fpe, alg, readout="decoded"):
+        self.f, self.a, self.readout = fpe, alg, readout
         self.Hx = (fpe.halfplane(0, +1, G.W, G.H), fpe.halfplane(0, -1, G.W, G.H))
         self.Hy = (fpe.halfplane(1, +1, G.H, G.W), fpe.halfplane(1, -1, G.H, G.W))
 
@@ -70,10 +74,13 @@ class Reader:
         f, xp = self.f, self.f.xp
         if q["rel"] in ("left_of", "above"):
             ax = self.pos(q["a"]); A = f.addr(*ax); H = self.Hx if q["rel"] == "left_of" else self.Hy
-            sc = f.side(self.q(q["b"]), A, H[0], H[1])
+            qb = self.q(q["b"]) if self.readout == "direct" else f.addr(*self.pos(q["b"]))
+            sc = f.side(qb, A, H[0], H[1])
             return sc > 0, abs(sc), sc
         if q["rel"] == "inside":
-            A = f.addr(*self.pos(q["a"])); qtl, qbr = self.q(q["c"], "tl"), self.q(q["c"], "br")
+            A = f.addr(*self.pos(q["a"]))
+            if self.readout == "direct": qtl, qbr = self.q(q["c"], "tl"), self.q(q["c"], "br")
+            else: qtl, qbr = f.addr(*self.pos(q["c"], "tl")), f.addr(*self.pos(q["c"], "br"))
             s = [f.side(qtl, A, xp.conj(self.Hx[0]), xp.conj(self.Hx[1])), f.side(qtl, A, xp.conj(self.Hy[0]), xp.conj(self.Hy[1])),
                  f.side(qbr, A, self.Hx[0], self.Hx[1]), f.side(qbr, A, self.Hy[0], self.Hy[1])]
             m = min(s); return m > 0, abs(m), m
@@ -123,9 +130,9 @@ def chance_and_majority(rows, rel, scenes_qs=None):
     return 0.5, (max(np.mean(golds), 1 - np.mean(golds)) if golds else float("nan"))
 
 
-def separability(fpe, alg, ds, trials, n_bg, seed):
+def separability(fpe, alg, ds, trials, n_bg, seed, readout="decoded"):
     """left_of between two elements d px apart; and same-identity two-peak resolution"""
-    r = np.random.default_rng([seed, 7]); reader = Reader(fpe, alg); xp = fpe.xp
+    r = np.random.default_rng([seed, 7]); reader = Reader(fpe, alg, readout); xp = fpe.xp
     res = {"left_of": {}, "same_identity": {}}
     for d in ds:
         ok = 0
@@ -161,15 +168,15 @@ def one_run(D, seed, a, xp):
     choice = []
     for kern in a.kernels:
         for L in a.Ls:
-            f = FPE(D, seed, L, kern, xp); rows = run_set(Reader(f, alg), dev)
+            f = FPE(D, seed, L, kern, xp); rows = run_set(Reader(f, alg, a.readout), dev)
             m = float(np.mean([acc(rows[r]) for r in RELS if rows[r]])); choice.append((m, -L, kern, L, rows))
             print(f"  D {D} seed {seed} dev kernel {kern} L {L}: mean {m:.3f} " + " ".join(f"{r} {acc(rows[r]):.3f}" for r in RELS), flush=True)
     m, _, kern, L, dev_rows = max(choice, key=lambda c: (c[0], c[1]))
     taus = {r: tau_on(dev_rows[r]) for r in RELS}
-    f = FPE(D, seed, L, kern, xp); reader = Reader(f, alg)
+    f = FPE(D, seed, L, kern, xp); reader = Reader(f, alg, a.readout)
     # 2. heldout, frozen
     rows = run_set(reader, held)
-    out = {"D": D, "seed": seed, "kernel": kern, "L": L, "tau": taus, "dev_mean": m, "heldout": {}, "terms_mean": float(np.mean([n_terms(s) for s, _ in held]))}
+    out = {"D": D, "seed": seed, "readout": a.readout, "kernel": kern, "L": L, "tau": taus, "dev_mean": m, "heldout": {}, "terms_mean": float(np.mean([n_terms(s) for s, _ in held]))}
     for r in RELS:
         ch, maj = chance_and_majority(rows[r], r, held); cov, cw = at_tau(rows[r], taus[r]); ms = [mm for _, mm, _ in rows[r]]
         out["heldout"][r] = {"n": len(rows[r]), "acc": acc(rows[r]), "chance": ch, "majority": maj, "coverage_at_tau": cov, "confident_wrong_at_tau": cw,
@@ -186,7 +193,7 @@ def one_run(D, seed, a, xp):
         out["capacity"][n] = {"placed": float(np.mean([sum(1 for e in s["elements"] if not e.get("container")) for s, _ in sq])),
                               "terms": float(np.mean([n_terms(s) for s, _ in sq])), **{r: acc(rr[r]) for r in RELS}}
     # 4. separability
-    out["separability"] = separability(f, alg, a.sep_d, a.sep_trials, a.sep_bg, seed)
+    out["separability"] = separability(f, alg, a.sep_d, a.sep_trials, a.sep_bg, seed, a.readout)
     out["seconds"] = time.time() - t0; out["rss_mb"] = rss_mb()
     return out
 
@@ -199,7 +206,7 @@ def main():
     ap.add_argument("--kernels", nargs="+", default=["gaussian", "sinc"]); ap.add_argument("--Ls", type=float, nargs="+", default=[16, 24, 32, 48, 64, 96])
     ap.add_argument("--capacity", type=int, nargs="+", default=[4, 8, 16, 32, 64, 128]); ap.add_argument("--n_cap", type=int, default=60)
     ap.add_argument("--sep_d", type=float, nargs="+", default=[2, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128]); ap.add_argument("--sep_trials", type=int, default=200)
-    ap.add_argument("--sep_bg", type=int, default=8)
+    ap.add_argument("--sep_bg", type=int, default=8); ap.add_argument("--readout", default="decoded", choices=["decoded", "direct"])
     ap.add_argument("--out", default=os.path.join(HERE, "..", "..", "..", "logs", "scene_fpe")); ap.add_argument("--xp", default="numpy", choices=["numpy", "cupy"])
     a = ap.parse_args()
     if a.smoke:
@@ -210,14 +217,15 @@ def main():
     if a.xp == "cupy":
         import cupy as xp  # noqa: F811  (optional, DGX only)
     os.makedirs(a.out, exist_ok=True)
-    label = "SMOKE (CPU, tiny sizes: not a result)" if a.smoke else "RUN"
-    print(f"experiment_fpe [{label}] D {a.D} seeds {a.seeds} dev {a.n_dev} heldout {a.n_heldout} kernels {a.kernels} L {a.Ls} out {a.out}")
+    small = a.smoke or a.n_heldout < 100 or len(a.seeds) < 3
+    label = "SMOKE (CPU, tiny sizes: not a result)" if a.smoke else ("SMALL (fewer than 100 heldout scenes or 3 seeds: not a result, no verdict)" if small else "RUN")
+    print(f"experiment_fpe [{label}] readout {a.readout} D {a.D} seeds {a.seeds} dev {a.n_dev} heldout {a.n_heldout} kernels {a.kernels} L {a.Ls} out {a.out}")
     print("criteria (written before the run): C1 heldout left_of, above, inside, nearest each >= 0.97 at D = 1024 (mean over seeds); "
           "C2 the same at 4096 reported; R1 separability reported; R2 capacity reported")
     runs = []
     for D in a.D:
         for seed in a.seeds:
-            path = os.path.join(a.out, f"D{D}_seed{seed}.json")
+            path = os.path.join(a.out, f"D{D}_seed{seed}{'' if a.readout == 'decoded' else '_' + a.readout}.json")
             if os.path.exists(path): runs.append(json.load(open(path))); print(f"  D {D} seed {seed}: resumed from {path}"); continue
             r = one_run(D, seed, a, xp); json.dump(r, open(path, "w"), indent=1); runs.append(r)
             print(f"  D {D} seed {seed}: kernel {r['kernel']} L {r['L']} (chosen on dev), {r['seconds']:.0f} s, max RSS {r['rss_mb']:.0f} MB", flush=True)
@@ -230,7 +238,7 @@ def main():
             v = [r["heldout"][rel]["acc"] for r in rs if r["heldout"][rel]["n"]]
             if not v: print(f"  D {D:5d} {rel:8s} no queries"); continue
             h0 = rs[0]["heldout"][rel]; mean = float(np.mean(v))
-            verdict = "" if a.smoke else (" MET" if mean >= CRIT else " MISSED") if D == 1024 else " reported"
+            verdict = "" if small else (" MET" if mean >= CRIT else " MISSED") if D == 1024 else " reported"
             summ[D][rel] = mean
             print(f"  D {D:5d} {rel:8s} {mean:.3f} +- {float(np.std(v)):.3f} {[round(x, 3) for x in v]} n {h0['n']} chance {h0['chance']:.3f} majority {h0['majority']:.3f} "
                   f"coverage {np.mean([r['heldout'][rel]['coverage_at_tau'] for r in rs]):.3f} confident-wrong {np.mean([r['heldout'][rel]['confident_wrong_at_tau'] for r in rs]):.3f}"
