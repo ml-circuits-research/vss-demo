@@ -12,4 +12,4 @@ used. No other runtime dependency.
 
 Checked for the next steps and NOT vendored yet (licences as published on npm on 2026-10-24): @maxgraph/core 0.25.1, Apache-2.0
 (the recommended diagram library, spec 9); elkjs 0.12.0, "EPL-2.0 OR GPL-3.0-or-later" (automatic layout, spec 8.3: used under EPL-2.0);
-@joint/core, MPL-2.0 (the alternative library). The choice is made at step 6 on the comparison prototype and recorded here.
+@joint/core, MPL-2.0 (the alternative library). Decision of 2026-10-24: the editor renders and lays out with its own code (app/src/editor/README.md), so none of these is vendored; ELK.js is excluded by its licence; a maxGraph comparison prototype remains an optional later step.

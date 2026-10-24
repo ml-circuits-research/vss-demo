@@ -5,7 +5,7 @@
 
 const ROLE_WORD = { color: "colour", size: "size", style: "line style", text: "label", relation: "position", landmark: "reference component",
   region: "place on the canvas", anchor: "edge", fraction: "part of the way", amount: "amount", unit: "unit", direction: "direction",
-  axis: "axis", layout: "arrangement", pairing: "pairing", source: "start", target: "end", quantity: "number", object: "component" };
+  axis: "axis", layout: "arrangement", pairing: "pairing", source: "start component", target: "end component", quantity: "number", object: "component" };
 
 const fillerText = (f) => !f ? "nothing" : f[0] === "entity" ? [f[3], f[2] ? (f[2][0] === "negword" ? "not-" : "") + f[2][1] : null, f[1]].filter(Boolean).join(" ") : (f[0] === "negword" ? "not " : "") + f[1];
 

@@ -8,7 +8,7 @@
   --ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --read: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --panel-w: 360px; --dock-h: auto; --r-s: 6px; --r-m: 10px;
+  --panel-w: 380px; --dock-h: auto; --r-s: 6px; --r-m: 10px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
@@ -58,7 +58,7 @@ button, input { font: inherit; color: inherit; }
 .panel { border-left: 1px solid var(--line); background: var(--paper); display: flex; flex-direction: column; min-height: 0; }
 .panel-grip { display: none; }
 .tabs { display: flex; gap: 2px; padding: 6px 8px 0; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
-.tabs button { border: 0; background: none; padding: 8px 9px; border-bottom: 2px solid transparent; cursor: pointer; color: var(--muted); white-space: nowrap; font-size: 14px; }
+.tabs button { border: 0; background: none; padding: 8px 7px; border-bottom: 2px solid transparent; cursor: pointer; color: var(--muted); white-space: nowrap; font-size: 13.5px; }
 .tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
 .tab-body { padding: 12px 14px 18px; overflow: auto; min-height: 0; flex: 1; font-size: 14px; }
 .tab-body h4 { margin: 14px 0 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
@@ -69,7 +69,7 @@ button, input { font: inherit; color: inherit; }
 .chip.st-no-sense, .chip.st-unknown-event, .chip.warn { color: var(--warn); border-color: var(--warn); }
 .frame-roles { display: grid; gap: 2px; }
 .frow { display: grid; grid-template-columns: 92px 1fr 72px; align-items: center; gap: 8px; padding: 3px 0; border-bottom: 1px dashed color-mix(in srgb, var(--line) 60%, transparent); }
-.frow.empty { color: var(--muted); opacity: .62; }
+.frame-empty { color: var(--muted); font-size: 13px; margin: 10px 0 0; line-height: 1.5; }
 .frole { font-size: 12.5px; color: var(--muted); } .frow:not(.empty) .frole { color: var(--role, var(--fg)); font-weight: 600; }
 .fval { font-family: var(--read); font-size: 15px; overflow-wrap: anywhere; }
 .mbar { position: relative; height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--fg) 9%, transparent); }

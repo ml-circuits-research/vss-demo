@@ -23,14 +23,18 @@ export function renderFrame(host, { result, legend, tau = 0.05 }) {
   host.append(head);
   const tbl = el("div", "frame-roles");
   const roles = (legend?.roles || []).map((r) => r.id); const present = fr.roles || {};
-  for (const r of roles.length ? roles : Object.keys(present)) {
-    const row = el("div", "frow" + (present[r] ? "" : " empty"));
+  const all = roles.length ? roles : Object.keys(present);
+  for (const r of all.filter((x) => present[x])) {
+    const row = el("div", "frow");
     const name = el("span", "frole", r); if (present[r]) name.style.setProperty("--role", roleColour(r));
     row.append(name, el("span", "fval", present[r] ? fill(present[r]) : "not given"));
     const m = result.margins?.[r]; row.append(present[r] && m != null ? bar(m, tau) : el("span", "mbar-none"));
     tbl.append(row);
   }
+  if (!Object.keys(present).length) tbl.append(el("p", "muted", "No role was filled."));
   host.append(tbl);
+  const empty = all.filter((x) => !present[x]);
+  if (empty.length) host.append(el("p", "frame-empty", `Not given: ${empty.join(", ")}.`));
   const foot = el("div", "frame-foot");
   foot.append(el("span", null, `structure margin ${(result.margins?.structure ?? 0).toFixed(3)}`), el("span", null, `residual ${(result.residual ?? 0).toFixed(3)}`),
     el("span", null, `${(result.timings?.total_ms ?? 0).toFixed(1)} ms`));

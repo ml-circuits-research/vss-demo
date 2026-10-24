@@ -29,10 +29,10 @@ let html = fs.readFileSync(path.join(APP, "index.html"), "utf8");
 const css = fs.readFileSync(path.join(APP, "app.css"), "utf8");
 const icon = "data:image/svg+xml;base64," + fs.readFileSync(path.join(APP, "icons/icon.svg")).toString("base64");
 html = html.replace(/<link rel="stylesheet" href="app.css">\n?/, "").replace(/<link rel="manifest"[^>]*>\n?/, "")
-  .replace(/<link rel="icon"[^>]*>/, `<link rel="icon" href="${icon}" type="image/svg+xml">`)
+  .replace(/<link rel="icon"[^>]*>/, () => `<link rel="icon" href="${icon}" type="image/svg+xml">`)
   .replace(/<script src="vendor\/typo\/typo.js"><\/script>\n?/, "").replace(/<script type="module" src="src\/main.js"><\/script>\n?/, "")
-  .replace("<!--VSS:INLINE-CSS-->", `<style>\n${safe(css)}\n</style>`)
-  .replace("<!--VSS:INLINE-JS-->", [
+  .replace("<!--VSS:INLINE-CSS-->", () => `<style>\n${safe(css)}\n</style>`)
+  .replace("<!--VSS:INLINE-JS-->", () => [
     `<script>${safe(fs.readFileSync(path.join(APP, "vendor/typo/typo.js"), "utf8"))}</script>`,
     `<script>globalThis.__VSS_BUNDLE__ = ${safe(JSON.stringify(bundle))};</script>`,
     `<script>${safe(bundleJS)}</script>`].join("\n"));
