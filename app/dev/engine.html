@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagram engine (dev)</title>
+<style>
+  /* the variables app/app.css defines for the application; repeated here so the page stands alone */
+  :root { color-scheme: light dark;
+    --bg: #ffffff; --fg: #1f2328; --muted: #6b7280; --accent: #3a73d6; --line: #d5d9e0; --sel: #2f6fec; --warn: #e07b24; --ok: #2e9d5b; --panel: #f4f5f7;
+    --c-red: #d64541; --c-orange: #e07b24; --c-yellow: #c9a400; --c-green: #2e9d5b; --c-teal: #12908a; --c-blue: #3a73d6; --c-purple: #7c4dcc; --c-pink: #d64f95;
+    --c-brown: #8b5a2b; --c-gray: #6b7280; --c-black: #1f2328; --c-white: #b8bec7; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #16181d; --fg: #e8eaed; --muted: #9aa1ab; --accent: #6d9cf0; --line: #3a3f48; --sel: #7aa7ff; --warn: #f0a050; --ok: #5cc98a; --panel: #1e2127;
+    --c-red: #ff7a72; --c-orange: #f59a4c; --c-yellow: #e8c840; --c-green: #5cc98a; --c-teal: #3cc4bd; --c-blue: #6d9cf0; --c-purple: #a98af0; --c-pink: #f07cb8; --c-brown: #c08a5a; --c-gray: #9aa1ab; --c-black: #c9ced6; --c-white: #f2f2f2; } }
+  :root[data-theme="dark"] { --bg: #16181d; --fg: #e8eaed; --muted: #9aa1ab; --accent: #6d9cf0; --line: #3a3f48; --sel: #7aa7ff; --warn: #f0a050; --ok: #5cc98a; --panel: #1e2127;
+    --c-red: #ff7a72; --c-orange: #f59a4c; --c-yellow: #e8c840; --c-green: #5cc98a; --c-teal: #3cc4bd; --c-blue: #6d9cf0; --c-purple: #a98af0; --c-pink: #f07cb8; --c-brown: #c08a5a; --c-gray: #9aa1ab; --c-black: #c9ced6; --c-white: #f2f2f2; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--panel); color: var(--fg); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  body { display: flex; flex-direction: column; height: 100dvh; }
+  header { display: flex; gap: 6px; align-items: center; padding: 8px 12px; padding-top: max(8px, env(safe-area-inset-top)); overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); flex: none; }
+  header::-webkit-scrollbar { display: none; }
+  header strong { margin-right: 6px; white-space: nowrap; }
+  button, select { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; white-space: nowrap; min-height: 34px; cursor: pointer; }
+  button:hover, select:hover { border-color: var(--muted); }
+  .sep { width: 1px; align-self: stretch; background: var(--line); flex: none; margin: 2px 2px; }
+  main { position: relative; flex: 1; min-height: 0; margin: 10px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--bg); }
+  main svg { display: block; width: 100%; height: 100%; outline: none; }
+  footer { flex: none; padding: 6px 12px; padding-bottom: max(6px, env(safe-area-inset-bottom)); color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 600px) { header { padding: 6px 8px; } main { margin: 6px; } button, select { min-height: 40px; padding: 6px 12px; } .wide { display: none; } }
+</style>
+</head>
+<body>
+<header>
+  <strong>Engine</strong>
+  <select id="layout" aria-label="layout">
+    <option value="flow_lr">flow left to right</option><option value="flow_td">flow top down</option><option value="tree">tree</option>
+    <option value="grid">grid</option><option value="row">row</option><option value="column">column</option><option value="circle">circle</option>
+  </select>
+  <button id="arrange">Arrange</button>
+  <span class="sep"></span>
+  <button id="undo" aria-label="undo">Undo</button><button id="redo" aria-label="redo">Redo</button>
+  <button id="fit">Fit</button>
+  <span class="sep"></span>
+  <button id="ask">Which box?</button>
+  <button id="add">Add box</button>
+  <span class="sep"></span>
+  <button id="svg">SVG</button><button id="png">PNG</button><button id="json">JSON</button><button id="import">Import</button>
+  <button id="theme" class="wide">Theme</button>
+  <input id="file" type="file" accept=".json,application/json" hidden>
+</header>
+<main><svg id="canvas"></svg></main>
+<footer id="log">Drag to move, handles resize, the blue dots connect, double click edits a label. Two fingers zoom on a phone.</footer>
+<script type="module">
+import { createScene } from "../src/editor/scene.js";
+import * as ops from "../src/editor/ops.js";
+import { createView } from "../src/editor/view.js";
+import { exportSVG, exportPNG, exportJSON, importJSON, download } from "../src/editor/export.js";
+import { routeCrossings } from "../src/editor/router.js";
+
+// a sample: an order process with a decision, a data store, an actor, a document, a note and two containers
+function sample() {
+  const s = createScene(); const add = (word, kind, label, extra = {}) => { const [w, h] = ops.defaultBox(kind, word, extra.size); return ops.create(s, { word, kind, label, ...extra }, { x: 0, y: 0, w, h }); };
+  const user = add("customer", "actor", "Customer");
+  const start = add("start", "terminator", "New order");
+  const check = add("decision", "decision", "In stock?");
+  const pay = add("step", "process", "Take payment");
+  const ship = add("step", "process", "Ship parcel", { color: "green" });
+  const back = add("step", "process", "Back-order", { color: "orange", style: "dashed" });
+  const db = add("database", "data", "Orders");
+  const inv = add("document", "document", "Invoice");
+  const mail = add("service", "system", "Mail service");
+  const note = add("note", "note", "Ships within two working days");
+  const k = (a, b, p = {}) => ops.connect(s, a, b, { kind: "arrow", ...p });
+  k(user, start); k(start, check); k(check, pay, { label: "yes" }); k(check, back, { label: "no" }); k(pay, ship); k(pay, db, { kind: "line", style: "dotted" }); k(pay, inv); k(inv, mail); k(back, check, { style: "dashed" }); k(ship, note, { kind: "line", style: "dotted" });
+  ops.group(s, [pay, ship, inv], "Fulfilment");
+  ops.layout(s, [...s.components.keys()], innerWidth < 600 ? "flow_td" : "flow_lr"); /* a phone is tall: flow top down */ ops.route(s); s.undo = []; s.redo = [];
+  ops.lock(s, "move", { head: "note", attr: null, det: "the" });
+  return s;
+}
+let scene = sample(); if (innerWidth < 600) document.getElementById("layout").value = "flow_td";
+const log = document.getElementById("log"); const say = (t) => { log.textContent = t; };
+const view = createView(document.getElementById("canvas"), scene, {
+  onChange: (kind, d) => say(kind === "blocked" ? d.text : `${kind}: ${d.op} ${(d.ids || []).join(", ")}   (undo entries: ${view.scene.undo.length}, route crossings: ${routeCrossings(view.scene).length})`),
+  onSelect: (ids) => say(ids.length ? `selected ${ids.map((id) => view.scene.components.get(id)?.label || id).join(", ")}` : "selection cleared"),
+});
+view.fit();
+addEventListener("resize", () => view.fit());
+const $ = (id) => document.getElementById(id);
+$("arrange").onclick = () => { const s = view.scene; const tx = ops.begin(s); const r = ops.layout(s, [...s.components.keys()], $("layout").value); ops.route(s); ops.commit(s, tx); view.render({ animate: true }); setTimeout(() => view.fit(), 300); say(`arranged as ${$("layout").value}${r.notes.length ? ": " + r.notes.join("; ") : ""}`); };
+$("undo").onclick = () => { ops.undo(view.scene); view.render(); };
+$("redo").onclick = () => { ops.redo(view.scene); view.render(); };
+$("fit").onclick = () => view.fit();
+$("ask").onclick = () => { const ids = [...view.scene.components.values()].filter((c) => c.word === "step").map((c) => c.id); view.render({ question: { ids, kind: "which" } }); say(`which step? ${ids.length} candidates, numbered`); setTimeout(() => view.render({ question: null }), 4000); };
+$("add").onclick = () => { const s = view.scene; const [w, h] = ops.defaultBox("process", "box"); const b = [...s.components.values()].reduce((m, c) => Math.max(m, c.box.y + c.box.h), 0); const tx = ops.begin(s); const id = ops.create(s, { word: "box", kind: "process", label: "New box" }, { x: 60, y: b + 40, w, h }); ops.commit(s, tx); s.selection = [id]; view.render(); };
+$("svg").onclick = () => download("diagram.svg", exportSVG(view.scene), "image/svg+xml");
+$("png").onclick = async () => download("diagram.png", await exportPNG(view.scene, 2));
+$("json").onclick = () => download("diagram.json", exportJSON(view.scene), "application/json");
+$("import").onclick = () => $("file").click();
+$("file").onchange = async (e) => { const f = e.target.files[0]; if (!f) return; try { scene = importJSON(await f.text()); view.setScene(scene); view.fit(); say(`imported ${scene.components.size} components`); } catch (err) { say(err.message); } };
+$("theme").onclick = () => { const r = document.documentElement; const dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; r.dataset.theme = dark ? "light" : "dark"; };
+window.__engine = { view, ops, exportSVG, exportPNG, exportJSON, importJSON, routeCrossings, sample };
+</script>
+</body>
+</html>

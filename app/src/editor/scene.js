@@ -1,6 +1,6 @@
 // scene.js: the diagram as the world's database (spec 3.1): smart components and connectors with meaning, locks, the last-touched set
 // for the pronoun rule (spec 10.3), and an undo stack with one entry per executed request (spec 9, Table 7). Pure data, no rendering:
-// the diagram library chosen at step 6 renders it.
+// render.js draws it, ops.js changes it.
 export const KIND_OF = {
   box: "process", process: "process", step: "process", task: "process", decision: "decision", diamond: "decision", start: "terminator",
   end: "terminator", database: "data", store: "data", cache: "data", queue: "data", document: "document", file: "document", report: "document",
