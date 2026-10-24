@@ -1,11 +1,11 @@
 // parity.mjs — vss.js against tool/sop/infer.py (VSS Diagram Editor spec 7.1).
-// node web/tests/parity.mjs <export dir> <golden.json> [--sentence-candidates]
+// node app/tests/parity.mjs <export dir> <golden.json> [--sentence-candidates]
 // Criteria: frames and statuses identical on every sentence; state cosine >= 0.9999; every margin, presence ratio and the residual within
 // 1e-4; the SOP text identical (numeric lines may differ in the 3rd decimal only when the two values straddle a rounding boundary: counted
 // and printed, never hidden). Also prints the reading time per sentence (median, p95).
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { load } from "../vss.js";
+import { load } from "../src/vss.js";
 
 const [dir, goldenPath, ...rest] = process.argv.slice(2);
 const sentenceCandidates = rest.includes("--sentence-candidates");

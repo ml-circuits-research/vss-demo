@@ -8,7 +8,7 @@ cli.py — the `sop` command (spec 5).
   sop stats     --model <dir> [--json]
   sop train     <world> [...]            (torch; see train.py)
   sop export    [--out dir] [--n N] ...  (the repository's three constructed worlds as world folders; tool/export_worlds.py)
-  sop export-web --model <dir> --out <dir> [--bits 8|4|32]   (the files web/vss.js loads; export_web.py)
+  sop export-web --model <dir> --out <dir> [--bits 8|4|32]   (the files app/src/vss.js loads; export_web.py)
 Exit codes: 0 ok; 1 input / validation error; 2 model missing or legend mismatch. Output is deterministic for the same model and input.
 """
 import argparse, json, os, re, sys
@@ -156,7 +156,7 @@ def main(argv=None):
     if argv is None: argv = sys.argv[1:]
     if argv and argv[0] == "train":
         from .train import main as tmain; return tmain(argv[1:])
-    if argv and argv[0] == "export-web":        # the model for the browser interpreter web/vss.js (VSS Diagram Editor spec section 6)
+    if argv and argv[0] == "export-web":        # the model for the browser interpreter app/src/vss.js (VSS Diagram Editor spec section 6)
         from .export_web import main as emain; return emain(argv[1:])
     if argv and argv[0] == "export":            # the repository's constructed worlds as world folders (tool/export_worlds.py)
         sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

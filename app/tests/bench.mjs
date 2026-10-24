@@ -1,7 +1,7 @@
-// bench.mjs — reading time per sentence in node after warm-up (spec 7.2): node web/tests/bench.mjs <export dir> <golden.json> [rounds]
+// bench.mjs — reading time per sentence in node after warm-up (spec 7.2): node app/tests/bench.mjs <export dir> <golden.json> [rounds]
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { load } from "../vss.js";
+import { load } from "../src/vss.js";
 const [dir, goldenPath, roundsArg] = process.argv.slice(2), rounds = +(roundsArg || 4);
 const sents = JSON.parse(readFileSync(goldenPath, "utf8")).items.map((g) => g.text);
 const vss = await load(null, { readFile: async (n) => (n.endsWith(".json") ? readFileSync(join(dir, n), "utf8") : readFileSync(join(dir, n)).buffer.slice(0)) });

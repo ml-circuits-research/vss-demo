@@ -20,22 +20,22 @@ tool/bin/sop --help                                                             
 ## Step 1 — the diagram world at Level 1 (exit: sop check passes; the coverage table)
 
 ```
-python3 tool/worlds_src/diagram/generate.py --out tool/worlds/diagram --n 50000 --n_eval 400 --seed 0
+python3 training/worlds/diagram/generate.py --out tool/worlds/diagram --n 50000 --n_eval 400 --seed 0
 tool/bin/sop check --legend tool/worlds/diagram/legend.json tool/worlds/diagram/examples/*.sop
-python3 tool/worlds_src/diagram/normalize_golden.py > /tmp/ngold.jsonl && node web/tests/normalize_test.mjs /tmp/ngold.jsonl
-git add tool/worlds_src/diagram/COVERAGE.md && git commit -m "step 1: coverage of the diagram world at 50k (generate.py seed 0)"
+python3 training/worlds/diagram/normalize_golden.py > /tmp/ngold.jsonl && node app/tests/normalize_test.mjs /tmp/ngold.jsonl
+git add training/worlds/diagram/COVERAGE.md && git commit -m "step 1: coverage of the diagram world at 50k (generate.py seed 0)"
 ```
 Read COVERAGE.md: every event has sentences, every role of Table 3 that Level 1 uses is filled for the events that take it, prohibitions
 occur for every prohibitable event. A gap is fixed in generate.py (one commit) before step 3. Exit check written in STATUS.md.
 
 ## Step 2 — portable stars (exit: identical phases)
 
-`node web/tests/stars_test.mjs` (see web/README.md for the golden file it reads). Exit: every phase identical within 1e-6.
+`node app/tests/stars_test.mjs` (see app/READER.md for the golden file it reads). Exit: every phase identical within 1e-6.
 
 ## Step 3 — training on templates, five seeds, the data-size curve (GPU)
 
 ```
-tool/tests/gpu_diagram_step3.sh            # sizes 1000 5000 20000 50000; --wait to queue behind another run
+training/gpu_diagram_step3.sh            # sizes 1000 5000 20000 50000; --wait to queue behind another run
 ```
 The script generates the world at each size, checks it, trains `--D 1024 --seeds 5 --star_version 2 --calibrate_on_heldout_formulations
 --threshold_rule fit`, and writes `runs/diagram_step3_<commit>/<size>/` (metrics.json, REPORT.md, splits.json, train.log) and the
@@ -59,7 +59,7 @@ per-split tables). Do not change the world and re-run in the same step; a fix is
 ## Step 4 — paraphrases by a large model, second look, retraining (needs API credentials on the DGX)
 
 ```
-python3 tool/worlds_src/diagram/paraphrase.py tool/worlds/diagram --n 2000 --families typed_casual,spoken,terse,polite_long --heldout_families terse
+python3 training/worlds/diagram/paraphrase.py tool/worlds/diagram --n 2000 --families typed_casual,spoken,terse,polite_long --heldout_families terse
 tool/bin/sop check --legend tool/worlds/diagram/legend.json tool/worlds/diagram/examples/*.sop
 python3 tool/skills/train-world/scripts/loop.py second-look tool/worlds/diagram      # the reader of step 3 re-reads the paraphrases
 ```
@@ -70,15 +70,15 @@ held-out set and the paraphrase held-out family, and the label noise of the seco
 
 ## Step 5 — export and the JavaScript reader (exit: parity)
 
-On the step 3 (or step 4) model, follow web/README.md: `tool/bin/sop export-web --model <model dir> --out web/model/`, then the parity
+On the step 3 (or step 4) model, follow app/READER.md: `tool/bin/sop export-web --model <model dir> --out app/model/`, then the parity
 test (golden file from Python on the dequantized model, node comparison). Exit (spec Table 13): frames and statuses identical on every
 golden sentence, state cosine >= 0.9999, margins and presence ratios within 1e-4. Report the model size on disk (8-bit and 4-bit) and the
 median and p95 reading time per sentence in node and in a headless browser on a stated machine.
 
 Notes from the CPU preparation (smoke models only, not results):
 - train the step 3 model with `--star_version 2` (portable stars); a v1 model cannot read new words in the browser.
-- `bash web/tests/run_all.sh` runs the whole step 5 chain (export at 8, 4 and 32 bits, golden files, parity, new-word sentences, bench);
-  point it at the real model as described in web/README.md.
+- `bash training/parity/run_all.sh` runs the whole step 5 chain (export at 8, 4 and 32 bits, golden files, parity, new-word sentences, bench);
+  point it at the real model as described in app/READER.md.
 - on the smoke models the 4-bit export changed 14 of 55 frames, so the 4-bit parity must be measured on the real model before 4 bits
   is shipped; 8 bits passed on every smoke model.
 
@@ -86,5 +86,5 @@ Notes from the CPU preparation (smoke models only, not results):
 
 Steps 6 onwards (diagram library choice, planner, layout, correctors' full evaluation with the recorded speech set, interface, text,
 segmentation, formulas, sketch, long scripts, animation) are browser and CPU work in the order of spec section 23; the correctors and the
-normalizer are already prepared (web/CORRECTORS.md). The Level 2 decoder extensions (nested references, two attributes, `and`, `if`) are
+normalizer are already prepared (app/src/CORRECTORS.md). The Level 2 decoder extensions (nested references, two attributes, `and`, `if`) are
 each one change with its criterion (spec Table 5), run on the DGX like step 3.

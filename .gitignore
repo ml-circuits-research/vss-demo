@@ -12,3 +12,5 @@ tool/worlds/
 tool/tests/out/
 tool/worlds_p0/
 tool/worlds_wikisql/
+training/parity/out/
+app/tests/out/

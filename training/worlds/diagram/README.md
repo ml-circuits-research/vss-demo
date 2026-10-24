@@ -3,7 +3,7 @@
 | file | content |
 |---|---|
 | `generate.py` | legend, kinds lexicon, templates per action, prefix families, held-out formulations (template x prefix combinations), new identities (labels, numbers); writes a world folder that `sop check` validates and `sop train` trains; writes COVERAGE.md |
-| `normalize.json`, `normalize.py` | the normalizer (one table, also used by web/normalize.js) |
+| `normalize.json`, `normalize.py` | the normalizer (one table, also used by app/src/normalize.js) |
 | `normalize_golden.py` | surface sentences with the Python normalizer's output, for the JavaScript parity test |
 | `noise.py` | typing and speech noise for the correctors' evaluation (never in the reader's training data at Level 1) |
 | `COVERAGE.md` | sentences per event and role in the training file (the exit check of step 1) |

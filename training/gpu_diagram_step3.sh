@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Step 3 of the VSS Diagram Editor (vision/VSS_Diagram_Editor_Specification.md, section 23): the diagram world at Level 1 trained on
 # templates, five seeds, D = 1024, the portable stars (star_version 2), at four training sizes (the data-size curve of spec 4.5).
-# PREPARED, NOT RUN — start it on the DGX when the GPU is free:   tool/tests/gpu_diagram_step3.sh [--wait] [--sizes "1000 5000 20000 50000"]
+# PREPARED, NOT RUN — start it on the DGX when the GPU is free:   training/gpu_diagram_step3.sh [--wait] [--sizes "1000 5000 20000 50000"]
 # Criteria written before the run (spec Table 13): seen formulations FULL >= 0.98; held-out formulations: confident-wrong < 2% at
 # coverage > 80%, FULL reported; new labels (label role) >= 0.99; value slots (amount, unit, fraction, anchor) >= 0.98; negated attributes
 # and prohibitions (scope) >= 0.97. The shipped size = the smallest after which the held-out formulation number stops improving within
@@ -10,7 +10,7 @@
 # a clean code tree, 40 GB free. Output (commit afterwards): runs/diagram_step3_<commit>/<size>/{train.log, metrics.json, splits.json,
 # command.txt, REPORT.md, config.json, legend.json}, step3.log; the 50k model folder is copied to runs/.../model_50000 for step 5 (export).
 set -euo pipefail
-TOOL="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; REPO="$(dirname "$TOOL")"; SOP="$TOOL/bin/sop"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; TOOL="$REPO/tool"; SOP="$TOOL/bin/sop"
 PY="${SOP_PYTHON:-}"; for c in "$REPO/.venv/bin/python3"; do [ -z "$PY" ] && [ -x "$c" ] && PY="$c"; done; PY="${PY:-python3}"
 SIZES="1000 5000 20000 50000"; WAIT=0
 while [ $# -gt 0 ]; do case "$1" in --wait) WAIT=1;; --sizes) SIZES="$2"; shift;; esac; shift; done
@@ -32,12 +32,12 @@ mkdir -p "$OUT"; WORK="$(mktemp -d "${TMPDIR:-/tmp}/diagram_step3_XXXX")"; LOG="
 echo "# diagram step 3, commit $COMMIT, $(date -Iseconds); worlds in $WORK; runs in $OUT; sizes $SIZES" | tee "$LOG"
 COMMON="--D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit"
 for n in $SIZES; do
-  mkdir -p "$WORK/$n"; "$PY" "$TOOL/worlds_src/diagram/generate.py" --out "$WORK/$n/diagram" --n "$n" --n_eval 400 --seed 0 | tee -a "$LOG"
+  mkdir -p "$WORK/$n"; "$PY" "$REPO/training/worlds/diagram/generate.py" --out "$WORK/$n/diagram" --n "$n" --n_eval 400 --seed 0 | tee -a "$LOG"
   "$SOP" check --legend "$WORK/$n/diagram/legend.json" "$WORK/$n/diagram"/examples/*.sop | tail -1 | tee -a "$LOG"
   echo "## size $n: sop train $WORK/$n/diagram $COMMON" | tee -a "$LOG"
   "$SOP" train "$WORK/$n/diagram" $COMMON --run_dir "$OUT/$n" 2>&1 | grep "\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]" | tee -a "$LOG"
   cp "$WORK/$n/diagram/legend.json" "$WORK/$n/diagram/kinds.tsv" "$OUT/$n/"
   [ "$n" = "$(echo $SIZES | awk '{print $NF}')" ] && cp -r "$WORK/$n/diagram/model" "$OUT/model_$n"
 done
-cp "$TOOL/worlds_src/diagram/COVERAGE.md" "$OUT/COVERAGE.md"
+cp "$REPO/training/worlds/diagram/COVERAGE.md" "$OUT/COVERAGE.md"
 echo "done: commit $OUT (git add runs/diagram_step3_$COMMIT); then step 5 (export and parity) on runs/diagram_step3_$COMMIT/model_<largest>" | tee -a "$LOG"

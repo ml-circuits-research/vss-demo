@@ -1,6 +1,6 @@
 // correct.js: the deterministic correctors of the VSS Diagram Editor (specification sections 12 and 13.2), no learning, no network.
 //
-// Input: the NORMALIZED tokens of one utterance (web/normalize.js, the same table as tool/worlds_src/diagram/normalize.json).
+// Input: the NORMALIZED tokens of one utterance (app/src/normalize.js, the same table as training/worlds/diagram/normalize.json).
 // Output: { tokens, corrections, alternatives } where corrections = [{pos, from, to, op, cost, candidates}] and alternatives = up to
 // maxVariants token sequences that differ in the homophones the spelling cannot decide (spec 12.3 / 13.2: the reader reads each variant
 // and keeps the one with the clearest frame; this module never decides those).
@@ -10,11 +10,11 @@
 // QWERTY keys costing NEIGHBOUR_COST; tokens of up to 4 letters are corrected at cost <= 1, longer ones at cost <= 2; ties by frequency.
 // A token that splits into two lexicon words is split; two tokens that join into a lexicon word are joined. A token that is a valid
 // English word but not in the world is NOT corrected (it is reported as unknown by the reader, which is the honest answer); the English
-// check is an injected function (isEnglish), served by Typo.js with the en_US Hunspell dictionary in the browser (web/vendor/typo/).
+// check is an injected function (isEnglish), served by Typo.js with the en_US Hunspell dictionary in the browser (app/vendor/typo/).
 //
-// speech mode (spec 13.2): the same, but candidates are matched by phonetic key (Double Metaphone, web/vendor/double-metaphone.js) and
+// speech mode (spec 13.2): the same, but candidates are matched by phonetic key (Double Metaphone, app/vendor/double-metaphone.js) and
 // windows of one to three recognised tokens are matched against single lexicon words and the reverse ("a row" -> "arrow").
-import { doubleMetaphone } from "./vendor/double-metaphone.js";
+import { doubleMetaphone } from "../vendor/double-metaphone.js";
 
 const QWERTY = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const POS = {};

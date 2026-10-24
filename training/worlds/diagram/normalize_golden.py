@@ -1,5 +1,5 @@
 """normalize_golden.py: surface sentences of the generator (before normalization) with the Python normalizer's output, one JSON per line,
-for web/tests/normalize_test.mjs. Includes hand-written hard cases (quotes, contractions, number words, % and multi-word expressions)."""
+for app/tests/normalize_test.mjs. Includes hand-written hard cases (quotes, contractions, number words, % and multi-word expressions)."""
 import json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.dirname(os.path.dirname(HERE)))
 import numpy as np

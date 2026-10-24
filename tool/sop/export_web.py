@@ -1,5 +1,5 @@
 """
-export_web.py — `sop export-web`: a trained model/ folder -> the files web/vss.js loads in the browser (VSS Diagram Editor spec section 6).
+export_web.py — `sop export-web`: a trained model/ folder -> the files app/src/vss.js loads in the browser (VSS Diagram Editor spec section 6).
 
   model.json     config (D, seeds, star_version, thresholds, tau, depth estimator, presence readout), the legend (raw json) and its sha256,
                  the kinds lexicon (kinds.tsv) with lemmas and the legend's value patterns, the catalog words with kinds / lemmas, the schema,

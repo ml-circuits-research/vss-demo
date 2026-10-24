@@ -1,12 +1,12 @@
 // correct_test.mjs: smoke evaluation of the correctors (spec 15, rows "Typing noise" and "Clean input"; the recorded speech set is for
 // the DGX session). Inputs: a world folder (kinds.tsv + examples/train.sop for the lexicon and its frequencies) and a JSONL of noisy
-// sentences from tool/worlds_src/diagram/noise.py ({clean, noisy, edits}). Prints token correction accuracy on the edited tokens, the
+// sentences from training/worlds/diagram/noise.py ({clean, noisy, edits}). Prints token correction accuracy on the edited tokens, the
 // share of sentences restored exactly, and false corrections on the clean sentences. Smoke numbers are not results.
-// Usage: node web/tests/correct_test.mjs <world dir> <noisy.jsonl> [typed|speech]
+// Usage: node app/tests/correct_test.mjs <world dir> <noisy.jsonl> [typed|speech]
 import fs from "node:fs";
 import { createRequire } from "node:module";
-import { createCorrector } from "../correct.js";
-import { createNormalizer } from "../normalize.js";
+import { createCorrector } from "../src/correct.js";
+import { createNormalizer } from "../src/normalize.js";
 const require = createRequire(import.meta.url);
 const Typo = require("../vendor/typo/typo.js");
 const [world, noisyPath, mode = "typed"] = process.argv.slice(2);
@@ -16,7 +16,7 @@ for (const l of fs.readFileSync(`${world}/examples/train.sop`, "utf8").split("\n
 const dictDir = new URL("../vendor/typo/en_US/", import.meta.url);
 const typo = new Typo("en_US", fs.readFileSync(new URL("en_US.aff", dictDir), "utf8"), fs.readFileSync(new URL("en_US.dic", dictDir), "utf8"));
 const corr = createCorrector({ lexicon: lex, isEnglish: (w) => /^[a-z]+$/.test(w) && typo.check(w) });
-const normalize = createNormalizer(JSON.parse(fs.readFileSync(new URL("../../tool/worlds_src/diagram/normalize.json", import.meta.url))));
+const normalize = createNormalizer(JSON.parse(fs.readFileSync(new URL("../../training/worlds/diagram/normalize.json", import.meta.url))));
 const rows = fs.readFileSync(noisyPath, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
 let exact = 0, clean_false = 0, clean_tok = 0, t0 = Date.now(); const byOp = {};
 for (const r of rows) {

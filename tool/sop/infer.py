@@ -82,7 +82,7 @@ class Routebook:
 class Reader:
     def __init__(self, model_dir, legend_path=None, force=False, sentence_candidates=False):
         """sentence_candidates (default off: the existing behaviour): the candidates of a role are the catalog words of the role's kinds AND the
-        sentence's own tokens whose kind is one of them (new labels and numbers read without retraining; mirrored by web/vss.js)"""
+        sentence's own tokens whose kind is one of them (new labels and numbers read without retraining; mirrored by app/src/vss.js)"""
         self.dir = model_dir; self.sentence_candidates = bool(sentence_candidates); self._sent_tokens = ()
         need = ["config.json", "legend.json", "catalog.json", "routebook.npz"]
         for n in need:

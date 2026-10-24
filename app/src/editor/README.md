@@ -13,6 +13,6 @@ Pure modules, no rendering (the diagram library of step 6 renders the scene):
   prohibitions as locks checked before every step, the plan as one undo entry; simple layouts (row, column, grid, circle, align,
   distribute, flows by connector levels) until ELK.js at step 8.
 
-Test: `node web/tests/scenarios.mjs` — fifteen scripted scenarios, twenty checks (spec Table 13, "planner and solver scenarios"): at
+Test: `node app/tests/scenarios.mjs` — fifteen scripted scenarios, twenty checks (spec Table 13, "planner and solver scenarios"): at
 preparation all pass. The frames are written in the reader's format, so the suite runs without a trained model; the end-to-end version
 (sentence -> reader -> plan) uses the same scenarios once a model is exported.

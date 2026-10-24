@@ -1,6 +1,6 @@
 // stars_test.mjs — the portable stars of vss.js reproduce tool/sop/world.py star_v2 exactly (|diff| < 1e-6 on the phases, wrapped)
 import { readFileSync } from "node:fs";
-import { starV2Phases } from "../vss/stars.js";
+import { starV2Phases } from "../src/vss/stars.js";
 const golden = JSON.parse(readFileSync(new URL("./golden_stars.json", import.meta.url)));
 let worst = 0;
 for (const g of golden) {

@@ -1,5 +1,5 @@
 """normalize.py: the diagram world's normalizer (specification sections 2 and 3.2), driven by normalize.json so that the JavaScript
-version (web/normalize.js) applies exactly the same rules. normalize(text) -> (tokens, info), with info = {labels: {token: original text},
+version (app/src/normalize.js) applies exactly the same rules. normalize(text) -> (tokens, info), with info = {labels: {token: original text},
 numbers: {token: value}}. Deterministic; no learning.
 
 Steps: (1) quoted strings ("..." or '...') become one label token (lower-case, spaces -> '_'), remembered with their original text;

@@ -1,8 +1,8 @@
-// geometry.js: positions from the frame's slots (spec 8.2). Linear constraints solved by Kiwi (Cassowary, web/vendor/kiwi, BSD-3):
+// geometry.js: positions from the frame's slots (spec 8.2). Linear constraints solved by Kiwi (Cassowary, app/vendor/kiwi, BSD-3):
 // the user's explicit request is strong, staying where one is is medium, staying inside the canvas is required. Non-overlap is not
 // linear: a placement search tries the solved position, then the nearest free positions in the direction of the relation, and reports
 // a move it had to make. Every placement returns the constraints it solved, as text, for the explanation panel.
-import * as kiwi from "../vendor/kiwi/kiwi.js";
+import * as kiwi from "../../vendor/kiwi/kiwi.js";
 import { overlaps } from "./scene.js";
 
 const REGION_CELL = { top_left: [0, 0], top: [1, 0], top_right: [2, 0], left_side: [0, 1], center: [1, 1], right_side: [2, 1], bottom_left: [0, 2], bottom: [1, 2], bottom_right: [2, 2] };

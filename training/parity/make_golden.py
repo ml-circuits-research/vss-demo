@@ -1,15 +1,15 @@
-"""make_golden.py — the Python side of the parity test of web/vss.js (VSS Diagram Editor spec 7.1). numpy only.
+"""make_golden.py — the Python side of the parity test of app/src/vss.js (VSS Diagram Editor spec 7.1). numpy only.
 
 For every sentence: tokens, kinds, the state vector S (re / im), the decoded frame (speakers, neg, event, roles, shape, lemma, depth, scope),
 every margin and presence ratio, the residual, the status and the SOP text of the wires (no directives), formalized one sentence at a time
-with wire ids starting at w1 and _sentence 0, exactly as web/tests/parity.mjs calls vss.js.
+with wire ids starting at w1 and _sentence 0, exactly as app/tests/parity.mjs calls vss.js.
 
 --dequantize-from <export dir>: the reader runs on the DEQUANTIZED route book and stars of that export (what the browser reads), so that an
 8-bit or 4-bit export is compared number for number; without it, the trained float64 model is used (only a 32-bit export can match it).
 --sentence-candidates: the optional behaviour of infer.Reader (candidates include the sentence's own tokens of the role's kinds).
 Sentences: --sentences <file> (one per line) or --world <world dir>: 50 _text lines spread over every examples/*.sop file, plus 5 sentences
 with words outside the catalog (a made-up word, a number, a label-like token, an unknown verb, a fully unknown sentence).
-Usage: python3 web/tests/make_golden.py --model <model dir> --world <world dir> --out golden.json [--dequantize-from <export>] [--sentence-candidates]
+Usage: python3 training/parity/make_golden.py --model <model dir> --world <world dir> --out golden.json [--dequantize-from <export>] [--sentence-candidates]
 """
 import argparse, json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(HERE, "..", "..", "tool"))

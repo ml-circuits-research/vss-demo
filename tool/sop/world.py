@@ -35,7 +35,7 @@ GLOBAL_STAR_SEED = "sop-stars-v1"      # spec v2 section 0: a word's star is the
 
 def _xoshiro128ss_phases(key16, D):
     """portable stars (star_version 2, VSS Diagram Editor spec 5.1): xoshiro128** seeded with 4 little-endian uint32 words, each 32-bit output u
-    gives the phase 2*pi*(u + 0.5)/2**32 - pi. Reproduced exactly by web/vss.js (no NumPy generator in the browser)."""
+    gives the phase 2*pi*(u + 0.5)/2**32 - pi. Reproduced exactly by app/src/vss.js (no NumPy generator in the browser)."""
     M = 0xFFFFFFFF
     s = [int.from_bytes(key16[4 * i:4 * i + 4], "little") for i in range(4)]
     if not any(s): s = [0x9E3779B9, 0x243F6A88, 0xB7E15162, 0x6A09E667]

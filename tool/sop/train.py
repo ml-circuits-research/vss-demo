@@ -760,7 +760,7 @@ def main(argv=None):
     ap.add_argument("--run_dir", help="write this run's folder here instead of <world>/runs/<timestamp>")
     ap.add_argument("--eval_only", action="store_true", help="re-score the saved model/ (no training): metrics.json and REPORT.md rewritten")
     ap.add_argument("--star_version", type=int, default=1, choices=[1, 2], help="1 = the NumPy star function (every existing world); 2 = the "
-                    "portable star function (SHA-256 -> xoshiro128**), reproduced exactly in the browser by web/vss.js (VSS Diagram Editor spec 5.1)")
+                    "portable star function (SHA-256 -> xoshiro128**), reproduced exactly in the browser by app/src/vss.js (VSS Diagram Editor spec 5.1)")
     ap.add_argument("--star_seed", default=world.GLOBAL_STAR_SEED, help="seed of the word-star catalog; default the GLOBAL one shared by all worlds (spec v2 s.0)")
     ap.add_argument("--identities", default="stars", help="'stars' (the tool's star function) or 'table:<vocab.json>': the per-seed draw of "
                     "experiment/v16_reference, np.random.default_rng(300 + seed) over that vocabulary (isolation run C)")

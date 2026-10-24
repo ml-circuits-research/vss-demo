@@ -1,5 +1,5 @@
 {
- "about": "The normalizer of the diagram world (specification sections 2 and 3.2): deterministic rules applied before the reader, in Python (normalize.py, used by the generator) and in JavaScript (web/normalize.js, used by the editor), from this one table. Order: lower-case outside quotes; quoted strings become one label token; contractions; multi-word expressions (longest first); single-word synonyms; number words to digits; punctuation split. The reader never sees the surface forms on the left. 'one' is never converted (that one, the next one); quantities are spoken from two.",
+ "about": "The normalizer of the diagram world (specification sections 2 and 3.2): deterministic rules applied before the reader, in Python (normalize.py, used by the generator) and in JavaScript (app/src/normalize.js, used by the editor), from this one table. Order: lower-case outside quotes; quoted strings become one label token; contractions; multi-word expressions (longest first); single-word synonyms; number words to digits; punctuation split. The reader never sees the surface forms on the left. 'one' is never converted (that one, the next one); quantities are spoken from two.",
  "contractions": {
   "don't": "do not",
   "dont": "do not",

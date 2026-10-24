@@ -49,11 +49,11 @@ margins, the quantifier scope terms of `read_scope`), `formalize` (unplaced word
 ## Tests
 
 ```
-python3 web/tests/make_stars_golden.py && node web/tests/stars_test.mjs
+python3 training/parity/make_stars_golden.py && node app/tests/stars_test.mjs
 tool/bin/sop export-web --model <world>/model --out <exp> --bits 8
-python3 web/tests/make_golden.py --model <world>/model --world <world> --out g.json --dequantize-from <exp> [--sentence-candidates]
-node web/tests/parity.mjs <exp> g.json [--sentence-candidates]
-bash web/tests/run_all.sh                      # every test below, on the smoke models of tool/test_sop.sh
+python3 training/parity/make_golden.py --model <world>/model --world <world> --out g.json --dequantize-from <exp> [--sentence-candidates]
+node app/tests/parity.mjs <exp> g.json [--sentence-candidates]
+bash training/parity/run_all.sh                      # every test below, on the smoke models of tool/test_sop.sh
 ```
 `make_golden.py` with `--dequantize-from` runs the Python reader on the dequantized route book and stars of the export (what the browser
 reads), so an 8-bit or 4-bit export is compared number for number; without it the float64 model is the reference (a 32-bit export matches
@@ -63,7 +63,7 @@ identical.
 
 ## Measured (2026-10-24, CPU smoke models, node 22, this sandbox; MEASURED, not results of the demo)
 
-Parity (`bash web/tests/run_all.sh`), every case PASS: frames, statuses and SOP text identical on every sentence, state cosine 1.000000.
+Parity (`bash training/parity/run_all.sh`), every case PASS: frames, statuses and SOP text identical on every sentence, state cosine 1.000000.
 
 | model (D 256 unless stated) | export | sentences | worst margin / presence / residual diff |
 |---|---|---|---|
@@ -75,7 +75,7 @@ Parity (`bash web/tests/run_all.sh`), every case PASS: frames, statuses and SOP 
 
 The trained float64 model against a 32-bit export (no dequantization in Python): frames identical 50/50, margins within 9e-8.
 
-Reading time per sentence in node after warm-up (`node web/tests/bench.mjs <export> <golden>`, 220 readings, ~9 tokens per sentence):
+Reading time per sentence in node after warm-up (`node app/tests/bench.mjs <export> <golden>`, 220 readings, ~9 tokens per sentence):
 D 256 median 0.8 to 1.0 ms, p95 3.7 to 3.8 ms; D 1024 median 2.8 ms, p95 4.7 ms. Export sizes of the reference world: D 256 0.89 MB at
 8 bits (0.45 MB at 4 bits, 3.5 MB at 32); D 1024 3.5 MB at 8 bits.
 

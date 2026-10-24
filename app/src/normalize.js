@@ -1,6 +1,6 @@
-// normalize.js: the diagram world's normalizer in JavaScript, the exact port of tool/worlds_src/diagram/normalize.py, driven by the same
-// table (normalize.json, copied to web/model/normalize.json by the export). createNormalizer(table) -> normalize(text) -> {tokens, info}
-// with info = {labels: {token: original text}, numbers: {token: value}}. Deterministic. web/tests/normalize_test.mjs checks it against
+// normalize.js: the diagram world's normalizer in JavaScript, the exact port of training/worlds/diagram/normalize.py, driven by the same
+// table (normalize.json, copied to app/model/normalize.json by the export). createNormalizer(table) -> normalize(text) -> {tokens, info}
+// with info = {labels: {token: original text}, numbers: {token: value}}. Deterministic. app/tests/normalize_test.mjs checks it against
 // the Python output on every sentence of a generated world.
 export function createNormalizer(T) {
   const split = (s) => s.split(/\s+/).filter(Boolean);

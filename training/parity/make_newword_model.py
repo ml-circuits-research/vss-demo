@@ -2,7 +2,7 @@
 catalog (q<digits> -> the kind of persons, r<digits> -> the kind of objects), so that the sentence-candidates mode has something to read:
 "q77 gives r5 to p2 ." must read agent q77, object r5 in Python (Reader(sentence_candidates=True)) and in vss.js alike.
 The copy's config.json gets the new legend hash (the Reader refuses a mismatch). Never a model to report.
-Usage: python3 web/tests/make_newword_model.py <model dir (star_version 2)> <out dir> <person kind> <object kind>"""
+Usage: python3 training/parity/make_newword_model.py <model dir (star_version 2)> <out dir> <person kind> <object kind>"""
 import json, os, shutil, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "tool"))
 from sop.legend import sha256_file

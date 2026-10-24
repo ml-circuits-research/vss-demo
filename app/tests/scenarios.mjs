@@ -1,10 +1,10 @@
 // scenarios.mjs: the planner and solver scenario suite (spec Table 13: "scripted diagrams and requests with the expected diagram after;
 // 100% pass; computed positions within 1 px"). Frames are written in the reader's format (tool/sop/infer.py, mirrored by vss.js), so the
 // suite tests the planner, the resolver and the geometry independently of the reader; the end-to-end version (text -> reader -> plan)
-// runs the same scenarios from their sentences once a trained model is exported (web/README.md).
-// Usage: node web/tests/scenarios.mjs
-import { createScene } from "../editor/scene.js";
-import { plan, execute } from "../editor/planner.js";
+// runs the same scenarios from their sentences once a trained model is exported (app/READER.md).
+// Usage: node app/tests/scenarios.mjs
+import { createScene } from "../src/editor/scene.js";
+import { plan, execute } from "../src/editor/planner.js";
 
 const E = (head, attr = null, det = "the") => ["entity", head, attr ? (attr.startsWith("!") ? ["negword", attr.slice(1)] : ["word", attr]) : null, det];
 const W = (w) => ["word", w];

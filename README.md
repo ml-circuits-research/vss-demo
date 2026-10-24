@@ -11,8 +11,9 @@ from a model of a few megabytes. Its specification is `vision/VSS_Diagram_Editor
 | `vision/` | the specification of the demonstrator (what to build, criteria written before the runs) |
 | `experiment/` | the paper's reader, worlds, controls and training code (imported; the protocol rules apply) |
 | `tool/` | the `sop` package (SOP Lang, check, train, infer, diff, export-web), the worlds server, the train-world skill |
-| `tool/worlds_src/diagram/` | the diagram world: legend, kinds, generator, noise, split hints (spec sections 3-4) |
-| `web/` | the browser side: `vss.js` (the reader in JavaScript), correctors, the editor (spec sections 7-19) |
+| `training/worlds/diagram/` | the diagram world: legend, kinds, generator, noise, split hints (spec sections 3-4) |
+| `app/` | PUBLIC: the static browser application (no server); see app/README.md |
+| `training/` | PRIVATE: world generators, data, parity tests against Python, DGX scripts; produces app/model/ |
 | `docs/paper-2026-10/` | the paper-era status documents, kept for reference |
 | `INSTRUCTIONS_DGX_*.md` | the runs to make on the DGX, in order, with their exit checks |
 
