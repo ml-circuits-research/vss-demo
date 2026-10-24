@@ -13,7 +13,7 @@
 import { snapshot, restore, SIZE_BOX } from "./scene.js";
 import { resolve } from "./resolver.js";
 import { arrange, align as alignL, distribute as distributeL, fitContainer, fitAncestors, moveTree, growCanvas, PAD } from "./layout.js";
-import { routeAll } from "./router.js";
+import { routeAll, segmentHitsBox } from "./router.js";
 
 export { PAD };
 export const query = (scene, desc, opts) => resolve(scene, desc, opts);
@@ -139,4 +139,20 @@ export function align(scene, ids, options) { alignL(scene, ids, options); }
 export function distribute(scene, ids, options) { distributeL(scene, ids, options); }
 export function order(scene, ids, where) { for (const id of ids) { const c = scene.components.get(id); if (c) c.order = where === "front" ? ++scene.counter : -(++scene.counter); } }
 export function zoom(scene, factor) { scene.view.zoom = Math.max(0.1, Math.min(8, (scene.view.zoom || 1) * factor)); }
-export function route(scene, opts) { growCanvas(scene); return routeAll(scene, opts); }
+// Incremental routing (the full recomputation cost about 16 s per page on the 10-page scripts): without explicit ids, only the
+// connectors that can have changed are routed again: new ones, those whose ends moved or resized, and those whose current path now
+// touches a component that is new, moved or resized; the others keep their route and count as used channels. route(scene, {full: true})
+// recomputes everything. The invariant "no connector crosses a component" holds because every path that touches a changed box is redone.
+const lastBoxes = new WeakMap();
+export function route(scene, opts = {}) {
+  growCanvas(scene);
+  const prev = lastBoxes.get(scene); const now = new Map([...scene.components.values()].map((c) => [c.id, `${c.box.x},${c.box.y},${c.box.w},${c.box.h},${c.parent || ""}`]));
+  lastBoxes.set(scene, now);
+  if (opts.ids || opts.full || !prev) return routeAll(scene, opts);
+  const changed = [...now].filter(([id, k]) => prev.get(id) !== k).map(([id]) => id); const removed = [...prev.keys()].some((id) => !now.has(id));
+  const ch = new Set(changed); const boxes = changed.map((id) => scene.components.get(id).box);
+  const hits = (e) => { const p = e.points || []; for (let i = 0; i + 1 < p.length; i++) for (const b of boxes) if (segmentHitsBox(p[i], p[i + 1], b)) return true; return false; };
+  const ids = [...scene.connectors.values()].filter((e) => !e.points || ch.has(e.source) || ch.has(e.target) || hits(e)).map((e) => e.id);
+  if (!ids.length && !removed) return { routed: 0, failed: [] };
+  return routeAll(scene, { ...opts, ids: ids.length ? ids : [] });
+}
