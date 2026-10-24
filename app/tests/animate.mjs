@@ -107,6 +107,30 @@ const demo = load("timelines")[0]; const tl = build(demo);
 const fr = frameTimes(tl, 25); const r0 = performance.now(); for (const [, t] of fr) frameSVG(tl, stateAt(tl, t)); const fps = fr.length / ((performance.now() - r0) / 1000);
 times.sort((a, b) => a - b);
 
+// ---------------------------------------------------------------- end to end (report only): the sentences read by the exported reader
+// node app/tests/animate.mjs [<eval dir>] --reader app/model/animation: every step is read by vss.js instead of taking the gold frame;
+// reported: frame agreement with the gold frame (event, negation, roles), and the timelines, corrections and planted violations that still
+// pass. The criterion of the reader itself is the held-out row of Table 13, measured by sop train; this is the demo's end-to-end view.
+const ri = process.argv.indexOf("--reader");
+if (ri > 0) {
+  const { load: loadReader } = await import("../src/vss.js");
+  const mdir = process.argv[ri + 1];
+  const vss = await loadReader(null, { readFile: async (f) => (f.endsWith(".json") ? readFileSync(join(mdir, f), "utf8") : readFileSync(join(mdir, f)).buffer.slice(0)) });
+  const key = (f) => JSON.stringify({ event: f.event, neg: !!f.neg, roles: Object.fromEntries(Object.entries(f.roles || {}).sort()) });
+  let agree = 0, n = 0; const rt = [];
+  const reread = (rec) => ({ ...rec, steps: rec.steps.map((st) => { const r = vss.read(st.text); rt.push(r.timings.total_ms); n++; if (key(r.frame) === key(st.frame)) agree++;
+    return { ...st, frame: { ...r.frame, mood: st.text.endsWith("?") ? "question" : undefined }, tokens: r.tokens }; }) });
+  const e2e = { timelines: [0, 0], corrections: [0, 0], planted: [0, 0] }; const fails0 = fails.length;
+  for (const rec of load("timelines")) { const R = reread(rec); const tl = build(R); e2e.timelines[1]++; if (within(tl, rec.gold) && same(order(tl), rec.gold.order)) e2e.timelines[0]++; }
+  for (const rec of load("corrections")) { const R = reread(rec); const tl = build(R); const c = vss.read(rec.correction.text); n++; if (key(c.frame) === key(rec.correction.frame)) agree++;
+    const r = correct(tl, c.frame, rec.correction.info); e2e.corrections[1]++; if (r.kind === "correction" && same(r.changed, rec.changed) && within(tl, rec.gold_after)) e2e.corrections[0]++; }
+  for (const rec of load("invariants").filter((r) => r.planted)) { const R = reread(rec); const tl = build(R); const rep = check(tl, { fps: rec.fps }); e2e.planted[1]++;
+    const g = rec.gold.violations.find((v) => v.rule === rec.planted); if (rep.violations.some((v) => v.rule === rec.planted && v.frame === g.frame)) e2e.planted[0]++; }
+  fails = fails.slice(0, fails0);                                    // read frames may not build: reported below, not failures of the suite
+  rt.sort((a, b) => a - b);
+  console.log(`  END TO END with the reader ${mdir} (D ${vss.model.config.D}): frames equal to gold ${agree}/${n}; timelines ${e2e.timelines.join("/")}, corrections ${e2e.corrections.join("/")}, planted violations ${e2e.planted.join("/")}; reading median ${rt[rt.length >> 1].toFixed(2)} ms, p95 ${rt[Math.floor(rt.length * 0.95)].toFixed(2)} ms per sentence`);
+}
+
 const crit = ["timelines", "corrections", "planted violations", "controls clean", "violation lists = gold", "questions", "unit checks"];
 for (const k of crit) { const [a, b] = score[k] || [0, 0]; console.log(`  ${k.padEnd(24)} ${a}/${b}${a === b ? "" : "  FAIL"}`); }
 console.log(`  timeline time per unit: median ${times[times.length >> 1].toFixed(3)} ms, p95 ${times[Math.floor(times.length * 0.95)].toFixed(3)} ms (node, this machine)`);

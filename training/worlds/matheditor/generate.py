@@ -688,7 +688,7 @@ def build(out, n, n_eval, seed, cmd_share=0.3, amb_share=0.12, quiet=False):
         i, ctx = suite_meta[sid]; r = sres[sid]
         if i in done or r["status"] != "ok" or pool[i]["event"] in ("undo", "redo"): continue
         done.add(i); m = pool[i]
-        suite.append({"command": m["text"], "frame": m["frame"], "template": m["template"], "context": ctx, "context_latex": r["latex_before"],
+        suite.append({"command": m["text"], "frame": m["frame"], "extras": m["extras"], "template": m["template"], "context": ctx, "context_latex": r["latex_before"],
                       "expected": r["after"], "expected_latex": r["latex_after"], "reason": r["reason"],
                       "split": "heldout_formulations" if m in ev_cmd else "train"})
 
@@ -718,6 +718,14 @@ def build(out, n, n_eval, seed, cmd_share=0.3, amb_share=0.12, quiet=False):
     write("eval_new_identities.sop", ev_new); write("eval_ambiguous.sop", ev_amb)
     with open(os.path.join(wd, "raw", "edit_suite.jsonl"), "w") as f:
         for s in suite: f.write(json.dumps(s) + "\n")
+    # the suite's commands, one per line (input of `sop formalize`), and their gold wires (eval_edit_suite.py --reading raw/edit_suite.sop
+    # checks the evaluation chain itself: 100% by construction)
+    open(os.path.join(wd, "raw", "edit_suite.txt"), "w").write("".join(s["command"] + "\n" for s in suite))
+    doc = soplang.Doc(directives=[("world", "matheditor", None), ("legend", sha, None)]); k = 0
+    for s in suite:
+        ids = iter(f"w{k + j}" for j in range(1, 400)); ws = command_wires({"frame": s["frame"], "extras": s.get("extras", {}), "text": s["command"],
+                                                                         "template": s["template"]}, ids); k += len(ws); doc.wires += ws
+    open(os.path.join(wd, "raw", "edit_suite.sop"), "w").write(soplang.write(doc))
     open(os.path.join(wd, "raw", "sentences.txt"), "w").write("\n".join(m["text"] for m in (train_f + train_c)[:2000]) + "\n")
     hints = {"heldout_sentence_share": 0.1, "new_identities": vars_new + nums_new,
              "file_splits": {"examples/eval_new_identities.sop": "new_identities", "examples/eval_heldout_formulations.sop": "heldout_formulations",
