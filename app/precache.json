@@ -1,5 +1,5 @@
 {
- "id": "37b654444455",
+ "id": "5bda0fba91c0",
  "files": [
   "./",
   "index.html",
@@ -39,8 +39,10 @@
   "src/main.js",
   "src/normalize.js",
   "src/script/script.js",
+  "src/script/view.js",
   "src/segment/circuit.js",
   "src/segment/segment.js",
+  "src/segment/view.js",
   "src/sketch/pad.js",
   "src/sketch/recognise.js",
   "src/sketch/scene_pass.js",
@@ -51,17 +53,24 @@
   "src/text/commands.js",
   "src/text/dictation.js",
   "src/text/doc.js",
+  "src/text/table.js",
   "src/text/textnorm.js",
   "src/text/view.js",
   "src/ui/canvas.js",
+  "src/ui/film.js",
+  "src/ui/info.js",
   "src/ui/panel.js",
   "src/ui/reading.js",
+  "src/ui/script.js",
+  "src/ui/sketch.js",
+  "src/ui/widgets.js",
   "src/vss/loader.js",
   "src/vss/reader.js",
   "src/vss/routebook.js",
   "src/vss/soplang.js",
   "src/vss/stars.js",
   "src/vss.js",
+  "src/widgets.js",
   "src/worlds.js",
   "vendor/double-metaphone.js",
   "vendor/kiwi/constraint.js",
@@ -78,6 +87,7 @@
   "model/diagram/normalize.json",
   "model/diagram/routebook.bin",
   "model/diagram/stars.bin",
-  "model/index.json"
+  "model/index.json",
+  "examples/request-film.json"
  ]
 }

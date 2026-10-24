@@ -70,3 +70,44 @@ export function renderSOP(host, { result, circuit }) {
   const pre = el("pre", "sop", circuit?.sop || result?.sop || "");
   host.append(pre);
 }
+
+/** the sketch recognition (spec 17): every stroke group with its kind, its best candidates and margin (low margins marked), the scene
+ *  pass's explanation and which scene reader is active */
+export function renderSketch(host, { rec, res, low = 0.2 }) {
+  host.replaceChildren();
+  host.append(el("p", "decision", `Recognised ${rec.groups.length} stroke group${rec.groups.length === 1 ? "" : "s"}`), el("p", "rule", res.active));
+  const ul = el("ul", "rec-list");
+  for (const g of rec.groups) {
+    const li = el("li"); const m = g.margin ?? 1; li.append(el("span", null, `${g.id}: ${String(g.kind).replace(/_/g, " ")}`), el("span", m < low ? "low" : "muted", `margin ${m.toFixed(2)}`));
+    const c = (g.candidates || []).slice(0, 3).map((x) => `${String(x.kind).replace(/_/g, " ")} ${(+x.score).toFixed(2)}`).join(", ");
+    li.append(el("span", "cands", `${c}${g.reason ? `; ${g.reason}` : ""}`)); ul.append(li);
+  }
+  host.append(ul);
+  if (res.questions?.length) { host.append(el("h4", null, "Questions")); for (const q of res.questions) host.append(el("p", null, q.text)); }
+  if (res.explain?.length) { host.append(el("h4", null, "Scene pass")); const ol = el("ol", "steps"); for (const x of res.explain) ol.append(el("li", null, x)); host.append(ol); }
+}
+
+/** several units (spec 15): one line per unit with its mark, what it did and why */
+export function renderUnitsPlan(host, { results, circuit, line }) {
+  host.replaceChildren();
+  if (line) host.append(el("p", "decision", line));
+  const ol = el("ol", "steps"); const byI = new Map((results || []).map((r) => [r.unit, r]));
+  for (const u of circuit.units) {
+    const r = byI.get(u.i); const li = el("li");
+    li.append(el("span", null, `"${u.text}": `), el("strong", null, r ? r.mark : "not run"));
+    const why = r ? (r.reason || r.steps.join("; ")) : ""; if (why) li.append(el("div", "rule", why)); ol.append(li);
+  }
+  host.append(ol);
+  if (circuit.conflicts?.length) { host.append(el("h4", null, "Conflicts")); for (const k of circuit.conflicts) host.append(el("p", null, k.text)); }
+  if (circuit.cycle) host.append(el("p", "warn", circuit.cycle.text));
+}
+
+/** the active text or formula widget (spec 14, 16): its name, the reader in use, the last decision and the document's outline */
+export function renderWidgetInfo(host, { title, kind, reader, decision, outline, hint }) {
+  host.replaceChildren();
+  const head = el("div", "widget-head"); head.append(el("strong", null, title), el("span", "chip", kind)); host.append(head);
+  if (reader) host.append(el("p", "rule", reader));
+  if (decision) host.append(el("p", null, decision));
+  if (outline != null) { host.append(el("h4", null, "Content")); host.append(el("pre", "widget-outline", outline || "(empty)")); }
+  if (hint) host.append(el("p", "frame-empty", hint));
+}

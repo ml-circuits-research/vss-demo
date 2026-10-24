@@ -43,3 +43,23 @@ export function renderReading(host, { result, corrections = [], labels = {}, wor
   st.append(el("span", "st-world", world));
   host.append(st);
 }
+
+/** a line that is not a diagram reading: dictated content or a widget command, with how it was taken and why */
+export function renderNote(host, { text, as, reason = "", world = "", kind = "content", status = "ok" } = {}) {
+  host.replaceChildren();
+  const p = el("p", `reading-note ${kind}`); const q = el("span", "q", text); p.append(q, el("span", "as", as)); host.append(p);
+  const st = el("div", `reading-status st-${status}`); st.append(el("span", "st-dot"), el("span", null, reason)); if (world) st.append(el("span", "st-world", world));
+  host.append(st);
+}
+
+/** several units of one input (spec 15): each unit's reading in the strip, numbered in text order; the rest in the Circuit tab */
+export function renderUnits(host, units, { max = 3, world = "diagram" } = {}) {
+  host.replaceChildren(); const box = el("div", "reading-units");
+  for (const u of units.slice(0, max)) {
+    const row = el("div", "reading-unit"); row.append(el("span", "unit-n", String(u.i + 1)));
+    const inner = el("div"); if (u.reading) renderReading(inner, { result: u.reading, world: u.mark ? `${world}, ${u.mark}` : world }); else inner.append(el("p", "reading-empty", u.text));
+    row.append(inner); box.append(row);
+  }
+  if (units.length > max) box.append(el("p", "reading-more", `and ${units.length - max} more unit${units.length - max > 1 ? "s" : ""} in the Circuit tab`));
+  host.append(box);
+}

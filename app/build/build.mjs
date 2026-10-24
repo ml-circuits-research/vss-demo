@@ -19,7 +19,7 @@ const js = await esbuild.build({ entryPoints: [path.join(APP, "src/main.js")], b
 const bundleJS = js.outputFiles[0].text;
 
 // 2. the assets the editor loads at run time (src/assets.js reads them from globalThis.__VSS_BUNDLE__)
-const assetFiles = [...walk(path.join(APP, "model")), path.join(APP, "vendor/typo/en_US/en_US.aff"), path.join(APP, "vendor/typo/en_US/en_US.dic")].filter((f) => !f.endsWith(".md"));
+const assetFiles = [...walk(path.join(APP, "model")), ...walk(path.join(APP, "examples")), path.join(APP, "vendor/typo/en_US/en_US.aff"), path.join(APP, "vendor/typo/en_US/en_US.dic")].filter((f) => !f.endsWith(".md"));
 const bundle = { text: {}, b64: {} };
 for (const f of assetFiles) { if (TEXT.test(f)) bundle.text[rel(f)] = fs.readFileSync(f, "utf8"); else bundle.b64[rel(f)] = fs.readFileSync(f).toString("base64"); }
 

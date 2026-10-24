@@ -24,7 +24,7 @@ export const PALETTE = {
 };
 export const COLOR_NAMES = ["red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "brown", "gray", "black", "white"];
 // the colour a kind takes when none is given, and how much of it tints the fill
-const KIND_HUE = { process: "accent", decision: "yellow", terminator: "green", data: "teal", document: "muted", actor: "fg", system: "purple", container: "muted", note: "yellow", text: "fg", shape: "accent", generic: "muted" };
+const KIND_HUE = { process: "accent", decision: "yellow", terminator: "green", data: "teal", document: "muted", actor: "fg", system: "purple", container: "muted", note: "yellow", text: "fg", shape: "accent", generic: "muted", formula: "muted", character: "fg", token: "red" };
 const KIND_MIX = { note: 34, container: 5, actor: 0, text: 0 };
 const varOf = (name) => (COLOR_NAMES.includes(name) ? `var(--c-${name}, ${PALETTE.light[name]})` : `var(--${name}, ${PALETTE.light[name]})`);
 function mixHex(a, b, p) {
@@ -122,6 +122,9 @@ export function lookOf(c) {
   if (k === "data") return w === "queue" ? "queue" : "cylinder"; if (k === "document") return "document"; if (k === "actor") return "actor";
   if (k === "system") return w === "cloud" ? "cloud" : w === "server" ? "server" : "system";
   if (k === "container") return w === "lane" ? "lane" : "container"; if (k === "note") return "note"; if (k === "text") return "text";
+  if (k === "character") return w === "figure" || w === "person" ? "actor" : "process";
+  if (k === "token") return "ellipse";
+  if (k === "formula") return "process";
   if (k === "shape") return { circle: "ellipse", ellipse: "ellipse", square: "square", rectangle: "square", triangle: "triangle", star: "star", hexagon: "hexagon" }[w] || "process";
   return "process";
 }

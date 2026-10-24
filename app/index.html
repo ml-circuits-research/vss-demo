@@ -19,6 +19,7 @@
     <span class="model-badge" id="model-badge" hidden></span>
     <span class="mode-chip" id="mode-chip" hidden></span>
     <nav class="top-actions">
+      <button class="icon-btn" id="btn-script" aria-label="Build from a script" title="Script: build from a document"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></button>
       <button class="icon-btn" id="btn-panel" aria-label="Show what was understood" aria-expanded="false" title="What was understood"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/></svg></button>
       <button class="icon-btn" id="btn-settings" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
       <button class="icon-btn" id="btn-about" aria-label="About this demo" title="About"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg></button>
@@ -40,7 +41,26 @@
         <button class="icon-btn" id="btn-undo" aria-label="Undo" title="Undo"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
         <button class="icon-btn" id="btn-redo" aria-label="Redo" title="Redo"><svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg></button>
         <button class="icon-btn" id="btn-fit" aria-label="Fit the diagram to the screen" title="Fit"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        <span class="tool-sep" aria-hidden="true"></span>
+        <button class="icon-btn" id="btn-add-text" aria-label="Add a text box" title="Add a text box"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 10h8M8 14h5"/></svg></button>
+        <button class="icon-btn" id="btn-add-formula" aria-label="Add a formula" title="Add a formula"><svg viewBox="0 0 24 24"><path d="M3 13h2l3 6 4-15h9"/><path d="m13.5 10 5 6M18.5 10l-5 6"/></svg></button>
+        <button class="icon-btn" id="btn-sketch" aria-label="Sketch" aria-pressed="false" title="Sketch: draw shapes and arrows"><svg viewBox="0 0 24 24"><path d="M4 20c3-1 4-4 6-4s2 3 4 3 3-2 4-3"/><path d="m14 4 6 6-8 8-3-3z"/></svg></button>
+        <span class="tool-sep" aria-hidden="true"></span>
         <button class="icon-btn" id="btn-export" aria-label="Export" title="Export"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg></button>
+      </div>
+      <div class="sketch-host" id="sketch-host" hidden></div>
+      <div class="sketch-strip" id="sketch-strip" hidden>
+        <span class="muted">Draw boxes, circles, diamonds, cylinders and arrows.</span>
+        <button type="button" class="primary" id="btn-sketch-done">Done</button>
+        <button type="button" id="btn-sketch-cancel">Cancel</button>
+      </div>
+      <div class="film" id="film" hidden aria-label="The animation" role="img"></div>
+      <div class="timeline-strip" id="timeline-strip" hidden>
+        <button type="button" class="icon-btn" id="tl-play" aria-label="Play the animation" title="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        <input type="range" id="tl-scrub" min="0" max="1000" step="10" value="0" aria-label="Time in the animation">
+        <span class="tl-time" id="tl-time">0.00 s</span>
+        <button type="button" class="link-btn" id="tl-details">Timeline</button>
+        <button type="button" class="icon-btn" id="tl-close" aria-label="Back to the diagram" title="Back to the diagram"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
     </section>
 
@@ -51,6 +71,8 @@
         <button role="tab" aria-selected="false" data-tab="plan">Plan</button>
         <button role="tab" aria-selected="false" data-tab="geometry">Geometry</button>
         <button role="tab" aria-selected="false" data-tab="circuit">Circuit</button>
+        <button role="tab" aria-selected="false" data-tab="widget" hidden>Widget</button>
+        <button role="tab" aria-selected="false" data-tab="timeline" hidden>Timeline</button>
         <button role="tab" aria-selected="false" data-tab="sop">SOP</button>
         <button role="tab" aria-selected="false" data-tab="log">Log</button>
       </div>
@@ -58,6 +80,8 @@
       <div class="tab-body" id="tab-plan" role="tabpanel" hidden></div>
       <div class="tab-body" id="tab-geometry" role="tabpanel" hidden></div>
       <div class="tab-body" id="tab-circuit" role="tabpanel" hidden></div>
+      <div class="tab-body" id="tab-widget" role="tabpanel" hidden></div>
+      <div class="tab-body" id="tab-timeline" role="tabpanel" hidden></div>
       <div class="tab-body" id="tab-sop" role="tabpanel" hidden></div>
       <div class="tab-body" id="tab-log" role="tabpanel" hidden></div>
     </aside>
@@ -84,7 +108,22 @@
     </fieldset>
     <fieldset><legend>Voice</legend>
       <p class="muted" id="voice-info"></p>
+      <label class="select-row">Speech language
+        <select name="lang" id="set-lang">
+          <option value="en-US">English (United States)</option>
+          <option value="en-GB">English (United Kingdom)</option>
+          <option value="en-AU">English (Australia)</option>
+          <option value="en-CA">English (Canada)</option>
+          <option value="en-IE">English (Ireland)</option>
+          <option value="en-IN">English (India)</option>
+          <option value="en-NZ">English (New Zealand)</option>
+          <option value="en-ZA">English (South Africa)</option>
+        </select></label>
+      <p class="muted small">The readers understand English only; the language sets the accent the recogniser expects.</p>
       <label><input type="checkbox" name="speakback"> Read the confirmation aloud</label>
+    </fieldset>
+    <fieldset><legend>Commands and writing</legend>
+      <div id="threshold-info" class="muted small"></div>
     </fieldset>
     <fieldset><legend>Appearance</legend>
       <label><input type="radio" name="theme" value="auto" checked> Follow the system</label>
@@ -99,7 +138,10 @@
   <form method="dialog">
     <h2>About this demo</h2>
     <p>Every command is read in your browser by a VSS reader: a small model that turns a sentence into a frame of roles (what to do, to what, where), with a margin for every decision. Nothing is sent to a server, apart from the browser's own speech recognition when you use the microphone (see Settings).</p>
+    <h3>Worlds and their models</h3>
     <div id="about-models"></div>
+    <h3>Modules</h3>
+    <div id="about-modules"></div>
     <h3>What is measured</h3>
     <div id="about-measured"></div>
     <h3>Licences</h3>
@@ -117,7 +159,31 @@
       <button value="json">Diagram file (JSON, opens again here)</button>
       <button value="sop">The commands as SOP text</button>
       <label class="file-btn">Open a diagram file<input type="file" id="import-file" accept=".json,application/json"></label>
+      <h3>Animation</h3>
+      <p class="muted small" id="film-export-note"></p>
+      <button value="webm" id="x-webm">Video (WebM)</button>
+      <button value="asvg" id="x-asvg">Animated SVG</button>
+      <button value="tljson" id="x-tljson">Timeline (JSON, opens again here)</button>
+      <label class="file-btn">Open a timeline file<input type="file" id="import-timeline" accept=".json,application/json"></label>
+      <button value="example-film" id="x-example">Open the example film</button>
       <button value="close" class="primary">Close</button>
+    </menu>
+  </form>
+</dialog>
+
+<dialog id="dlg-script" class="sheet wide">
+  <form method="dialog" id="script-form">
+    <h2>Build from a script</h2>
+    <p class="muted small">Paste or type a document: a "# title", "## section" headings, one request per sentence. Every sentence is read; the diagram is built section by section, and a sentence the reader cannot read is marked, never guessed.</p>
+    <div class="script-grid">
+      <textarea id="script-text" rows="12" spellcheck="false" aria-label="Script"></textarea>
+      <div class="script-doc" id="script-doc" aria-live="polite"></div>
+    </div>
+    <menu>
+      <button type="button" id="script-example">Example</button>
+      <button type="button" id="script-continue" hidden>Go on past this sentence</button>
+      <button type="button" id="script-run" class="primary">Build the diagram</button>
+      <button value="close">Close</button>
     </menu>
   </form>
 </dialog>

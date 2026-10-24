@@ -57,3 +57,17 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
   if (plan.blocked && plan.blocked.length) notes.push({ kind: "blocked", text: plan.blocked.map((b) => b.text).join("; ") });
   return { action: "execute", line, questions: [], notes, rule: "Table 8: status ok, every margin above tau" };
 }
+
+// Animation readings (spec 19, src/animate/README.md): whether a reading of the animation world is a question about the film, a film
+// command, a correction of an existing unit or a new unit. Stated rule: mood question -> question; play / pause / rewind / loop -> film;
+// retime, or a correction word (actually, instead, no, rather) -> correction; anything else -> a new unit.
+export const CORRECTION_WORDS = ["actually", "instead", "no", "rather"];
+export function animationIntent(frame, tokens = []) {
+  if (!frame || !frame.event) return { intent: "none", rule: "no event read" };
+  if (frame.mood === "question") return { intent: "question", rule: "a question about the film" };
+  if (["play", "pause", "rewind", "loop"].includes(frame.event)) return { intent: "film", rule: `"${frame.event}": a film command` };
+  if (frame.event === "retime") return { intent: "correction", rule: "retime: a correction of an existing unit" };
+  const w = tokens.find((t) => CORRECTION_WORDS.includes(t));
+  if (w) return { intent: "correction", rule: `the correction word "${w}"` };
+  return { intent: "unit", rule: "a new unit of the timeline" };
+}

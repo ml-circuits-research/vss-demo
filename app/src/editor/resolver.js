@@ -50,6 +50,10 @@ export function resolve(scene, desc, { creating = false } = {}) {
   const ids = matches.map((c) => c.id);
   if (["all", "every", "each", "any"].includes(det) || plural) return { ids, status: ids.length ? "ok" : "none", rule: `${det || "plural"}: every match`, desc };
   if (det === "a" || det === "an") return { ids: ids.slice(-1), status: ids.length ? "ok" : "none", rule: "a / an: the most recent match", desc };
+  if (ids.length > 1 && sing === h) {                               // "the api" beside a service: the exact word wins over its synonyms
+    const exact = matches.filter((c) => c.word === sing).map((c) => c.id);
+    if (exact.length === 1) return { ids: exact, status: "ok", rule: `the ${sing}: the exact word wins over its synonyms (${ids.length - 1} other match${ids.length > 2 ? "es" : ""} by a synonym)`, desc };
+  }
   return { ids, status: ids.length === 1 ? "ok" : ids.length ? "ambiguous" : "none", rule: "the / this / that: exactly one match expected", desc };
 }
 

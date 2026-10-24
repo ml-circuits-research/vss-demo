@@ -6,7 +6,10 @@
 //                   plays in any browser as a file or an <img>; characters keep their pose of the first frame (their parts are not animated)
 //   PNG frames      every frame drawn on a canvas (OffscreenCanvas or <canvas>), as Blobs
 //   WebM            the frames drawn in real time on a canvas recorded by MediaRecorder (canvas.captureStream), when the browser has both
-import { solve, rows, sceneToData } from "./timeline.js";
+// And back in: importTimeline(json, {scene}) rebuilds a timeline from the JSON timeline (its units' frames are added again, in order) or
+// from a script of reader frames ({scene?, steps: [{frame, info, text}]}, the format of the scripted suite); the editor plays it with no
+// animation reader installed.
+import { solve, rows, sceneToData, sceneFromData, createTimeline, add } from "./timeline.js";
 import { stateAt, frameTimes } from "./player.js";
 import { frameSVG, shapeSVG, connectorPoints, travellerSVG, DEFS } from "./svg.js";
 
@@ -16,8 +19,30 @@ export function exportJSON(tl, { sop = null } = {}) {
   if (!tl.solved) solve(tl);
   return { format: "vss-animation-timeline", version: 1, duration_ms: tl.end, film: { ...tl.film }, scene: sceneToData(tl.scene),
     travellers: [...tl.travellers.values()],
-    units: rows(tl).map((r) => { const u = tl.units.find((v) => v.id === r.id); return { ...r, text: u.frame?.text || null, frame: u.frame, easing: u.easing, repeat: u.forever ? "forever" : u.repeat, nodes: u.nodes || null, from: u.from || null, to: u.to || null }; }),
+    units: rows(tl).map((r) => { const u = tl.units.find((v) => v.id === r.id); return { ...r, text: u.frame?.text || null, frame: u.frame, info: u.info || {}, easing: u.easing, repeat: u.forever ? "forever" : u.repeat, nodes: u.nodes || null, from: u.from || null, to: u.to || null }; }),
     locks: tl.locks.map((L) => ({ ...L })), conflicts: [...tl.conflicts], sop };
+}
+
+/** a JSON timeline (exportJSON) or a script of frames -> {timeline, report: [{text, kind, note}], sceneFromFile}. The file's scene is used
+ *  when it has one, else `scene` (the editor's). Every step goes through timeline.add, so a frame naming nothing in the scene is reported,
+ *  not guessed. Throws an Error with a readable message on a file that is neither. */
+export function importTimeline(input, { scene = null } = {}) {
+  let o = input;
+  if (typeof input === "string") { try { o = JSON.parse(input); } catch (e) { throw new Error(`not a timeline file: ${e.message}`); } }
+  if (!o || typeof o !== "object") throw new Error("not a timeline file");
+  const steps = o.format === "vss-animation-timeline" ? (o.units || []).map((u) => ({ frame: u.frame, info: u.info || {}, text: u.text })) : Array.isArray(o.steps) ? o.steps : null;
+  if (!steps) throw new Error('not a timeline file: neither "units" (format vss-animation-timeline) nor "steps"');
+  const sc = o.scene && Array.isArray(o.scene.components) ? sceneFromData(o.scene) : scene;
+  if (!sc) throw new Error("the timeline file has no scene and there is no diagram to animate");
+  const tl = createTimeline(sc); const report = [];
+  for (const st of steps) {
+    if (!st || !st.frame) { report.push({ text: st?.text || null, kind: "error", note: "a step without a frame" }); continue; }
+    const r = add(tl, st.frame, st.info || {}); report.push({ text: st.text || null, kind: r.kind, note: r.text || "" });
+  }
+  if (o.format === "vss-animation-timeline" && Array.isArray(o.locks)) for (const L of o.locks) if (!tl.locks.some((x) => x.rule === L.rule && x.subject === L.subject)) tl.locks.push({ ...L });
+  if (o.film) { tl.film.loop = !!o.film.loop; tl.film.repeat = Number(o.film.repeat) || 1; }
+  solve(tl);
+  return { timeline: tl, report, sceneFromFile: sc !== scene };
 }
 
 // the animated SVG: every element's properties sampled at `fps` and written as SMIL values (linear between samples; discrete for flags)
