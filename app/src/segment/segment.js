@@ -172,7 +172,7 @@ function scoreOf(segs) {
   let poorTok = 0, minM = Infinity, res = 0, good = 0;
   for (const s of segs) {
     if (s.role !== "command") continue;
-    if (s.poor) poorTok += Math.max(1, s.tokens.length); else { good++; minM = Math.min(minM, minMargin(s.reading)); }
+    if (s.poor) poorTok += Math.max(1, s.tokens.filter((t) => t !== "," && !SENTENCE_END.has(t)).length); else { good++; minM = Math.min(minM, minMargin(s.reading)); }
     if (s.reading && typeof s.reading.residual === "number") res += s.reading.residual;
   }
   return { poorTok, minMargin: good ? minM : -1, residual: res, n: segs.length };

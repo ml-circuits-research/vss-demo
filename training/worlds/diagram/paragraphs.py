@@ -56,13 +56,27 @@ for a, b in _T["mwe"]:
     if " " not in b and "_" in b and (b not in PRETTY or len(a) < len(PRETTY[b])): PRETTY[b] = a
 
 
+# the planner checks a prohibition by DESCRIPTION when a later step runs (app/src/editor/planner.js lockedBy): a lock on "the box" covers
+# every box, a lock on a label covers the component with that label; move, arrange, align, distribute and place (of an existing
+# component) are all guarded as "move". The story mirrors this so that it never writes a command the editor will refuse.
+MOVE_FAMILY = {"move", "arrange", "align", "distribute", "place"}
+def lock_action(ev): return "move" if ev in MOVE_FAMILY else ev
+def is_locked(st, ev, e):
+    a = lock_action(ev)
+    for la, kind, val, attr in st.locks:
+        if la != a: continue
+        if kind == "label" and e["label"] and e["label"] == val: return True
+        if kind == "group" and e["group"] == val and (attr is None or attr in (e["color"], e["style"], e["size"])): return True
+    return False
+
+
 class NoRef(Exception): pass
 
 
 class Story:
     """the entities of a paragraph or a document, with their current attributes, as the editor will hold them"""
     def __init__(self, max_per_group=1, qualifiers=False):
-        self.ents = {}; self.n = 0; self.locks = set(); self.prev = None; self.section = 0; self.max_per_group = max_per_group
+        self.ents = {}; self.n = 0; self.locks = []; self.prev = None; self.section = 0; self.max_per_group = max_per_group
         self.qualifiers = qualifiers; self.order = []                      # creation order of eids
     def new(self, word, plural, attr, unit, role):
         self.n += 1; eid = f"E{self.n}"
@@ -126,7 +140,7 @@ class StoryGen(G.Gen):
         cands = []
         for e in st.alive():
             if e["plural"] != want_set or e["group"] not in allowed or e["word"] not in heads or e["eid"] in self.used(): continue
-            if (self.ev, e["eid"]) in st.locks or ("*", e["eid"]) in st.locks: continue
+            if is_locked(st, self.ev, e): continue
             if e["word"] == "container": continue
             ways = self._ways(e, label_ok, pron_ok, want_set)
             if ways: cands.append((e, ways))
@@ -199,6 +213,8 @@ def make_unit(sg, ev, k, force=None, pron=True, tries=60):
             st.n, st.order, st.ents = saved; continue
         if ev == "group" and st.ents[ments["object"][0]]["n"] < 2:
             st.n, st.order, st.ents = saved; continue
+        if ev in MOVE_FAMILY and isinstance(roles.get("object"), dict) and roles["object"]["head"] == "everything" and any(is_locked(st, "move", e) for e in st.alive()):
+            st.n, st.order, st.ents = saved; continue
         for r, (eid, how, q) in ments.items():                             # the introduction of a created entity names its role
             if how == "create": st.ents[eid]["intro"] = [k, r]
         negated = ev in G.PROHIBITABLE and pid in ("bare", "please", "now", "okay", "tail") and sg.coin(0.12)
@@ -236,8 +252,11 @@ def apply(st, u, k):
     """the unit's effect on the story (what the editor will do), and the story's next primary entity"""
     ev, m, r = u["event"], u["mentions"], u["roles"]; obj = m.get("object", [None])[0]; src = m.get("source", [None])[0]
     if u["neg"]:
-        for e in (obj, src):
-            if e: st.locks.add((ev, e))
+        role = "object" if obj else "source" if src else None
+        if role:
+            e = st.ents[m[role][0]]; how = m[role][1]; spec = r[role]
+            if how == "label" or (how != "description" and e["label"]): st.locks.append((lock_action(ev), "label", e["label"] if how != "label" else spec["head"], None))
+            else: st.locks.append((lock_action(ev), "group", e["group"], spec.get("attr") if how == "description" else None))
         st.prev = obj or src; return
     created = next((eid for eid, how in m.values() if how == "create"), None)
     if created:

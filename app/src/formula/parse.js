@@ -14,7 +14,9 @@
 //    Every combination is tried; the distinct trees are the readings, in the order tight-first.
 //  - What decides a scope: "all over" (numerator wide); "the fraction A over B" and "the fraction with numerator A and denominator B"
 //    (numerator = A); a closer, which makes the operand exactly what precedes it: "end fraction", "end exponent", "end root",
-//    "end sub", "end sum", "end product", "end absolute value"; "all squared" / "all cubed" (the whole group before it is the base);
+//    "end sub", "end sum", "end product", "end absolute value" (a closer closes the NEAREST not yet closed construct of its kind in
+//    the same bracket group, so "a over b over c end fraction" closes "b over c"); "all squared" / "all cubed" (the whole group
+//    before it is the base);
 //    a pause (",") closes every open scope at that point; "the quantity ... end quantity" groups without a visible bracket;
 //    "open parenthesis ... close parenthesis" groups WITH a bracket node, except right after a function or root opener, where the
 //    brackets are the operator's own ("sine of open parenthesis x close parenthesis" = sin(x)).
@@ -130,9 +132,18 @@ function match(toks) {
     }
     if (found < 0) errors.push(`"the fraction" at word ${toks[i].at} has no "over"`); else { toks[found].t = "FRAC_OVER"; toks[found].claimed = i; }
   }
+  // bracket depth of every token: a closer of a construct matches the nearest unmatched opener of its kind INSIDE the same bracket group
+  const dep = []; let d0 = 0;
+  for (const t of toks) { if (t.t === "CLOSE" || t.t === "END_QTY") d0--; dep.push(d0); if (t.t === "OPEN" || t.t === "QTY") d0++; }
   for (let i = 0; i < toks.length; i++) {
     const kinds = CLOSER_OF[toks[i].t]; if (!kinds) continue;
-    let j = i - 1; while (j >= 0 && !(kinds.includes(toks[j].t) && toks[j].closer === undefined && (toks[i].t !== "END_SUM" || toks[j].v === "sum") && (toks[i].t !== "END_PROD" || toks[j].v === "product"))) j--;
+    const bracket = toks[i].t === "CLOSE" || toks[i].t === "END_QTY";
+    let j = i - 1;
+    for (; j >= 0; j--) {
+      if (!bracket && dep[j] < dep[i]) { j = -1; break; }               // do not leave the group
+      if (!bracket && dep[j] > dep[i]) continue;                          // do not enter a nested group
+      if (kinds.includes(toks[j].t) && toks[j].closer === undefined && (toks[i].t !== "END_SUM" || toks[j].v === "sum") && (toks[i].t !== "END_PROD" || toks[j].v === "product")) break;
+    }
     if (j < 0) errors.push(`"${toks[i].t.toLowerCase().replace("_", " ")}" at word ${toks[i].at} closes nothing`); else { toks[j].closer = i; toks[i].opener = j; }
   }
   for (const t of toks) if ((t.t === "OPEN" || t.t === "QTY") && t.closer === undefined) errors.push(`${t.t === "OPEN" ? "open parenthesis" : "the quantity"} at word ${t.at} is never closed`);

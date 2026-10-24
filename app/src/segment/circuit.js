@@ -79,7 +79,7 @@ export function diffFrames(fa, ma, fb, mb, tau = 0.05) {
 export function unitsFromSegments(seg, { offset = 0, section = null, info = {}, qualifiers = [] } = {}) {
   return seg.segments.map((s) => {
     const c = s.connective ? { ...s.connective, attach: s.connective.attach == null ? null : s.connective.attach + offset } : null;
-    const quals = qualifiers.filter((q) => q.pos >= s.start && q.pos < s.end + 1);
+    const quals = qualifiers.filter((q) => q.pos >= s.start && q.pos < s.end + 1).map((q) => ({ ...q }));
     return { i: s.i + offset, text: s.text, reading: s.reading, poor: s.poor, connective: c, sentence: s.sentence, role: s.role, section, info, qualifiers: quals };
   });
 }
@@ -90,6 +90,8 @@ function creates(ev, role, fl) {
   if (ev === "place") { const det = fl[3]; return det === "a" || det === "an" || (!det && isPlural(fl[1]) && !SET_DETS.has(det)); }
   return false;
 }
+const ROLE_ORDER = ["source", "object", "target", "landmark"];
+const roleRank = (r) => { const k = ROLE_ORDER.indexOf(r); return k < 0 ? ROLE_ORDER.length : k; };
 const wordOf = (fl) => (fl && (fl[0] === "word" || fl[0] === "negword") ? fl[1] : null);
 const isKind = (h) => !!KIND_OF[singular(h)];
 
@@ -100,7 +102,7 @@ const isKind = (h) => !!KIND_OF[singular(h)];
 export function buildCircuit(units, opts = {}) {
   const tau = opts.tau ?? 0.05; const scope = opts.conflictScope || (() => 0);
   const ents = []; const byId = new Map(); let prev = null; const explain = [];
-  const U = units.map((u) => ({ ...u, mentions: [], primary: null, creates: [], mark: null }));
+  const U = units.map((u) => ({ ...u, qualifiers: (u.qualifiers || []).map((q) => ({ ...q, used: false })), mentions: [], primary: null, creates: [], mark: null }));
   const newEntity = (fields) => { const e = { id: `e${ents.length + 1}`, alive: true, label: null, color: null, style: null, scene: null, pending: false, ...fields }; ents.push(e); byId.set(e.id, e); return e; };
   const pendingFor = new Map();                                       // "unit.role" -> entity created by a later unit, linked before it ran
   const readOk = (u) => u.role === "command" && !u.poor && u.reading && u.reading.frame && u.reading.frame.event;
@@ -156,7 +158,9 @@ export function buildCircuit(units, opts = {}) {
     if (u.role === "speaker") continue;
     if (!readOk(u)) continue;
     const fr = u.reading.frame; const ev = fr.event; const roles = fr.roles || {};
-    for (const [role, fl] of Object.entries(roles)) {
+    // roles in the order the language writes them (source, object, target, landmark), so that a qualifier kept aside by the script
+    // pre-pass goes to the mention it followed when two mentions share a kind word
+    for (const [role, fl] of Object.entries(roles).sort((a, b) => roleRank(a[0]) - roleRank(b[0]))) {
       if (!fl || fl[0] !== "entity") continue;
       if (ev === "connect" && role === "object" && EDGE.has(singular(fl[1]))) { u.mentions.push({ role, filler: fl, local: true }); continue; }
       if (creates(ev, role, fl)) {
@@ -412,7 +416,9 @@ export function planBound(scene, u, state, opts = {}) {
   let p;
   try { p = (opts.plan || planFrame)(scene, { ...fr, roles }, u.info || {}); }
   finally { for (const [c, l] of restoreLabels) c.label = l; scene.selection = sel0; }
-  for (const st of p.steps) if (st.op === "lock" && st.desc && /^__circuit_|^them$/.test(st.desc.head)) {   // a lock keeps a description that lasts
+  // a lock keeps a description that lasts: a pronoun or a circuit binding becomes the component's label, else its kind word (the
+  // planner checks locks by description, so a lock on "the box" covers every box: stated in the explanation)
+  for (const st of p.steps) if (st.op === "lock" && st.desc && /^__circuit_|^them$|^it$/.test(st.desc.head)) {
     const m = u.mentions.find((x) => x.role === "object" || x.role === "source"); const ids = m ? (state.ids.get(m.entity) || []) : [];
     const c = ids.length ? scene.components.get(ids[0]) : null;
     st.desc = c && c.label ? { head: c.label, attr: null, det: null } : c ? { head: ids.length > 1 ? `${c.word}s` : c.word, attr: null, det: "the" } : st.desc;
