@@ -1,0 +1,7 @@
+{
+  "name": "vss-editor-build",
+  "private": true,
+  "description": "Build-time only: bundles app/ into one self-contained HTML file. Nothing here is shipped or loaded at run time.",
+  "type": "module",
+  "devDependencies": { "esbuild": "0.24.2" }
+}

@@ -30,7 +30,7 @@ export class VSS {
     const sop = write(opts.directives || [["world", this.model.world || "?"], ["legend", this.model.legend_sha256]], wires);
     const fr = { speakers: decoded.speakers, neg: decoded.neg, event: decoded.event, roles: decoded.roles, shape: frame.shape, lemma: decoded.lemma ?? null, depth: decoded.depth ?? 0, scope: decoded.scope ?? null };
     return { sop, wires, frame: fr, shape: frame.shape, margins: decoded.margins || {}, presence: decoded.presence || {}, status: info.status, residual: info.residual,
-             unplaced: info.unplaced.map((i) => info.tokens[i]), tokens: info.tokens, state: info.S, missingStars: [...this.stars.missing],
+             unplaced: info.unplaced.map((i) => info.tokens[i]), tokens: info.tokens, state: info.S, missingStars: [...this.stars.missing], candidates: decoded.runner_up || {},
              timings: { chart_ms: info.ms_chart, total_ms: performance.now() - t0 } };
   }
 }

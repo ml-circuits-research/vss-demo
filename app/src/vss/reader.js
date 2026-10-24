@@ -141,7 +141,7 @@ export class Reader {
     if (ws.length === 1) return [ws[0], sc[0], sc[0]];
     let i1 = 0; for (let i = 1; i < sc.length; i++) if (sc[i] > sc[i1]) i1 = i;
     let i2 = i1 === 0 ? 1 : 0; for (let i = 0; i < sc.length; i++) if (i !== i1 && sc[i] > sc[i2]) i2 = i;
-    return [ws[i1], sc[i1] - sc[i2], sc[i1]];
+    return [ws[i1], sc[i1] - sc[i2], sc[i1], ws[i2]];      // the 4th element (runner-up) is for the dialog only, not part of parity
   }
   fillerTop(Sn, key, r) {
     if (Object.hasOwn(this.closed, r)) return Reader.best(cmul(Sn, key), this.roleCands(r));
@@ -172,7 +172,7 @@ export class Reader {
     if (thr !== undefined && thr !== null && presence !== "all") out.presence_margin = Math.abs(ratio - thr);
     if (!present) return out;
     if (rs.main === "entity") {
-      const [h, mg, top] = Reader.best(cmul(Sn, key), this.cands(rs.head_kinds)); out.margins[r] = mg;
+      const [h, mg, top, h2] = Reader.best(cmul(Sn, key), this.cands(rs.head_kinds)); out.margins[r] = mg; out.runnerUp = h2;
       let attr = null;
       if (rs.attr_kinds && rs.attr_kinds.length) {
         const ka = cmulc(key, this.st.op("attr")), ca = this.cands(rs.attr_kinds);
@@ -191,7 +191,7 @@ export class Reader {
     } else {
       const c = this.cands(rs.kinds); let w1 = Reader.best(cmul(Sn, key), c), neg = false;
       if (rs.negword) { const w2 = Reader.best(cmulc(cmul(Sn, key), this.st.op("not")), c); if (w2[2] > w1[2]) { w1 = w2; neg = true; } }
-      out.filler = [neg ? "negword" : "word", w1[0]]; out.margins[r] = w1[1];
+      out.filler = [neg ? "negword" : "word", w1[0]]; out.margins[r] = w1[1]; out.runnerUp = w1[3];
     }
     return out;
   }
@@ -252,6 +252,7 @@ export class Reader {
           f.margins[r] = Math.min(o.margins[r] !== undefined ? o.margins[r] : 1.0, o.presence_margin);
         }
         if (o.det_best) (f.det_best = f.det_best || {})[r] = o.det_best;
+        if (o.runnerUp != null) (f.runner_up = f.runner_up || {})[r] = [o.filler[0] === "entity" ? o.filler[1] : o.filler[1], o.runnerUp];
       }
     }
     if (this.legend.reader.scope_terms) this.readScope(Sn, K, core, f);

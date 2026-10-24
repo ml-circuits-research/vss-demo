@@ -57,7 +57,8 @@ export function phoneticKeys(word) {
 }
 
 // lexicon: {word: frequency}; labels: [label tokens in the diagram]; protect: Set of tokens never corrected
-export function createCorrector({ lexicon, labels = [], isEnglish = () => false, labelIntro = ["called", "named", "labelled", "labeled", "titled", "saying"] }) {
+// candidates (optional): (token, mode) -> [{word, cost}] replaces the built-in candidate search (the VSS form level, app/src/form.js, spec 12.4)
+export function createCorrector({ lexicon, labels = [], isEnglish = () => false, labelIntro = ["called", "named", "labelled", "labeled", "titled", "saying"], candidates: candFn = null }) {
   const words = new Map(Object.entries(lexicon));
   const intro = new Set(labelIntro);
   let labelSet = new Set(labels);
@@ -93,7 +94,7 @@ export function createCorrector({ lexicon, labels = [], isEnglish = () => false,
 
   function correct(tokens, { mode = "typed", maxVariants = 4 } = {}) {
     const out = []; const corrections = []; const options = [];          // options: {pos, span, alt: [tokens]} applied to `out` for the variants
-    const cand = (t) => (mode === "speech" ? phoneticCandidates(t) : []).concat(mode === "speech" && phoneticCandidates(t).length ? [] : typedCandidates(t)).sort((a, b) => a.cost - b.cost);
+    const cand = candFn ? (t) => candFn(t, mode) : (t) => (mode === "speech" ? phoneticCandidates(t) : []).concat(mode === "speech" && phoneticCandidates(t).length ? [] : typedCandidates(t)).sort((a, b) => a.cost - b.cost);
     for (let i = 0; i < tokens.length; i++) {
       const t = tokens[i], prev = tokens[i - 1];
       if (known(t) || isNumber(t) || /^[.,;:!?]$/.test(t) || (prev && intro.has(prev))) {
