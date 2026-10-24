@@ -1,0 +1,428 @@
+{"surface": "Bold the last sentence.", "tokens": ["embolden", "the", "last", "sentence", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make it bold", "tokens": ["make", "it", "bold"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "Could you BOLD the word Revenue?", "tokens": ["could", "you", "embolden", "the", "word", "revenue", "?"], "info": {"labels": {"revenue": "revenue"}, "numbers": {}}}
+{"surface": "centre that line please", "tokens": ["centre", "this", "line", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align it centre", "tokens": ["align", "it", "center"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "replace twenty five with thirty", "tokens": ["replace", "25", "with", "30"], "info": {"labels": {}, "numbers": {"25": 25, "30": 30}}}
+{"surface": "Make \"next quarter\" red.", "tokens": ["make", "next_quarter", "red", "."], "info": {"labels": {"next_quarter": "next quarter"}, "numbers": {}}}
+{"surface": "select from Q3 to the end", "tokens": ["select", "from", "q3", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "select from the start to 'old plan'", "tokens": ["select", "at_start", "to", "old_plan"], "info": {"labels": {"old_plan": "old plan"}, "numbers": {}}}
+{"surface": "turn the last three lines into a numbered list", "tokens": ["turn", "the", "last_3", "lines", "into", "a", "numbered_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the first 2 words heading 2", "tokens": ["make", "the", "first_2", "words", "heading_two"], "info": {"labels": {"heading_two": "heading_two"}, "numbers": {}}}
+{"surface": "remove the bold from that paragraph", "tokens": ["unformat", "bold", "this", "paragraph"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "unbold it", "tokens": ["unformat", "bold", "it"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put a full stop at the end", "tokens": ["put", "a", "full_stop", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add an exclamation point after hello", "tokens": ["add", "an", "exclamation_mark", "after", "hello"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "scratch that", "tokens": ["delete", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "read it back", "tokens": ["read", "it"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put the cursor at the end of the line", "tokens": ["move", "the", "cursor", "at_end", "of", "the", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "don't delete it", "tokens": ["do", "not", "delete", "it"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's italicize the previous four characters", "tokens": ["lets", "italicise", "the", "previous_4", "characters"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "strike through the word very", "tokens": ["strike", "the", "word", "very"], "info": {"labels": {"very": "very"}, "numbers": {}}}
+{"surface": "cross out that sentence", "tokens": ["strike", "this", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete the word .", "tokens": ["delete", "the", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "the word", "tokens": ["the", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "two hundred", "tokens": ["200"], "info": {"labels": {}, "numbers": {"2": 2, "200": 200}}}
+{"surface": "one more line", "tokens": ["one", "more", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "highlight the word revenue in yellow", "tokens": ["highlight", "the", "word", "revenue", "in", "yellow"], "info": {"labels": {"revenue": "revenue"}, "numbers": {}}}
+{"surface": "make the text bigger", "tokens": ["make", "the", "text", "bigger"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mark the last list item .", "tokens": ["mark", "the", "last", "list_item", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please select this word", "tokens": ["please", "select", "this", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you select the fourth paragraph", "tokens": ["could", "you", "select", "the", "fourth", "paragraph"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you mark the fifth sentence", "tokens": ["can", "you", "mark", "the", "fifth", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you select the fifth paragraph", "tokens": ["would", "you", "select", "the", "fifth", "paragraph"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to mark the first two characters", "tokens": ["i", "want", "you", "to", "mark", "the", "first_2", "characters"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to choose the third list item .", "tokens": ["i", "need", "you", "to", "choose", "the", "third", "list_item", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's mark the second character .", "tokens": ["lets", "mark", "the", "second", "character", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now select the last sentence", "tokens": ["now", "select", "the", "last", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so select the fifth word .", "tokens": ["okay", "so", "select", "the", "fifth", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "choose the previous paragraph please .", "tokens": ["choose", "the", "previous", "paragraph", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "choose it .", "tokens": ["choose", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please select it .", "tokens": ["please", "select", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you select everything .", "tokens": ["could", "you", "select", "everything", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you choose that", "tokens": ["can", "you", "choose", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you select that", "tokens": ["would", "you", "select", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to choose it .", "tokens": ["i", "want", "you", "to", "choose", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to choose that .", "tokens": ["i", "need", "you", "to", "choose", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's select it .", "tokens": ["lets", "select", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now select it .", "tokens": ["now", "select", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so select that .", "tokens": ["okay", "so", "select", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "select that please", "tokens": ["select", "that", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "choose q1", "tokens": ["choose", "q1"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please select the word onboarding .", "tokens": ["please", "select", "the", "word", "onboarding", "."], "info": {"labels": {"onboarding": "onboarding"}, "numbers": {}}}
+{"surface": "could you select \"action items\"", "tokens": ["could", "you", "select", "action_items"], "info": {"labels": {"action_items": "action items"}, "numbers": {}}}
+{"surface": "can you choose the word hello", "tokens": ["can", "you", "choose", "the", "word", "hello"], "info": {"labels": {"hello": "hello"}, "numbers": {}}}
+{"surface": "would you mark their in the status card .", "tokens": ["would", "you", "mark", "their", "in", "the", "status", "card", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to select sales", "tokens": ["i", "want", "you", "to", "select", "sales"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to mark \"roadmap item\"", "tokens": ["i", "need", "you", "to", "mark", "roadmap_item"], "info": {"labels": {"roadmap_item": "roadmap item"}, "numbers": {}}}
+{"surface": "let's choose good .", "tokens": ["lets", "choose", "good", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now mark retention", "tokens": ["now", "mark", "retention"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so mark 75", "tokens": ["okay", "so", "mark", "75"], "info": {"labels": {}, "numbers": {"75": 75}}}
+{"surface": "select the word kpi please .", "tokens": ["select", "the", "word", "kpi", "please", "."], "info": {"labels": {"kpi": "kpi"}, "numbers": {}}}
+{"surface": "select from the beginning to market .", "tokens": ["select", "at_start", "to", "market", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please select from old to the end", "tokens": ["please", "select", "from", "old", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you select from the beginning to \"customer success\"", "tokens": ["could", "you", "select", "at_start", "to", "customer_success"], "info": {"labels": {"customer_success": "customer success"}, "numbers": {}}}
+{"surface": "can you select from the start to winter", "tokens": ["can", "you", "select", "at_start", "to", "winter"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you select from paul to the end", "tokens": ["would", "you", "select", "from", "paul", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to select from the beginning to kpi", "tokens": ["i", "want", "you", "to", "select", "at_start", "to", "kpi"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to select from the start to survey .", "tokens": ["i", "need", "you", "to", "select", "at_start", "to", "survey", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's select from new to the end", "tokens": ["lets", "select", "from", "new", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now select from draft until the end", "tokens": ["now", "select", "from", "draft", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so select from the start to salary", "tokens": ["okay", "so", "select", "at_start", "to", "salary"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "select from the start to really please .", "tokens": ["select", "at_start", "to", "really", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "turn the whole text underlined", "tokens": ["turn", "everything", "underlined"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please turn the selected text highlighted", "tokens": ["please", "turn", "the", "selection", "highlighted"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you turn the first four list items bold .", "tokens": ["could", "you", "turn", "the", "first_4", "list_items", "bold", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you make the first word bold .", "tokens": ["can", "you", "make", "the", "first", "word", "bold", "."], "info": {"labels": {"bold": "bold"}, "numbers": {}}}
+{"surface": "would you make the last character highlighted .", "tokens": ["would", "you", "make", "the", "last", "character", "highlighted", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to make the first 5 lines highlighted .", "tokens": ["i", "want", "you", "to", "make", "the", "first_5", "lines", "highlighted", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to make 10 italics .", "tokens": ["i", "need", "you", "to", "make", "10", "italic", "."], "info": {"labels": {}, "numbers": {"10": 10}}}
+{"surface": "let's make the fifth paragraph in bold", "tokens": ["lets", "make", "the", "fifth", "paragraph", "bold"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now set that crossed out", "tokens": ["now", "set", "that", "strikethrough"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so make quickly highlighted", "tokens": ["okay", "so", "make", "quickly", "highlighted"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make budget highlighted please", "tokens": ["make", "budget", "highlighted", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the first line black", "tokens": ["make", "the", "first", "line", "black"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please color the fourth line pink .", "tokens": ["please", "color", "the", "fourth", "line", "pink", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you turn the word berlin blue", "tokens": ["could", "you", "turn", "the", "word", "berlin", "blue"], "info": {"labels": {"berlin": "berlin"}, "numbers": {}}}
+{"surface": "can you make 2026 white .", "tokens": ["can", "you", "make", "2026", "white", "."], "info": {"labels": {}, "numbers": {"2026": 2026}}}
+{"surface": "would you colour everything gray .", "tokens": ["would", "you", "color", "everything", "gray", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to make the word its pink", "tokens": ["i", "want", "you", "to", "make", "the", "word", "its", "pink"], "info": {"labels": {"its": "its"}, "numbers": {}}}
+{"surface": "i need you to color the word peter pink", "tokens": ["i", "need", "you", "to", "color", "the", "word", "peter", "pink"], "info": {"labels": {"peter": "peter"}, "numbers": {}}}
+{"surface": "let's make the previous list item gray", "tokens": ["lets", "make", "the", "previous", "list_item", "gray"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now color the first five paragraphs yellow", "tokens": ["now", "color", "the", "first_5", "paragraphs", "yellow"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so colour the selection red", "tokens": ["okay", "so", "color", "the", "selection", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make that sentence black please .", "tokens": ["make", "this", "sentence", "black", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the previous 3 paragraphs bigger", "tokens": ["make", "the", "previous_3", "paragraphs", "bigger"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please make the word old large", "tokens": ["please", "make", "the", "word", "old", "large"], "info": {"labels": {"old": "old"}, "numbers": {}}}
+{"surface": "could you make the fourth character small .", "tokens": ["could", "you", "make", "the", "fourth", "character", "small", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you make the fourth paragraph large .", "tokens": ["can", "you", "make", "the", "fourth", "paragraph", "large", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you make the previous five list items smaller", "tokens": ["would", "you", "make", "the", "previous_5", "list_items", "smaller"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to make the selection small", "tokens": ["i", "want", "you", "to", "make", "the", "selection", "small"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to make it normal", "tokens": ["i", "need", "you", "to", "make", "it", "normal"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's make berlin normal .", "tokens": ["lets", "make", "berlin", "normal", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now make the first character small .", "tokens": ["now", "make", "the", "first", "character", "small", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so make sales bigger", "tokens": ["okay", "so", "make", "sales", "bigger"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the last character normal please .", "tokens": ["make", "the", "last", "character", "normal", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "strike through it in the decisions textbox .", "tokens": ["strike", "it", "in", "the", "decisions", "textbox", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please embolden this word .", "tokens": ["please", "embolden", "this", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you italicise \"roadmap item\" .", "tokens": ["could", "you", "italicise", "roadmap_item", "."], "info": {"labels": {"roadmap_item": "roadmap item"}, "numbers": {}}}
+{"surface": "can you highlight the last two paragraphs", "tokens": ["can", "you", "highlight", "the", "last_2", "paragraphs"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you embolden warranty", "tokens": ["would", "you", "embolden", "warranty"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to embolden the selection .", "tokens": ["i", "want", "you", "to", "embolden", "the", "selection", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to underline monday", "tokens": ["i", "need", "you", "to", "underline", "monday"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's cross out that paragraph .", "tokens": ["lets", "strike", "this", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now bold the selection .", "tokens": ["now", "embolden", "the", "selection", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so highlight the second line in the agenda widget", "tokens": ["okay", "so", "highlight", "the", "second", "line", "in", "the", "agenda", "widget"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "italicize dividend please", "tokens": ["italicise", "dividend", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "highlight revenue in blue .", "tokens": ["highlight", "revenue", "in", "blue", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please highlight the second sentence in pink .", "tokens": ["please", "highlight", "the", "second", "sentence", "in", "pink", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you highlight the next four paragraphs in orange", "tokens": ["could", "you", "highlight", "the", "next_4", "paragraphs", "in", "orange"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you highlight the fifth line in orange", "tokens": ["can", "you", "highlight", "the", "fifth", "line", "in", "orange"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you highlight the word project in orange", "tokens": ["would", "you", "highlight", "the", "word", "project", "in", "orange"], "info": {"labels": {"project": "project"}, "numbers": {}}}
+{"surface": "i want you to highlight 75 in green .", "tokens": ["i", "want", "you", "to", "highlight", "75", "in", "green", "."], "info": {"labels": {}, "numbers": {"75": 75}}}
+{"surface": "i need you to highlight the next 5 words in pink", "tokens": ["i", "need", "you", "to", "highlight", "the", "next_5", "words", "in", "pink"], "info": {"labels": {"in": "in"}, "numbers": {}}}
+{"surface": "let's highlight results in pink", "tokens": ["lets", "highlight", "results", "in", "pink"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now highlight the last line in yellow .", "tokens": ["now", "highlight", "the", "last", "line", "in", "yellow", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so highlight the fourth line in pink", "tokens": ["okay", "so", "highlight", "the", "fourth", "line", "in", "pink"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "highlight results in orange please", "tokens": ["highlight", "results", "in", "orange", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "set the next line into heading 3", "tokens": ["set", "the", "next", "line", "into", "heading_three"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please set the fifth paragraph heading 2", "tokens": ["please", "set", "the", "fifth", "paragraph", "heading_two"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you make the last four paragraphs heading 3 .", "tokens": ["could", "you", "make", "the", "last_4", "paragraphs", "heading_three", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you turn this sentence heading one .", "tokens": ["can", "you", "turn", "this", "sentence", "heading_one", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you make the third sentence plain text .", "tokens": ["would", "you", "make", "the", "third", "sentence", "plain", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to turn the next line into a subheading", "tokens": ["i", "want", "you", "to", "turn", "the", "next", "line", "into", "a", "heading_two"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to set the second paragraph a subheading .", "tokens": ["i", "need", "you", "to", "set", "the", "second", "paragraph", "a", "heading_two", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's set the next two paragraphs heading 2", "tokens": ["lets", "set", "the", "next_2", "paragraphs", "heading_two"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now make the fifth line heading two .", "tokens": ["now", "make", "the", "fifth", "line", "heading_two", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so turn the last paragraph into heading one", "tokens": ["okay", "so", "turn", "the", "last", "paragraph", "into", "heading_one"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the second paragraph into a level one heading please .", "tokens": ["make", "the", "second", "paragraph", "into", "a", "heading_one", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "convert the last two lines into a numbered list .", "tokens": ["convert", "the", "last_2", "lines", "into", "a", "numbered_list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please make the first 2 sentences into a list", "tokens": ["please", "make", "the", "first_2", "sentences", "into", "a", "list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you make the next 3 paragraphs into bullet points .", "tokens": ["could", "you", "make", "the", "next_3", "paragraphs", "into", "bullet_list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you turn the last two lines into a list", "tokens": ["can", "you", "turn", "the", "last_2", "lines", "into", "a", "list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you turn the next four lines into bullet points", "tokens": ["would", "you", "turn", "the", "next_4", "lines", "into", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to convert the first two lines into a list .", "tokens": ["i", "want", "you", "to", "convert", "the", "first_2", "lines", "into", "a", "list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to convert the first four paragraphs into a list .", "tokens": ["i", "need", "you", "to", "convert", "the", "first_4", "paragraphs", "into", "a", "list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's make the first four sentences into bullet points .", "tokens": ["lets", "make", "the", "first_4", "sentences", "into", "bullet_list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now turn that paragraph into a numbered list", "tokens": ["now", "turn", "this", "paragraph", "into", "a", "numbered_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so convert the next three sentences into a list", "tokens": ["okay", "so", "convert", "the", "next_3", "sentences", "into", "a", "list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "convert the first three lines into an ordered list please", "tokens": ["convert", "the", "first_3", "lines", "into", "an", "numbered_list", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "format the next list item as a numbered list", "tokens": ["format", "the", "next", "list_item", "as", "a", "numbered_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please format the fourth line as a bullet list", "tokens": ["please", "format", "the", "fourth", "line", "as", "a", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you format the previous character as bold", "tokens": ["could", "you", "format", "the", "previous", "character", "as", "bold"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you format the first three lines as heading two", "tokens": ["can", "you", "format", "the", "first_3", "lines", "as", "heading_two"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you format the third character as normal text", "tokens": ["would", "you", "format", "the", "third", "character", "as", "plain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to format the first sentence as italic .", "tokens": ["i", "want", "you", "to", "format", "the", "first", "sentence", "as", "italic", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to format the next word as heading two", "tokens": ["i", "need", "you", "to", "format", "the", "next", "word", "as", "heading_two"], "info": {"labels": {"as": "as"}, "numbers": {}}}
+{"surface": "let's format the word tomorrow as heading 3 .", "tokens": ["lets", "format", "the", "word", "tomorrow", "as", "heading_three", "."], "info": {"labels": {"tomorrow": "tomorrow"}, "numbers": {}}}
+{"surface": "now format the first sentence as a level one heading .", "tokens": ["now", "format", "the", "first", "sentence", "as", "a", "heading_one", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so format the word warranty as an ordered list", "tokens": ["okay", "so", "format", "the", "word", "warranty", "as", "an", "numbered_list"], "info": {"labels": {"warranty": "warranty"}, "numbers": {}}}
+{"surface": "format the next five lines as plain text please .", "tokens": ["format", "the", "next_5", "lines", "as", "plain", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove the formatting from the second paragraph .", "tokens": ["unformat", "the", "second", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please remove the formatting from the next five lines", "tokens": ["please", "unformat", "the", "next_5", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you unformat the fourth word .", "tokens": ["could", "you", "unformat", "the", "fourth", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you remove the formatting from the selection .", "tokens": ["can", "you", "unformat", "the", "selection", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you clear the formatting of that .", "tokens": ["would", "you", "unformat", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to unformat the last sentence", "tokens": ["i", "want", "you", "to", "unformat", "the", "last", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to clear the formatting of the first 3 lines", "tokens": ["i", "need", "you", "to", "unformat", "the", "first_3", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's clear the formatting of that", "tokens": ["lets", "unformat", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now remove the formatting from the last five lines", "tokens": ["now", "unformat", "the", "last_5", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so unformat that", "tokens": ["okay", "so", "unformat", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the formatting of the word spring please .", "tokens": ["unformat", "the", "word", "spring", "please", "."], "info": {"labels": {"spring": "spring"}, "numbers": {}}}
+{"surface": "remove the bold from market", "tokens": ["unformat", "bold", "market"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please remove the underline from the last line", "tokens": ["please", "unformat", "underlined", "the", "last", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you remove the italics from that line", "tokens": ["could", "you", "unformat", "italic", "this", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you remove the strikethrough from launch .", "tokens": ["can", "you", "unformat", "strikethrough", "launch", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you remove the italics from the third paragraph .", "tokens": ["would", "you", "unformat", "italic", "the", "third", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to remove the highlight from anna .", "tokens": ["i", "want", "you", "to", "unformat", "highlighted", "anna", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to remove the highlight from the previous four paragraphs", "tokens": ["i", "need", "you", "to", "unformat", "highlighted", "the", "previous_4", "paragraphs"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's unbold the next two words", "tokens": ["lets", "unformat", "bold", "the", "next_2", "words"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now remove the strikethrough from the first three list items", "tokens": ["now", "unformat", "strikethrough", "the", "first_3", "list_items"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so remove the underline from \"roadmap item\"", "tokens": ["okay", "so", "unformat", "underlined", "roadmap_item"], "info": {"labels": {"roadmap_item": "roadmap item"}, "numbers": {}}}
+{"surface": "remove the highlight from the selection please .", "tokens": ["unformat", "highlighted", "the", "selection", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "insert today before \"next steps\"", "tokens": ["insert", "today", "before", "next_steps"], "info": {"labels": {"next_steps": "next steps"}, "numbers": {}}}
+{"surface": "please insert friday after q3 .", "tokens": ["please", "insert", "friday", "after", "q3", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you add forty five before quarter", "tokens": ["could", "you", "add", "45", "before", "quarter"], "info": {"labels": {}, "numbers": {"45": 45}}}
+{"surface": "can you put thanks before dividend .", "tokens": ["can", "you", "put", "thanks", "before", "dividend", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you put maria after draft", "tokens": ["would", "you", "put", "maria", "after", "draft"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to insert margin after london", "tokens": ["i", "want", "you", "to", "insert", "margin", "after", "london"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to type annual after paul", "tokens": ["i", "need", "you", "to", "type", "annual", "after", "paul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's insert old after draft", "tokens": ["lets", "insert", "old", "after", "draft"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now put 2025 before growth .", "tokens": ["now", "put", "2025", "before", "growth", "."], "info": {"labels": {}, "numbers": {"2025": 2025}}}
+{"surface": "okay so type good after eighty", "tokens": ["okay", "so", "type", "good", "after", "80"], "info": {"labels": {}, "numbers": {"80": 80}}}
+{"surface": "insert victor after salary please", "tokens": ["insert", "victor", "after", "salary", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "type feedback at the end", "tokens": ["type", "feedback", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please insert procurement at the start", "tokens": ["please", "insert", "procurement", "at_start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you add forecast at the beginning .", "tokens": ["could", "you", "add", "forecast", "at_start", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you add anna at the start .", "tokens": ["can", "you", "add", "anna", "at_start", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you insert london at the end .", "tokens": ["would", "you", "insert", "london", "at_end", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to add growth at the end", "tokens": ["i", "want", "you", "to", "add", "growth", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to insert survey at the end .", "tokens": ["i", "need", "you", "to", "insert", "survey", "at_end", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's type \"roadmap item\" at the end .", "tokens": ["lets", "type", "roadmap_item", "at_end", "."], "info": {"labels": {"roadmap_item": "roadmap item"}, "numbers": {}}}
+{"surface": "now insert hello at the end .", "tokens": ["now", "insert", "hello", "at_end", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so insert results at the end", "tokens": ["okay", "so", "insert", "results", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add forty at the end please .", "tokens": ["add", "40", "at_end", "please", "."], "info": {"labels": {}, "numbers": {"40": 40}}}
+{"surface": "insert berlin at the end of the last paragraph .", "tokens": ["insert", "berlin", "at_end", "of", "the", "last", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please insert chart at the start of the previous sentence", "tokens": ["please", "insert", "chart", "at_start", "of", "the", "previous", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you insert paris at the end of that word", "tokens": ["could", "you", "insert", "paris", "at_end", "of", "this", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you add important at the end of the fourth sentence .", "tokens": ["can", "you", "add", "important", "at_end", "of", "the", "fourth", "sentence", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you insert revenue at the start of the next word .", "tokens": ["would", "you", "insert", "revenue", "at_start", "of", "the", "next", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to add twenty five at the end of the second list item .", "tokens": ["i", "want", "you", "to", "add", "25", "at_end", "of", "the", "second", "list_item", "."], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "i need you to add revenue at the end of this list item .", "tokens": ["i", "need", "you", "to", "add", "revenue", "at_end", "of", "this", "list_item", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's add quickly at the end of the previous word .", "tokens": ["lets", "add", "quickly", "at_end", "of", "the", "previous", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now insert slides at the end of the fourth line", "tokens": ["now", "insert", "slides", "at_end", "of", "the", "fourth", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so insert project at the start of the first line .", "tokens": ["okay", "so", "insert", "project", "at_start", "of", "the", "first", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add summer at the end of the next paragraph please .", "tokens": ["add", "summer", "at_end", "of", "the", "next", "paragraph", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add a colon before goals", "tokens": ["add", "a", "colon", "before", "goals"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please insert a semi colon at the end .", "tokens": ["please", "insert", "a", "semicolon", "at_end", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you insert a semicolon before elena", "tokens": ["could", "you", "insert", "a", "semicolon", "before", "elena"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you insert new line before 2025", "tokens": ["can", "you", "insert", "new_line", "before", "2025"], "info": {"labels": {}, "numbers": {"2025": 2025}}}
+{"surface": "would you insert a comma after q1 .", "tokens": ["would", "you", "insert", "a", "comma", "after", "q1", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to put a question mark before client", "tokens": ["i", "want", "you", "to", "put", "a", "question_mark", "before", "client"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to add a period at the end", "tokens": ["i", "need", "you", "to", "add", "a", "full_stop", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's insert a period at the end", "tokens": ["lets", "insert", "a", "full_stop", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now put new paragraph at the end", "tokens": ["now", "put", "new_paragraph", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so put an exclamation point before contract", "tokens": ["okay", "so", "put", "an", "exclamation_mark", "before", "contract"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add an exclamation mark before quickly please", "tokens": ["add", "an", "exclamation_mark", "before", "quickly", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove the last four list items in the abstract textbox .", "tokens": ["remove", "the", "last_4", "list_items", "in", "the", "abstract", "textbox", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please cut the fifth paragraph", "tokens": ["please", "cut", "the", "fifth", "paragraph"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you cut the next 2 words", "tokens": ["could", "you", "cut", "the", "next_2", "words"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you cut the previous 3 lines .", "tokens": ["can", "you", "cut", "the", "previous_3", "lines", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you cut the second paragraph in the retro card", "tokens": ["would", "you", "cut", "the", "second", "paragraph", "in", "the", "retro", "card"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to remove the fourth sentence in the conclusion card .", "tokens": ["i", "want", "you", "to", "remove", "the", "fourth", "sentence", "in", "the", "conclusion", "card", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to cut the first line", "tokens": ["i", "need", "you", "to", "cut", "the", "first", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's erase the previous 2 lines", "tokens": ["lets", "erase", "the", "previous_2", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now erase the fourth list item", "tokens": ["now", "erase", "the", "fourth", "list_item"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so cut the last two list items .", "tokens": ["okay", "so", "cut", "the", "last_2", "list_items", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove the last two list items please", "tokens": ["remove", "the", "last_2", "list_items", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove it .", "tokens": ["remove", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please remove that .", "tokens": ["please", "remove", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you cut all of it", "tokens": ["could", "you", "cut", "everything"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you erase it .", "tokens": ["can", "you", "erase", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you cut the selection", "tokens": ["would", "you", "cut", "the", "selection"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to scratch that .", "tokens": ["i", "want", "you", "to", "delete", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to delete that .", "tokens": ["i", "need", "you", "to", "delete", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's erase everything .", "tokens": ["lets", "erase", "everything", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now scratch that", "tokens": ["now", "delete", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so delete it .", "tokens": ["okay", "so", "delete", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase that please", "tokens": ["erase", "that", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete dividend", "tokens": ["delete", "dividend"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please erase contract .", "tokens": ["please", "erase", "contract", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you remove kpi .", "tokens": ["could", "you", "remove", "kpi", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you erase summer", "tokens": ["can", "you", "erase", "summer"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you erase the word maria", "tokens": ["would", "you", "erase", "the", "word", "maria"], "info": {"labels": {"maria": "maria"}, "numbers": {}}}
+{"surface": "i want you to remove offer", "tokens": ["i", "want", "you", "to", "remove", "offer"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to erase their", "tokens": ["i", "need", "you", "to", "erase", "their"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's erase quickly .", "tokens": ["lets", "erase", "quickly", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now remove forecast", "tokens": ["now", "remove", "forecast"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so remove 10 .", "tokens": ["okay", "so", "remove", "10", "."], "info": {"labels": {}, "numbers": {"10": 10}}}
+{"surface": "remove great please .", "tokens": ["remove", "great", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete everything before retention .", "tokens": ["delete", "everything", "before", "retention", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please delete everything before revenue", "tokens": ["please", "delete", "everything", "before", "revenue"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you delete everything before client", "tokens": ["could", "you", "delete", "everything", "before", "client"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you delete everything before very .", "tokens": ["can", "you", "delete", "everything", "before", "very", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you delete everything before procurement", "tokens": ["would", "you", "delete", "everything", "before", "procurement"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to delete everything after spring .", "tokens": ["i", "want", "you", "to", "delete", "everything", "after", "spring", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to delete everything after kpi", "tokens": ["i", "need", "you", "to", "delete", "everything", "after", "kpi"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's delete everything after winter", "tokens": ["lets", "delete", "everything", "after", "winter"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now delete everything before hiring .", "tokens": ["now", "delete", "everything", "before", "hiring", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so delete everything before autumn", "tokens": ["okay", "so", "delete", "everything", "before", "autumn"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete everything before travel please .", "tokens": ["delete", "everything", "before", "travel", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "replace the word tokyo with procurement", "tokens": ["replace", "the", "word", "tokyo", "with", "procurement"], "info": {"labels": {"tokyo": "tokyo"}, "numbers": {}}}
+{"surface": "please replace maybe with eighty", "tokens": ["please", "replace", "maybe", "with", "80"], "info": {"labels": {}, "numbers": {"80": 80}}}
+{"surface": "could you replace launch with costs .", "tokens": ["could", "you", "replace", "launch", "with", "costs", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you replace 200 with warranty .", "tokens": ["can", "you", "replace", "200", "with", "warranty", "."], "info": {"labels": {}, "numbers": {"200": 200}}}
+{"surface": "would you replace hiring with regards", "tokens": ["would", "you", "replace", "hiring", "with", "regards"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to replace travel with q2", "tokens": ["i", "want", "you", "to", "replace", "travel", "with", "q2"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to replace q2 with sales .", "tokens": ["i", "need", "you", "to", "replace", "q2", "with", "sales", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's replace compliance with new", "tokens": ["lets", "replace", "compliance", "with", "new"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now replace the word victor with really", "tokens": ["now", "replace", "the", "word", "victor", "with", "really"], "info": {"labels": {"victor": "victor"}, "numbers": {}}}
+{"surface": "okay so replace margin with important", "tokens": ["okay", "so", "replace", "margin", "with", "important"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "replace q2 with tokyo please", "tokens": ["replace", "q2", "with", "tokyo", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change anna to monday", "tokens": ["change", "anna", "to", "monday"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please correct annual to 2027", "tokens": ["please", "correct", "annual", "to", "2027"], "info": {"labels": {}, "numbers": {"2027": 2027}}}
+{"surface": "could you correct kpi to retention .", "tokens": ["could", "you", "correct", "kpi", "to", "retention", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you correct revenue to project", "tokens": ["can", "you", "correct", "revenue", "to", "project"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you correct project to q3", "tokens": ["would", "you", "correct", "project", "to", "q3"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to correct users to revenue", "tokens": ["i", "want", "you", "to", "correct", "users", "to", "revenue"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to correct 2027 to chart", "tokens": ["i", "need", "you", "to", "correct", "2027", "to", "chart"], "info": {"labels": {}, "numbers": {"2027": 2027}}}
+{"surface": "let's correct invoice to tokyo .", "tokens": ["lets", "correct", "invoice", "to", "tokyo", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now change good to data", "tokens": ["now", "change", "good", "to", "data"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so correct budget to \"roadmap item\"", "tokens": ["okay", "so", "correct", "budget", "to", "roadmap_item"], "info": {"labels": {"roadmap_item": "roadmap item"}, "numbers": {}}}
+{"surface": "change urgent to warranty please .", "tokens": ["change", "urgent", "to", "warranty", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "replace this word with revenue", "tokens": ["replace", "this", "word", "with", "revenue"], "info": {"labels": {"with": "with"}, "numbers": {}}}
+{"surface": "please replace the previous sentence with 250", "tokens": ["please", "replace", "the", "previous", "sentence", "with", "250"], "info": {"labels": {}, "numbers": {"250": 250}}}
+{"surface": "could you replace the second word with q4", "tokens": ["could", "you", "replace", "the", "second", "word", "with", "q4"], "info": {"labels": {"with": "with"}, "numbers": {}}}
+{"surface": "can you replace the last line with product .", "tokens": ["can", "you", "replace", "the", "last", "line", "with", "product", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you replace the last line with costs .", "tokens": ["would", "you", "replace", "the", "last", "line", "with", "costs", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to replace the fourth sentence with friday", "tokens": ["i", "want", "you", "to", "replace", "the", "fourth", "sentence", "with", "friday"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to replace the next line with team", "tokens": ["i", "need", "you", "to", "replace", "the", "next", "line", "with", "team"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's replace the first sentence with paul", "tokens": ["lets", "replace", "the", "first", "sentence", "with", "paul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now replace the fourth sentence with \"customer success\" .", "tokens": ["now", "replace", "the", "fourth", "sentence", "with", "customer_success", "."], "info": {"labels": {"customer_success": "customer success"}, "numbers": {}}}
+{"surface": "okay so replace the previous sentence with spring", "tokens": ["okay", "so", "replace", "the", "previous", "sentence", "with", "spring"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "replace the third sentence with friday please", "tokens": ["replace", "the", "third", "sentence", "with", "friday", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "go to the end", "tokens": ["go", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please go to the beginning", "tokens": ["please", "go", "at_start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you move the cursor to the start .", "tokens": ["could", "you", "move", "the", "cursor", "at_start", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you jump to the beginning", "tokens": ["can", "you", "jump", "at_start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you move the cursor to the beginning .", "tokens": ["would", "you", "move", "the", "cursor", "at_start", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to move the cursor to the beginning", "tokens": ["i", "want", "you", "to", "move", "the", "cursor", "at_start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to go to the end", "tokens": ["i", "need", "you", "to", "go", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's move the cursor to the end", "tokens": ["lets", "move", "the", "cursor", "at_end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now go to the start", "tokens": ["now", "go", "at_start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so jump to the beginning .", "tokens": ["okay", "so", "jump", "at_start", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the cursor to the beginning please", "tokens": ["move", "the", "cursor", "at_start", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the cursor to the start of the first line .", "tokens": ["move", "the", "cursor", "at_start", "of", "the", "first", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please move the cursor to the start of the second line", "tokens": ["please", "move", "the", "cursor", "at_start", "of", "the", "second", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you jump to the start of the first word", "tokens": ["could", "you", "jump", "at_start", "of", "the", "first", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you move the cursor to the start of the second sentence", "tokens": ["can", "you", "move", "the", "cursor", "at_start", "of", "the", "second", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you go to the start of the first list item", "tokens": ["would", "you", "go", "at_start", "of", "the", "first", "list_item"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to jump to the start of the fifth word .", "tokens": ["i", "want", "you", "to", "jump", "at_start", "of", "the", "fifth", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to move the cursor to the start of the last sentence", "tokens": ["i", "need", "you", "to", "move", "the", "cursor", "at_start", "of", "the", "last", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's move the cursor to the start of the second paragraph .", "tokens": ["lets", "move", "the", "cursor", "at_start", "of", "the", "second", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now move the cursor to the end of the fourth line .", "tokens": ["now", "move", "the", "cursor", "at_end", "of", "the", "fourth", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so jump to the start of the second sentence .", "tokens": ["okay", "so", "jump", "at_start", "of", "the", "second", "sentence", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "jump to the end of the last line please .", "tokens": ["jump", "at_end", "of", "the", "last", "line", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "go to the last word .", "tokens": ["go", "to", "the", "last", "word", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please jump to the fifth list item .", "tokens": ["please", "jump", "to", "the", "fifth", "list_item", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you jump to the third word", "tokens": ["could", "you", "jump", "to", "the", "third", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you move the cursor to the previous paragraph .", "tokens": ["can", "you", "move", "the", "cursor", "to", "the", "previous", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you go to the last word", "tokens": ["would", "you", "go", "to", "the", "last", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to move the cursor to this word", "tokens": ["i", "want", "you", "to", "move", "the", "cursor", "to", "this", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to jump to the second word", "tokens": ["i", "need", "you", "to", "jump", "to", "the", "second", "word"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's jump to that paragraph .", "tokens": ["lets", "jump", "to", "this", "paragraph", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now go to the fourth line .", "tokens": ["now", "go", "to", "the", "fourth", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so go to the next list item", "tokens": ["okay", "so", "go", "to", "the", "next", "list_item"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "go to the fourth sentence please", "tokens": ["go", "to", "the", "fourth", "sentence", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put the cursor before monday .", "tokens": ["move", "the", "cursor", "before", "monday", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please go after survey .", "tokens": ["please", "go", "after", "survey", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you move the cursor after product", "tokens": ["could", "you", "move", "the", "cursor", "after", "product"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you go after project", "tokens": ["can", "you", "go", "after", "project"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you go after elena", "tokens": ["would", "you", "go", "after", "elena"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to put the cursor after their .", "tokens": ["i", "want", "you", "to", "move", "the", "cursor", "after", "their", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to put the cursor before elena .", "tokens": ["i", "need", "you", "to", "move", "the", "cursor", "before", "elena", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's put the cursor before elena .", "tokens": ["lets", "move", "the", "cursor", "before", "elena", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now go before q3", "tokens": ["now", "go", "before", "q3"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so put the cursor after hiring", "tokens": ["okay", "so", "move", "the", "cursor", "after", "hiring"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put the cursor before draft please", "tokens": ["move", "the", "cursor", "before", "draft", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "uppercase the selected text", "tokens": ["uppercase", "the", "selection"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please capitalize the last list item", "tokens": ["please", "capitalise", "the", "last", "list_item"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you capitalise that .", "tokens": ["could", "you", "capitalise", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you capitalize the last 3 sentences", "tokens": ["can", "you", "capitalise", "the", "last_3", "sentences"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you capitalize the previous character .", "tokens": ["would", "you", "capitalise", "the", "previous", "character", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to capitalize the selection", "tokens": ["i", "want", "you", "to", "capitalise", "the", "selection"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to uppercase the last sentence", "tokens": ["i", "need", "you", "to", "uppercase", "the", "last", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's uppercase the selected text .", "tokens": ["lets", "uppercase", "the", "selection", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now capitalise the previous character .", "tokens": ["now", "capitalise", "the", "previous", "character", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so uppercase the last five words", "tokens": ["okay", "so", "uppercase", "the", "last_5", "words"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "capitalise today please", "tokens": ["capitalise", "today", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bullet the last five sentences .", "tokens": ["bullet", "the", "last_5", "sentences", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please enumerate the first three lines", "tokens": ["please", "enumerate", "the", "first_3", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you itemise the first sentence .", "tokens": ["could", "you", "itemise", "the", "first", "sentence", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you bullet the last four sentences", "tokens": ["can", "you", "bullet", "the", "last_4", "sentences"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you number the previous five paragraphs", "tokens": ["would", "you", "number", "the", "previous_5", "paragraphs"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to bullet the next four paragraphs .", "tokens": ["i", "want", "you", "to", "bullet", "the", "next_4", "paragraphs", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to itemise the previous 4 lines", "tokens": ["i", "need", "you", "to", "itemise", "the", "previous_4", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's bullet the first 2 sentences", "tokens": ["lets", "bullet", "the", "first_2", "sentences"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now number the previous three sentences", "tokens": ["now", "number", "the", "previous_3", "sentences"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so bullet the last three lines", "tokens": ["okay", "so", "bullet", "the", "last_3", "lines"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "itemize the next four lines please .", "tokens": ["itemise", "the", "next_4", "lines", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "itemise it", "tokens": ["itemise", "it"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please itemise everything", "tokens": ["please", "itemise", "everything"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you number that", "tokens": ["could", "you", "number", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you bullet everything", "tokens": ["can", "you", "bullet", "everything"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you bullet all the text", "tokens": ["would", "you", "bullet", "everything"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to bullet all the text .", "tokens": ["i", "want", "you", "to", "bullet", "everything", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to enumerate everything .", "tokens": ["i", "need", "you", "to", "enumerate", "everything", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's number it .", "tokens": ["lets", "number", "it", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now number that", "tokens": ["now", "number", "that"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so number that .", "tokens": ["okay", "so", "number", "that", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "enumerate it please", "tokens": ["enumerate", "it", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "itemise the previous four paragraphs as bullet points", "tokens": ["itemise", "the", "previous_4", "paragraphs", "as", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please itemise the next four lines as a bullet list .", "tokens": ["please", "itemise", "the", "next_4", "lines", "as", "a", "bullet_list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you itemise the first 5 paragraphs as an ordered list", "tokens": ["could", "you", "itemise", "the", "first_5", "paragraphs", "as", "an", "numbered_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you itemise the first two paragraphs as a bulleted list .", "tokens": ["can", "you", "itemise", "the", "first_2", "paragraphs", "as", "a", "bullet_list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you itemise the next five lines as an ordered list .", "tokens": ["would", "you", "itemise", "the", "next_5", "lines", "as", "an", "numbered_list", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to itemise the next 2 lines as a numbered list", "tokens": ["i", "want", "you", "to", "itemise", "the", "next_2", "lines", "as", "a", "numbered_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to itemise the previous four paragraphs as a bullet list", "tokens": ["i", "need", "you", "to", "itemise", "the", "previous_4", "paragraphs", "as", "a", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's itemise the first five lines as a bulleted list", "tokens": ["lets", "itemise", "the", "first_5", "lines", "as", "a", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now itemise the last 2 lines as a bullet list", "tokens": ["now", "itemise", "the", "last_2", "lines", "as", "a", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so itemise the next 2 paragraphs as bullet points", "tokens": ["okay", "so", "itemise", "the", "next_2", "paragraphs", "as", "bullet_list"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "itemise the next three paragraphs as a bulleted list please .", "tokens": ["itemise", "the", "next_3", "paragraphs", "as", "a", "bullet_list", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "promote the second line to heading 1 .", "tokens": ["promote", "the", "second", "line", "to", "heading_one", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please promote the last line to heading two", "tokens": ["please", "promote", "the", "last", "line", "to", "heading_two"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you promote the fourth sentence to heading 3", "tokens": ["could", "you", "promote", "the", "fourth", "sentence", "to", "heading_three"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you demote the previous sentence to heading 2 .", "tokens": ["can", "you", "demote", "the", "previous", "sentence", "to", "heading_two", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you promote that to a level one heading", "tokens": ["would", "you", "promote", "that", "to", "a", "heading_one"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to promote the fourth line to a heading", "tokens": ["i", "want", "you", "to", "promote", "the", "fourth", "line", "to", "a", "heading"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to demote all of it to a heading", "tokens": ["i", "need", "you", "to", "demote", "everything", "to", "a", "heading"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's demote that to a heading .", "tokens": ["lets", "demote", "that", "to", "a", "heading", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now promote the fifth sentence to heading 3", "tokens": ["now", "promote", "the", "fifth", "sentence", "to", "heading_three"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so demote the first sentence to heading 3 .", "tokens": ["okay", "so", "demote", "the", "first", "sentence", "to", "heading_three", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "promote the fifth paragraph to heading one please .", "tokens": ["promote", "the", "fifth", "paragraph", "to", "heading_one", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "promote the last line", "tokens": ["promote", "the", "last", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please promote that line .", "tokens": ["please", "promote", "this", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you promote the fourth sentence", "tokens": ["could", "you", "promote", "the", "fourth", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you promote the second sentence .", "tokens": ["can", "you", "promote", "the", "second", "sentence", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you promote the selected text", "tokens": ["would", "you", "promote", "the", "selection"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to promote the previous sentence .", "tokens": ["i", "want", "you", "to", "promote", "the", "previous", "sentence", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to promote the previous sentence", "tokens": ["i", "need", "you", "to", "promote", "the", "previous", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's promote the first line .", "tokens": ["lets", "promote", "the", "first", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now promote the third sentence", "tokens": ["now", "promote", "the", "third", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so promote the second line .", "tokens": ["okay", "so", "promote", "the", "second", "line", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "promote the second sentence please .", "tokens": ["promote", "the", "second", "sentence", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the previous three lines right", "tokens": ["align", "the", "previous_3", "lines", "right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please align the fifth sentence right", "tokens": ["please", "align", "the", "fifth", "sentence", "right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you align it right", "tokens": ["could", "you", "align", "it", "right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you align it to the center .", "tokens": ["can", "you", "align", "it", "to", "the", "center", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "would you align the fourth sentence justified", "tokens": ["would", "you", "align", "the", "fourth", "sentence", "justified"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i want you to align the fifth sentence to the right .", "tokens": ["i", "want", "you", "to", "align", "the", "fifth", "sentence", "to", "the", "right", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "i need you to align the last sentence left", "tokens": ["i", "need", "you", "to", "align", "the", "last", "sentence", "left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "let's align the first paragraph to the center", "tokens": ["lets", "align", "the", "first", "paragraph", "to", "the", "center"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "now align that line left .", "tokens": ["now", "align", "this", "line", "left", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "okay so align the last two paragraphs right .", "tokens": ["okay", "so", "align", "the", "last_2", "paragraphs", "right", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the second paragraph to the right please .", "tokens": ["align", "the", "second", "paragraph", "to", "the", "right", "please", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "centre the second list item .", "tokens": ["centre", "the", "second", "list_item", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "please center that sentence", "tokens": ["please", "centre", "this", "sentence"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "could you justify the third list item", "tokens": ["could", "you", "justify", "the", "third", "list_item"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "can you center the next four paragraphs", "tokens": ["can", "you", "centre", "the", "next_4", "paragraphs"], "info": {"labels": {}, "numbers": {}}}

@@ -1,0 +1,571 @@
+{
+ "about": "The normalizer of the animation world (specification section 19.1): the diagram world's table (training/worlds/diagram/normalize.json) with the temporal expressions added and one rule removed ('over' -> 'above': in this world 'over' introduces a duration, 'over two seconds'). Deterministic, applied before the reader in Python (normalize.py, used by generate.py and animation_scripts.py) and in JavaScript (app/src/normalize.js with this table as app/model/animation/normalize.json). Order as in the diagram world: quoted labels, lower-case, contractions, multi-word expressions (longest first), single-word synonyms, number words to digits, punctuation split. Time units become 's' and 'ms'; 'twice' becomes '2 times'; 'one' is still never converted, except in 'one second'.",
+ "contractions": {
+  "don't": "do not",
+  "dont": "do not",
+  "doesn't": "does not",
+  "let's": "lets",
+  "can't": "can not",
+  "won't": "will not",
+  "i'd": "i would",
+  "it's": "it is",
+  "%": " percent"
+ },
+ "label_intro": [
+  "called",
+  "named",
+  "labelled",
+  "labeled",
+  "titled",
+  "saying"
+ ],
+ "mwe": [
+  [
+   "fade in",
+   "fade_in"
+  ],
+  [
+   "fade out",
+   "fade_out"
+  ],
+  [
+   "fades in",
+   "fades_in"
+  ],
+  [
+   "fades out",
+   "fades_out"
+  ],
+  [
+   "fading in",
+   "fade_in"
+  ],
+  [
+   "fading out",
+   "fade_out"
+  ],
+  [
+   "light up",
+   "highlight"
+  ],
+  [
+   "lights up",
+   "highlights"
+  ],
+  [
+   "slow down",
+   "slow_down"
+  ],
+  [
+   "speed up",
+   "speed_up"
+  ],
+  [
+   "how long",
+   "how_long"
+  ],
+  [
+   "at the same time as",
+   "with"
+  ],
+  [
+   "together with",
+   "with"
+  ],
+  [
+   "as soon as",
+   "when"
+  ],
+  [
+   "per hop",
+   "per_hop"
+  ],
+  [
+   "for each hop",
+   "per_hop"
+  ],
+  [
+   "for every hop",
+   "per_hop"
+  ],
+  [
+   "each hop",
+   "per_hop"
+  ],
+  [
+   "a hop",
+   "per_hop"
+  ],
+  [
+   "twice as fast",
+   "twice_as_fast"
+  ],
+  [
+   "two times faster",
+   "twice_as_fast"
+  ],
+  [
+   "half as fast",
+   "half_as_fast"
+  ],
+  [
+   "at half speed",
+   "half_as_fast"
+  ],
+  [
+   "half speed",
+   "half_as_fast"
+  ],
+  [
+   "over and over",
+   "forever"
+  ],
+  [
+   "in a loop",
+   "forever"
+  ],
+  [
+   "on a loop",
+   "forever"
+  ],
+  [
+   "endlessly",
+   "forever"
+  ],
+  [
+   "from the start",
+   "from beginning"
+  ],
+  [
+   "from the beginning",
+   "from beginning"
+  ],
+  [
+   "from the top",
+   "from beginning"
+  ],
+  [
+   "with a bounce",
+   "bouncing"
+  ],
+  [
+   "in a smooth way",
+   "smoothly"
+  ],
+  [
+   "all at once",
+   "suddenly"
+  ],
+  [
+   "at once",
+   "instantly"
+  ],
+  [
+   "right away",
+   "instantly"
+  ],
+  [
+   "half a second",
+   "0.5 s"
+  ],
+  [
+   "one second",
+   "1 s"
+  ],
+  [
+   "one and a half seconds",
+   "1.5 s"
+  ],
+  [
+   "at second",
+   "at"
+  ],
+  [
+   "twice",
+   "2 times"
+  ],
+  [
+   "thrice",
+   "3 times"
+  ],
+  [
+   "gets to",
+   "arrives at"
+  ],
+  [
+   "get to",
+   "arrive at"
+  ],
+  [
+   "the whole animation",
+   "the animation"
+  ],
+  [
+   "the whole thing",
+   "the animation"
+  ],
+  [
+   "the whole film",
+   "the animation"
+  ],
+  [
+   "at a slow speed",
+   "slow"
+  ],
+  [
+   "at slow speed",
+   "slow"
+  ],
+  [
+   "at a normal speed",
+   "normal"
+  ],
+  [
+   "at normal speed",
+   "normal"
+  ],
+  [
+   "at a fast speed",
+   "fast"
+  ],
+  [
+   "at fast speed",
+   "fast"
+  ],
+  [
+   "show up",
+   "appear"
+  ],
+  [
+   "shows up",
+   "appears"
+  ],
+  [
+   "top left corner",
+   "top_left"
+  ],
+  [
+   "top right corner",
+   "top_right"
+  ],
+  [
+   "bottom left corner",
+   "bottom_left"
+  ],
+  [
+   "bottom right corner",
+   "bottom_right"
+  ],
+  [
+   "upper left corner",
+   "top_left"
+  ],
+  [
+   "upper right corner",
+   "top_right"
+  ],
+  [
+   "lower left corner",
+   "bottom_left"
+  ],
+  [
+   "lower right corner",
+   "bottom_right"
+  ],
+  [
+   "top left",
+   "top_left"
+  ],
+  [
+   "top right",
+   "top_right"
+  ],
+  [
+   "bottom left",
+   "bottom_left"
+  ],
+  [
+   "bottom right",
+   "bottom_right"
+  ],
+  [
+   "upper left",
+   "top_left"
+  ],
+  [
+   "upper right",
+   "top_right"
+  ],
+  [
+   "lower left",
+   "bottom_left"
+  ],
+  [
+   "lower right",
+   "bottom_right"
+  ],
+  [
+   "left side",
+   "left_side"
+  ],
+  [
+   "right side",
+   "right_side"
+  ],
+  [
+   "left hand side",
+   "left_side"
+  ],
+  [
+   "right hand side",
+   "right_side"
+  ],
+  [
+   "to the left of",
+   "left_of"
+  ],
+  [
+   "to the right of",
+   "right_of"
+  ],
+  [
+   "left of",
+   "left_of"
+  ],
+  [
+   "right of",
+   "right_of"
+  ],
+  [
+   "next to",
+   "next_to"
+  ],
+  [
+   "close to",
+   "next_to"
+  ],
+  [
+   "on top of",
+   "above"
+  ],
+  [
+   "underneath",
+   "below"
+  ],
+  [
+   "beneath",
+   "below"
+  ],
+  [
+   "under",
+   "below"
+  ],
+  [
+   "beside",
+   "next_to"
+  ],
+  [
+   "right edge",
+   "right_edge"
+  ],
+  [
+   "left edge",
+   "left_edge"
+  ],
+  [
+   "top edge",
+   "top_edge"
+  ],
+  [
+   "bottom edge",
+   "bottom_edge"
+  ],
+  [
+   "right border",
+   "right_edge"
+  ],
+  [
+   "left border",
+   "left_edge"
+  ],
+  [
+   "top border",
+   "top_edge"
+  ],
+  [
+   "bottom border",
+   "bottom_edge"
+  ],
+  [
+   "to the next one",
+   "to_next"
+  ],
+  [
+   "to the next",
+   "to_next"
+  ],
+  [
+   "to the following one",
+   "to_next"
+  ],
+  [
+   "in a chain",
+   "in_chain"
+  ],
+  [
+   "from left to right",
+   "flow_lr"
+  ],
+  [
+   "left to right",
+   "flow_lr"
+  ],
+  [
+   "from top to bottom",
+   "flow_td"
+  ],
+  [
+   "top to bottom",
+   "flow_td"
+  ],
+  [
+   "top down",
+   "flow_td"
+  ],
+  [
+   "text box",
+   "textbox"
+  ],
+  [
+   "data base",
+   "database"
+  ],
+  [
+   "half way",
+   "half"
+  ],
+  [
+   "halfway",
+   "half"
+  ],
+  [
+   "a third of the way",
+   "third"
+  ],
+  [
+   "a quarter of the way",
+   "quarter"
+  ],
+  [
+   "bring to the front",
+   "bring to front"
+  ],
+  [
+   "send to the back",
+   "send to back"
+  ],
+  [
+   "zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "zoom out",
+   "zoom zoom_out"
+  ]
+ ],
+ "synonyms": {
+  "colour": "color",
+  "grey": "gray",
+  "centre": "center",
+  "middle": "center",
+  "pixels": "px",
+  "pixel": "px",
+  "units": "px",
+  "percent": "percent",
+  "per cent": "percent",
+  "rectangle": "rectangle",
+  "rect": "rectangle",
+  "db": "database",
+  "dbs": "databases",
+  "big": "large",
+  "bigger": "bigger",
+  "larger": "bigger",
+  "little": "small",
+  "smaller": "smaller",
+  "upwards": "up",
+  "downwards": "down",
+  "dotted": "dotted",
+  "broken": "dashed",
+  "pls": "please",
+  "plz": "please",
+  "u": "you",
+  "ok": "okay",
+  "alright": "okay",
+  "seconds": "s",
+  "second": "s",
+  "sec": "s",
+  "secs": "s",
+  "milliseconds": "ms",
+  "millisecond": "ms",
+  "msec": "ms",
+  "degree": "degrees",
+  "deg": "degrees",
+  "toward": "towards",
+  "reaches": "arrives",
+  "reach": "arrive",
+  "lit": "highlighted",
+  "film": "animation",
+  "movie": "animation",
+  "clip": "animation",
+  "afterwards": "then",
+  "next": "then",
+  "simultaneously": "with",
+  "meanwhile": "while",
+  "during": "while",
+  "smooth": "smoothly",
+  "linear": "linearly",
+  "abruptly": "suddenly",
+  "immediately": "instantly",
+  "fast": "fast",
+  "quick": "quickly",
+  "slow": "slow",
+  "repeatedly": "forever",
+  "always": "forever",
+  "travelling": "traveling"
+ },
+ "number_words": {
+  "zero": 0,
+  "one": 1,
+  "two": 2,
+  "three": 3,
+  "four": 4,
+  "five": 5,
+  "six": 6,
+  "seven": 7,
+  "eight": 8,
+  "nine": 9,
+  "ten": 10,
+  "eleven": 11,
+  "twelve": 12,
+  "thirteen": 13,
+  "fourteen": 14,
+  "fifteen": 15,
+  "sixteen": 16,
+  "seventeen": 17,
+  "eighteen": 18,
+  "nineteen": 19,
+  "twenty": 20,
+  "thirty": 30,
+  "forty": 40,
+  "fifty": 50,
+  "sixty": 60,
+  "seventy": 70,
+  "eighty": 80,
+  "ninety": 90,
+  "hundred": 100
+ },
+ "number_word_exceptions": [
+  "one"
+ ],
+ "punctuation": ".,;:!?"
+}

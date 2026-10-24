@@ -1,0 +1,881 @@
+{
+ "about": "The normalizer of the textedit world (specification section 14): deterministic rules applied to a command before the textedit reader, in Python (training/worlds/textedit/normalize.py, used by the generator) and in JavaScript (app/src/text/textnorm.js, used by the editor), from this one table. Order: quoted strings become one token (lower-case, spaces -> '_'), remembered with their original text; lower-case; contractions; punctuation split; multi-word expressions (longest first); single-word synonyms; number words to digits ('one' never); verb forms (a format word with no world verb before it is the verb: 'bold the last word' -> 'embolden the last word'); after a match-intro word ('word', 'words', 'phrase') the next token is remembered as a piece of text. The 'dictation' block is NOT applied to commands: it is the spoken punctuation and layout table of dictation mode (spec 14.2), applied to content by app/src/text/dictation.js.",
+ "contractions": {
+  "don't": "do not",
+  "dont": "do not",
+  "doesn't": "does not",
+  "let's": "lets",
+  "can't": "can not",
+  "won't": "will not",
+  "i'd": "i would",
+  "it's": "it is",
+  "that's": "that is"
+ },
+ "match_intro": [
+  "word",
+  "words",
+  "phrase"
+ ],
+ "mwe": [
+  [
+   "list items",
+   "list_items"
+  ],
+  [
+   "list item",
+   "list_item"
+  ],
+  [
+   "bullet points",
+   "bullet_list"
+  ],
+  [
+   "bullet point",
+   "list_item"
+  ],
+  [
+   "all the text",
+   "everything"
+  ],
+  [
+   "all of the text",
+   "everything"
+  ],
+  [
+   "the whole text",
+   "everything"
+  ],
+  [
+   "the whole thing",
+   "everything"
+  ],
+  [
+   "all of it",
+   "everything"
+  ],
+  [
+   "the entire text",
+   "everything"
+  ],
+  [
+   "whole document",
+   "everything"
+  ],
+  [
+   "the selected text",
+   "the selection"
+  ],
+  [
+   "what i selected",
+   "the selection"
+  ],
+  [
+   "first two",
+   "first_2"
+  ],
+  [
+   "first 2",
+   "first_2"
+  ],
+  [
+   "first three",
+   "first_3"
+  ],
+  [
+   "first 3",
+   "first_3"
+  ],
+  [
+   "first four",
+   "first_4"
+  ],
+  [
+   "first 4",
+   "first_4"
+  ],
+  [
+   "first five",
+   "first_5"
+  ],
+  [
+   "first 5",
+   "first_5"
+  ],
+  [
+   "last two",
+   "last_2"
+  ],
+  [
+   "last 2",
+   "last_2"
+  ],
+  [
+   "last three",
+   "last_3"
+  ],
+  [
+   "last 3",
+   "last_3"
+  ],
+  [
+   "last four",
+   "last_4"
+  ],
+  [
+   "last 4",
+   "last_4"
+  ],
+  [
+   "last five",
+   "last_5"
+  ],
+  [
+   "last 5",
+   "last_5"
+  ],
+  [
+   "next two",
+   "next_2"
+  ],
+  [
+   "next 2",
+   "next_2"
+  ],
+  [
+   "next three",
+   "next_3"
+  ],
+  [
+   "next 3",
+   "next_3"
+  ],
+  [
+   "next four",
+   "next_4"
+  ],
+  [
+   "next 4",
+   "next_4"
+  ],
+  [
+   "next five",
+   "next_5"
+  ],
+  [
+   "next 5",
+   "next_5"
+  ],
+  [
+   "previous two",
+   "previous_2"
+  ],
+  [
+   "previous 2",
+   "previous_2"
+  ],
+  [
+   "previous three",
+   "previous_3"
+  ],
+  [
+   "previous 3",
+   "previous_3"
+  ],
+  [
+   "previous four",
+   "previous_4"
+  ],
+  [
+   "previous 4",
+   "previous_4"
+  ],
+  [
+   "previous five",
+   "previous_5"
+  ],
+  [
+   "previous 5",
+   "previous_5"
+  ],
+  [
+   "that character",
+   "this character"
+  ],
+  [
+   "those character",
+   "these character"
+  ],
+  [
+   "that characters",
+   "this characters"
+  ],
+  [
+   "those characters",
+   "these characters"
+  ],
+  [
+   "that letter",
+   "this letter"
+  ],
+  [
+   "those letter",
+   "these letter"
+  ],
+  [
+   "that letters",
+   "this letters"
+  ],
+  [
+   "those letters",
+   "these letters"
+  ],
+  [
+   "that word",
+   "this word"
+  ],
+  [
+   "those word",
+   "these word"
+  ],
+  [
+   "that words",
+   "this words"
+  ],
+  [
+   "those words",
+   "these words"
+  ],
+  [
+   "that sentence",
+   "this sentence"
+  ],
+  [
+   "those sentence",
+   "these sentence"
+  ],
+  [
+   "that sentences",
+   "this sentences"
+  ],
+  [
+   "those sentences",
+   "these sentences"
+  ],
+  [
+   "that line",
+   "this line"
+  ],
+  [
+   "those line",
+   "these line"
+  ],
+  [
+   "that lines",
+   "this lines"
+  ],
+  [
+   "those lines",
+   "these lines"
+  ],
+  [
+   "that paragraph",
+   "this paragraph"
+  ],
+  [
+   "those paragraph",
+   "these paragraph"
+  ],
+  [
+   "that paragraphs",
+   "this paragraphs"
+  ],
+  [
+   "those paragraphs",
+   "these paragraphs"
+  ],
+  [
+   "that list_item",
+   "this list_item"
+  ],
+  [
+   "those list_item",
+   "these list_item"
+  ],
+  [
+   "that list_items",
+   "this list_items"
+  ],
+  [
+   "those list_items",
+   "these list_items"
+  ],
+  [
+   "that list item",
+   "this list_item"
+  ],
+  [
+   "those list items",
+   "these list_items"
+  ],
+  [
+   "that bullet point",
+   "this list_item"
+  ],
+  [
+   "heading one",
+   "heading_one"
+  ],
+  [
+   "heading 1",
+   "heading_one"
+  ],
+  [
+   "heading two",
+   "heading_two"
+  ],
+  [
+   "heading 2",
+   "heading_two"
+  ],
+  [
+   "heading three",
+   "heading_three"
+  ],
+  [
+   "heading 3",
+   "heading_three"
+  ],
+  [
+   "level one heading",
+   "heading_one"
+  ],
+  [
+   "level two heading",
+   "heading_two"
+  ],
+  [
+   "level three heading",
+   "heading_three"
+  ],
+  [
+   "bullet list",
+   "bullet_list"
+  ],
+  [
+   "bulleted list",
+   "bullet_list"
+  ],
+  [
+   "bullets list",
+   "bullet_list"
+  ],
+  [
+   "numbered list",
+   "numbered_list"
+  ],
+  [
+   "number list",
+   "numbered_list"
+  ],
+  [
+   "ordered list",
+   "numbered_list"
+  ],
+  [
+   "plain text",
+   "plain"
+  ],
+  [
+   "normal text",
+   "plain"
+  ],
+  [
+   "struck through",
+   "strikethrough"
+  ],
+  [
+   "crossed out",
+   "strikethrough"
+  ],
+  [
+   "strike through",
+   "strike"
+  ],
+  [
+   "cross out",
+   "strike"
+  ],
+  [
+   "in italics",
+   "italic"
+  ],
+  [
+   "in bold",
+   "bold"
+  ],
+  [
+   "remove the formatting from",
+   "unformat"
+  ],
+  [
+   "remove formatting from",
+   "unformat"
+  ],
+  [
+   "clear the formatting of",
+   "unformat"
+  ],
+  [
+   "clear the formatting from",
+   "unformat"
+  ],
+  [
+   "clear the formatting on",
+   "unformat"
+  ],
+  [
+   "clear formatting from",
+   "unformat"
+  ],
+  [
+   "remove the bold from",
+   "unformat bold"
+  ],
+  [
+   "remove bold from",
+   "unformat bold"
+  ],
+  [
+   "remove the italics from",
+   "unformat italic"
+  ],
+  [
+   "remove the italic from",
+   "unformat italic"
+  ],
+  [
+   "remove the underline from",
+   "unformat underlined"
+  ],
+  [
+   "remove the underlining from",
+   "unformat underlined"
+  ],
+  [
+   "remove the highlight from",
+   "unformat highlighted"
+  ],
+  [
+   "remove the highlighting from",
+   "unformat highlighted"
+  ],
+  [
+   "remove the strikethrough from",
+   "unformat strikethrough"
+  ],
+  [
+   "un bold",
+   "unformat bold"
+  ],
+  [
+   "un-bold",
+   "unformat bold"
+  ],
+  [
+   "unbold",
+   "unformat bold"
+  ],
+  [
+   "at the start",
+   "at_start"
+  ],
+  [
+   "at the beginning",
+   "at_start"
+  ],
+  [
+   "to the start",
+   "at_start"
+  ],
+  [
+   "to the beginning",
+   "at_start"
+  ],
+  [
+   "from the start",
+   "at_start"
+  ],
+  [
+   "from the beginning",
+   "at_start"
+  ],
+  [
+   "at the very start",
+   "at_start"
+  ],
+  [
+   "at the end",
+   "at_end"
+  ],
+  [
+   "to the end",
+   "at_end"
+  ],
+  [
+   "till the end",
+   "at_end"
+  ],
+  [
+   "until the end",
+   "at_end"
+  ],
+  [
+   "at the very end",
+   "at_end"
+  ],
+  [
+   "to the very end",
+   "at_end"
+  ],
+  [
+   "full stop",
+   "full_stop"
+  ],
+  [
+   "question mark",
+   "question_mark"
+  ],
+  [
+   "exclamation mark",
+   "exclamation_mark"
+  ],
+  [
+   "exclamation point",
+   "exclamation_mark"
+  ],
+  [
+   "new line",
+   "new_line"
+  ],
+  [
+   "new paragraph",
+   "new_paragraph"
+  ],
+  [
+   "open quote",
+   "open_quote"
+  ],
+  [
+   "close quote",
+   "close_quote"
+  ],
+  [
+   "semi colon",
+   "semicolon"
+  ],
+  [
+   "read back",
+   "read"
+  ],
+  [
+   "read out",
+   "read"
+  ],
+  [
+   "read it back",
+   "read it"
+  ],
+  [
+   "read me",
+   "read"
+  ],
+  [
+   "put the cursor",
+   "move the cursor"
+  ],
+  [
+   "place the cursor",
+   "move the cursor"
+  ],
+  [
+   "scratch that",
+   "delete that"
+  ],
+  [
+   "get rid of",
+   "delete"
+  ],
+  [
+   "take out",
+   "delete"
+  ],
+  [
+   "upper case",
+   "uppercase"
+  ]
+ ],
+ "synonyms": {
+  "colour": "color",
+  "grey": "gray",
+  "centre": "center",
+  "middle": "center",
+  "centered": "center",
+  "centred": "center",
+  "italics": "italic",
+  "italicized": "italic",
+  "italicised": "italic",
+  "bolded": "bold",
+  "larger": "bigger",
+  "big": "large",
+  "little": "small",
+  "tiny": "small",
+  "capitalize": "capitalise",
+  "italicize": "italicise",
+  "itemize": "itemise",
+  "letter": "character",
+  "letters": "characters",
+  "chars": "characters",
+  "char": "character",
+  "subheading": "heading_two",
+  "bullets": "bullet_list",
+  "pls": "please",
+  "plz": "please",
+  "u": "you",
+  "ok": "okay",
+  "alright": "okay",
+  "period": "full_stop",
+  "dot": "full_stop"
+ },
+ "number_words": {
+  "zero": 0,
+  "one": 1,
+  "two": 2,
+  "three": 3,
+  "four": 4,
+  "five": 5,
+  "six": 6,
+  "seven": 7,
+  "eight": 8,
+  "nine": 9,
+  "ten": 10,
+  "eleven": 11,
+  "twelve": 12,
+  "thirteen": 13,
+  "fourteen": 14,
+  "fifteen": 15,
+  "sixteen": 16,
+  "seventeen": 17,
+  "eighteen": 18,
+  "nineteen": 19,
+  "twenty": 20,
+  "thirty": 30,
+  "forty": 40,
+  "fifty": 50,
+  "sixty": 60,
+  "seventy": 70,
+  "eighty": 80,
+  "ninety": 90,
+  "hundred": 100
+ },
+ "number_word_exceptions": [
+  "one"
+ ],
+ "punctuation": ".,;:!?",
+ "verb_forms": {
+  "bold": "embolden",
+  "center": "centre"
+ },
+ "verbs": [
+  "add",
+  "align",
+  "bullet",
+  "capitalise",
+  "centre",
+  "change",
+  "choose",
+  "color",
+  "convert",
+  "correct",
+  "cut",
+  "delete",
+  "demote",
+  "embolden",
+  "enumerate",
+  "erase",
+  "format",
+  "go",
+  "highlight",
+  "insert",
+  "italicise",
+  "itemise",
+  "jump",
+  "justify",
+  "make",
+  "mark",
+  "move",
+  "number",
+  "promote",
+  "put",
+  "read",
+  "redo",
+  "remove",
+  "replace",
+  "select",
+  "set",
+  "strike",
+  "swap",
+  "turn",
+  "type",
+  "underline",
+  "undo",
+  "unformat",
+  "uppercase"
+ ],
+ "dictation": {
+  "about": "Spoken punctuation and layout in dictation mode (spec 14.2), applied to content only. Keys are spoken words (lower case); 'attach' says how the mark joins the text: 'left' = no space before, 'right' = no space after, 'both' = no space on either side, 'none' = spaces as words. 'literally' writes the next word as text.",
+  "escape": "literally",
+  "marks": [
+   [
+    "full stop",
+    ".",
+    "left"
+   ],
+   [
+    "period",
+    ".",
+    "left"
+   ],
+   [
+    "comma",
+    ",",
+    "left"
+   ],
+   [
+    "question mark",
+    "?",
+    "left"
+   ],
+   [
+    "exclamation mark",
+    "!",
+    "left"
+   ],
+   [
+    "exclamation point",
+    "!",
+    "left"
+   ],
+   [
+    "colon",
+    ":",
+    "left"
+   ],
+   [
+    "semicolon",
+    ";",
+    "left"
+   ],
+   [
+    "semi colon",
+    ";",
+    "left"
+   ],
+   [
+    "open quote",
+    "“",
+    "right"
+   ],
+   [
+    "close quote",
+    "”",
+    "left"
+   ],
+   [
+    "open bracket",
+    "(",
+    "right"
+   ],
+   [
+    "close bracket",
+    ")",
+    "left"
+   ],
+   [
+    "open parenthesis",
+    "(",
+    "right"
+   ],
+   [
+    "close parenthesis",
+    ")",
+    "left"
+   ],
+   [
+    "hyphen",
+    "-",
+    "both"
+   ],
+   [
+    "dash",
+    "-",
+    "none"
+   ],
+   [
+    "ellipsis",
+    "...",
+    "left"
+   ]
+  ],
+  "layout": [
+   [
+    "new line",
+    "line"
+   ],
+   [
+    "next line",
+    "line"
+   ],
+   [
+    "new paragraph",
+    "paragraph"
+   ],
+   [
+    "next paragraph",
+    "paragraph"
+   ],
+   [
+    "bullet",
+    "bullet"
+   ],
+   [
+    "new bullet",
+    "bullet"
+   ],
+   [
+    "numbered item",
+    "number"
+   ]
+  ],
+  "start": [
+   "start writing",
+   "start dictating",
+   "start dictation",
+   "begin writing",
+   "write in",
+   "type in",
+   "dictate in",
+   "start writing in",
+   "dictation mode"
+  ],
+  "stop": [
+   "stop writing",
+   "stop dictating",
+   "stop dictation",
+   "done",
+   "i am done",
+   "im done",
+   "end dictation",
+   "command mode"
+  ]
+ }
+}
