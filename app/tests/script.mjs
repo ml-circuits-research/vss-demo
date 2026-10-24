@@ -166,8 +166,11 @@ const line = (s) => `${s.label}: ${s.docs} docs, ${s.units} units; cuts ${f3(s.c
 
 const lines = [];
 if (AUTHORED) {
-  if (!MODEL) { console.log("script: --authored needs --model (the trained reader is the judge)"); process.exit(2); }
-  const rd = await realReader(); const recs = fs.readFileSync(AUTHORED, "utf8").split("\n").filter(Boolean).map(JSON.parse); const by = new Map();
+  // the trained reader is the judge; without --model a fake reader that knows the generator's 1-page units exercises the path (the
+  // dry run of run_author.py), and the table is labelled as not a measurement
+  let rd;
+  if (MODEL) rd = await realReader();
+  else { const g = new Map(); for (const d of load(1)) for (const u of d.units) if (!u.planted) g.set(u.text, u.frame); rd = fakeReader(g); console.log("script: no --model: a FAKE reader, the table below is not a measurement"); } const recs = fs.readFileSync(AUTHORED, "utf8").split("\n").filter(Boolean).map(JSON.parse); const by = new Map();
   for (const r of recs) {
     const read = readScript(r.text, { reader: rd, normalize, kind: rd.kind }); const c = buildScript(read); const sc = createScene({ width: 4000, height: 3000 });
     const run = runScript(sc, c, { blocking: "skip", conflicts: "in-order" }); const rep = authorReport(read, c, run);

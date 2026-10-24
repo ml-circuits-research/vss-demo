@@ -210,8 +210,11 @@ const gold = new Map(); for (const r of recs) for (const u of r.units) gold.set(
 const lines = [];
 if (MODEL) {
   const rd = await realReader(); const m = evaluate(rd, "real reader");
-  lines.push(show(m), "FULL per unit by kind and length: " + m.byLen.join("; "));
-  const crit = [["cuts >= 0.97", m.cut >= 0.97], ["FULL per unit within 0.03 of single commands (compare with the single-command FULL of the same model)", null], ["execution order correct on 100% of the scripted paragraphs", m.order === 1]];
+  // the same units read alone, as single commands: the baseline of "FULL per unit within 0.03 of single commands"
+  let single = 0, nu = 0; for (const r of recs) for (const u of r.units) { nu++; const x = rd.read(u.text); if (x && x.status === "ok" && sameFrame(x.frame, u.frame)) single++; }
+  const sf = single / nu;
+  lines.push(show(m), `FULL of the same units read alone (single commands): ${f3(sf)}`, "FULL per unit by kind and length: " + m.byLen.join("; "));
+  const crit = [["cuts >= 0.97", m.cut >= 0.97], [`FULL per unit within 0.03 of single commands (${f3(m.unitFull)} vs ${f3(sf)})`, sf - m.unitFull <= 0.03], ["execution order correct on 100% of the scripted paragraphs", m.order === 1]];
   for (const [k, v] of crit) lines.push(`criterion ${k}: ${v === null ? "reported" : v ? "MET" : "MISSED"}`);
   if (STRICT && crit.some(([, v]) => v === false)) fail++;
 } else {
