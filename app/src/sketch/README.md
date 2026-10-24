@@ -76,4 +76,4 @@ split seed 1017). MEASURED on the synthetic test split (40 scenes, 661 symbols, 
 Causes located: five of the six connector misses follow from three polygons drawn in separate strokes whose corner gaps were too wide
 to be grouped (the shape is split, so its connectors have no component to attach to); one follows a rectangle read as unknown.
 Triangle and diamond are confused three times; the missed unknown is a wave read as a scribble. The hand-drawn set (spec 17.5) is
-not collected yet: see training/TODO_DGX.parts/sketch_scene.md.
+not collected yet: see training/TODO_DGX.md.

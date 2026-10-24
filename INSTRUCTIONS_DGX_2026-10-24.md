@@ -1,5 +1,8 @@
 # Instructions for the DGX session — VSS Diagram Editor, steps 1 to 5 (2026-10-24)
 
+> Superseded for the order and the commands by `training/TODO_DGX.md` (every world, frozen data, the app export). This file keeps the
+> detail of steps 1 to 5 and their reasoning; where the two differ, TODO_DGX.md is current (paths moved to `app/` and `training/`).
+
 From the reviewing session. The specification is `vision/VSS_Diagram_Editor_Specification.md` (version 2.6); its section 23 is the order
 of work and its Table 13 the criteria, written before any run. These instructions cover what needs the DGX (training, the full-size data)
 and the checks that close each step. Everything that could be prepared on a CPU has been prepared and smoke-tested at small size (STATUS.md

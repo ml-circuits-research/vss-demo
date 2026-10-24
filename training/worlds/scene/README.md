@@ -41,7 +41,7 @@ node app/tests/sketch.mjs                                              # the ske
 python3 training/worlds/scene/generate.py --out <dir> --n_dev 50 --n_heldout 200
 python3 training/worlds/scene/experiment_fpe.py --smoke --out <dir>   # CPU pipeline check
 ```
-The full run is in `training/TODO_DGX.parts/sketch_scene.md`. `--xp cupy` is supported by the code but was not run here (no GPU);
+The full run is in `training/TODO_DGX.md`. `--xp cupy` is supported by the code but was not run here (no GPU);
 the numpy path is the tested one.
 
 ## Smoke numbers (pipeline checks, not results)

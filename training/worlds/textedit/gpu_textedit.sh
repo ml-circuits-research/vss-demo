@@ -39,7 +39,9 @@ COMMON="--D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_ver
 FILTER='\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]'
 # (1) the data-size curve, 5 seeds per size
 for n in $SIZES; do
-  W="$WORK/$n/textedit"; "$PY" "$HERE/generate.py" --out "$W" --n "$n" --n_eval 400 --seed 0 | tee -a "$LOG"
+  W="$WORK/$n/textedit"
+  if [ -d "$HERE/../../data/textedit/n$n" ]; then "$PY" "$HERE/../../data/unpack.py" "textedit/n$n" "$WORK/$n" | tee -a "$LOG"   # frozen data, sha256 checked
+  else "$PY" "$HERE/generate.py" --out "$W" --n "$n" --n_eval 400 --seed 0 | tee -a "$LOG"; fi
   "$SOP" check --legend "$W/legend.json" "$W"/examples/*.sop | tail -1 | tee -a "$LOG"
   echo "## size $n: sop train $W $COMMON --seeds 5" | tee -a "$LOG"
   "$SOP" train "$W" $COMMON --seeds 5 --run_dir "$OUT/$n" 2>&1 | grep "$FILTER" | tee -a "$LOG"

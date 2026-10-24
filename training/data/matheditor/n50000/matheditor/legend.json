@@ -1,0 +1,349 @@
+{
+ "version": 1,
+ "roles": [
+  {
+   "id": "root",
+   "question": "which formula (the tree)?"
+  },
+  {
+   "id": "left",
+   "question": "the left operand?"
+  },
+  {
+   "id": "right",
+   "question": "the right operand?"
+  },
+  {
+   "id": "numerator",
+   "question": "the numerator?"
+  },
+  {
+   "id": "denominator",
+   "question": "the denominator?"
+  },
+  {
+   "id": "base",
+   "question": "the base?"
+  },
+  {
+   "id": "exponent",
+   "question": "the exponent?"
+  },
+  {
+   "id": "index",
+   "question": "the index (subscript, degree of a root, variable of a sum, product or integral)?"
+  },
+  {
+   "id": "lower",
+   "question": "the lower limit?"
+  },
+  {
+   "id": "upper",
+   "question": "the upper limit?"
+  },
+  {
+   "id": "body",
+   "question": "the body (of a sum, product or integral)?"
+  },
+  {
+   "id": "argument",
+   "question": "the argument (of a function or root)?"
+  },
+  {
+   "id": "operand",
+   "question": "the operand (of brackets, absolute value, negation)?"
+  },
+  {
+   "id": "function",
+   "question": "which function?"
+  },
+  {
+   "id": "target",
+   "question": "which part of the formula is edited?"
+  },
+  {
+   "id": "owner",
+   "question": "of which symbol (the exponent OF x)?"
+  },
+  {
+   "id": "value",
+   "question": "the new expression or operator?"
+  },
+  {
+   "id": "wrapper",
+   "question": "wrapped in what?"
+  },
+  {
+   "id": "joiner",
+   "question": "joined by which operator?"
+  },
+  {
+   "id": "position",
+   "question": "where (after, before, at the end, at the start)?"
+  },
+  {
+   "id": "direction",
+   "question": "the cursor moves which way?"
+  }
+ ],
+ "events": [
+  {
+   "id": "expr",
+   "verbs": [
+    "write"
+   ]
+  },
+  {
+   "id": "plus",
+   "verbs": [
+    "plus"
+   ]
+  },
+  {
+   "id": "minus",
+   "verbs": [
+    "minus"
+   ]
+  },
+  {
+   "id": "times",
+   "verbs": [
+    "times",
+    "multiplied"
+   ]
+  },
+  {
+   "id": "fraction",
+   "verbs": [
+    "over",
+    "divided",
+    "fraction"
+   ]
+  },
+  {
+   "id": "power",
+   "verbs": [
+    "power",
+    "squared",
+    "cubed",
+    "to",
+    "raised"
+   ]
+  },
+  {
+   "id": "subscript",
+   "verbs": [
+    "sub",
+    "subscript"
+   ]
+  },
+  {
+   "id": "root",
+   "verbs": [
+    "root"
+   ]
+  },
+  {
+   "id": "apply",
+   "verbs": [
+    "sin",
+    "cos",
+    "tan",
+    "log",
+    "ln",
+    "exp",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  {
+   "id": "paren",
+   "verbs": [
+    "parenthesis",
+    "paren"
+   ]
+  },
+  {
+   "id": "abs",
+   "verbs": [
+    "absolute"
+   ]
+  },
+  {
+   "id": "neg",
+   "verbs": [
+    "negative"
+   ]
+  },
+  {
+   "id": "sum",
+   "verbs": [
+    "sum"
+   ]
+  },
+  {
+   "id": "product",
+   "verbs": [
+    "product"
+   ]
+  },
+  {
+   "id": "integral",
+   "verbs": [
+    "integral"
+   ]
+  },
+  {
+   "id": "equals",
+   "verbs": [
+    "equals",
+    "equal"
+   ]
+  },
+  {
+   "id": "less",
+   "verbs": [
+    "less"
+   ]
+  },
+  {
+   "id": "greater",
+   "verbs": [
+    "greater"
+   ]
+  },
+  {
+   "id": "approx",
+   "verbs": [
+    "approximately"
+   ]
+  },
+  {
+   "id": "implies",
+   "verbs": [
+    "implies"
+   ]
+  },
+  {
+   "id": "insert",
+   "verbs": [
+    "insert",
+    "add",
+    "append",
+    "type"
+   ]
+  },
+  {
+   "id": "replace",
+   "verbs": [
+    "replace",
+    "change",
+    "substitute",
+    "set"
+   ]
+  },
+  {
+   "id": "delete",
+   "verbs": [
+    "delete",
+    "remove",
+    "erase"
+   ]
+  },
+  {
+   "id": "wrap",
+   "verbs": [
+    "wrap",
+    "put",
+    "make",
+    "turn",
+    "enclose",
+    "take"
+   ]
+  },
+  {
+   "id": "move",
+   "verbs": [
+    "move",
+    "go"
+   ]
+  },
+  {
+   "id": "select",
+   "verbs": [
+    "select",
+    "highlight"
+   ]
+  },
+  {
+   "id": "factor",
+   "verbs": [
+    "factor"
+   ]
+  },
+  {
+   "id": "swap",
+   "verbs": [
+    "swap",
+    "flip"
+   ]
+  },
+  {
+   "id": "undo",
+   "verbs": [
+    "undo"
+   ]
+  },
+  {
+   "id": "redo",
+   "verbs": [
+    "redo"
+   ]
+  }
+ ],
+ "operators": [],
+ "moods": [
+  "dictation",
+  "command"
+ ],
+ "kinds": {
+  "source": "lexicon",
+  "lexicon": "kinds.tsv"
+ },
+ "values": [
+  {
+   "kind": "NUM",
+   "pattern": "\\d+"
+  }
+ ],
+ "reader": {
+  "predicate_role": true,
+  "occupancy_marker": true,
+  "definite_dets": [
+   "the"
+  ]
+ },
+ "tree_levels": {
+  "level_opener_kinds": [
+   "OVER",
+   "POWER",
+   "SUB",
+   "ROOT",
+   "FUNC",
+   "SUM",
+   "INTEGRAL",
+   "ABS",
+   "OPEN",
+   "QUANTITY",
+   "PLUS",
+   "MINUS",
+   "TIMES",
+   "NEG",
+   "REL"
+  ],
+  "nesting": "an expression wire's role holds another expression wire ($ref); the tree depth is the number of operator levels",
+  "ambiguity": "alternatives on the root role (root=$a | $b) with _readings=n; the scope rule is app/src/formula/parse.js (header)",
+  "note": "declared here, NOT in reader.level_openers: the tool's depth estimator counts level-opener tokens as reporting (says) levels, which this world does not have; the nested-event decoder that uses this block is the extension in training/TODO_DGX.parts/matheditor.md"
+ }
+}

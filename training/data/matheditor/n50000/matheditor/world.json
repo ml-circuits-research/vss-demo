@@ -1,0 +1,17 @@
+{
+ "name": "matheditor",
+ "language": "en",
+ "description": "VSS Diagram Editor, formula widgets (vision/VSS_Diagram_Editor_Specification.md, section 16)",
+ "created": "2026-10-24",
+ "version": 1,
+ "min_examples": 500,
+ "max_versions_per_run": 3,
+ "models": {
+  "pipeline": "claude-haiku-5-5",
+  "annotate": "claude-haiku-5-5",
+  "second_look": "claude-haiku-5-5",
+  "evolve": "claude-opus-5-5"
+ },
+ "second_look_escalate": 0.05,
+ "second_look_retrain": 0.05
+}

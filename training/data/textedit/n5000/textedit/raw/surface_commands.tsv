@@ -1,0 +1,1301 @@
+# surface<TAB>normalized<TAB>event<TAB>split
+okay so correct tomorrow to budget	okay so correct tomorrow to budget	replace	train
+delete the whole text please .	delete everything please .	delete	train
+would you remove the strikethrough from 5 .	would you unformat strikethrough 5 .	unformat	train
+insert partners at the end of the first sentence please	insert partners at_end of the first sentence please	insert	train
+could you delete everything after survey .	could you delete everything after survey .	delete	train
+correct travel to hiring please	correct travel to hiring please	replace	train
+please capitalise the previous paragraph	please capitalise the previous paragraph	capitalise	train
+now replace the word quarter with monthly	now replace the word quarter with monthly	replace	train
+could you select from users to the end	could you select from users at_end	select	train
+can you choose paul	can you choose paul	select	train
+now add "next steps" after monthly	now add next_steps after monthly	insert	train
+please erase that .	please erase that .	delete	train
+format the previous three list items as a bullet list .	format the previous_3 list_items as a bullet_list .	format	train
+now set the fourth line into a subheading .	now set the fourth line into a heading_two .	format	train
+please add "next steps" at the end .	please add next_steps at_end .	insert	train
+itemise the first three lines as a bulleted list please .	itemise the first_3 lines as a bullet_list please .	make_list	train
+can you redo again	can you redo again	redo	train
+please insert invoice at the end	please insert invoice at_end	insert	train
+i want you to itemise the first three lines as a bulleted list	i want you to itemise the first_3 lines as a bullet_list	make_list	train
+could you highlight the last five characters	could you highlight the last_5 characters	format	train
+replace maybe with slides	replace maybe with slides	replace	train
+move the cursor to the start of the first line .	move the cursor at_start of the first line .	move_cursor	train
+would you remove the strikethrough from the word offer	would you unformat strikethrough the word offer	unformat	train
+please promote the third paragraph .	please promote the third paragraph .	make_heading	train
+i need you to insert deadline at the end	i need you to insert deadline at_end	insert	train
+i need you to uppercase this word	i need you to uppercase this word	capitalise	train
+move the cursor to the beginning .	move the cursor at_start .	move_cursor	train
+now make the fourth paragraph highlighted	now make the fourth paragraph highlighted	format	train
+can you make the first list item underlined .	can you make the first list_item underlined .	format	train
+okay so turn the previous five sentences heading three .	okay so turn the previous_5 sentences heading_three .	format	train
+would you unbold the selected text	would you unformat bold the selection	unformat	train
+please mark summer .	please mark summer .	select	train
+enumerate the previous three sentences	enumerate the previous_3 sentences	make_list	train
+would you correct really to product .	would you correct really to product .	replace	train
+i need you to replace annual with salary	i need you to replace annual with salary	replace	train
+now color it pink .	now color it pink .	format	train
+would you capitalize the first sentence	would you capitalise the first sentence	capitalise	train
+i want you to delete everything before revenue .	i want you to delete everything before revenue .	delete	train
+i want you to select the fifth paragraph	i want you to select the fifth paragraph	select	train
+could you italicize the first five sentences .	could you italicise the first_5 sentences .	format	train
+now cut the selected text	now cut the selection	delete	train
+i need you to put new line before five .	i need you to put new_line before 5 .	insert	train
+let's scratch that	lets delete that	delete	train
+read out the second word .	read the second word .	read_back	train
+now put the cursor before friday .	now move the cursor before friday .	move_cursor	train
+let's change spring to q4	lets change spring to q4	replace	train
+could you format that as a list .	could you format that as a list .	format	train
+i want you to erase hello .	i want you to erase hello .	delete	train
+italicize fifteen please .	italicise 15 please .	format	train
+please replace the last word with annual	please replace the last word with annual	replace	train
+please replace the third word with team .	please replace the third word with team .	replace	train
+itemise the next paragraph as an ordered list	itemise the next paragraph as an numbered_list	make_list	train
+let's select from the beginning to plan	lets select at_start to plan	select	train
+would you delete that .	would you delete that .	delete	train
+i want you to move the cursor to the end .	i want you to move the cursor at_end .	move_cursor	train
+i need you to read out the previous line	i need you to read the previous line	read_back	train
+please uppercase the first sentence	please uppercase the first sentence	capitalise	train
+would you delete the whole text	would you delete everything	delete	train
+now delete the selected text	now delete the selection	delete	train
+can you go to that character	can you go to this character	move_cursor	train
+scratch that	delete that	delete	train
+now mark the first three characters	now mark the first_3 characters	select	train
+could you correct anna to london	could you correct anna to london	replace	train
+could you cut the whole text	could you cut everything	delete	train
+okay so promote the first sentence .	okay so promote the first sentence .	make_heading	train
+make that highlighted please .	make that highlighted please .	format	train
+capitalize all of it .	capitalise everything .	capitalise	train
+would you clear the formatting of thirty .	would you unformat 30 .	unformat	train
+capitalize the next line please .	capitalise the next line please .	capitalise	train
+would you jump to the start .	would you jump at_start .	move_cursor	train
+would you strike through contract	would you strike contract	format	train
+change travel to sales	change travel to sales	replace	train
+go to the end please	go at_end please	move_cursor	train
+would you choose the whole text	would you choose everything	select	train
+could you remove the selection	could you remove the selection	delete	train
+i want you to correct partners to spring	i want you to correct partners to spring	replace	train
+can you change q4 to profit	can you change q4 to profit	replace	train
+capitalize the next character please .	capitalise the next character please .	capitalise	train
+i want you to turn the first three lines into a list .	i want you to turn the first_3 lines into a list .	format	train
+make the previous 5 characters huge	make the previous_5 characters huge	format	train
+okay so choose really	okay so choose really	select	train
+let's make the whole text normal .	lets make everything normal .	format	train
+could you cut the fifth line	could you cut the fifth line	delete	train
+would you turn the previous four paragraphs plain text	would you turn the previous_4 paragraphs plain	format	train
+highlight draft in blue	highlight draft in blue	format	train
+i need you to go to the start of the previous sentence	i need you to go at_start of the previous sentence	move_cursor	train
+let's format the first four paragraphs as a list	lets format the first_4 paragraphs as a list	format	train
+remove the bold from the last paragraph	unformat bold the last paragraph	unformat	train
+i want you to move the cursor to that list item	i want you to move the cursor to this list_item	move_cursor	train
+could you put the cursor before good	could you move the cursor before good	move_cursor	train
+could you put "follow up" before 2026 .	could you put follow_up before 2026 .	insert	train
+please turn the last four sentences into a bullet list	please turn the last_4 sentences into a bullet_list	format	train
+okay so read out the previous five characters .	okay so read the previous_5 characters .	read_back	train
+okay so highlight winter in pink .	okay so highlight winter in pink .	format	train
+let's replace the first word with results	lets replace the first word with results	replace	train
+can you redo .	can you redo .	redo	train
+now enumerate the next line	now enumerate the next line	make_list	train
+can you promote the second line to a level one heading	can you promote the second line to a heading_one	make_heading	train
+let's highlight there in yellow	lets highlight there in yellow	format	train
+i want you to type team after summer	i want you to type team after summer	insert	train
+i need you to remove the italics from that paragraph	i need you to unformat italic this paragraph	unformat	train
+now read back the first four lines	now read the first_4 lines	read_back	train
+now choose the first list item .	now choose the first list_item .	select	train
+now format the first word as a level one heading	now format the first word as a heading_one	format	train
+unformat all the text please	unformat everything please	unformat	train
+would you make the last sentence into heading three	would you make the last sentence into heading_three	format	train
+okay so choose that	okay so choose that	select	train
+please convert the last 3 paragraphs into a bulleted list .	please convert the last_3 paragraphs into a bullet_list .	format	train
+please itemise the previous three lines as a numbered list	please itemise the previous_3 lines as a numbered_list	make_list	train
+please uppercase feedback	please uppercase feedback	capitalise	train
+i need you to move the cursor after monday	i need you to move the cursor after monday	move_cursor	train
+bold the next five list items	embolden the next_5 list_items	format	train
+replace the word tomorrow with q3 please	replace the word tomorrow with q3 please	replace	train
+now enumerate the previous two lines .	now enumerate the previous_2 lines .	make_list	train
+i need you to add project at the start	i need you to add project at_start	insert	train
+please replace quickly with urgent	please replace quickly with urgent	replace	train
+now unbold the word old .	now unformat bold the word old .	unformat	train
+make twenty normal .	make 20 normal .	format	train
+okay so promote the fifth paragraph .	okay so promote the fifth paragraph .	make_heading	train
+mark the next line in the summary note please	mark the next line in the summary note please	select	train
+now remove the strikethrough from the fourth line .	now unformat strikethrough the fourth line .	unformat	train
+now correct thirty to q3	now correct 30 to q3	replace	train
+okay so make the previous five paragraphs into a list	okay so make the previous_5 paragraphs into a list	format	train
+would you uppercase the word chart	would you uppercase the word chart	capitalise	train
+please read everything	please read everything	read_back	train
+uppercase the last five sentences	uppercase the last_5 sentences	capitalise	train
+okay so highlight that in yellow	okay so highlight that in yellow	format	train
+i need you to move the cursor to the third paragraph .	i need you to move the cursor to the third paragraph .	move_cursor	train
+cut that please	cut that please	delete	train
+could you add numbers at the start	could you add numbers at_start	insert	train
+would you make the selected text large	would you make the selection large	format	train
+let's type weekly at the end .	lets type weekly at_end .	insert	train
+insert a question mark at the end please	insert a question_mark at_end please	insert	train
+could you correct client to deadline .	could you correct client to deadline .	replace	train
+align it centre .	align it center .	align	train
+change 150 to very please .	change 150 to very please .	replace	train
+i want you to unformat all of it .	i want you to unformat everything .	unformat	train
+could you promote that .	could you promote that .	make_heading	train
+can you capitalize that	can you capitalise that	capitalise	train
+okay so turn the first four sentences into an ordered list	okay so turn the first_4 sentences into an numbered_list	format	train
+okay so scratch that	okay so delete that	delete	train
+now put hiring after "roadmap item" .	now put hiring after roadmap_item .	insert	train
+okay so highlight that paragraph in blue .	okay so highlight this paragraph in blue .	format	train
+now type costs before kpi	now type costs before kpi	insert	train
+let's add new after 50	lets add new after 50	insert	train
+delete really	delete really	delete	train
+okay so change 10 to twenty five	okay so change 10 to 25	replace	train
+i want you to replace the second word with chart	i want you to replace the second word with chart	replace	train
+now promote the fourth sentence .	now promote the fourth sentence .	make_heading	train
+turn the next word highlighted please	turn the next word highlighted please	format	train
+put a new paragraph at the end	put a new_paragraph at_end	insert	train
+okay so mark 200 .	okay so mark 200 .	select	train
+can you format the fifth paragraph as a level one heading	can you format the fifth paragraph as a heading_one	format	train
+would you go to the start of the fourth character	would you go at_start of the fourth character	move_cursor	train
+please insert hiring at the beginning .	please insert hiring at_start .	insert	train
+please remove friday	please remove friday	delete	train
+unbold the first three sentences	unformat bold the first_3 sentences	unformat	train
+i want you to select that	i want you to select that	select	train
+okay so remove the fourth line	okay so remove the fourth line	delete	train
+please remove the fifth paragraph .	please remove the fifth paragraph .	delete	train
+clear the formatting of the last line	unformat the last line	unformat	train
+jump to the start .	jump at_start .	move_cursor	train
+now turn this sentence into heading 2 .	now turn this sentence into heading_two .	format	train
+now jump to the start of the next line	now jump at_start of the next line	move_cursor	train
+could you colour market yellow .	could you color market yellow .	format	train
+turn the first three sentences into a list	turn the first_3 sentences into a list	format	train
+add fifteen at the start of this line please	add 15 at_start of this line please	insert	train
+i need you to move the cursor to the start .	i need you to move the cursor at_start .	move_cursor	train
+i want you to replace the word budget with urgent .	i want you to replace the word budget with urgent .	replace	train
+i need you to correct 50 to team .	i need you to correct 50 to team .	replace	train
+let's cut the first three sentences	lets cut the first_3 sentences	delete	train
+now mark winter	now mark winter	select	train
+please mark the first four sentences .	please mark the first_4 sentences .	select	train
+please highlight the word peter in blue	please highlight the word peter in blue	format	train
+demote that to heading one .	demote that to heading_one .	make_heading	train
+correct invoice to winter .	correct invoice to winter .	replace	train
+choose all of it please	choose everything please	select	train
+move the cursor to the start of the third line	move the cursor at_start of the third line	move_cursor	train
+color it orange	color it orange	format	train
+could you select the fifth paragraph	could you select the fifth paragraph	select	train
+okay so redo again .	okay so redo again .	redo	train
+i want you to select the word contract .	i want you to select the word contract .	select	train
+would you change numbers to users .	would you change numbers to users .	replace	train
+please remove 2025 .	please remove 2025 .	delete	train
+could you add spring at the end .	could you add spring at_end .	insert	train
+let's make draft white	lets make draft white	format	train
+now unformat the second word	now unformat the second word	unformat	train
+could you move the cursor to the end of the third character	could you move the cursor at_end of the third character	move_cursor	train
+would you erase the selection .	would you erase the selection .	delete	train
+now put the cursor after project .	now move the cursor after project .	move_cursor	train
+select from the beginning to client	select at_start to client	select	train
+i want you to promote the previous sentence .	i want you to promote the previous sentence .	make_heading	train
+please clear the formatting of the next word	please unformat the next word	unformat	train
+format the fifth sentence as heading 1	format the fifth sentence as heading_one	format	train
+can you jump to this paragraph .	can you jump to this paragraph .	move_cursor	train
+let's clear the formatting of maria .	lets unformat maria .	unformat	train
+convert the previous five lines into an ordered list .	convert the previous_5 lines into an numbered_list .	format	train
+i want you to change kpi to "roadmap item"	i want you to change kpi to roadmap_item	replace	train
+i want you to italicise 80 .	i want you to italicise 80 .	format	train
+please put 5 before users	please put 5 before users	insert	train
+promote the first sentence please	promote the first sentence please	make_heading	train
+i want you to uppercase all of it .	i want you to uppercase everything .	capitalise	train
+i need you to itemise the third line as a numbered list .	i need you to itemise the third line as a numbered_list .	make_list	train
+please capitalize the previous line	please capitalise the previous line	capitalise	train
+capitalize important	capitalise important	capitalise	train
+would you remove the formatting from the fourth list item .	would you unformat the fourth list_item .	unformat	train
+i want you to put the cursor after project .	i want you to move the cursor after project .	move_cursor	train
+please italicise 150 .	please italicise 150 .	format	train
+now replace twenty with today	now replace 20 with today	replace	train
+please move the cursor after survey .	please move the cursor after survey .	move_cursor	train
+now promote the second paragraph to heading two .	now promote the second paragraph to heading_two .	make_heading	train
+okay so insert a comma after 100	okay so insert a comma after 100	insert	train
+i need you to make the selection in bold	i need you to make the selection bold	format	train
+would you insert price before goals .	would you insert price before goals .	insert	train
+i need you to go to the end .	i need you to go at_end .	move_cursor	train
+insert costs at the start please	insert costs at_start please	insert	train
+replace goals with project please	replace goals with project please	replace	train
+okay so delete the previous sentence .	okay so delete the previous sentence .	delete	train
+i need you to replace the first line with 200	i need you to replace the first line with 200	replace	train
+i need you to add winter at the end of the third word	i need you to add winter at_end of the third word	insert	train
+please capitalize the last word .	please capitalise the last word .	capitalise	train
+remove it	remove it	delete	train
+enumerate it	enumerate it	make_list	train
+okay so highlight 150 in orange	okay so highlight 150 in orange	format	train
+please select the second list item .	please select the second list_item .	select	train
+okay so erase the fifth paragraph in the ideas card .	okay so erase the fifth paragraph in the ideas card .	delete	train
+let's capitalize revenue .	lets capitalise revenue .	capitalise	train
+let's uppercase salary .	lets uppercase salary .	capitalise	train
+move the cursor to the second sentence please	move the cursor to the second sentence please	move_cursor	train
+i need you to convert the first three sentences into an ordered list	i need you to convert the first_3 sentences into an numbered_list	format	train
+let's turn design gray .	lets turn design gray .	format	train
+promote the second sentence to a heading please	promote the second sentence to a heading please	make_heading	train
+i need you to replace the next line with maybe .	i need you to replace the next line with maybe .	replace	train
+i want you to itemize the next two sentences	i want you to itemise the next_2 sentences	make_list	train
+i need you to correct paul to results .	i need you to correct paul to results .	replace	train
+would you insert summer after profit	would you insert summer after profit	insert	train
+let's remove really	lets remove really	delete	train
+please make the previous paragraph huge .	please make the previous paragraph huge .	format	train
+now delete everything after budget .	now delete everything after budget .	delete	train
+could you remove the last list item	could you remove the last list_item	delete	train
+let's select from the start to draft .	lets select at_start to draft .	select	train
+would you redo	would you redo	redo	train
+okay so delete everything after salary .	okay so delete everything after salary .	delete	train
+unformat it	unformat it	unformat	train
+could you undo .	could you undo .	undo	train
+can you insert travel after great	can you insert travel after great	insert	train
+please justify the fourth line	please justify the fourth line	align	train
+select the first 3 paragraphs please .	select the first_3 paragraphs please .	select	train
+cut it	cut it	delete	train
+choose the word client please .	choose the word client please .	select	train
+insert chart after slides	insert chart after slides	insert	train
+insert anna at the end	insert anna at_end	insert	train
+i need you to uppercase urgent .	i need you to uppercase urgent .	capitalise	train
+capitalize the word revenue .	capitalise the word revenue .	capitalise	train
+i want you to make the last sentence into a heading	i want you to make the last sentence into a heading	format	train
+okay so select from price to the end	okay so select from price at_end	select	train
+format everything as bold please	format everything as bold please	format	train
+let's jump to the end .	lets jump at_end .	move_cursor	train
+now replace peter with feedback	now replace peter with feedback	replace	train
+now correct peter to "follow up" .	now correct peter to follow_up .	replace	train
+now put the cursor before paul	now move the cursor before paul	move_cursor	train
+i need you to make the previous paragraph heading 3 .	i need you to make the previous paragraph heading_three .	format	train
+okay so erase the selection	okay so erase the selection	delete	train
+i need you to capitalize the second character .	i need you to capitalise the second character .	capitalise	train
+can you delete friday .	can you delete friday .	delete	train
+i want you to turn the first 3 paragraphs into an ordered list	i want you to turn the first_3 paragraphs into an numbered_list	format	train
+i need you to jump to the start .	i need you to jump at_start .	move_cursor	train
+i need you to correct 120 to office	i need you to correct 120 to office	replace	train
+please go to the beginning .	please go at_start .	move_cursor	train
+now centre everything	now centre everything	align	train
+capitalise all the text please	capitalise everything please	capitalise	train
+okay so select from data to the end .	okay so select from data at_end .	select	train
+now highlight the first sentence in yellow .	now highlight the first sentence in yellow .	format	train
+can you align the third paragraph justified	can you align the third paragraph justified	align	train
+i need you to delete everything before margin .	i need you to delete everything before margin .	delete	train
+now justify the fifth sentence .	now justify the fifth sentence .	align	train
+now justify the first paragraph	now justify the first paragraph	align	train
+select the word chart please	select the word chart please	select	train
+would you redo	would you redo	redo	train
+okay so remove the previous character	okay so remove the previous character	delete	train
+would you mark 25	would you mark 25	select	train
+can you add slides after anna	can you add slides after anna	insert	train
+highlight chart in pink .	highlight chart in pink .	format	train
+now replace that word with today	now replace this word with today	replace	train
+please select users	please select users	select	train
+i need you to replace 50 with 200 .	i need you to replace 50 with 200 .	replace	train
+please read it	please read it	read_back	train
+remove the bold from that please .	unformat bold that please .	unformat	train
+uppercase the first two paragraphs	uppercase the first_2 paragraphs	capitalise	train
+i want you to justify the last list item .	i want you to justify the last list_item .	align	train
+i want you to choose that .	i want you to choose that .	select	train
+can you delete the second word	can you delete the second word	delete	train
+i want you to replace the second word with important	i want you to replace the second word with important	replace	train
+italicize the fourth character please	italicise the fourth character please	format	train
+okay so insert a question mark at the end	okay so insert a question_mark at_end	insert	train
+please read out the last two words	please read the last_2 words	read_back	train
+okay so read the selection .	okay so read the selection .	read_back	train
+can you insert a colon before new	can you insert a colon before new	insert	train
+i want you to make maybe orange	i want you to make maybe orange	format	train
+make that huge please	make that huge please	format	train
+i need you to add anna at the end of the last paragraph	i need you to add anna at_end of the last paragraph	insert	train
+i need you to jump to that line .	i need you to jump to this line .	move_cursor	train
+could you delete everything after sales .	could you delete everything after sales .	delete	train
+make peter large please	make peter large please	format	train
+i need you to promote the fourth paragraph to heading two	i need you to promote the fourth paragraph to heading_two	make_heading	train
+let's change growth to partners .	lets change growth to partners .	replace	train
+could you delete everything before q3	could you delete everything before q3	delete	train
+would you set the previous 2 sentences into heading three	would you set the previous_2 sentences into heading_three	format	train
+could you put maria before monthly .	could you put maria before monthly .	insert	train
+could you select from the beginning to "action items"	could you select at_start to action_items	select	train
+okay so replace the fifth line with new	okay so replace the fifth line with new	replace	train
+could you remove the strikethrough from the whole text .	could you unformat strikethrough everything .	unformat	train
+i want you to turn this word highlighted	i want you to turn this word highlighted	format	train
+i need you to align the previous sentence to the right .	i need you to align the previous sentence to the right .	align	train
+unbold the word numbers .	unformat bold the word numbers .	unformat	train
+i need you to make there bigger	i need you to make there bigger	format	train
+okay so itemize the first five lines	okay so itemise the first_5 lines	make_list	train
+let's uppercase "agenda item" .	lets uppercase agenda_item .	capitalise	train
+delete that line please	delete this line please	delete	train
+make the next sentence into heading 1 please	make the next sentence into heading_one please	format	train
+can you add an exclamation point at the end	can you add an exclamation_mark at_end	insert	train
+now erase fifteen	now erase 15	delete	train
+please go to the end	please go at_end	move_cursor	train
+please remove the bold from really	please unformat bold really	unformat	train
+can you type salary at the end .	can you type salary at_end .	insert	train
+make the fourth line heading 1 please .	make the fourth line heading_one please .	format	train
+could you put 120 before quickly	could you put 120 before quickly	insert	train
+please replace hiring with their	please replace hiring with their	replace	train
+can you mark forty .	can you mark 40 .	select	train
+let's capitalise the selected text .	lets capitalise the selection .	capitalise	train
+could you capitalise the word really .	could you capitalise the word really .	capitalise	train
+can you demote the last line to heading 3 .	can you demote the last line to heading_three .	make_heading	train
+i want you to jump to the start	i want you to jump at_start	move_cursor	train
+i need you to erase that .	i need you to erase that .	delete	train
+can you colour the third paragraph pink	can you color the third paragraph pink	format	train
+i want you to capitalise all the text	i want you to capitalise everything	capitalise	train
+now replace the next line with deadline	now replace the next line with deadline	replace	train
+remove slides	remove slides	delete	train
+undo again please	undo again please	undo	train
+would you choose it	would you choose it	select	train
+now mark maybe	now mark maybe	select	train
+i need you to correct 100 to deadline .	i need you to correct 100 to deadline .	replace	train
+can you read out the fifth word	can you read the fifth word	read_back	train
+would you select that .	would you select that .	select	train
+type feedback before maybe please	type feedback before maybe please	insert	train
+could you make the fourth word huge .	could you make the fourth word huge .	format	train
+highlight the first two paragraphs in green .	highlight the first_2 paragraphs in green .	format	train
+please delete the previous two lines	please delete the previous_2 lines	delete	train
+i need you to remove the underline from it	i need you to unformat underlined it	unformat	train
+i want you to demote the fifth sentence to a subheading .	i want you to demote the fifth sentence to a heading_two .	make_heading	train
+okay so undo .	okay so undo .	undo	train
+okay so remove the formatting from it	okay so unformat it	unformat	train
+okay so redo .	okay so redo .	redo	train
+could you undo	could you undo	undo	train
+could you color the previous word black	could you color the previous word black	format	train
+would you delete that line .	would you delete this line .	delete	train
+would you read everything .	would you read everything .	read_back	train
+now erase hello .	now erase hello .	delete	train
+let's insert q3 at the end of the third word	lets insert q3 at_end of the third word	insert	train
+please make this list item huge	please make this list_item huge	format	train
+turn it struck through	turn it strikethrough	format	train
+please select launch	please select launch	select	train
+okay so replace "agenda item" with slides .	okay so replace agenda_item with slides .	replace	train
+highlight budget in yellow please	highlight budget in yellow please	format	train
+please replace the third sentence with client	please replace the third sentence with client	replace	train
+please make the next three words smaller .	please make the next_3 words smaller .	format	train
+i need you to promote the second paragraph	i need you to promote the second paragraph	make_heading	train
+okay so cut the first character .	okay so cut the first character .	delete	train
+please change anna to forty .	please change anna to 40 .	replace	train
+itemise the previous 5 lines as an ordered list	itemise the previous_5 lines as an numbered_list	make_list	train
+i need you to enumerate the previous three sentences	i need you to enumerate the previous_3 sentences	make_list	train
+set the first four paragraphs highlighted please .	set the first_4 paragraphs highlighted please .	format	train
+i want you to add important at the end of the previous list item .	i want you to add important at_end of the previous list_item .	insert	train
+now itemize the first five paragraphs .	now itemise the first_5 paragraphs .	make_list	train
+please type anna at the beginning	please type anna at_start	insert	train
+okay so uppercase that .	okay so uppercase that .	capitalise	train
+let's demote the second line to a subheading	lets demote the second line to a heading_two	make_heading	train
+scratch that please	delete that please	delete	train
+okay so mark the next three sentences	okay so mark the next_3 sentences	select	train
+would you go before anna	would you go before anna	move_cursor	train
+go before "next steps" please .	go before next_steps please .	move_cursor	train
+can you make the first 2 lines into plain text	can you make the first_2 lines into plain	format	train
+enumerate that .	enumerate that .	make_list	train
+would you convert the next five sentences into bullet points	would you convert the next_5 sentences into bullet_list	format	train
+would you add 120 before launch	would you add 120 before launch	insert	train
+i want you to underline the previous 2 paragraphs in the minutes note	i want you to underline the previous_2 paragraphs in the minutes note	format	train
+i want you to remove the strikethrough from twenty five .	i want you to unformat strikethrough 25 .	unformat	train
+would you make the second word green	would you make the second word green	format	train
+could you color the fifth character green	could you color the fifth character green	format	train
+could you delete that	could you delete that	delete	train
+i want you to insert contract at the start of the third word	i want you to insert contract at_start of the third word	insert	train
+now type thanks before "action items" .	now type thanks before action_items .	insert	train
+can you correct 200 to "follow up"	can you correct 200 to follow_up	replace	train
+could you replace travel with paul	could you replace travel with paul	replace	train
+color the third list item red please .	color the third list_item red please .	format	train
+can you align the last two lines to the right	can you align the last_2 lines to the right	align	train
+can you jump to the start of that list item	can you jump at_start of this list_item	move_cursor	train
+could you turn the third word in bold	could you turn the third word bold	format	train
+select that please	select that please	select	train
+now cross out the last five list items in the notes textbox .	now strike the last_5 list_items in the notes textbox .	format	train
+i want you to remove the strikethrough from ten .	i want you to unformat strikethrough 10 .	unformat	train
+i want you to remove the formatting from the word growth .	i want you to unformat the word growth .	unformat	train
+let's add margin at the end	lets add margin at_end	insert	train
+let's centre the last sentence	lets centre the last sentence	align	train
+okay so itemise it .	okay so itemise it .	make_list	train
+i need you to highlight the fourth line in green .	i need you to highlight the fourth line in green .	format	train
+would you put the cursor at the start of the previous paragraph .	would you move the cursor at_start of the previous paragraph .	move_cursor	train
+okay so format that as a heading	okay so format that as a heading	format	train
+mark the third list item	mark the third list_item	select	train
+i need you to read back the fourth character .	i need you to read the fourth character .	read_back	train
+color the first four list items pink please	color the first_4 list_items pink please	format	train
+please itemise the last five paragraphs .	please itemise the last_5 paragraphs .	make_list	train
+itemise it please	itemise it please	make_list	train
+now unbold 50 .	now unformat bold 50 .	unformat	train
+okay so remove the formatting from the selection .	okay so unformat the selection .	unformat	train
+now go to the start of that character	now go at_start of this character	move_cursor	train
+let's insert a period at the end	lets insert a full_stop at_end	insert	train
+can you capitalise the fourth word	can you capitalise the fourth word	capitalise	train
+okay so format the third line as a numbered list .	okay so format the third line as a numbered_list .	format	train
+please insert feedback after risks .	please insert feedback after risks .	insert	train
+i need you to itemise the next five paragraphs as a bulleted list	i need you to itemise the next_5 paragraphs as a bullet_list	make_list	train
+mark that word please .	mark this word please .	select	train
+delete everything after risks .	delete everything after risks .	delete	train
+please turn the word design white	please turn the word design white	format	train
+erase the selection please .	erase the selection please .	delete	train
+i need you to change sixty to weekly	i need you to change 60 to weekly	replace	train
+enumerate that	enumerate that	make_list	train
+would you move the cursor before project	would you move the cursor before project	move_cursor	train
+can you itemise the previous two sentences	can you itemise the previous_2 sentences	make_list	train
+okay so make quickly bold in the summary note	okay so make quickly bold in the summary note	format	train
+please add its at the start of this line	please add its at_start of this line	insert	train
+let's make the word price large .	lets make the word price large .	format	train
+replace the next word with summer .	replace the next word with summer .	replace	train
+would you capitalize the previous five characters	would you capitalise the previous_5 characters	capitalise	train
+could you type numbers at the beginning	could you type numbers at_start	insert	train
+i need you to go to the end	i need you to go at_end	move_cursor	train
+change paul to profit please .	change paul to profit please .	replace	train
+can you uppercase the third list item .	can you uppercase the third list_item .	capitalise	train
+please remove the highlight from the second line	please unformat highlighted the second line	unformat	train
+i need you to scratch that .	i need you to delete that .	delete	train
+i want you to add important at the start of the fifth list item	i want you to add important at_start of the fifth list_item	insert	train
+would you select the fifth paragraph .	would you select the fifth paragraph .	select	train
+i want you to highlight the previous word in orange	i want you to highlight the previous word in orange	format	train
+would you put friday before sales	would you put friday before sales	insert	train
+could you put the cursor before risks	could you move the cursor before risks	move_cursor	train
+now format the previous list item as heading 3	now format the previous list_item as heading_three	format	train
+can you convert the next 5 lines into a bullet list	can you convert the next_5 lines into a bullet_list	format	train
+would you remove the strikethrough from the previous list item	would you unformat strikethrough the previous list_item	unformat	train
+read everything .	read everything .	read_back	train
+please select really	please select really	select	train
+correct price to annual please .	correct price to annual please .	replace	train
+could you format the first two lines as a heading .	could you format the first_2 lines as a heading .	format	train
+okay so align the fourth paragraph to the center	okay so align the fourth paragraph to the center	align	train
+i want you to delete the word revenue .	i want you to delete the word revenue .	delete	train
+would you highlight "agenda item" in yellow .	would you highlight agenda_item in yellow .	format	train
+make hiring white please	make hiring white please	format	train
+could you choose all the text	could you choose everything	select	train
+can you align the fifth paragraph right	can you align the fifth paragraph right	align	train
+now align the fourth list item left .	now align the fourth list_item left .	align	train
+i need you to turn the first word pink	i need you to turn the first word pink	format	train
+i need you to go to the start .	i need you to go at_start .	move_cursor	train
+now remove the first 3 lines .	now remove the first_3 lines .	delete	train
+can you make this line a heading	can you make this line a heading	format	train
+now format the next four paragraphs as a heading	now format the next_4 paragraphs as a heading	format	train
+let's replace the last word with its	lets replace the last word with its	replace	train
+i need you to put the cursor after budget	i need you to move the cursor after budget	move_cursor	train
+would you replace the third sentence with "action items"	would you replace the third sentence with action_items	replace	train
+please make the last three lines smaller .	please make the last_3 lines smaller .	format	train
+i want you to put really after meeting .	i want you to put really after meeting .	insert	train
+let's add autumn before project .	lets add autumn before project .	insert	train
+okay so remove the highlight from the next character .	okay so unformat highlighted the next character .	unformat	train
+now replace slides with kpi .	now replace slides with kpi .	replace	train
+can you select the next four characters	can you select the next_4 characters	select	train
+i need you to move the cursor after design	i need you to move the cursor after design	move_cursor	train
+i want you to itemise the last five lines as an ordered list	i want you to itemise the last_5 lines as an numbered_list	make_list	train
+would you put board before twenty five .	would you put board before 25 .	insert	train
+now replace the previous sentence with goals	now replace the previous sentence with goals	replace	train
+i need you to turn paris blue	i need you to turn paris blue	format	train
+promote the second line	promote the second line	make_heading	train
+i want you to make the second paragraph large	i want you to make the second paragraph large	format	train
+could you turn all the text black	could you turn everything black	format	train
+let's move the cursor to the fourth list item .	lets move the cursor to the fourth list_item .	move_cursor	train
+let's change risks to quickly	lets change risks to quickly	replace	train
+i want you to mark team	i want you to mark team	select	train
+correct sixty to 100 please	correct 60 to 100 please	replace	train
+okay so choose it	okay so choose it	select	train
+please replace the fourth sentence with regards .	please replace the fourth sentence with regards .	replace	train
+i need you to move the cursor to that list item	i need you to move the cursor to this list_item	move_cursor	train
+can you correct 50 to important	can you correct 50 to important	replace	train
+okay so add office at the end .	okay so add office at_end .	insert	train
+i want you to capitalise the word team	i want you to capitalise the word team	capitalise	train
+insert their at the end of the first line please	insert their at_end of the first line please	insert	train
+can you type anna at the start	can you type anna at_start	insert	train
+jump to the beginning please	jump at_start please	move_cursor	train
+i want you to erase the whole text	i want you to erase everything	delete	train
+undo again please .	undo again please .	undo	train
+could you make the last 2 paragraphs in bold .	could you make the last_2 paragraphs bold .	format	train
+i need you to read me the first word	i need you to read the first word	read_back	train
+could you colour chart blue .	could you color chart blue .	format	train
+please put a colon at the end	please put a colon at_end	insert	train
+now uppercase the fourth character .	now uppercase the fourth character .	capitalise	heldout_formulations
+let's itemise the first four paragraphs as a bullet list	lets itemise the first_4 paragraphs as a bullet_list	make_list	heldout_formulations
+i need you to select from hiring to the end	i need you to select from hiring at_end	select	heldout_formulations
+now insert monthly at the end of that list item	now insert monthly at_end of this list_item	insert	heldout_formulations
+would you delete everything before "follow up"	would you delete everything before follow_up	delete	heldout_formulations
+okay so italicise chart	okay so italicise chart	format	heldout_formulations
+please jump to the end of the first paragraph	please jump at_end of the first paragraph	move_cursor	heldout_formulations
+would you erase margin	would you erase margin	delete	heldout_formulations
+i want you to align the fourth list item left .	i want you to align the fourth list_item left .	align	heldout_formulations
+i need you to mark the word maria .	i need you to mark the word maria .	select	heldout_formulations
+okay so make that bigger	okay so make that bigger	format	heldout_formulations
+would you add office at the start of the third list item .	would you add office at_start of the third list_item .	insert	heldout_formulations
+replace the fifth sentence with hello please .	replace the fifth sentence with hello please .	replace	heldout_formulations
+would you replace "next steps" with monday	would you replace next_steps with monday	replace	heldout_formulations
+okay so centre that paragraph .	okay so centre this paragraph .	align	heldout_formulations
+can you move the cursor after regards .	can you move the cursor after regards .	move_cursor	heldout_formulations
+can you add numbers at the start of the first sentence .	can you add numbers at_start of the first sentence .	insert	heldout_formulations
+could you align the fourth line right	could you align the fourth line right	align	heldout_formulations
+would you center the last line	would you centre the last line	align	heldout_formulations
+let's itemise the next 3 paragraphs as an ordered list	lets itemise the next_3 paragraphs as an numbered_list	make_list	heldout_formulations
+could you enumerate it	could you enumerate it	make_list	heldout_formulations
+now choose the whole text	now choose everything	select	heldout_formulations
+okay so make the fourth word smaller .	okay so make the fourth word smaller .	format	heldout_formulations
+now choose it .	now choose it .	select	heldout_formulations
+would you add "follow up" at the end of the last word .	would you add follow_up at_end of the last word .	insert	heldout_formulations
+now add hiring at the end	now add hiring at_end	insert	heldout_formulations
+would you center the last paragraph .	would you centre the last paragraph .	align	heldout_formulations
+could you itemise the third line as a bulleted list	could you itemise the third line as a bullet_list	make_list	heldout_formulations
+would you replace feedback with users	would you replace feedback with users	replace	heldout_formulations
+okay so make the word invoice large	okay so make the word invoice large	format	heldout_formulations
+would you add goals at the start of the second list item .	would you add goals at_start of the second list_item .	insert	heldout_formulations
+okay so make the selected text huge	okay so make the selection huge	format	heldout_formulations
+could you insert a new line before london .	could you insert a new_line before london .	insert	heldout_formulations
+okay so promote the third line to a heading	okay so promote the third line to a heading	make_heading	heldout_formulations
+please make the word important struck through	please make the word important strikethrough	format	heldout_formulations
+let's itemise the first paragraph as a bulleted list .	lets itemise the first paragraph as a bullet_list .	make_list	heldout_formulations
+could you add paris at the end of the next word .	could you add paris at_end of the next word .	insert	heldout_formulations
+could you align the third line justified	could you align the third line justified	align	heldout_formulations
+would you undo	would you undo	undo	heldout_formulations
+let's read out the last five words	lets read the last_5 words	read_back	heldout_formulations
+please set anna strikethrough .	please set anna strikethrough .	format	heldout_formulations
+could you set the fourth line heading two	could you set the fourth line heading_two	format	heldout_formulations
+okay so go to the end of that character	okay so go at_end of this character	move_cursor	heldout_formulations
+would you delete paris	would you delete paris	delete	heldout_formulations
+can you replace 200 with q4	can you replace 200 with q4	replace	heldout_formulations
+can you insert plan at the start of the fourth word .	can you insert plan at_start of the fourth word .	insert	heldout_formulations
+can you replace numbers with plan .	can you replace numbers with plan .	replace	heldout_formulations
+can you underline deadline in the minutes note	can you underline deadline in the minutes note	format	heldout_formulations
+i need you to select from q3 until the end	i need you to select from q3 at_end	select	heldout_formulations
+could you set the third line a heading .	could you set the third line a heading .	format	heldout_formulations
+i need you to select 75 in the todo card	i need you to select 75 in the todo card	select	heldout_formulations
+let's mark the previous list item	lets mark the previous list_item	select	heldout_formulations
+now select that .	now select that .	select	heldout_formulations
+could you itemise the next 3 lines as a bulleted list .	could you itemise the next_3 lines as a bullet_list .	make_list	heldout_formulations
+now select all the text .	now select everything .	select	heldout_formulations
+would you replace 120 with their .	would you replace 120 with their .	replace	heldout_formulations
+could you align the last sentence left .	could you align the last sentence left .	align	heldout_formulations
+can you italicise the first word	can you italicise the first word	format	heldout_formulations
+replace the fourth sentence with london please	replace the fourth sentence with london please	replace	heldout_formulations
+please make it strikethrough in the agenda note	please make it strikethrough in the agenda note	format	heldout_formulations
+would you replace slides with very	would you replace slides with very	replace	heldout_formulations
+can you replace anna with regards	can you replace anna with regards	replace	heldout_formulations
+can you underline the selection .	can you underline the selection .	format	heldout_formulations
+i need you to center the last line	i need you to centre the last line	align	heldout_formulations
+i want you to add "next steps" at the end .	i want you to add next_steps at_end .	insert	heldout_formulations
+now add five at the end of the previous word .	now add 5 at_end of the previous word .	insert	heldout_formulations
+i need you to center the selected text	i need you to centre the selection	align	heldout_formulations
+i need you to erase the first four words	i need you to erase the first_4 words	delete	heldout_formulations
+okay so cross out all the text	okay so strike everything	format	heldout_formulations
+now uppercase the word their .	now uppercase the word their .	capitalise	heldout_formulations
+would you delete the word q4 .	would you delete the word q4 .	delete	heldout_formulations
+let's delete everything after margin .	lets delete everything after margin .	delete	heldout_formulations
+okay so center the last line	okay so centre the last line	align	heldout_formulations
+i need you to select from annual until the end	i need you to select from annual at_end	select	heldout_formulations
+now select all the text	now select everything	select	heldout_formulations
+let's read back the next five characters	lets read the next_5 characters	read_back	heldout_formulations
+can you move the cursor after urgent .	can you move the cursor after urgent .	move_cursor	heldout_formulations
+could you turn the third sentence heading 3 .	could you turn the third sentence heading_three .	format	heldout_formulations
+i want you to align the last four paragraphs right	i want you to align the last_4 paragraphs right	align	heldout_formulations
+would you delete everything after urgent .	would you delete everything after urgent .	delete	heldout_formulations
+i need you to select from the start to feedback .	i need you to select at_start to feedback .	select	heldout_formulations
+now capitalize it .	now capitalise it .	capitalise	heldout_formulations
+now capitalise this sentence .	now capitalise this sentence .	capitalise	heldout_formulations
+let's mark the fourth character in the todo textbox .	lets mark the fourth character in the todo textbox .	select	heldout_formulations
+now uppercase the next two words .	now uppercase the next_2 words .	capitalise	heldout_formulations
+can you add price at the start of the last list item .	can you add price at_start of the last list_item .	insert	heldout_formulations
+now capitalize the next character	now capitalise the next character	capitalise	heldout_formulations
+could you add very at the start of the third list item .	could you add very at_start of the third list_item .	insert	heldout_formulations
+now type "roadmap item" at the end	now type roadmap_item at_end	insert	heldout_formulations
+i need you to erase the second paragraph	i need you to erase the second paragraph	delete	heldout_formulations
+could you itemise the previous two lines as a bulleted list	could you itemise the previous_2 lines as a bullet_list	make_list	heldout_formulations
+would you replace old with monthly	would you replace old with monthly	replace	heldout_formulations
+i need you to cut the previous list item	i need you to cut the previous list_item	delete	heldout_formulations
+select from the start to tomorrow please	select at_start to tomorrow please	select	heldout_formulations
+now capitalise urgent	now capitalise urgent	capitalise	heldout_formulations
+now insert costs at the end of the next paragraph	now insert costs at_end of the next paragraph	insert	heldout_formulations
+would you itemise the first two lines as a numbered list	would you itemise the first_2 lines as a numbered_list	make_list	heldout_formulations
+let's go before offer	lets go before offer	move_cursor	heldout_formulations
+please make the last sentence struck through	please make the last sentence strikethrough	format	heldout_formulations
+would you add 200 at the start of the last sentence .	would you add 200 at_start of the last sentence .	insert	heldout_formulations
+i need you to select from budget until the end	i need you to select from budget at_end	select	heldout_formulations
+could you align the first two lines left .	could you align the first_2 lines left .	align	heldout_formulations
+would you centre the first five sentences .	would you centre the first_5 sentences .	align	heldout_formulations
+could you set the fourth sentence heading one .	could you set the fourth sentence heading_one .	format	heldout_formulations
+would you align the previous line center .	would you align the previous line center .	align	heldout_formulations
+okay so demote this line to heading two .	okay so demote this line to heading_two .	make_heading	heldout_formulations
+i need you to select from the start to results	i need you to select at_start to results	select	heldout_formulations
+i need you to select "action items" .	i need you to select action_items .	select	heldout_formulations
+could you insert weekly at the end of this sentence	could you insert weekly at_end of this sentence	insert	heldout_formulations
+could you enumerate that	could you enumerate that	make_list	heldout_formulations
+now type budget at the start	now type budget at_start	insert	heldout_formulations
+can you replace twenty with monthly .	can you replace 20 with monthly .	replace	heldout_formulations
+please make the previous list item highlighted .	please make the previous list_item highlighted .	format	heldout_formulations
+can you select from spring until the end	can you select from spring at_end	select	heldout_formulations
+can you add salary at the end of the fifth list item	can you add salary at_end of the fifth list_item	insert	heldout_formulations
+i need you to select from the beginning to today	i need you to select at_start to today	select	heldout_formulations
+can you select from the beginning to "roadmap item"	can you select at_start to roadmap_item	select	heldout_formulations
+would you insert offer at the start of the next sentence	would you insert offer at_start of the next sentence	insert	heldout_formulations
+i need you to select survey .	i need you to select survey .	select	heldout_formulations
+could you itemise the first five lines as a bulleted list	could you itemise the first_5 lines as a bullet_list	make_list	heldout_formulations
+let's go before slides .	lets go before slides .	move_cursor	heldout_formulations
+select from the beginning to "roadmap item" please .	select at_start to roadmap_item please .	select	heldout_formulations
+let's delete everything before very .	lets delete everything before very .	delete	heldout_formulations
+can you italicise hello	can you italicise hello	format	heldout_formulations
+could you put a period at the end .	could you put a full_stop at_end .	insert	heldout_formulations
+let's read out the previous two list items	lets read the previous_2 list_items	read_back	heldout_formulations
+okay so highlight the previous paragraph .	okay so highlight the previous paragraph .	format	heldout_formulations
+please make that line in bold .	please make this line bold .	format	heldout_formulations
+would you replace survey with project .	would you replace survey with project .	replace	heldout_formulations
+would you insert spring at the start of the previous word	would you insert spring at_start of the previous word	insert	heldout_formulations
+okay so justify everything	okay so justify everything	align	heldout_formulations
+would you select from the start to anna .	would you select at_start to anna .	select	heldout_formulations
+i need you to select from the start to its .	i need you to select at_start to its .	select	heldout_formulations
+please turn the word numbers underlined .	please turn the word numbers underlined .	format	heldout_formulations
+i need you to select from the beginning to anna	i need you to select at_start to anna	select	heldout_formulations
+let's itemise that line as a numbered list	lets itemise this line as a numbered_list	make_list	heldout_formulations
+could you align the first 3 sentences right .	could you align the first_3 sentences right .	align	heldout_formulations
+now insert maria at the start of the previous sentence	now insert maria at_start of the previous sentence	insert	heldout_formulations
+can you replace q4 with numbers	can you replace q4 with numbers	replace	heldout_formulations
+would you select from london to the end	would you select from london at_end	select	heldout_formulations
+now insert travel at the start	now insert travel at_start	insert	heldout_formulations
+now capitalise the first 4 words	now capitalise the first_4 words	capitalise	heldout_formulations
+replace the fourth line with friday please .	replace the fourth line with friday please .	replace	heldout_formulations
+could you itemise the previous 4 lines as a numbered list .	could you itemise the previous_4 lines as a numbered_list .	make_list	heldout_formulations
+could you insert a question mark before very	could you insert a question_mark before very	insert	heldout_formulations
+now bullet that .	now bullet that .	make_list	heldout_formulations
+let's itemise the previous two paragraphs as a bulleted list .	lets itemise the previous_2 paragraphs as a bullet_list .	make_list	heldout_formulations
+would you delete everything after autumn	would you delete everything after autumn	delete	heldout_formulations
+i want you to type invoice at the end	i want you to type invoice at_end	insert	heldout_formulations
+select from costs to the end please .	select from costs at_end please .	select	heldout_formulations
+please undo .	please undo .	undo	heldout_formulations
+i want you to align it justified	i want you to align it justified	align	heldout_formulations
+now type annual at the start	now type annual at_start	insert	heldout_formulations
+would you itemise the next 3 lines as a numbered list	would you itemise the next_3 lines as a numbered_list	make_list	heldout_formulations
+okay so justify the fifth sentence	okay so justify the fifth sentence	align	heldout_formulations
+could you add urgent at the start of the previous list item .	could you add urgent at_start of the previous list_item .	insert	heldout_formulations
+could you align the fifth line to the left	could you align the fifth line to the left	align	heldout_formulations
+would you add maria at the start of the second paragraph	would you add maria at_start of the second paragraph	insert	heldout_formulations
+replace the second word with costs please .	replace the second word with costs please .	replace	heldout_formulations
+could you make the third sentence heading 3 .	could you make the third sentence heading_three .	format	heldout_formulations
+i want you to align the last line right .	i want you to align the last line right .	align	heldout_formulations
+would you delete everything before five .	would you delete everything before 5 .	delete	heldout_formulations
+okay so centre the last five lines	okay so centre the last_5 lines	align	heldout_formulations
+can you insert salary at the start of the last sentence	can you insert salary at_start of the last sentence	insert	heldout_formulations
+select from kpi to the end please .	select from kpi at_end please .	select	heldout_formulations
+i need you to centre the fifth list item	i need you to centre the fifth list_item	align	heldout_formulations
+can you put the cursor after paris	can you move the cursor after paris	move_cursor	heldout_formulations
+can you select from the start to price .	can you select at_start to price .	select	heldout_formulations
+can you select from very until the end	can you select from very at_end	select	heldout_formulations
+could you add kpi at the end of the next sentence	could you add kpi at_end of the next sentence	insert	heldout_formulations
+would you insert really at the end of the last line .	would you insert really at_end of the last line .	insert	heldout_formulations
+okay so make the previous three list items large	okay so make the previous_3 list_items large	format	heldout_formulations
+let's move the cursor after fifteen .	lets move the cursor after 15 .	move_cursor	heldout_formulations
+okay so jump to the end of the second word	okay so jump at_end of the second word	move_cursor	heldout_formulations
+now type 120 at the end	now type 120 at_end	insert	heldout_formulations
+can you insert 2026 at the start of the fourth word .	can you insert 2026 at_start of the fourth word .	insert	heldout_formulations
+okay so demote the fifth paragraph to a heading .	okay so demote the fifth paragraph to a heading .	make_heading	heldout_formulations
+would you align the second paragraph left .	would you align the second paragraph left .	align	heldout_formulations
+please make the selection in bold .	please make the selection bold .	format	heldout_formulations
+now select that	now select that	select	heldout_formulations
+let's delete everything after contract	lets delete everything after contract	delete	heldout_formulations
+would you replace budget with survey	would you replace budget with survey	replace	heldout_formulations
+could you align the first three lines to the right	could you align the first_3 lines to the right	align	heldout_formulations
+could you align that center	could you align that center	align	heldout_formulations
+could you insert budget at the end of the fifth list item	could you insert budget at_end of the fifth list_item	insert	heldout_formulations
+can you select from the beginning to tomorrow .	can you select at_start to tomorrow .	select	heldout_formulations
+i need you to select from the beginning to winter .	i need you to select at_start to winter .	select	heldout_formulations
+let's read the last paragraph	lets read the last paragraph	read_back	heldout_formulations
+select from budget until the end please .	select from budget at_end please .	select	heldout_formulations
+okay so demote the selected text to heading one	okay so demote the selection to heading_one	make_heading	heldout_formulations
+can you replace very with old .	can you replace very with old .	replace	heldout_formulations
+i need you to centre all of it	i need you to centre everything	align	heldout_formulations
+please make today bold in the abstract textbox .	please make today bold in the abstract textbox .	format	heldout_formulations
+would you itemise the fifth paragraph as a numbered list	would you itemise the fifth paragraph as a numbered_list	make_list	heldout_formulations
+let's move the cursor before numbers	lets move the cursor before numbers	move_cursor	heldout_formulations
+let's choose the second word .	lets choose the second word .	select	heldout_formulations
+could you align the previous paragraph justified	could you align the previous paragraph justified	align	heldout_formulations
+okay so justify the previous four paragraphs .	okay so justify the previous_4 paragraphs .	align	heldout_formulations
+please go to the end of the fifth sentence .	please go at_end of the fifth sentence .	move_cursor	heldout_formulations
+i want you to align the last two sentences to the center	i want you to align the last_2 sentences to the center	align	heldout_formulations
+okay so promote the next line to a subheading	okay so promote the next line to a heading_two	make_heading	heldout_formulations
+select from the beginning to london please	select at_start to london please	select	heldout_formulations
+i need you to centre the previous paragraph .	i need you to centre the previous paragraph .	align	heldout_formulations
+can you replace "roadmap item" with great	can you replace roadmap_item with great	replace	heldout_formulations
+can you replace quickly with office	can you replace quickly with office	replace	heldout_formulations
+would you undo .	would you undo .	undo	heldout_formulations
+now capitalize that	now capitalise that	capitalise	heldout_formulations
+select from the beginning to contract please	select at_start to contract please	select	heldout_formulations
+can you select from the start to quickly .	can you select at_start to quickly .	select	heldout_formulations
+now capitalise the last sentence	now capitalise the last sentence	capitalise	heldout_formulations
+i need you to erase the third character in the intro textbox .	i need you to erase the third character in the intro textbox .	delete	heldout_formulations
+could you align the fifth list item to the center	could you align the fifth list_item to the center	align	heldout_formulations
+i need you to erase the last sentence .	i need you to erase the last sentence .	delete	heldout_formulations
+i want you to insert urgent at the start .	i want you to insert urgent at_start .	insert	heldout_formulations
+could you itemise the whole text	could you itemise everything	make_list	heldout_formulations
+would you itemise the previous 4 paragraphs as a bulleted list	would you itemise the previous_4 paragraphs as a bullet_list	make_list	heldout_formulations
+would you centre the previous line	would you centre the previous line	align	heldout_formulations
+now capitalize the first character .	now capitalise the first character .	capitalise	heldout_formulations
+let's delete everything after risks	lets delete everything after risks	delete	heldout_formulations
+could you enumerate the whole text	could you enumerate everything	make_list	heldout_formulations
+okay so make the word annual small .	okay so make the word annual small .	format	heldout_formulations
+now insert project at the end	now insert project at_end	insert	heldout_formulations
+i want you to insert annual at the end .	i want you to insert annual at_end .	insert	heldout_formulations
+i want you to align the first 2 list items to the left	i want you to align the first_2 list_items to the left	align	heldout_formulations
+can you select from the beginning to 100 .	can you select at_start to 100 .	select	heldout_formulations
+can you replace annual with travel .	can you replace annual with travel .	replace	heldout_formulations
+can you go before paul .	can you go before paul .	move_cursor	heldout_formulations
+would you undo again	would you undo again	undo	heldout_formulations
+can you move the cursor before "roadmap item" .	can you move the cursor before roadmap_item .	move_cursor	heldout_formulations
+let's read me the next five characters .	lets read the next_5 characters .	read_back	heldout_formulations
+please set the next list item underlined	please set the next list_item underlined	format	heldout_formulations
+can you add plan at the end of the next sentence	can you add plan at_end of the next sentence	insert	heldout_formulations
+can you underline the selected text in the ideas card .	can you underline the selection in the ideas card .	format	heldout_formulations
+i need you to select from the start to product	i need you to select at_start to product	select	heldout_formulations
+can you justify the third paragraph .	can you justify the third paragraph .	align	heldout_formulations
+now insert launch at the end of that line	now insert launch at_end of this line	insert	heldout_formulations
+now capitalize the next three lines	now capitalise the next_3 lines	capitalise	heldout_formulations
+would you undo .	would you undo .	undo	heldout_formulations
+i need you to cut the last list item .	i need you to cut the last list_item .	delete	heldout_formulations
+okay so embolden the first list item in the abstract card	okay so embolden the first list_item in the abstract card	format	heldout_formulations
+i need you to select from the start to slides	i need you to select at_start to slides	select	heldout_formulations
+can you replace very with q4	can you replace very with q4	replace	heldout_formulations
+i need you to select slides .	i need you to select slides .	select	heldout_formulations
+now uppercase the second line	now uppercase the second line	capitalise	heldout_formulations
+now insert 20 at the beginning	now insert 20 at_start	insert	heldout_formulations
+can you center the second paragraph	can you centre the second paragraph	align	heldout_formulations
+can you replace new with very .	can you replace new with very .	replace	heldout_formulations
+let's select the second sentence .	lets select the second sentence .	select	heldout_formulations
+could you add a new paragraph after survey .	could you add a new_paragraph after survey .	insert	heldout_formulations
+let's delete everything before their .	lets delete everything before their .	delete	heldout_formulations
+replace the next word with 120 please	replace the next word with 120 please	replace	heldout_formulations
+now type "agenda item" at the end	now type agenda_item at_end	insert	heldout_formulations
+would you center the next 4 list items .	would you centre the next_4 list_items .	align	heldout_formulations
+now choose it	now choose it	select	heldout_formulations
+now insert draft at the beginning	now insert draft at_start	insert	heldout_formulations
+let's go before winter	lets go before winter	move_cursor	heldout_formulations
+can you replace twenty with users	can you replace 20 with users	replace	heldout_formulations
+would you insert q3 at the end of the next paragraph .	would you insert q3 at_end of the next paragraph .	insert	heldout_formulations
+i need you to erase the fourth line	i need you to erase the fourth line	delete	heldout_formulations
+would you itemise the first five lines as a numbered list .	would you itemise the first_5 lines as a numbered_list .	make_list	heldout_formulations
+let's itemise the first two lines as an ordered list	lets itemise the first_2 lines as an numbered_list	make_list	heldout_formulations
+let's choose the next list item	lets choose the next list_item	select	heldout_formulations
+now uppercase that .	now uppercase that .	capitalise	heldout_formulations
+replace the third line with revenue please .	replace the third line with revenue please .	replace	heldout_formulations
+would you insert sixty at the start of the last paragraph	would you insert 60 at_start of the last paragraph	insert	heldout_formulations
+would you itemise this paragraph as a bulleted list	would you itemise this paragraph as a bullet_list	make_list	heldout_formulations
+would you replace office with revenue .	would you replace office with revenue .	replace	heldout_formulations
+can you insert client at the start of the previous line .	can you insert client at_start of the previous line .	insert	heldout_formulations
+okay so make numbers normal .	okay so make numbers normal .	format	heldout_formulations
+okay so justify the next paragraph .	okay so justify the next paragraph .	align	heldout_formulations
+okay so demote the first paragraph to heading two .	okay so demote the first paragraph to heading_two .	make_heading	heldout_formulations
+would you align that right	would you align that right	align	heldout_formulations
+could you itemise the first two lines as an ordered list	could you itemise the first_2 lines as an numbered_list	make_list	heldout_formulations
+i need you to select from the beginning to regards	i need you to select at_start to regards	select	heldout_formulations
+can you replace the word annual with partners .	can you replace the word annual with partners .	replace	heldout_formulations
+i need you to select 2026 .	i need you to select 2026 .	select	heldout_formulations
+could you enumerate the selection .	could you enumerate the selection .	make_list	heldout_formulations
+i need you to delete the previous three characters	i need you to delete the previous_3 characters	delete	heldout_formulations
+could you add monday at the start of the next word	could you add monday at_start of the next word	insert	heldout_formulations
+can you move the cursor after maybe	can you move the cursor after maybe	move_cursor	heldout_formulations
+now capitalize the second list item .	now capitalise the second list_item .	capitalise	heldout_formulations
+can you add regards at the end of the second paragraph	can you add regards at_end of the second paragraph	insert	heldout_formulations
+please turn launch underlined	please turn launch underlined	format	heldout_formulations
+i need you to remove the previous list item in the overview textbox .	i need you to remove the previous list_item in the overview textbox .	delete	heldout_formulations
+would you select from the beginning to costs .	would you select at_start to costs .	select	heldout_formulations
+would you delete everything before launch .	would you delete everything before launch .	delete	heldout_formulations
+would you select from monthly until the end	would you select from monthly at_end	select	heldout_formulations
+can you highlight it .	can you highlight it .	format	heldout_formulations
+would you replace growth with peter	would you replace growth with peter	replace	heldout_formulations
+could you align the first 3 sentences to the right	could you align the first_3 sentences to the right	align	heldout_formulations
+replace this sentence with project please .	replace this sentence with project please .	replace	heldout_formulations
+would you undo again	would you undo again	undo	heldout_formulations
+i want you to type results at the end	i want you to type results at_end	insert	heldout_formulations
+i need you to erase the next 3 paragraphs in the intro card .	i need you to erase the next_3 paragraphs in the intro card .	delete	heldout_formulations
+now capitalise the next line .	now capitalise the next line .	capitalise	heldout_formulations
+would you select from profit until the end .	would you select from profit at_end .	select	heldout_formulations
+could you insert budget at the start of the first word	could you insert budget at_start of the first word	insert	heldout_formulations
+okay so put the cursor at the end of the previous paragraph .	okay so move the cursor at_end of the previous paragraph .	move_cursor	heldout_formulations
+could you insert an exclamation mark before meeting .	could you insert an exclamation_mark before meeting .	insert	heldout_formulations
+could you add an exclamation point at the end .	could you add an exclamation_mark at_end .	insert	heldout_formulations
+would you remove growth .	would you remove growth .	delete	heldout_formulations
+i need you to mark deadline .	i need you to mark deadline .	select	heldout_formulations
+would you itemise the last two lines as an ordered list	would you itemise the last_2 lines as an numbered_list	make_list	heldout_formulations
+let's mark the first line .	lets mark the first line .	select	heldout_formulations
+please jump to the end of this sentence	please jump at_end of this sentence	move_cursor	heldout_formulations
+okay so italicise the next five list items .	okay so italicise the next_5 list_items .	format	heldout_formulations
+could you add chart at the end of the second paragraph .	could you add chart at_end of the second paragraph .	insert	heldout_formulations
+would you delete everything before peter	would you delete everything before peter	delete	heldout_formulations
+okay so put the cursor at the end of the next list item .	okay so move the cursor at_end of the next list_item .	move_cursor	heldout_formulations
+select from the beginning to great please	select at_start to great please	select	heldout_formulations
+could you align it justified .	could you align it justified .	align	heldout_formulations
+can you strike through friday	can you strike friday	format	heldout_formulations
+would you remove new	would you remove new	delete	heldout_formulations
+now insert 20 at the end of the fourth paragraph .	now insert 20 at_end of the fourth paragraph .	insert	heldout_formulations
+can you embolden the fourth character	can you embolden the fourth character	format	heldout_formulations
+i need you to erase the first word	i need you to erase the first word	delete	heldout_formulations
+could you align the last two paragraphs to the left	could you align the last_2 paragraphs to the left	align	heldout_formulations
+okay so promote the last line to heading 3 .	okay so promote the last line to heading_three .	make_heading	heldout_formulations
+i need you to erase the next line	i need you to erase the next line	delete	heldout_formulations
+could you insert 150 at the start of the previous word	could you insert 150 at_start of the previous word	insert	heldout_formulations
+select from partners to the end please	select from partners at_end please	select	heldout_formulations
+please turn the fourth character highlighted	please turn the fourth character highlighted	format	heldout_formulations
+can you select from anna to the end	can you select from anna at_end	select	heldout_formulations
+replace the fifth sentence with 80 please	replace the fifth sentence with 80 please	replace	heldout_formulations
+i need you to mark the word plan	i need you to mark the word plan	select	heldout_formulations
+would you centre the previous four paragraphs	would you centre the previous_4 paragraphs	align	heldout_formulations
+now add draft at the beginning	now add draft at_start	insert	heldout_formulations
+now select everything .	now select everything .	select	heldout_formulations
+could you add an exclamation mark at the end	could you add an exclamation_mark at_end	insert	heldout_formulations
+okay so go to the start of the fifth character .	okay so go at_start of the fifth character .	move_cursor	heldout_formulations
+would you add friday at the end of the last line	would you add friday at_end of the last line	insert	heldout_formulations
+could you add monthly at the start of the previous list item	could you add monthly at_start of the previous list_item	insert	heldout_formulations
+let's read me the second line	lets read the second line	read_back	heldout_formulations
+could you number all of it .	could you number everything .	make_list	heldout_formulations
+would you delete everything after margin .	would you delete everything after margin .	delete	heldout_formulations
+i need you to select from the beginning to 100	i need you to select at_start to 100	select	heldout_formulations
+i want you to type "action items" at the beginning .	i want you to type action_items at_start .	insert	heldout_formulations
+now number the selected text	now number the selection	make_list	heldout_formulations
+would you select from annual to the end	would you select from annual at_end	select	heldout_formulations
+let's go before good .	lets go before good .	move_cursor	heldout_formulations
+now add very at the start .	now add very at_start .	insert	heldout_formulations
+could you itemise the first 4 paragraphs as bullet points	could you itemise the first_4 paragraphs as bullet_list	make_list	heldout_formulations
+now uppercase the previous 5 characters .	now uppercase the previous_5 characters .	capitalise	heldout_formulations
+could you turn that paragraph normal text .	could you turn this paragraph plain .	format	heldout_formulations
+i need you to justify the third line	i need you to justify the third line	align	heldout_formulations
+would you align the previous list item right	would you align the previous list_item right	align	heldout_formulations
+could you enumerate that	could you enumerate that	make_list	heldout_formulations
+now add hiring at the start of the second word	now add hiring at_start of the second word	insert	heldout_formulations
+now choose it	now choose it	select	heldout_formulations
+let's put the cursor before project	lets move the cursor before project	move_cursor	heldout_formulations
+let's read out that	lets read that	read_back	heldout_formulations
+would you undo .	would you undo .	undo	heldout_formulations
+could you itemise the next five lines as bullet points	could you itemise the next_5 lines as bullet_list	make_list	heldout_formulations
+let's delete everything after results .	lets delete everything after results .	delete	heldout_formulations
+i need you to centre the second list item	i need you to centre the second list_item	align	heldout_formulations
+i want you to add weekly at the end .	i want you to add weekly at_end .	insert	heldout_formulations
+would you justify the previous two lines	would you justify the previous_2 lines	align	heldout_formulations
+replace the previous sentence with draft please	replace the previous sentence with draft please	replace	heldout_formulations
+let's mark the next four paragraphs	lets mark the next_4 paragraphs	select	heldout_formulations
+let's delete everything after paris	lets delete everything after paris	delete	heldout_formulations
+could you align the third sentence to the left	could you align the third sentence to the left	align	heldout_formulations
+now add kpi at the start of the last list item	now add kpi at_start of the last list_item	insert	heldout_formulations
+could you insert a semi colon after price .	could you insert a semicolon after price .	insert	heldout_formulations
+could you insert contract at the end of the second paragraph	could you insert contract at_end of the second paragraph	insert	heldout_formulations
+could you turn that sentence heading 2 .	could you turn this sentence heading_two .	format	heldout_formulations
+could you align the first five lines to the right .	could you align the first_5 lines to the right .	align	heldout_formulations
+now add great at the start of the fourth word .	now add great at_start of the fourth word .	insert	heldout_formulations
+would you align the last line centre	would you align the last line center	align	heldout_formulations
+replace the last line with costs please .	replace the last line with costs please .	replace	heldout_formulations
+now capitalise the first three paragraphs .	now capitalise the first_3 paragraphs .	capitalise	heldout_formulations
+please move the cursor to the end of that word	please move the cursor at_end of this word	move_cursor	heldout_formulations
+would you align the last four sentences right	would you align the last_4 sentences right	align	heldout_formulations
+i need you to select from sales to the end .	i need you to select from sales at_end .	select	heldout_formulations
+let's read me everything	lets read everything	read_back	heldout_formulations
+can you add "agenda item" at the start of that line .	can you add agenda_item at_start of this line .	insert	heldout_formulations
+would you select from product to the end	would you select from product at_end	select	heldout_formulations
+okay so promote that paragraph to heading 2 .	okay so promote this paragraph to heading_two .	make_heading	heldout_formulations
+now uppercase survey .	now uppercase survey .	capitalise	heldout_formulations
+okay so promote the second sentence to heading 3 .	okay so promote the second sentence to heading_three .	make_heading	heldout_formulations
+i need you to cut the first word	i need you to cut the first word	delete	heldout_formulations
+would you delete everything after market	would you delete everything after market	delete	heldout_formulations
+okay so make the word partners bigger	okay so make the word partners bigger	format	heldout_formulations
+would you replace tomorrow with important	would you replace tomorrow with important	replace	heldout_formulations
+would you replace plan with chart .	would you replace plan with chart .	replace	heldout_formulations
+i need you to remove the next word in the intro note	i need you to remove the next word in the intro note	delete	heldout_formulations
+now select that	now select that	select	heldout_formulations
+please undo	please undo	undo	heldout_formulations
+let's choose the previous word	lets choose the previous word	select	heldout_formulations
+okay so promote the previous sentence to heading 3	okay so promote the previous sentence to heading_three	make_heading	heldout_formulations
+can you insert thanks at the start of the next line	can you insert thanks at_start of the next line	insert	heldout_formulations
+would you delete everything before autumn .	would you delete everything before autumn .	delete	heldout_formulations
+okay so cross out all the text .	okay so strike everything .	format	heldout_formulations
+would you align the first sentence to the right	would you align the first sentence to the right	align	heldout_formulations
+now insert growth at the start of the first paragraph	now insert growth at_start of the first paragraph	insert	heldout_formulations
+let's go after "follow up"	lets go after follow_up	move_cursor	heldout_formulations
+let's delete everything after hiring	lets delete everything after hiring	delete	heldout_formulations
+could you itemise the previous 4 paragraphs as a bullet list .	could you itemise the previous_4 paragraphs as a bullet_list .	make_list	heldout_formulations
+okay so embolden everything	okay so embolden everything	format	heldout_formulations
+i need you to select from the start to great .	i need you to select at_start to great .	select	heldout_formulations
+would you remove paul	would you remove paul	delete	heldout_formulations
+would you colour the word dividend pink	would you color the word dividend pink	format	new_identities
+replace compliance with forecast please	replace compliance with forecast please	replace	new_identities
+okay so select warranty .	okay so select warranty .	select	new_identities
+could you turn this character in bold in the background textbox	could you turn this character bold in the background textbox	format	new_identities
+please correct compliance to q1	please correct compliance to q1	replace	new_identities
+i need you to capitalize 45 .	i need you to capitalise 45 .	capitalise	new_identities
+could you correct ninety to "customer success" .	could you correct 90 to customer_success .	replace	new_identities
+mark onboarding .	mark onboarding .	select	new_identities
+would you replace the fifth word with q1 .	would you replace the fifth word with q1 .	replace	new_identities
+let's add compliance at the end of the next paragraph	lets add compliance at_end of the next paragraph	insert	new_identities
+would you replace the second line with thirty five	would you replace the second line with 35	replace	new_identities
+could you replace the last line with logistics	could you replace the last line with logistics	replace	new_identities
+color procurement black please .	color procurement black please .	format	new_identities
+i need you to insert "customer success" at the end of the second word .	i need you to insert customer_success at_end of the second word .	insert	new_identities
+replace the fourth line with procurement .	replace the fourth line with procurement .	replace	new_identities
+now change 2027 to dividend .	now change 2027 to dividend .	replace	new_identities
+go after "audit trail" please	go after audit_trail please	move_cursor	new_identities
+okay so replace elena with 2027 .	okay so replace elena with 2027 .	replace	new_identities
+i want you to select from the start to logistics .	i want you to select at_start to logistics .	select	new_identities
+let's select from q1 to the end .	lets select from q1 at_end .	select	new_identities
+please add merger after procurement	please add merger after procurement	insert	new_identities
+replace q1 with thirty five please .	replace q1 with 35 please .	replace	new_identities
+okay so replace the next line with elena	okay so replace the next line with elena	replace	new_identities
+could you put the cursor after "go live"	could you move the cursor after go_live	move_cursor	new_identities
+please choose berlin	please choose berlin	select	new_identities
+can you correct logistics to procurement	can you correct logistics to procurement	replace	new_identities
+could you replace the next word with ninety	could you replace the next word with 90	replace	new_identities
+now add a colon after onboarding	now add a colon after onboarding	insert	new_identities
+okay so remove elena	okay so remove elena	delete	new_identities
+uppercase the word retention please .	uppercase the word retention please .	capitalise	new_identities
+i want you to remove the italics from berlin	i want you to unformat italic berlin	unformat	new_identities
+i need you to replace pipeline with headcount	i need you to replace pipeline with headcount	replace	new_identities
+select from the start to 45	select at_start to 45	select	new_identities
+i need you to correct logistics to q1	i need you to correct logistics to q1	replace	new_identities
+put a comma before logistics	put a comma before logistics	insert	new_identities
+i want you to replace dividend with forecast	i want you to replace dividend with forecast	replace	new_identities
+insert pipeline at the end .	insert pipeline at_end .	insert	new_identities
+could you make pipeline white	could you make pipeline white	format	new_identities
+i want you to select from q1 to the end	i want you to select from q1 at_end	select	new_identities
+let's insert onboarding at the end of the third sentence	lets insert onboarding at_end of the third sentence	insert	new_identities
+i want you to correct dividend to victor	i want you to correct dividend to victor	replace	new_identities
+now select from forty five until the end	now select from 45 at_end	select	new_identities
+can you replace this line with elena	can you replace this line with elena	replace	new_identities
+now delete everything before elena	now delete everything before elena	delete	new_identities
+okay so mark ninety .	okay so mark 90 .	select	new_identities
+insert a colon before "go live" please	insert a colon before go_live please	insert	new_identities
+can you highlight the word retention in yellow	can you highlight the word retention in yellow	format	new_identities
+i need you to replace forecast with q2 .	i need you to replace forecast with q2 .	replace	new_identities
+now replace the second sentence with elena	now replace the second sentence with elena	replace	new_identities
+replace the previous sentence with forty five .	replace the previous sentence with 45 .	replace	new_identities
+delete everything after compliance .	delete everything after compliance .	delete	new_identities
+i want you to remove the underline from the word q1 .	i want you to unformat underlined the word q1 .	unformat	new_identities
+could you make the word q2 bold	could you make the word q2 bold	format	new_identities
+now replace the word warranty with thirty five	now replace the word warranty with 35	replace	new_identities
+please delete everything after retention .	please delete everything after retention .	delete	new_identities
+can you delete the fourth paragraph in the background widget	can you delete the fourth paragraph in the background widget	delete	new_identities
+okay so add tokyo at the start of the fourth line	okay so add tokyo at_start of the fourth line	insert	new_identities
+i want you to put logistics after compliance .	i want you to put logistics after compliance .	insert	new_identities
+i need you to make q1 smaller	i need you to make q1 smaller	format	new_identities
+remove the underline from pipeline please .	unformat underlined pipeline please .	unformat	new_identities
+highlight 90 in orange please	highlight 90 in orange please	format	new_identities
+could you insert q1 before onboarding .	could you insert q1 before onboarding .	insert	new_identities
+now put a period after dividend	now put a full_stop after dividend	insert	new_identities
+i want you to replace headcount with merger	i want you to replace headcount with merger	replace	new_identities
+insert 90 at the end .	insert 90 at_end .	insert	new_identities
+make compliance bigger please .	make compliance bigger please .	format	new_identities
+can you select the fourth character in the background widget .	can you select the fourth character in the background widget .	select	new_identities
+i want you to change headcount to forty five	i want you to change headcount to 45	replace	new_identities
+add q2 at the end of the first line .	add q2 at_end of the first line .	insert	new_identities
+put the cursor before forecast .	move the cursor before forecast .	move_cursor	new_identities
+now highlight the word merger in yellow	now highlight the word merger in yellow	format	new_identities
+let's replace the last line with "go live" .	lets replace the last line with go_live .	replace	new_identities
+now put "go live" after pipeline	now put go_live after pipeline	insert	new_identities
+let's make the next word bold in the retro note	lets make the next word bold in the retro note	format	new_identities
+make "go live" gray please .	make go_live gray please .	format	new_identities
+would you remove the highlight from the word pipeline	would you unformat highlighted the word pipeline	unformat	new_identities
+let's capitalize berlin .	lets capitalise berlin .	capitalise	new_identities
+please delete everything before victor	please delete everything before victor	delete	new_identities
+okay so remove the formatting from q1	okay so unformat q1	unformat	new_identities
+please insert dividend before logistics	please insert dividend before logistics	insert	new_identities
+mark the word compliance	mark the word compliance	select	new_identities
+okay so add a semicolon before elena	okay so add a semicolon before elena	insert	new_identities
+i need you to replace headcount with thirty five .	i need you to replace headcount with 35 .	replace	new_identities
+highlight "audit trail" in blue please	highlight audit_trail in blue please	format	new_identities
+now select this paragraph in the appendix textbox	now select this paragraph in the appendix textbox	select	new_identities
+please replace the fourth sentence with headcount .	please replace the fourth sentence with headcount .	replace	new_identities
+i need you to delete tokyo .	i need you to delete tokyo .	delete	new_identities
+now erase procurement	now erase procurement	delete	new_identities
+i need you to add warranty at the end .	i need you to add warranty at_end .	insert	new_identities
+i need you to add elena after q2	i need you to add elena after q2	insert	new_identities
+please highlight the word pipeline in green .	please highlight the word pipeline in green .	format	new_identities
+let's replace the fifth sentence with tokyo .	lets replace the fifth sentence with tokyo .	replace	new_identities
+i need you to put the cursor after merger .	i need you to move the cursor after merger .	move_cursor	new_identities
+can you make retention orange	can you make retention orange	format	new_identities
+can you highlight the word dividend in green .	can you highlight the word dividend in green .	format	new_identities
+i want you to add merger before victor	i want you to add merger before victor	insert	new_identities
+i want you to delete the last five sentences in the retro card	i want you to delete the last_5 sentences in the retro card	delete	new_identities
+add retention at the end of the third line please .	add retention at_end of the third line please .	insert	new_identities
+would you change q2 to onboarding .	would you change q2 to onboarding .	replace	new_identities
+insert pipeline at the start .	insert pipeline at_start .	insert	new_identities
+i want you to add onboarding at the start of the previous list item	i want you to add onboarding at_start of the previous list_item	insert	new_identities
+please embolden the word tokyo	please embolden the word tokyo	format	new_identities
+i want you to replace victor with forty five	i want you to replace victor with 45	replace	new_identities
+would you bold the word q1 .	would you embolden the word q1 .	format	new_identities
+replace berlin with 250 please	replace berlin with 250 please	replace	new_identities
+okay so choose the word victor .	okay so choose the word victor .	select	new_identities
+can you replace the previous line with compliance .	can you replace the previous line with compliance .	replace	new_identities
+now select from the beginning to victor .	now select at_start to victor .	select	new_identities
+could you delete everything after headcount	could you delete everything after headcount	delete	new_identities
+i want you to correct tokyo to q1	i want you to correct tokyo to q1	replace	new_identities
+please remove the highlight from forecast	please unformat highlighted forecast	unformat	new_identities
+please choose merger .	please choose merger .	select	new_identities
+let's choose the word berlin	lets choose the word berlin	select	new_identities
+can you add a semicolon before "audit trail"	can you add a semicolon before audit_trail	insert	new_identities
+i need you to insert tokyo at the beginning	i need you to insert tokyo at_start	insert	new_identities
+could you add pipeline at the beginning	could you add pipeline at_start	insert	new_identities
+let's delete the word warranty .	lets delete the word warranty .	delete	new_identities
+i want you to highlight warranty in orange	i want you to highlight warranty in orange	format	new_identities
+i want you to capitalise thirty five	i want you to capitalise 35	capitalise	new_identities
+i need you to delete everything before 90 .	i need you to delete everything before 90 .	delete	new_identities
+could you replace that line with onboarding .	could you replace this line with onboarding .	replace	new_identities
+make the word merger smaller please .	make the word merger smaller please .	format	new_identities
+okay so select from elena until the end	okay so select from elena at_end	select	new_identities
+okay so replace berlin with 250	okay so replace berlin with 250	replace	new_identities
+select q1 please	select q1 please	select	new_identities
+i need you to capitalize 2027	i need you to capitalise 2027	capitalise	new_identities
+i want you to put forecast before "go live"	i want you to put forecast before go_live	insert	new_identities
+now select from the beginning to "audit trail" .	now select at_start to audit_trail .	select	new_identities
+now select from q1 until the end .	now select from q1 at_end .	select	new_identities
+now change compliance to headcount .	now change compliance to headcount .	replace	new_identities
+turn q2 blue please	turn q2 blue please	format	new_identities
+delete everything before tokyo .	delete everything before tokyo .	delete	new_identities
+i want you to replace the fifth sentence with procurement	i want you to replace the fifth sentence with procurement	replace	new_identities
+could you change retention to compliance	could you change retention to compliance	replace	new_identities
+okay so insert berlin at the end of the last paragraph	okay so insert berlin at_end of the last paragraph	insert	new_identities
+would you change 45 to merger	would you change 45 to merger	replace	new_identities
+please add retention at the end of the previous sentence	please add retention at_end of the previous sentence	insert	new_identities
+i want you to choose pipeline .	i want you to choose pipeline .	select	new_identities
+i want you to correct merger to q1 .	i want you to correct merger to q1 .	replace	new_identities
+okay so choose berlin	okay so choose berlin	select	new_identities
+now insert an exclamation mark after tokyo	now insert an exclamation_mark after tokyo	insert	new_identities
+okay so cut the first line in the appendix card .	okay so cut the first line in the appendix card .	delete	new_identities
+would you make tokyo huge	would you make tokyo huge	format	new_identities
+now change pipeline to forecast	now change pipeline to forecast	replace	new_identities
+can you add warranty at the beginning	can you add warranty at_start	insert	new_identities
+now delete everything after berlin	now delete everything after berlin	delete	new_identities
+okay so change 250 to elena .	okay so change 250 to elena .	replace	new_identities
+could you correct dividend to logistics .	could you correct dividend to logistics .	replace	new_identities
+replace the last line with forecast .	replace the last line with forecast .	replace	new_identities
+i want you to capitalise q2 .	i want you to capitalise q2 .	capitalise	new_identities
+can you remove berlin .	can you remove berlin .	delete	new_identities
+can you add onboarding after victor	can you add onboarding after victor	insert	new_identities
+could you mark the word dividend	could you mark the word dividend	select	new_identities
+let's insert merger at the start of the fifth list item	lets insert merger at_start of the fifth list_item	insert	new_identities
+replace "go live" with forecast please	replace go_live with forecast please	replace	new_identities
+please remove the underline from tokyo	please unformat underlined tokyo	unformat	new_identities
+i want you to replace dividend with tokyo .	i want you to replace dividend with tokyo .	replace	new_identities
+let's type 250 at the end	lets type 250 at_end	insert	new_identities
+replace headcount with merger .	replace headcount with merger .	replace	new_identities
+okay so mark 250 .	okay so mark 250 .	select	new_identities
+let's select from the beginning to merger .	lets select at_start to merger .	select	new_identities
+can you remove warranty	can you remove warranty	delete	new_identities
+i want you to replace the next word with dividend .	i want you to replace the next word with dividend .	replace	new_identities
+i need you to embolden the word pipeline	i need you to embolden the word pipeline	format	new_identities
+capitalize compliance	capitalise compliance	capitalise	new_identities
+i want you to put a question mark before victor	i want you to put a question_mark before victor	insert	new_identities
+i want you to replace the fourth line with berlin	i want you to replace the fourth line with berlin	replace	new_identities
+can you mark "customer success" in the appendix card .	can you mark customer_success in the appendix card .	select	new_identities
+would you uppercase pipeline .	would you uppercase pipeline .	capitalise	new_identities
+i want you to correct victor to elena	i want you to correct victor to elena	replace	new_identities
+can you choose the word retention	can you choose the word retention	select	new_identities
+add q2 at the end of the second line please	add q2 at_end of the second line please	insert	new_identities
+i want you to make elena underlined in the retro note	i want you to make elena underlined in the retro note	format	new_identities
+would you capitalize q1 .	would you capitalise q1 .	capitalise	new_identities
+add merger after elena please .	add merger after elena please .	insert	new_identities
+i want you to remove the formatting from "audit trail" .	i want you to unformat audit_trail .	unformat	new_identities
+could you select the word pipeline in the decisions note	could you select the word pipeline in the decisions note	select	new_identities
+erase the word victor .	erase the word victor .	delete	new_identities
+please cut the first paragraph in the appendix widget .	please cut the first paragraph in the appendix widget .	delete	new_identities
+could you remove the italics from procurement .	could you unformat italic procurement .	unformat	new_identities
+let's colour headcount red .	lets color headcount red .	format	new_identities
+please select from forecast until the end .	please select from forecast at_end .	select	new_identities
+okay so delete tokyo	okay so delete tokyo	delete	new_identities
+type elena before dividend .	type elena before dividend .	insert	new_identities
+would you capitalise the word forecast .	would you capitalise the word forecast .	capitalise	new_identities
+now delete everything after 45	now delete everything after 45	delete	new_identities
+now replace the second line with "go live"	now replace the second line with go_live	replace	new_identities
+now delete everything before 2027 .	now delete everything before 2027 .	delete	new_identities
+i need you to delete everything before pipeline .	i need you to delete everything before pipeline .	delete	new_identities
+add victor at the start of the third list item please .	add victor at_start of the third list_item please .	insert	new_identities
+let's mark "go live"	lets mark go_live	select	new_identities
+i want you to unformat procurement	i want you to unformat procurement	unformat	new_identities
+change 2027 to headcount .	change 2027 to headcount .	replace	new_identities
+i want you to put an exclamation point before forecast	i want you to put an exclamation_mark before forecast	insert	new_identities
+okay so replace the second word with pipeline .	okay so replace the second word with pipeline .	replace	new_identities
+would you make dividend orange	would you make dividend orange	format	new_identities
+i need you to delete everything after pipeline	i need you to delete everything after pipeline	delete	new_identities
+insert "go live" at the end please	insert go_live at_end please	insert	new_identities
+mark pipeline please	mark pipeline please	select	new_identities
+strike through compliance in the appendix card	strike compliance in the appendix card	format	new_identities
+i want you to replace the second line with warranty	i want you to replace the second line with warranty	replace	new_identities
+okay so mark the word dividend	okay so mark the word dividend	select	new_identities
+can you select headcount	can you select headcount	select	new_identities
+now erase procurement	now erase procurement	delete	new_identities
+could you erase the word q1 .	could you erase the word q1 .	delete	new_identities
+i want you to select the last line in the decisions textbox .	i want you to select the last line in the decisions textbox .	select	new_identities
+i want you to put the cursor before elena	i want you to move the cursor before elena	move_cursor	new_identities
+let's replace the third sentence with logistics .	lets replace the third sentence with logistics .	replace	new_identities
+i want you to underline the selection in the retro widget	i want you to underline the selection in the retro widget	format	new_identities
+let's delete ninety	lets delete 90	delete	new_identities
+would you correct headcount to q1	would you correct headcount to q1	replace	new_identities
+now replace the fourth word with q2	now replace the fourth word with q2	replace	new_identities
+let's highlight "customer success" in the retro card	lets highlight customer_success in the retro card	format	new_identities
+can you delete everything after tokyo	can you delete everything after tokyo	delete	new_identities
+would you highlight the word berlin in the background note	would you highlight the word berlin in the background note	format	new_identities
+i want you to replace the word pipeline with "audit trail"	i want you to replace the word pipeline with audit_trail	replace	new_identities
+okay so turn "go live" strikethrough in the decisions textbox	okay so turn go_live strikethrough in the decisions textbox	format	new_identities
+let's insert logistics at the beginning	lets insert logistics at_start	insert	new_identities
+i need you to make the word forecast red	i need you to make the word forecast red	format	new_identities
+i need you to add 35 at the end of the first paragraph	i need you to add 35 at_end of the first paragraph	insert	new_identities
+put tokyo before pipeline please	put tokyo before pipeline please	insert	new_identities
+okay so replace tokyo with dividend .	okay so replace tokyo with dividend .	replace	new_identities
+can you select onboarding .	can you select onboarding .	select	new_identities
+please replace the third word with elena .	please replace the third word with elena .	replace	new_identities
+now replace procurement with forecast	now replace procurement with forecast	replace	new_identities
+would you capitalise compliance .	would you capitalise compliance .	capitalise	new_identities
+i want you to add compliance after forecast	i want you to add compliance after forecast	insert	new_identities
+can you erase "audit trail"	can you erase audit_trail	delete	new_identities
+let's change forecast to 45	lets change forecast to 45	replace	new_identities
+could you capitalise dividend	could you capitalise dividend	capitalise	new_identities
+please go after onboarding .	please go after onboarding .	move_cursor	new_identities
+can you replace the last word with tokyo	can you replace the last word with tokyo	replace	new_identities
+could you replace merger with "audit trail"	could you replace merger with audit_trail	replace	new_identities
+insert merger at the start please	insert merger at_start please	insert	new_identities
+please delete logistics	please delete logistics	delete	new_identities
+erase the word pipeline please	erase the word pipeline please	delete	new_identities
+please type onboarding before victor	please type onboarding before victor	insert	new_identities
+make "customer success" bigger	make customer_success bigger	format	new_identities
+could you select from q2 until the end	could you select from q2 at_end	select	new_identities
+could you replace merger with 250	could you replace merger with 250	replace	new_identities
+i need you to insert forecast at the end of the previous list item	i need you to insert forecast at_end of the previous list_item	insert	new_identities
+erase "customer success"	erase customer_success	delete	new_identities
+okay so turn the word pipeline highlighted	okay so turn the word pipeline highlighted	format	new_identities
+okay so add "customer success" at the end of the fifth list item	okay so add customer_success at_end of the fifth list_item	insert	new_identities
+choose the first word in the retro card .	choose the first word in the retro card .	select	new_identities
+i want you to change victor to headcount .	i want you to change victor to headcount .	replace	new_identities
+i want you to replace the fifth line with logistics	i want you to replace the fifth line with logistics	replace	new_identities
+i need you to delete berlin .	i need you to delete berlin .	delete	new_identities
+please insert procurement at the end of the next paragraph	please insert procurement at_end of the next paragraph	insert	new_identities
+now make the word dividend underlined	now make the word dividend underlined	format	new_identities
+could you erase 90	could you erase 90	delete	new_identities
+could you move the cursor before victor	could you move the cursor before victor	move_cursor	new_identities
+can you type q2 before "go live"	can you type q2 before go_live	insert	new_identities
+please remove the word q1 .	please remove the word q1 .	delete	new_identities
+replace forecast with forty five please .	replace forecast with 45 please .	replace	new_identities
+i need you to highlight the word warranty in orange	i need you to highlight the word warranty in orange	format	new_identities
+can you make the first three words highlighted in the retro card .	can you make the first_3 words highlighted in the retro card .	format	new_identities
+put berlin after headcount please .	put berlin after headcount please .	insert	new_identities
+please delete everything after "go live"	please delete everything after go_live	delete	new_identities
+i need you to insert ninety at the end .	i need you to insert 90 at_end .	insert	new_identities
+please replace dividend with warranty .	please replace dividend with warranty .	replace	new_identities
+i need you to remove "customer success" .	i need you to remove customer_success .	delete	new_identities
+select from the beginning to compliance .	select at_start to compliance .	select	new_identities
+could you insert warranty after headcount	could you insert warranty after headcount	insert	new_identities
+can you replace the next line with retention .	can you replace the next line with retention .	replace	new_identities
+please replace the next sentence with 90	please replace the next sentence with 90	replace	new_identities
+could you mark warranty	could you mark warranty	select	new_identities
+could you make ninety blue .	could you make 90 blue .	format	new_identities
+correct pipeline to procurement please	correct pipeline to procurement please	replace	new_identities
+i want you to capitalize "go live"	i want you to capitalise go_live	capitalise	new_identities
+okay so add tokyo at the start of the fourth line	okay so add tokyo at_start of the fourth line	insert	new_identities
+choose procurement	choose procurement	select	new_identities
+i need you to turn q1 italics in the decisions widget .	i need you to turn q1 italic in the decisions widget .	format	new_identities
+mark warranty .	mark warranty .	select	new_identities
+can you set the word warranty highlighted .	can you set the word warranty highlighted .	format	new_identities
+please delete everything after forecast	please delete everything after forecast	delete	new_identities
+can you type logistics at the end	can you type logistics at_end	insert	new_identities
+please format 250 as a list	please format 250 as a list	format	new_identities
+now highlight 90 in green .	now highlight 90 in green .	format	new_identities
+okay so correct 45 to onboarding .	okay so correct 45 to onboarding .	replace	new_identities
+i need you to insert a question mark before forecast .	i need you to insert a question_mark before forecast .	insert	new_identities
+now make the word headcount in bold .	now make the word headcount bold .	format	new_identities
+let's replace the word warranty with "audit trail"	lets replace the word warranty with audit_trail	replace	new_identities
+mark q2 please	mark q2 please	select	new_identities
+could you mark the word q1	could you mark the word q1	select	new_identities
+let's remove the word q1	lets remove the word q1	delete	new_identities
+i need you to delete everything before victor .	i need you to delete everything before victor .	delete	new_identities
+let's change q2 to procurement .	lets change q2 to procurement .	replace	new_identities
+erase the word forecast	erase the word forecast	delete	new_identities
+replace logistics with elena please	replace logistics with elena please	replace	new_identities
+can you select the word q2	can you select the word q2	select	new_identities
+okay so add "customer success" after dividend .	okay so add customer_success after dividend .	insert	new_identities
+i need you to correct forty five to 2027 .	i need you to correct 45 to 2027 .	replace	new_identities
+let's replace the next sentence with logistics	lets replace the next sentence with logistics	replace	new_identities
+could you change q2 to tokyo	could you change q2 to tokyo	replace	new_identities
+i need you to set the next list item in italics in the retro widget	i need you to set the next list_item italic in the retro widget	format	new_identities
+can you replace the fifth sentence with procurement	can you replace the fifth sentence with procurement	replace	new_identities
+let's replace the previous word with forty five .	lets replace the previous word with 45 .	replace	new_identities
+replace tokyo with headcount	replace tokyo with headcount	replace	new_identities
+please insert pipeline at the end of this list item	please insert pipeline at_end of this list_item	insert	new_identities
+let's type onboarding before compliance	lets type onboarding before compliance	insert	new_identities
+i want you to add q2 at the start of the last line	i want you to add q2 at_start of the last line	insert	new_identities
+can you change dividend to "audit trail"	can you change dividend to audit_trail	replace	new_identities
+insert compliance at the end please	insert compliance at_end please	insert	new_identities
+could you make headcount in bold .	could you make headcount bold .	format	new_identities
+i need you to replace the first word with compliance .	i need you to replace the first word with compliance .	replace	new_identities
+please add 45 before thirty five	please add 45 before 35	insert	new_identities
+i need you to change retention to 45	i need you to change retention to 45	replace	new_identities
+replace tokyo with pipeline please	replace tokyo with pipeline please	replace	new_identities
+delete everything after pipeline	delete everything after pipeline	delete	new_identities
+replace victor with berlin please	replace victor with berlin please	replace	new_identities
+let's remove "customer success"	lets remove customer_success	delete	new_identities
+now mark berlin .	now mark berlin .	select	new_identities
+let's remove procurement .	lets remove procurement .	delete	new_identities
+now move the cursor after logistics	now move the cursor after logistics	move_cursor	new_identities
+delete everything before q2 please	delete everything before q2 please	delete	new_identities
+could you choose the word retention	could you choose the word retention	select	new_identities
+can you delete berlin .	can you delete berlin .	delete	new_identities
+type retention before victor please .	type retention before victor please .	insert	new_identities
+can you unformat logistics	can you unformat logistics	unformat	new_identities
+please correct q2 to tokyo	please correct q2 to tokyo	replace	new_identities
+now type berlin before logistics	now type berlin before logistics	insert	new_identities
+okay so clear the formatting of "audit trail"	okay so unformat audit_trail	unformat	new_identities
+i need you to delete everything after retention	i need you to delete everything after retention	delete	new_identities
+would you type victor before 45 .	would you type victor before 45 .	insert	new_identities
+okay so replace the fourth line with q1 .	okay so replace the fourth line with q1 .	replace	new_identities
+now type warranty after onboarding .	now type warranty after onboarding .	insert	new_identities
+put 250 after dividend	put 250 after dividend	insert	new_identities
+okay so change q1 to logistics .	okay so change q1 to logistics .	replace	new_identities
+i want you to make thirty five bigger .	i want you to make 35 bigger .	format	new_identities
+please remove the strikethrough from 2027 .	please unformat strikethrough 2027 .	unformat	new_identities
+put a question mark before headcount please	put a question_mark before headcount please	insert	new_identities
+would you correct "audit trail" to "go live" .	would you correct audit_trail to go_live .	replace	new_identities
+let's insert procurement at the start of the fourth sentence	lets insert procurement at_start of the fourth sentence	insert	new_identities
+i want you to delete the third sentence in the appendix widget	i want you to delete the third sentence in the appendix widget	delete	new_identities
+replace warranty with elena please .	replace warranty with elena please .	replace	new_identities
+let's add a comma before elena	lets add a comma before elena	insert	new_identities
+now select from q1 until the end	now select from q1 at_end	select	new_identities
+insert "audit trail" before tokyo .	insert audit_trail before tokyo .	insert	new_identities
+i need you to insert "customer success" before "go live"	i need you to insert customer_success before go_live	insert	new_identities
+please highlight 2027 in blue .	please highlight 2027 in blue .	format	new_identities
+please replace q1 with 250	please replace q1 with 250	replace	new_identities
+color "customer success" blue please	color customer_success blue please	format	new_identities
+can you make "audit trail" smaller	can you make audit_trail smaller	format	new_identities
+type tokyo at the end please .	type tokyo at_end please .	insert	new_identities
+remove 90	remove 90	delete	new_identities
+highlight the word forecast in orange please	highlight the word forecast in orange please	format	new_identities
+i want you to delete everything after compliance	i want you to delete everything after compliance	delete	new_identities
+delete compliance please .	delete compliance please .	delete	new_identities
+add "customer success" at the start of the first word	add customer_success at_start of the first word	insert	new_identities
+okay so put ninety after retention .	okay so put 90 after retention .	insert	new_identities
+now select from merger to the end	now select from merger at_end	select	new_identities
+please erase compliance	please erase compliance	delete	new_identities
+okay so delete everything after merger	okay so delete everything after merger	delete	new_identities
+type berlin at the beginning please .	type berlin at_start please .	insert	new_identities
+would you make procurement bigger	would you make procurement bigger	format	new_identities
+could you make pipeline struck through	could you make pipeline strikethrough	format	new_identities
+i want you to replace the fourth sentence with pipeline .	i want you to replace the fourth sentence with pipeline .	replace	new_identities
+let's replace ninety with onboarding .	lets replace 90 with onboarding .	replace	new_identities
+add logistics after elena .	add logistics after elena .	insert	new_identities
+i need you to go before onboarding .	i need you to go before onboarding .	move_cursor	new_identities
+set the fourth sentence highlighted in the background card please .	set the fourth sentence highlighted in the background card please .	format	new_identities
+please put the cursor before headcount .	please move the cursor before headcount .	move_cursor	new_identities
+i need you to erase the word retention	i need you to erase the word retention	delete	new_identities
+would you highlight the word berlin in yellow .	would you highlight the word berlin in yellow .	format	new_identities
+could you change "audit trail" to q2 .	could you change audit_trail to q2 .	replace	new_identities
+i need you to correct tokyo to q2	i need you to correct tokyo to q2	replace	new_identities
+please capitalize the word victor .	please capitalise the word victor .	capitalise	new_identities
+okay so put the cursor before tokyo .	okay so move the cursor before tokyo .	move_cursor	new_identities
+add procurement at the end of the second word	add procurement at_end of the second word	insert	new_identities
+could you set "audit trail" in bold .	could you set audit_trail bold .	format	new_identities
+can you make procurement bigger .	can you make procurement bigger .	format	new_identities
+now unformat q1 .	now unformat q1 .	unformat	new_identities
+now delete onboarding	now delete onboarding	delete	new_identities
+please change pipeline to "customer success" .	please change pipeline to customer_success .	replace	new_identities
+let's select retention	lets select retention	select	new_identities
+can you replace the fourth sentence with 2027	can you replace the fourth sentence with 2027	replace	new_identities
+delete everything before tokyo please	delete everything before tokyo please	delete	new_identities
+okay so move the cursor after headcount	okay so move the cursor after headcount	move_cursor	new_identities
+okay so move the cursor after logistics .	okay so move the cursor after logistics .	move_cursor	new_identities
+i want you to delete everything after logistics .	i want you to delete everything after logistics .	delete	new_identities
+replace thirty five with retention please .	replace 35 with retention please .	replace	new_identities
+let's erase q2	lets erase q2	delete	new_identities
+would you make compliance small	would you make compliance small	format	new_identities
+i want you to put the cursor after victor	i want you to move the cursor after victor	move_cursor	new_identities
+i need you to change onboarding to merger	i need you to change onboarding to merger	replace	new_identities
+i want you to uppercase "customer success"	i want you to uppercase customer_success	capitalise	new_identities
+uppercase victor please .	uppercase victor please .	capitalise	new_identities
+now choose the word pipeline in the appendix textbox .	now choose the word pipeline in the appendix textbox .	select	new_identities
+could you replace 2027 with 45 .	could you replace 2027 with 45 .	replace	new_identities
+let's put 45 after q1	lets put 45 after q1	insert	new_identities
+i want you to mark the word logistics .	i want you to mark the word logistics .	select	new_identities
+put the cursor after compliance please	move the cursor after compliance please	move_cursor	new_identities
+would you replace the fourth line with logistics	would you replace the fourth line with logistics	replace	new_identities
+let's select from pipeline until the end	lets select from pipeline at_end	select	new_identities
+please unformat 250	please unformat 250	unformat	new_identities
+insert warranty at the start please .	insert warranty at_start please .	insert	new_identities
+change procurement to ninety please	change procurement to 90 please	replace	new_identities
+replace the previous sentence with "customer success"	replace the previous sentence with customer_success	replace	new_identities
+would you replace the last word with logistics .	would you replace the last word with logistics .	replace	new_identities

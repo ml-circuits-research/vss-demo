@@ -5,6 +5,46 @@
   "questions.jsonl": "9814a7414eac08550e74b771bbe832ed4117f0054680a4b8d88c29cdd6e8966f",
   "timelines.jsonl": "c9d68daa191921f1c0bc5808400f7dbe884203435a1ad811735852d72389c85f"
  },
+ "animation/n1000": {
+  "animation/examples/eval_heldout_formulations.sop": "d60a760f72ef0493bbb2a9c06daf7016d960d8e572cc382d4fc6d748df1fc08e",
+  "animation/examples/eval_new_identities.sop": "53f8e74b7f77b7210ac928ccc92bc52da5803f31747f2b8dc96072813b1d473d",
+  "animation/examples/train.sop": "ba48637084aee79479cd4da5c8123ee77065143b1dbe0dd63fdc9c826557e45e",
+  "animation/kinds.tsv": "ef3b1c1bc1701c23ac4d8a3e3ae7d6c133cc0af90fa12442db79b9102208bb33",
+  "animation/legend.json": "32241c4a7a2fab6ca1823653119f554f63c1a1b99104c496f379d795af4304b3",
+  "animation/raw/sentences.txt": "a21c8368b126dd404bcf6d4221d9fb39f87d06b98622ca2a981a20adfe3e0b3c",
+  "animation/split_hints.json": "c148cf726f36e3f23a608734ec00ecd9686c586b5a6d4d2719635b3615a4318b",
+  "animation/world.json": "8c1153eb8bd8ca49a732e2f2035591cf73e7dcef1714169aa5e446a4911caed8"
+ },
+ "animation/n20000": {
+  "animation/examples/eval_heldout_formulations.sop": "d60a760f72ef0493bbb2a9c06daf7016d960d8e572cc382d4fc6d748df1fc08e",
+  "animation/examples/eval_new_identities.sop": "53f8e74b7f77b7210ac928ccc92bc52da5803f31747f2b8dc96072813b1d473d",
+  "animation/examples/train.sop": "10015091c5ddc5ee2f93892661d21d6bfbeabf15a04a597d57e8847f989378c5",
+  "animation/kinds.tsv": "ef3b1c1bc1701c23ac4d8a3e3ae7d6c133cc0af90fa12442db79b9102208bb33",
+  "animation/legend.json": "32241c4a7a2fab6ca1823653119f554f63c1a1b99104c496f379d795af4304b3",
+  "animation/raw/sentences.txt": "ca80655a775ccabdeb1bc564370b9da6cecf63ff5850f80fde608c0013619541",
+  "animation/split_hints.json": "c148cf726f36e3f23a608734ec00ecd9686c586b5a6d4d2719635b3615a4318b",
+  "animation/world.json": "8c1153eb8bd8ca49a732e2f2035591cf73e7dcef1714169aa5e446a4911caed8"
+ },
+ "animation/n5000": {
+  "animation/examples/eval_heldout_formulations.sop": "d60a760f72ef0493bbb2a9c06daf7016d960d8e572cc382d4fc6d748df1fc08e",
+  "animation/examples/eval_new_identities.sop": "53f8e74b7f77b7210ac928ccc92bc52da5803f31747f2b8dc96072813b1d473d",
+  "animation/examples/train.sop": "e741bd61698b7251791545980c26cd95ff60da48b71e885b7e724cde4bc1eb15",
+  "animation/kinds.tsv": "ef3b1c1bc1701c23ac4d8a3e3ae7d6c133cc0af90fa12442db79b9102208bb33",
+  "animation/legend.json": "32241c4a7a2fab6ca1823653119f554f63c1a1b99104c496f379d795af4304b3",
+  "animation/raw/sentences.txt": "ca80655a775ccabdeb1bc564370b9da6cecf63ff5850f80fde608c0013619541",
+  "animation/split_hints.json": "c148cf726f36e3f23a608734ec00ecd9686c586b5a6d4d2719635b3615a4318b",
+  "animation/world.json": "8c1153eb8bd8ca49a732e2f2035591cf73e7dcef1714169aa5e446a4911caed8"
+ },
+ "animation/n50000": {
+  "animation/examples/eval_heldout_formulations.sop": "d60a760f72ef0493bbb2a9c06daf7016d960d8e572cc382d4fc6d748df1fc08e",
+  "animation/examples/eval_new_identities.sop": "53f8e74b7f77b7210ac928ccc92bc52da5803f31747f2b8dc96072813b1d473d",
+  "animation/examples/train.sop": "8c0f36dacf6d31947fa586d5119aaf940ee731c5d895c65553f54da1cd6847a1",
+  "animation/kinds.tsv": "ef3b1c1bc1701c23ac4d8a3e3ae7d6c133cc0af90fa12442db79b9102208bb33",
+  "animation/legend.json": "32241c4a7a2fab6ca1823653119f554f63c1a1b99104c496f379d795af4304b3",
+  "animation/raw/sentences.txt": "ca80655a775ccabdeb1bc564370b9da6cecf63ff5850f80fde608c0013619541",
+  "animation/split_hints.json": "c148cf726f36e3f23a608734ec00ecd9686c586b5a6d4d2719635b3615a4318b",
+  "animation/world.json": "8c1153eb8bd8ca49a732e2f2035591cf73e7dcef1714169aa5e446a4911caed8"
+ },
  "diagram/eval": {
   "kinds.json": "9ad1c1f13483a1693da6bbf69bd697864e24fdcc27ba5e451e53b48cc791c50d",
   "paragraphs.jsonl": "f8c122ef8fc52cca79bcbc185db70014ab06cef33577952a765123ec9d68e811",
@@ -51,5 +91,94 @@
   "diagram/raw/sentences.txt": "a8e437ba1e0dbb5598acbaa25cf9d8f68a43da96903691e88c9b583ecdc82c4d",
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "6b77e40ec9d53aad7d5d03d953ebc2132fa3c1d7e1f67deb01dc30acbb8651f0"
+ },
+ "matheditor/n20000": {
+  "matheditor/examples/eval_ambiguous.sop": "6dba70d82d536e2c3eb12da511623f60bc9313bf41a67908faf06adb170fb8ff",
+  "matheditor/examples/eval_heldout_formulations.sop": "de190749313143755596579774b778fceb295508e20db0f7a3e01758ec9c9eb6",
+  "matheditor/examples/eval_new_identities.sop": "2951d05fe21c8456bd4a20aa7a63b7f3079af43279eb0a24c960e0e0fdad37d8",
+  "matheditor/examples/eval_unseen_depth.sop": "2b7e16f97cccffe31e9263a499466caa3f56a106e0e70f96c51dd0cbd3141c5d",
+  "matheditor/examples/train.sop": "7511ba20a7dbae793876d87d597928ad307f5db538f1567f0be25e43470ac74a",
+  "matheditor/kinds.tsv": "7066f5eb80e62feed9ffdfd2a09136414b1d1f70e93f7065b2af72b0c0b086ff",
+  "matheditor/legend.json": "fa1a3fd9ce167c3b78669b58548d7fa5c5e22047c744fbe460d43f4162b1a7c9",
+  "matheditor/raw/edit_suite.jsonl": "fdc9739eae1ad3b82753d13b10b5e9bd4ad34267a040692538074fcaaaee0dd7",
+  "matheditor/raw/edit_suite.sop": "48fd3e5d3989377d9fdd6082f922af8acd4947e55086e6871e6e8d0410641c20",
+  "matheditor/raw/edit_suite.txt": "f5768fb07610e2667a6bd22a2baf3006d4fd56466b49a27f418e24010cc230bb",
+  "matheditor/raw/sentences.txt": "e675b4a65d3ad009f933ca48b05d0e0bd4af66e55a287bf320aef50578891a14",
+  "matheditor/split_hints.json": "27d44cecdbb623ada3b63957979f70f6fe74d015580b25853dfc5f28f89cad85",
+  "matheditor/world.json": "9a7bb902ac9423afec1dd979048f73d44634142318ff37e457912d11d93f098b"
+ },
+ "matheditor/n5000": {
+  "matheditor/examples/eval_ambiguous.sop": "6dba70d82d536e2c3eb12da511623f60bc9313bf41a67908faf06adb170fb8ff",
+  "matheditor/examples/eval_heldout_formulations.sop": "3d017f9bcbbb90beddb07da6ae26efb009b6b42f3054658d4055ba75042e2ba8",
+  "matheditor/examples/eval_new_identities.sop": "9538c3ef91215d36c847df7b4c53d18d12e8589d343c9baa2a417a9413a9f412",
+  "matheditor/examples/eval_unseen_depth.sop": "54486dd850174141d15ff3ad30b78f1b5963e3c0f030a2054d0f871cefdaa1b9",
+  "matheditor/examples/train.sop": "f51a78d874bd502142d7bd737d0d1bcaeac99bd9e5665cdcfefb7a1153a51967",
+  "matheditor/kinds.tsv": "7066f5eb80e62feed9ffdfd2a09136414b1d1f70e93f7065b2af72b0c0b086ff",
+  "matheditor/legend.json": "fa1a3fd9ce167c3b78669b58548d7fa5c5e22047c744fbe460d43f4162b1a7c9",
+  "matheditor/raw/edit_suite.jsonl": "fdc9739eae1ad3b82753d13b10b5e9bd4ad34267a040692538074fcaaaee0dd7",
+  "matheditor/raw/edit_suite.sop": "48fd3e5d3989377d9fdd6082f922af8acd4947e55086e6871e6e8d0410641c20",
+  "matheditor/raw/edit_suite.txt": "f5768fb07610e2667a6bd22a2baf3006d4fd56466b49a27f418e24010cc230bb",
+  "matheditor/raw/sentences.txt": "e675b4a65d3ad009f933ca48b05d0e0bd4af66e55a287bf320aef50578891a14",
+  "matheditor/split_hints.json": "27d44cecdbb623ada3b63957979f70f6fe74d015580b25853dfc5f28f89cad85",
+  "matheditor/world.json": "9a7bb902ac9423afec1dd979048f73d44634142318ff37e457912d11d93f098b"
+ },
+ "matheditor/n50000": {
+  "matheditor/examples/eval_ambiguous.sop": "1bb511ac12f361f52687920cd1a16f2f6822eb571200be3b56fac2316ac34afe",
+  "matheditor/examples/eval_heldout_formulations.sop": "c042572588332b2b209bbe3e58e46557d5e508302756611571cdea24fbd80c85",
+  "matheditor/examples/eval_new_identities.sop": "68410975cdeeff33590bf401e6825300d64777fa23cc2884d6176e663e495df4",
+  "matheditor/examples/eval_unseen_depth.sop": "a77e3be1ebc56737c739fe892103973c8d53efb0e25bcfe022e032f9c3aa2f13",
+  "matheditor/examples/train.sop": "5b0555c59c0620eb595a9bde4d2522499176b6f66f65823c812e45d91434f3d9",
+  "matheditor/kinds.tsv": "7066f5eb80e62feed9ffdfd2a09136414b1d1f70e93f7065b2af72b0c0b086ff",
+  "matheditor/legend.json": "fa1a3fd9ce167c3b78669b58548d7fa5c5e22047c744fbe460d43f4162b1a7c9",
+  "matheditor/raw/edit_suite.jsonl": "fdc9739eae1ad3b82753d13b10b5e9bd4ad34267a040692538074fcaaaee0dd7",
+  "matheditor/raw/edit_suite.sop": "48fd3e5d3989377d9fdd6082f922af8acd4947e55086e6871e6e8d0410641c20",
+  "matheditor/raw/edit_suite.txt": "f5768fb07610e2667a6bd22a2baf3006d4fd56466b49a27f418e24010cc230bb",
+  "matheditor/raw/sentences.txt": "e675b4a65d3ad009f933ca48b05d0e0bd4af66e55a287bf320aef50578891a14",
+  "matheditor/split_hints.json": "27d44cecdbb623ada3b63957979f70f6fe74d015580b25853dfc5f28f89cad85",
+  "matheditor/world.json": "9a7bb902ac9423afec1dd979048f73d44634142318ff37e457912d11d93f098b"
+ },
+ "textedit/n1000": {
+  "textedit/examples/eval_heldout_formulations.sop": "f45c98f66a2c1400388d242119ae47d9e7a4a25ffcfec124e75ef951249a0cf2",
+  "textedit/examples/eval_new_identities.sop": "7b10d8850deced5fa3e50d3c69d28d67ea6e601d12dad4e89339c20c93c4def7",
+  "textedit/examples/train.sop": "8a04973e9558865ea57c38850030d6d15e60d957650778021dbd9e2b9d953864",
+  "textedit/kinds.tsv": "f34cf92ad66ef630bc5ab46220e9af0eb6cc40aef661cbcbdfb1ffa3691e9fc5",
+  "textedit/legend.json": "cf7ec2555d8754cd8ca1e208735205304a4351ceae620ed98df28513de858d95",
+  "textedit/raw/sentences.txt": "ced2647264e66398b047b7c14b36c435dbfbf3077cc8a4032d78c8f38116493e",
+  "textedit/raw/surface_commands.tsv": "61139f4f65098d9db87da4d66862a21fef1866514588638e063d9f20da1d6df0",
+  "textedit/split_hints.json": "6408f1f113365c4354c7412381af3297148c48f7d3a758b4183ae9e953bd7007",
+  "textedit/world.json": "e7f13869739f98f896d495ad36f5aa8aa96147dc6aeadb3d647e2b1bdcbddc05"
+ },
+ "textedit/n20000": {
+  "textedit/examples/eval_heldout_formulations.sop": "f45c98f66a2c1400388d242119ae47d9e7a4a25ffcfec124e75ef951249a0cf2",
+  "textedit/examples/eval_new_identities.sop": "7b10d8850deced5fa3e50d3c69d28d67ea6e601d12dad4e89339c20c93c4def7",
+  "textedit/examples/train.sop": "68dc305b4b1a6de13fdf2dc2ad52b58dc272572d7d1e004e92503b1ef7b8d9fe",
+  "textedit/kinds.tsv": "f34cf92ad66ef630bc5ab46220e9af0eb6cc40aef661cbcbdfb1ffa3691e9fc5",
+  "textedit/legend.json": "cf7ec2555d8754cd8ca1e208735205304a4351ceae620ed98df28513de858d95",
+  "textedit/raw/sentences.txt": "7f9e78cc3fe7bc66494cb8d6845e8c049d063e553f749d70c4c1ccac3bc32824",
+  "textedit/raw/surface_commands.tsv": "61139f4f65098d9db87da4d66862a21fef1866514588638e063d9f20da1d6df0",
+  "textedit/split_hints.json": "6408f1f113365c4354c7412381af3297148c48f7d3a758b4183ae9e953bd7007",
+  "textedit/world.json": "e7f13869739f98f896d495ad36f5aa8aa96147dc6aeadb3d647e2b1bdcbddc05"
+ },
+ "textedit/n5000": {
+  "textedit/examples/eval_heldout_formulations.sop": "f45c98f66a2c1400388d242119ae47d9e7a4a25ffcfec124e75ef951249a0cf2",
+  "textedit/examples/eval_new_identities.sop": "7b10d8850deced5fa3e50d3c69d28d67ea6e601d12dad4e89339c20c93c4def7",
+  "textedit/examples/train.sop": "e3bb0b3b12193473c78666f15bf71f1a571529d281d718b4dc14232ddaa61f0d",
+  "textedit/kinds.tsv": "f34cf92ad66ef630bc5ab46220e9af0eb6cc40aef661cbcbdfb1ffa3691e9fc5",
+  "textedit/legend.json": "cf7ec2555d8754cd8ca1e208735205304a4351ceae620ed98df28513de858d95",
+  "textedit/raw/sentences.txt": "7f9e78cc3fe7bc66494cb8d6845e8c049d063e553f749d70c4c1ccac3bc32824",
+  "textedit/raw/surface_commands.tsv": "61139f4f65098d9db87da4d66862a21fef1866514588638e063d9f20da1d6df0",
+  "textedit/split_hints.json": "6408f1f113365c4354c7412381af3297148c48f7d3a758b4183ae9e953bd7007",
+  "textedit/world.json": "e7f13869739f98f896d495ad36f5aa8aa96147dc6aeadb3d647e2b1bdcbddc05"
+ },
+ "textedit/n50000": {
+  "textedit/examples/eval_heldout_formulations.sop": "f45c98f66a2c1400388d242119ae47d9e7a4a25ffcfec124e75ef951249a0cf2",
+  "textedit/examples/eval_new_identities.sop": "7b10d8850deced5fa3e50d3c69d28d67ea6e601d12dad4e89339c20c93c4def7",
+  "textedit/examples/train.sop": "0e4199fbb6912768237c3ec749f3ea8ab75c98acb10c8896bb710933307a8210",
+  "textedit/kinds.tsv": "f34cf92ad66ef630bc5ab46220e9af0eb6cc40aef661cbcbdfb1ffa3691e9fc5",
+  "textedit/legend.json": "cf7ec2555d8754cd8ca1e208735205304a4351ceae620ed98df28513de858d95",
+  "textedit/raw/sentences.txt": "7f9e78cc3fe7bc66494cb8d6845e8c049d063e553f749d70c4c1ccac3bc32824",
+  "textedit/raw/surface_commands.tsv": "61139f4f65098d9db87da4d66862a21fef1866514588638e063d9f20da1d6df0",
+  "textedit/split_hints.json": "6408f1f113365c4354c7412381af3297148c48f7d3a758b4183ae9e953bd7007",
+  "textedit/world.json": "e7f13869739f98f896d495ad36f5aa8aa96147dc6aeadb3d647e2b1bdcbddc05"
  }
 }

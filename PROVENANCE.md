@@ -18,3 +18,8 @@ What was NOT copied, and stays only in the frozen repository as the paper's evid
 (`vsa-semantic-space@e531283:experiment/RESULTS.md`, section number), never a file of this repository.
 
 From the import commit on, changes to copied files are ordinary commits of this repository, with their reason in the message.
+
+Changes to copied files made here so far (each its own commit): `tool/sop/world.py`, `train.py`, `infer.py`: portable stars
+(`--star_version 2`, SHA-256 -> xoshiro128**, reproduced in the browser) and the sentence-candidates option; `tool/sop/export_web.py`
+and `cli.py`: `sop export-web`; `tool/sop/legend.py`: the discourse operators `then`, `but`, `so`, `because` of the SOP circuit (spec
+15.2). The models and the measurement code of `experiment/` are unchanged.

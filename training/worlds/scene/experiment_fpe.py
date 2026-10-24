@@ -28,7 +28,7 @@ Readout (read by displacing and comparing, not learned):
 
 Modes:
   --smoke       CPU, tiny sizes (D 256, one seed, a few scenes): checks that the pipeline runs; its numbers are NOT results.
-  DGX command (see training/TODO_DGX.parts/sketch_scene.md), from the repository root, on a clean tree:
+  DGX command (see training/TODO_DGX.md), from the repository root, on a clean tree:
     python3 training/worlds/scene/experiment_fpe.py --D 1024 4096 --seeds 0 1 2 3 4 --n_dev 100 --n_heldout 400 \\
         --capacity 4 8 16 32 64 128 --n_cap 60 --sep_trials 200 --out logs/scene_fpe_<commit> 2>&1 | tee logs/scene_fpe_<commit>.log
 Resumable: each (D, seed) writes <out>/D<D>_seed<seed>.json and is skipped when that file exists.

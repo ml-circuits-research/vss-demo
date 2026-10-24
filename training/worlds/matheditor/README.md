@@ -75,7 +75,7 @@ app/src/vss/reader.js) reads only `says* -> [not] -> event`, with role fillers t
    reporting depth of k on a sentence with k operators, so the legend declares them in a separate `tree_levels` block instead.
 4. Implicit multiplication ("two x") has no operator word, so its wire has no predicate term; the event type must come from the fit.
 
-The decoder extension with its criteria is in `training/TODO_DGX.parts/matheditor.md`. Until it exists, the app reads formulas with
+The decoder extension with its criteria is in `training/TODO_DGX.md`. Until it exists, the app reads formulas with
 the reference parser (labelled "reference parser" on screen).
 
 ## Design choices, stated

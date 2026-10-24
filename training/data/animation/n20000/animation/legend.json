@@ -1,0 +1,366 @@
+{
+ "version": 1,
+ "roles": [
+  {
+   "id": "object",
+   "question": "what is animated?"
+  },
+  {
+   "id": "color",
+   "question": "to which colour?"
+  },
+  {
+   "id": "relation",
+   "question": "where, relative to what?"
+  },
+  {
+   "id": "landmark",
+   "question": "relative to which component, or where it arrives?"
+  },
+  {
+   "id": "region",
+   "question": "where on the canvas?"
+  },
+  {
+   "id": "direction",
+   "question": "in which direction?"
+  },
+  {
+   "id": "distance",
+   "question": "how far, in px?"
+  },
+  {
+   "id": "angle",
+   "question": "by how many degrees?"
+  },
+  {
+   "id": "traveller",
+   "question": "what moves along the path?"
+  },
+  {
+   "id": "source",
+   "question": "from where?"
+  },
+  {
+   "id": "via",
+   "question": "through which component?"
+  },
+  {
+   "id": "target",
+   "question": "to what, or towards what?"
+  },
+  {
+   "id": "path",
+   "question": "along what?"
+  },
+  {
+   "id": "start",
+   "question": "when does it begin?"
+  },
+  {
+   "id": "tempo",
+   "question": "in which relation in time to another unit?"
+  },
+  {
+   "id": "ref",
+   "question": "relative to which other unit?"
+  },
+  {
+   "id": "offset",
+   "question": "how long before or after it?"
+  },
+  {
+   "id": "trigger",
+   "question": "on what event of the other unit?"
+  },
+  {
+   "id": "duration",
+   "question": "how long does it take?"
+  },
+  {
+   "id": "unit",
+   "question": "in which time unit?"
+  },
+  {
+   "id": "per",
+   "question": "per what?"
+  },
+  {
+   "id": "speed",
+   "question": "how fast?"
+  },
+  {
+   "id": "easing",
+   "question": "how does it move?"
+  },
+  {
+   "id": "repeat",
+   "question": "how many times?"
+  }
+ ],
+ "events": [
+  {
+   "id": "appear",
+   "verbs": [
+    "appear",
+    "show",
+    "reveal"
+   ]
+  },
+  {
+   "id": "disappear",
+   "verbs": [
+    "disappear",
+    "hide",
+    "vanish",
+    "remove"
+   ]
+  },
+  {
+   "id": "fade_in",
+   "verbs": [
+    "fade_in"
+   ]
+  },
+  {
+   "id": "fade_out",
+   "verbs": [
+    "fade_out"
+   ]
+  },
+  {
+   "id": "blink",
+   "verbs": [
+    "blink",
+    "flash"
+   ]
+  },
+  {
+   "id": "pulse",
+   "verbs": [
+    "pulse"
+   ]
+  },
+  {
+   "id": "rotate",
+   "verbs": [
+    "rotate",
+    "spin"
+   ]
+  },
+  {
+   "id": "highlight",
+   "verbs": [
+    "highlight"
+   ]
+  },
+  {
+   "id": "travel",
+   "verbs": [
+    "travel",
+    "go",
+    "send",
+    "fly"
+   ]
+  },
+  {
+   "id": "move",
+   "verbs": [
+    "move",
+    "slide",
+    "shift"
+   ]
+  },
+  {
+   "id": "change",
+   "verbs": [
+    "paint",
+    "color"
+   ]
+  },
+  {
+   "id": "wait",
+   "verbs": [
+    "wait"
+   ]
+  },
+  {
+   "id": "grow",
+   "verbs": [
+    "grow",
+    "expand"
+   ]
+  },
+  {
+   "id": "shrink",
+   "verbs": [
+    "shrink"
+   ]
+  },
+  {
+   "id": "walk",
+   "verbs": [
+    "walk"
+   ]
+  },
+  {
+   "id": "jump",
+   "verbs": [
+    "jump",
+    "leap"
+   ]
+  },
+  {
+   "id": "wave",
+   "verbs": [
+    "wave"
+   ]
+  },
+  {
+   "id": "turn",
+   "verbs": [
+    "turn",
+    "face"
+   ]
+  },
+  {
+   "id": "nod",
+   "verbs": [
+    "nod"
+   ]
+  },
+  {
+   "id": "shake",
+   "verbs": [
+    "shake",
+    "wiggle"
+   ]
+  },
+  {
+   "id": "bounce",
+   "verbs": [
+    "bounce"
+   ]
+  },
+  {
+   "id": "play",
+   "verbs": [
+    "play",
+    "run"
+   ]
+  },
+  {
+   "id": "pause",
+   "verbs": [
+    "pause",
+    "stop",
+    "freeze"
+   ]
+  },
+  {
+   "id": "rewind",
+   "verbs": [
+    "rewind",
+    "restart"
+   ]
+  },
+  {
+   "id": "loop",
+   "verbs": [
+    "loop",
+    "repeat"
+   ]
+  },
+  {
+   "id": "retime",
+   "verbs": [
+    "slow_down",
+    "speed_up"
+   ]
+  },
+  {
+   "id": "overlap",
+   "verbs": [
+    "overlap",
+    "cover"
+   ]
+  },
+  {
+   "id": "leave",
+   "verbs": [
+    "leave"
+   ]
+  },
+  {
+   "id": "last",
+   "verbs": [
+    "last",
+    "take"
+   ]
+  },
+  {
+   "id": "locate",
+   "verbs": [
+    "where"
+   ]
+  }
+ ],
+ "operators": [
+  "not"
+ ],
+ "moods": [
+  "command",
+  "question"
+ ],
+ "kinds": {
+  "source": "lexicon",
+  "lexicon": "kinds.tsv"
+ },
+ "values": [
+  {
+   "kind": "NUM",
+   "pattern": "\\d+(\\.\\d+)?"
+  },
+  {
+   "kind": "LABEL",
+   "pattern": "[a-z0-9]+(_[a-z0-9]+)+"
+  }
+ ],
+ "reader": {
+  "predicate_role": true,
+  "occupancy_marker": true,
+  "definite_dets": [
+   "the"
+  ]
+ },
+ "repertoire": {
+  "characters": [
+   "robot",
+   "figure",
+   "person",
+   "car"
+  ],
+  "motions": [
+   "bounce",
+   "grow",
+   "jump",
+   "nod",
+   "shake",
+   "shrink",
+   "turn",
+   "walk",
+   "wave"
+  ],
+  "travellers": [
+   "dot",
+   "envelope",
+   "packet",
+   "token",
+   "request",
+   "answer",
+   "message",
+   "ball"
+  ],
+  "note": "spec 19.5: named motions are written once by the world's authors (app/src/animate/characters.js); a motion the legend lacks is reported unknown"
+ }
+}

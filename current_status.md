@@ -1,8 +1,9 @@
 # current status (rewritten at every judgment point)
 
-- 2026-10-24: repository created from vsa-semantic-space@e531283 (PROVENANCE.md); specification 2.6 in vision/. Prepared on CPU before
-  the DGX: the diagram world at Level 1 (legend, kinds, generator, split hints, noise generators), portable stars, sop export-web, the
-  JavaScript reader with a parity test against Python, the correctors. Next on the DGX: INSTRUCTIONS_DGX_2026-10-24.md, step 3.
-- 2026-10-24 (later): committed the browser reader (app/src/vss.js, web/vss/), `sop export-web` (8/4/32 bits), stars v2 in train/infer,
-  and the parity chain (training/parity/run_all.sh: PASS on smoke models; frames identical, state cosine 1.000000). Smoke models are not
-  results. Open for the DGX: step 3 with --star_version 2, then step 5 on the real model, including the 4-bit check.
+- 2026-10-24: the repository is split into `app/` (public: the static application, no server, one HTML file in `app/dist/`, desktop
+  and phone) and `training/` (private: generators, frozen data of our own worlds with sha256, parity tests, DGX scripts, export to the
+  app). Every module of the specification that does not need a trained model is built and tested (STATUS.md), and wired into the
+  interface (browser check 116/116). The installed reader is a CPU development model, labelled so; no number of the demo exists yet.
+- Next: `training/TODO_DGX.md`, from step 1.1 (the diagram world, five seeds, four sizes). Known gaps written there: the reader cannot
+  yet decode nested formula trees (decoder extension E1-E4 first), the sketch recogniser misses two synthetic criteria (connectors 0.963,
+  planted unknowns 12/13), the hand-drawn, recorded-speech and dictated-animation sets need people.

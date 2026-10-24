@@ -774,7 +774,7 @@ def make_legend():
                 "ambiguity": "alternatives on the root role (root=$a | $b) with _readings=n; the scope rule is app/src/formula/parse.js (header)",
                 "note": ("declared here, NOT in reader.level_openers: the tool's depth estimator counts level-opener tokens as reporting (says) levels, "
                          "which this world does not have; the nested-event decoder that uses this block is the extension in "
-                         "training/TODO_DGX.parts/matheditor.md")}}
+                         "training/TODO_DGX.md")}}
 
 
 def make_kinds():

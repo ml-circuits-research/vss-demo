@@ -31,7 +31,7 @@ worse; it says, unit by unit and with a reason, where the model stopped followin
    `scripts.diagrams_as_text.json`, the final diagrams read back into the world's language.
 3. Fidelity: (a) automatic: the diagram read back into text (`scripts.diagrams_as_text.json`) is read by the reader and compared with
    the script's own requests by `sop diff` (a contradiction is a unit that did not build what it said). The read-back text is written
-   now; the comparison step is not implemented yet (it is listed in training/TODO_DGX.parts/segment_scripts.md, to be written and run
+   now; the comparison step is not implemented yet (it is listed in training/TODO_DGX.md, to be written and run
    with the trained reader); (b) by a person on a sample: for 3 descriptions per model, a person compares the final diagram with the
    description and counts the parts present, missing and wrong. Both numbers are reported; the person's sample is named in the table.
 4. The table goes into the run's log with the labels the project's rules require; the units lost are listed per model with their reason.
