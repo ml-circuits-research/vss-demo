@@ -13,7 +13,7 @@ and a label; prohibitions (not around the event); region, relative and computed 
 layouts; grouping and naming; pairing over sets; no nesting (no reporting operator, depth 0).
 Run: python3 generate.py --out ../../worlds/diagram [--n 30000] [--n_eval 400] [--seed 0]"""
 import argparse, collections, datetime, hashlib, json, os, sys
-HERE = os.path.dirname(os.path.abspath(__file__)); TOOL = os.path.dirname(os.path.dirname(HERE))
+HERE = os.path.dirname(os.path.abspath(__file__)); TOOL = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))), "tool")
 sys.path.insert(0, TOOL); sys.path.insert(0, HERE)
 import numpy as np
 from sop import soplang
@@ -396,7 +396,7 @@ def build(out, n, n_eval, seed):
                "models": {"pipeline": "claude-haiku-5-5", "annotate": "claude-haiku-5-5", "second_look": "claude-haiku-5-5", "evolve": "claude-opus-5-5"},
                "second_look_escalate": 0.05, "second_look_retrain": 0.05}, open(os.path.join(wd, "world.json"), "w"), indent=1)
     def write(fname, rows):
-        doc = soplang.Doc(directives=[("world", "diagram", None), ("legend", sha, None), ("generated", f"worlds_src/diagram/generate.py seed {seed} ({datetime.date.today()})", None)])
+        doc = soplang.Doc(directives=[("world", "diagram", None), ("legend", sha, None), ("generated", f"training/worlds/diagram/generate.py seed {seed} ({datetime.date.today()})", None)])
         k = 0
         for ev, text, roles, negated, template in rows:
             ids = iter(f"w{k + i}" for i in range(1, 200)); ws = wires_for(ev, roles, negated, text, template, ids); k += len(ws)

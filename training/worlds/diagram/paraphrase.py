@@ -10,7 +10,7 @@ All model calls go through tool/skills/train-world/scripts/llm.py (role 'annotat
 credentials the script stops with 'API unavailable'; --dry_run writes the prompts and a trivially rewritten copy (for testing the format).
 Run: python3 paraphrase.py <world dir> [--n 2000] [--families typed_casual,spoken,terse,polite_long] [--heldout_families terse] [--dry_run]"""
 import argparse, json, os, sys, collections, datetime
-HERE = os.path.dirname(os.path.abspath(__file__)); TOOL = os.path.dirname(os.path.dirname(HERE))
+HERE = os.path.dirname(os.path.abspath(__file__)); TOOL = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))), "tool")
 sys.path.insert(0, TOOL); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(TOOL, "skills", "train-world", "scripts"))
 import numpy as np
 from sop import soplang, world as worldmod
