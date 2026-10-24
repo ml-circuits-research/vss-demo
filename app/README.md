@@ -19,6 +19,37 @@ exported models. It never reads anything from `training/`, `tool/` or `experimen
 Rebuild the one-file version after a change: `(cd app/build && npm ci) && node app/build/build.mjs`. esbuild is the only build
 dependency and is never shipped.
 
+## What you can do
+
+Everything below works in the one-file build (file://) and in the hosted folder, with a mouse, a finger or a pen, on desktop and phone.
+
+- **Draw by saying or typing**: "add a database called orders in the top left". The reading strip under the canvas marks what each word
+  did; the panel (the lines button) shows the frame, the plan, the geometry, the SOP text and a log.
+- **Several commands at once** (spec 15): a paragraph ("Add a database called orders. Then connect it to the api.") is cut into units,
+  each unit is read, and the units are linked into one circuit and run as one undo step. The strip shows every unit; the Circuit tab
+  shows the circuit; a conflict between two units is asked before anything runs.
+- **Scripts** (spec 18): the document button, or pasting a long text (a heading, several paragraphs, or more than 600 characters) into
+  the input, opens the script view: the diagram is built section by section, every sentence is marked with what it did, and "Back to
+  here" returns to a section's checkpoint.
+- **Text widgets and dictation** (spec 14): the text box button (or "add a note called Summary" then "start writing in Summary", or a
+  double click on a note) starts writing; the chip in the top bar says so. Spoken punctuation and layout work ("full stop", "new
+  paragraph", "bullet", "literally comma"). "Stop writing" or Escape goes back to commands. Without a textedit model (the case today)
+  everything said or typed in a widget is written as text, and the editor says so; with app/model/textedit installed, the textedit reader
+  decides command or content with its calibrated threshold.
+- **Formulas** (spec 16): the square-root button or "start a formula" opens a formula widget; say or type "x plus one over two" and both
+  readings are offered as choices; edits such as "replace the exponent with n plus one" change the tree. Without a matheditor model the
+  formula is read by the reference parser, and the widget and the panel say so. Rendering is MathML. "End formula" or Escape closes.
+- **Sketch** (spec 17): the pen button lays a sketch pad over the canvas; draw boxes, ellipses, diamonds, cylinders and arrows; Done
+  recognises them and builds components and connectors as one undo step. The answer lists what was recognised and offers the two
+  readings of an uncertain shape; the Plan tab lists every stroke group with its candidates and margin.
+- **Animation** (spec 19): a timeline strip (play, pause, scrub) appears under the canvas when there is a film, and the Timeline tab
+  shows one bar per unit with the constraints that placed it and the rules checked on every frame. With app/model/animation installed,
+  sentences such as "the request goes from the user to the gateway, two seconds per hop" are read into the timeline; without it (the
+  case today) a film is opened from a JSON timeline file (Export, "Open a timeline file", or "Open the example film"). Export saves the
+  film as WebM video (when the browser can record a canvas), animated SVG or a JSON timeline.
+- **Settings**: spelling correction (classic, VSS form level, off), the speech language, the thresholds that decide when a command runs,
+  the theme. **About**: every world with its model (demo, development, or not installed) and the status of every module.
+
 ## What runs where
 
 | stage | module | spec |
@@ -37,6 +68,7 @@ dependency and is never shipped.
 | sketch recognition | `src/sketch/` | 17 |
 | long scripts | `src/script/` | 18 |
 | animation | `src/animate/` | 19 |
+| widget, script and film rules (start a formula, which text widget, widget height, paste of a script) | `src/widgets.js` | 14, 16, 18 |
 | interface | `index.html`, `app.css`, `src/main.js`, `src/ui/` | 11 |
 
 `ARCHITECTURE.md` is the module contract. `READER.md` documents the reader's export format and its parity test against Python.
@@ -52,6 +84,12 @@ application; never measured, and the editor says so in its badge and its About p
 
 `bash app/tests/run_all.sh` runs every node test of the application (no browser needed); the parity test of the reader against Python
 lives in `training/parity/` because it needs the Python side.
+
+`node app/tests/browser_check.mjs [--shots <dir>]` runs the application in Chromium through Playwright (desktop and phone sizes, the
+one-file build from file:// and the hosted folder through a small static server it starts): a command, a paragraph and its circuit, a
+text widget with dictation, a formula with two readings, the sketch pad, the example film with its export, a script, Settings and
+About, and no console error. It needs a browser, so run_all.sh does not include it; without Playwright it says SKIP. The installed
+diagram model is a development model: wrong readings are expected there, the check is about the wiring.
 
 ## Privacy
 
