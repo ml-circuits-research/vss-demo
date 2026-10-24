@@ -50,6 +50,7 @@ import { answer as answerFilm } from "./animate/questions.js";
 import { exportJSON as filmJSON, exportSVG as filmSVG, exportWebM, capabilities as filmCaps, importTimeline } from "./animate/export.js";
 
 const $ = (id) => document.getElementById(id);
+const DEFAULTS = { corrector: "classic", theme: "auto", speakback: false, lang: "en-US" };
 const S = {
   assets: createAssets(), worlds: new Map(), diagram: null, normalize: null, corr: { classic: null, form: null }, formIndex: null,
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
@@ -57,7 +58,6 @@ const S = {
   formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "frame",
 };
 
-const DEFAULTS = { corrector: "classic", theme: "auto", speakback: false, lang: "en-US" };
 function loadSettings() { try { return Object.assign({ ...DEFAULTS }, JSON.parse(localStorage.getItem("vss-settings") || "{}")); } catch { return { ...DEFAULTS }; } }
 function saveSettings() { try { localStorage.setItem("vss-settings", JSON.stringify(S.settings)); } catch { /* private mode: settings for this visit only */ } }
 function applyTheme() { if (S.settings.theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = S.settings.theme; }
@@ -291,6 +291,13 @@ function runTextCommand(id, doc, a, text, opts = {}) {
   refresh(); showAnswer({ action: r.applied ? "execute" : "refuse", line: r.applied ? (p.explain || `done: ${p.event}`) : `not applied: ${r.reason || "nothing to change"}` + (r.read ? ` ${r.read}` : "") });
 }
 
+// a component outside the visible part of the canvas: fit the view so that it shows
+function reveal(id) {
+  const c = S.scene.components.get(id); if (!c) return; const r = $("canvas").getBoundingClientRect();
+  const a = S.view.screenToScene(r.left, r.top), b = S.view.screenToScene(r.right - 56, r.bottom);
+  if (c.box.x < a.x || c.box.y < a.y || c.box.x + c.box.w > b.x || c.box.y + c.box.h > b.y) S.view.fit();
+}
+
 // ------------------------------------------------------------------ formula widgets (spec 16)
 function formulaDocOf(id) {
   const c = S.scene.components.get(id); if (!c || c.formula == null) return null;
@@ -303,7 +310,7 @@ function addWidget(kind) {
   const box = { w, h }; const near = S.scene.selection.length ? S.scene.components.get(S.scene.selection[0])?.box : null;
   const pos = place(S.scene, box, near ? { relation: "right_of" } : {}, near);
   let id; ops.transact(S.scene, () => { id = ops.create(S.scene, { word, kind: kind === "formula" ? "formula" : "note", label: null, ...(kind === "formula" ? { formula: { tree: hole(), latex: "", plain: "" } } : { text: { doc: new TextDoc().toJSON(), plain: "" } }) }, { ...box, x: pos.x, y: pos.y }); if (S.scene.connectors.size) ops.route(S.scene); });
-  S.scene.lastTouched = [id]; S.scene.selection = [id];
+  S.scene.lastTouched = [id]; S.scene.selection = [id]; S.view.render(); reveal(id);
   S.history.push({ input: `(add a ${word})`, source: "button", used: "", status: "", line: `add a ${word}`, action: "manual" });
   return id;
 }
@@ -324,7 +331,7 @@ function startFormula(id, fp = null) {
 }
 function leaveFormula(say = true) {
   const was = S.active; S.mode = "command"; S.active = null; if (S.formulaView) { S.formulaView.destroy(); S.formulaView = null; }
-  $("tab-widget").replaceChildren(); updateMode(); refresh(); if (say) showAnswer({ action: "execute", line: `Formula ${nameOf(was)} closed.` });
+  $("tab-widget").replaceChildren(); updateMode(); refresh(); if (say) showAnswer({ action: "execute", line: `Closed ${nameOf(was)}; back to commands.` });
 }
 function handleFormula(text) {
   const fp = formulaPhrase(text); if (fp && fp.type === "end") return leaveFormula();
@@ -340,8 +347,8 @@ function onFormulaChange(id, doc, r) {
     if (S.scene.connectors.size) ops.route(S.scene); ops.commit(S.scene, tx); S.formulas.get(id).sig = sig;
     S.history.push({ input: `(formula) ${latex}`, source: "formula", used: "", status: r.status, line: r.reason, action: "formula" });
   }
-  const shown = doc.tree.op === "hole" ? "empty" : latex;
-  S.last = { kind: "formula", input: "", note: { text: S.formulaInput || latex, as: r.kind === "command" ? `an edit of the formula, now ${shown}` : r.kind === "formula" ? (r.status === "ambiguous" ? "a formula with two readings" : `a formula: ${shown}`) : "not read", reason: `${r.status}: ${r.reason || ""}`, world: r.source || parsers.SOURCE, kind: r.kind === "command" ? "command" : "content", status: r.status === "ok" ? "ok" : r.status === "ambiguous" ? "abstain" : "no-sense" } };
+  const shown = doc.tree.op === "hole" ? "empty" : latex; const kind = r.kind || (r.status === "ok" ? "formula" : null);
+  S.last = { kind: "formula", input: "", note: { text: S.formulaInput || latex, as: kind === "command" ? `an edit of the formula, now ${shown}` : kind === "formula" ? (r.status === "ambiguous" ? "a formula with two readings" : `a formula: ${shown}`) : "not read", reason: `${r.status}: ${r.reason || ""}`, world: r.source || parsers.SOURCE, kind: kind === "command" ? "command" : "content", status: r.status === "ok" ? "ok" : r.status === "ambiguous" ? "abstain" : "no-sense" } };
   refresh();
   showAnswer({ action: r.status === "ok" ? "execute" : r.status === "ambiguous" || r.status === "choose" ? "ask" : "refuse", line: `${r.status === "ambiguous" ? "Two readings: which one?" : r.reason || r.status} (${r.source || parsers.SOURCE})` });
   const host = $("answer");
@@ -361,7 +368,8 @@ function onStrokes(strokes, { stay }) {
   const line = `Recognised ${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}. One undo takes it back.`;
   S.last = { kind: "sketch", input: "(sketch)", rec, res, map: ap.map, line };
   S.history.push({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res) });
-  refresh(); showAnswer({ action: ap.applied ? "execute" : "refuse", line });
+  refresh(); const first = [...ap.map.values()].find((x) => S.scene.components.has(x)); if (first) { reveal(first); S.slots.sync(); }
+  showAnswer({ action: ap.applied ? "execute" : "refuse", line });
   const host = $("answer");
   for (const q of res.questions) {
     const id = ap.map.get(q.ref) || q.ref;
@@ -421,7 +429,7 @@ function refresh() {
   const L = S.last; const best = L?.best;
   if (L?.note) renderNote($("reading"), L.note);
   else if (L?.kind === "long" && L.units?.length) renderUnits($("reading"), L.units);
-  else if (L?.kind === "sketch") renderNote($("reading"), { text: L.line, as: "from the sketch pad", reason: L.res.active, world: "sketch", kind: "command" });
+  else if (L?.kind === "sketch") renderNote($("reading"), { text: L.rec.groups.map((g) => String(g.kind).replace(/_/g, " ")).join(", ") || "no ink", as: "drawn on the sketch pad", reason: L.res.active, world: "sketch", kind: "command" });
   else renderReading($("reading"), { result: best?.result, corrections: best?.corrections || [], labels: best?.info?.labels || {}, world: L?.world || "diagram" });
   renderFrame($("tab-frame"), { result: best?.result, legend: (L?.world === "animation" ? S.animation : S.diagram)?.legend, tau: S.diagram?.tau ?? 0.05 });
   if (L?.kind === "sketch") renderSketch($("tab-plan"), { rec: L.rec, res: L.res, low: PASS_OPTIONS.ambiguousMargin });
@@ -440,6 +448,7 @@ function refresh() {
   if ((wTab.hidden && S.panelTab === "widget") || (tTab.hidden && S.panelTab === "timeline")) selectTab("frame");
   const log = $("tab-log"); log.replaceChildren();
   for (const h of S.history.slice().reverse()) { const d = document.createElement("div"); d.className = "log-item"; const a = document.createElement("div"); a.className = "log-in"; a.textContent = h.input; const b = document.createElement("div"); b.className = "log-out"; b.textContent = `${h.action}${h.status ? ", " + h.status : ""}: ${h.line}`; d.append(a, b); log.append(d); }
+  updateMode();
 }
 function widgetReaderLine() {
   const t = S.textedit ? `Text: the textedit reader decides command or content${S.calibration ? ` (command threshold ${S.calibration.threshold})` : " (no calibrated threshold: commands are offered as a chip, never run on their own)"}.` : "Text: no textedit model is installed; everything dictated into a text widget is written as content.";
@@ -473,7 +482,7 @@ function updateMode() {
   if (S.mode === "dictation") { chipEl.hidden = false; chipEl.classList.add("dictation"); chipEl.textContent = `writing in ${S.scene.components.get(S.active)?.label || "the text box"}`; inp.placeholder = "say or type the text; “stop writing” to finish"; }
   else if (S.mode === "formula") { chipEl.hidden = false; chipEl.classList.add("formula"); chipEl.textContent = "formula"; inp.placeholder = "x squared plus one over two; “end formula” to finish"; }
   else if (S.sketch?.isOpen) { chipEl.hidden = false; chipEl.classList.add("sketch"); chipEl.textContent = "sketching"; inp.placeholder = "add a red box called payments"; }
-  else if (S.film?.showing) { chipEl.hidden = false; chipEl.classList.add("film"); chipEl.textContent = "film"; inp.placeholder = "add a red box called payments"; }
+  else if (S.film?.showing) { chipEl.hidden = false; chipEl.classList.add("m-film"); chipEl.textContent = "film"; inp.placeholder = "add a red box called payments"; }
   else { chipEl.hidden = true; inp.placeholder = "add a red box called payments"; }
 }
 function openPanel(tab, { onlyIfOpen = false } = {}) {
@@ -622,6 +631,7 @@ function setupUI() {
 function loadTimeline(json, name) {
   const r = importTimeline(json, { scene: S.scene }); const bad = r.report.filter((x) => x.kind === "error");
   S.film.set(r.timeline, { sop: typeof json === "object" ? json.sop : null });
+  S.last = { kind: "film", input: `(timeline) ${name}`, note: { text: name, as: `a timeline of ${r.timeline.units.length} units, ${(r.timeline.end / 1000).toFixed(2)} s`, reason: S.animation ? "read from the file" : "read from the file (the animation world is not installed: films are played from timeline files)", world: "animation", kind: "command", status: bad.length ? "abstain" : "ok" } };
   refresh();
   if (!r.timeline.units.length) { showAnswer({ action: "refuse", line: `${name}: no unit could be placed on the timeline${bad.length ? ` (${bad[0].note})` : ""}.` }); return; }
   S.film.show(true); S.film.player.play(0);

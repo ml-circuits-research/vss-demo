@@ -25,7 +25,7 @@ export function createFilm(el) {
     if (showing) {
       el.film.innerHTML = frameSVG(tl, st, { caption: false });
       const svg = el.film.firstElementChild;
-      if (svg) { svg.setAttribute("viewBox", `${box.x} ${box.y} ${box.w} ${box.h}`); svg.removeAttribute("width"); svg.removeAttribute("height"); svg.style.cssText = "width:100%;height:100%"; svg.setAttribute("preserveAspectRatio", "xMidYMid meet"); }
+      if (svg) { svg.setAttribute("viewBox", `${box.x} ${box.y} ${box.w} ${box.h}`); svg.removeAttribute("width"); svg.removeAttribute("height"); svg.setAttribute("preserveAspectRatio", "xMidYMid meet"); }
     }
     el.scrub.value = String(Math.round(st.t)); el.time.textContent = `${fmt(st.t)} / ${fmt(tl.end)}`;
     el.play.innerHTML = player && player.playing ? PAUSE : PLAY; el.play.setAttribute("aria-label", player && player.playing ? "Pause" : "Play the animation");
@@ -35,6 +35,11 @@ export function createFilm(el) {
   el.scrub.oninput = () => { if (!player) return; if (!showing) show(true); player.seek(Number(el.scrub.value)); };
   el.close.onclick = () => { if (player) player.pause(); show(false); };
   el.details.onclick = () => el.onDetails && el.onDetails();
+  // a bar of the Timeline tab seeks the film on the canvas to the start of its unit
+  el.panel.addEventListener("click", (e) => {
+    const bar = e.target.closest && e.target.closest(".bar"); if (!bar || !tl || !player) return;
+    const left = parseFloat(bar.style.left) || 0; if (!showing) show(true); player.pause(); player.seek(Math.round((left / 100) * tl.end));
+  });
 
   function set(timeline, opts = {}) {
     if (player) player.pause(); if (panelView) { panelView.destroy(); panelView = null; }

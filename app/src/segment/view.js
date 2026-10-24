@@ -24,7 +24,7 @@ export function renderCircuit(container, circuit, ctx = {}) {
   const ents = circuit.entities.filter((e) => used.has(e.id));
   const W = 340, rowH = 46, boxW = 210, entX = 262, entW = 72;
   const H = Math.max(units.length, ents.length) * rowH + 20;
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", style: `min-width:300px;max-width:${W * 1.6}px;font:11px system-ui,sans-serif`, role: "img",
+  const svg = el("svg", { viewBox: `-44 0 ${W + 44} ${H}`, width: "100%", style: `min-width:300px;max-width:${W * 1.6}px;font:11px system-ui,sans-serif`, role: "img",
     "aria-label": `circuit of ${units.length} units and ${ents.length} shared entities` });
   const defs = el("defs"); const mk = el("marker", { id: "cv-arrow", viewBox: "0 0 8 8", refX: 7, refY: 4, markerWidth: 6, markerHeight: 6, orient: "auto-start-reverse" });
   mk.appendChild(el("path", { d: "M0,0 L8,4 L0,8 z", fill: "currentColor" })); defs.appendChild(mk); svg.appendChild(defs);

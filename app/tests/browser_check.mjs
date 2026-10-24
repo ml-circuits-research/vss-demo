@@ -145,7 +145,7 @@ const browser = await chromium.launch();
 try {
   if (ONLY !== "hosted") for (const size of ["desktop", "phone"]) await session(browser, "file://" + path.join(APP, "dist/vss-editor.html"), "file", size);
   if (ONLY !== "file") { const srv = await serve(); const url = `http://127.0.0.1:${srv.address().port}/index.html`; for (const size of ["desktop", "phone"]) await session(browser, url, "hosted", size); srv.close(); }
-} catch (e) { fail++; fails.push(`exception: ${e.message.split("\n").slice(0, 4).join(" / ")}`); }
+} catch (e) { fail++; fails.push(`exception: ${e.message.split("\n").slice(0, 12).join(" / ")}`); }
 await browser.close();
 for (const f of fails) console.log("FAIL", f);
 console.log(`browser_check: ${fail ? "FAIL" : "PASS"} ${pass}/${pass + fail} checks (file:// build and hosted, desktop and phone)`);
