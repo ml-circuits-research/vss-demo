@@ -26,7 +26,13 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
       rule: "Table 8: unknown-event or no-sense -> say what was not understood, list what the editor can do" };
   }
   // a role under tau: ask about that role only, with the two best candidates when the reader gives them
-  const low = Object.entries(result.margins || {}).filter(([k, v]) => typeof v === "number" && v < tau && k !== "structure");
+  // one question per role: the role's lowest margin (identity, presence, attribute or determiner part)
+  const byRole = new Map();
+  for (const [k, v] of Object.entries(result.margins || {})) {
+    if (typeof v !== "number" || v >= tau || k === "structure") continue;
+    const role = k.split(".")[0]; if (!byRole.has(role) || v < byRole.get(role)[1]) byRole.set(role, [k, v]);
+  }
+  const low = [...byRole.values()];
   if (result.status === "abstain" || low.length) {
     const qs = low.map(([k, v]) => {
       const [role, part] = k.split(".");

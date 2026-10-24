@@ -1,0 +1,336 @@
+{
+ "about": "The normalizer of the diagram world (specification sections 2 and 3.2): deterministic rules applied before the reader, in Python (normalize.py, used by the generator) and in JavaScript (app/src/normalize.js, used by the editor), from this one table. Order: lower-case outside quotes; quoted strings become one label token; contractions; multi-word expressions (longest first); single-word synonyms; number words to digits; punctuation split. The reader never sees the surface forms on the left. 'one' is never converted (that one, the next one); quantities are spoken from two.",
+ "contractions": {
+  "don't": "do not",
+  "dont": "do not",
+  "doesn't": "does not",
+  "let's": "lets",
+  "can't": "can not",
+  "won't": "will not",
+  "i'd": "i would",
+  "it's": "it is",
+  "%": " percent"
+ },
+ "label_intro": [
+  "called",
+  "named",
+  "labelled",
+  "labeled",
+  "titled",
+  "saying"
+ ],
+ "mwe": [
+  [
+   "top left corner",
+   "top_left"
+  ],
+  [
+   "top right corner",
+   "top_right"
+  ],
+  [
+   "bottom left corner",
+   "bottom_left"
+  ],
+  [
+   "bottom right corner",
+   "bottom_right"
+  ],
+  [
+   "upper left corner",
+   "top_left"
+  ],
+  [
+   "upper right corner",
+   "top_right"
+  ],
+  [
+   "lower left corner",
+   "bottom_left"
+  ],
+  [
+   "lower right corner",
+   "bottom_right"
+  ],
+  [
+   "top left",
+   "top_left"
+  ],
+  [
+   "top right",
+   "top_right"
+  ],
+  [
+   "bottom left",
+   "bottom_left"
+  ],
+  [
+   "bottom right",
+   "bottom_right"
+  ],
+  [
+   "upper left",
+   "top_left"
+  ],
+  [
+   "upper right",
+   "top_right"
+  ],
+  [
+   "lower left",
+   "bottom_left"
+  ],
+  [
+   "lower right",
+   "bottom_right"
+  ],
+  [
+   "left side",
+   "left_side"
+  ],
+  [
+   "right side",
+   "right_side"
+  ],
+  [
+   "left hand side",
+   "left_side"
+  ],
+  [
+   "right hand side",
+   "right_side"
+  ],
+  [
+   "to the left of",
+   "left_of"
+  ],
+  [
+   "to the right of",
+   "right_of"
+  ],
+  [
+   "left of",
+   "left_of"
+  ],
+  [
+   "right of",
+   "right_of"
+  ],
+  [
+   "next to",
+   "next_to"
+  ],
+  [
+   "close to",
+   "next_to"
+  ],
+  [
+   "on top of",
+   "above"
+  ],
+  [
+   "underneath",
+   "below"
+  ],
+  [
+   "beneath",
+   "below"
+  ],
+  [
+   "under",
+   "below"
+  ],
+  [
+   "over",
+   "above"
+  ],
+  [
+   "beside",
+   "next_to"
+  ],
+  [
+   "right edge",
+   "right_edge"
+  ],
+  [
+   "left edge",
+   "left_edge"
+  ],
+  [
+   "top edge",
+   "top_edge"
+  ],
+  [
+   "bottom edge",
+   "bottom_edge"
+  ],
+  [
+   "right border",
+   "right_edge"
+  ],
+  [
+   "left border",
+   "left_edge"
+  ],
+  [
+   "top border",
+   "top_edge"
+  ],
+  [
+   "bottom border",
+   "bottom_edge"
+  ],
+  [
+   "to the next one",
+   "to_next"
+  ],
+  [
+   "to the next",
+   "to_next"
+  ],
+  [
+   "to the following one",
+   "to_next"
+  ],
+  [
+   "one after the other",
+   "in_chain"
+  ],
+  [
+   "one after another",
+   "in_chain"
+  ],
+  [
+   "in a chain",
+   "in_chain"
+  ],
+  [
+   "in sequence",
+   "in_chain"
+  ],
+  [
+   "from left to right",
+   "flow_lr"
+  ],
+  [
+   "left to right",
+   "flow_lr"
+  ],
+  [
+   "from top to bottom",
+   "flow_td"
+  ],
+  [
+   "top to bottom",
+   "flow_td"
+  ],
+  [
+   "top down",
+   "flow_td"
+  ],
+  [
+   "text box",
+   "textbox"
+  ],
+  [
+   "data base",
+   "database"
+  ],
+  [
+   "half way",
+   "half"
+  ],
+  [
+   "halfway",
+   "half"
+  ],
+  [
+   "a third of the way",
+   "third"
+  ],
+  [
+   "a quarter of the way",
+   "quarter"
+  ],
+  [
+   "bring to the front",
+   "bring to front"
+  ],
+  [
+   "send to the back",
+   "send to back"
+  ],
+  [
+   "zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "zoom out",
+   "zoom zoom_out"
+  ]
+ ],
+ "synonyms": {
+  "colour": "color",
+  "grey": "gray",
+  "centre": "center",
+  "middle": "center",
+  "pixels": "px",
+  "pixel": "px",
+  "units": "px",
+  "percent": "percent",
+  "per cent": "percent",
+  "rectangle": "rectangle",
+  "rect": "rectangle",
+  "db": "database",
+  "dbs": "databases",
+  "big": "large",
+  "bigger": "bigger",
+  "larger": "bigger",
+  "little": "small",
+  "smaller": "smaller",
+  "upwards": "up",
+  "downwards": "down",
+  "dotted": "dotted",
+  "broken": "dashed",
+  "pls": "please",
+  "plz": "please",
+  "u": "you",
+  "ok": "okay",
+  "alright": "okay"
+ },
+ "number_words": {
+  "zero": 0,
+  "one": 1,
+  "two": 2,
+  "three": 3,
+  "four": 4,
+  "five": 5,
+  "six": 6,
+  "seven": 7,
+  "eight": 8,
+  "nine": 9,
+  "ten": 10,
+  "eleven": 11,
+  "twelve": 12,
+  "thirteen": 13,
+  "fourteen": 14,
+  "fifteen": 15,
+  "sixteen": 16,
+  "seventeen": 17,
+  "eighteen": 18,
+  "nineteen": 19,
+  "twenty": 20,
+  "thirty": 30,
+  "forty": 40,
+  "fifty": 50,
+  "sixty": 60,
+  "seventy": 70,
+  "eighty": 80,
+  "ninety": 90,
+  "hundred": 100
+ },
+ "number_word_exceptions": [
+  "one"
+ ],
+ "punctuation": ".,;:!?"
+}

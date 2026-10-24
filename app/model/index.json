@@ -1,0 +1,17 @@
+{
+ "worlds": [
+  {
+   "name": "diagram",
+   "dir": "model/diagram",
+   "bits": 8,
+   "status": "dev",
+   "note": "CPU development model (D 256, 8000 generated sentences, 3 epochs, one seed): exercises the application; FULL frame about 0.47 on its own held-out sentences; not a result",
+   "D": 256,
+   "legend_sha256": "sha256:cacc4f95d51c04523bdbc0aae94dc9a6d71be5a6cbb78a79fefc0b4b4adb6d87",
+   "star_version": 2,
+   "training_code_commit": "ab3307d",
+   "exported": "2026-10-24"
+  }
+ ],
+ "measured": null
+}
