@@ -228,6 +228,7 @@ export function buildCircuit(units, opts = {}) {
     else continue;
     if (op === "says") { discourse.push({ op, speaker: c.speaker, scope: b, words: c.words }); continue; }
     if (!other || other.role !== "command") continue;
+    if (op === "unless") op = "if";                                       // unless = if with a not around the condition
     discourse.push({ op, a, b, words: c.words, negated: c.op === "unless" });
     links.push({ kind: "discourse", op, from: { unit: a }, to: { unit: b }, source: "rule:connective", why: `the connective "${(c.words || []).join(" ")}"` });
     if (op !== "because") edges.push([a, b, op]);
@@ -297,7 +298,7 @@ function toWires(c, opts) {
   }
   const opBefore = new Map();                                          // unit -> operator wires written just before it
   for (const d of c.discourse) {
-    const at = d.op === "if" ? Math.min(d.a, d.b) : d.b; if (!opBefore.has(at)) opBefore.set(at, []); opBefore.get(at).push(d);
+    const at = d.op === "says" ? d.scope : d.op === "if" ? Math.min(d.a, d.b) : d.b; if (!opBefore.has(at)) opBefore.set(at, []); opBefore.get(at).push(d);
   }
   const secAt = new Map((c.sections || []).map((s, k) => [s.first, { ...s, id: `s${k + 1}` }]));
   const secOf = (u) => { let cur = null; for (const s of c.sections || []) if (s.first <= u.i) cur = s; return cur; };
@@ -322,7 +323,7 @@ function toWires(c, opts) {
     if (u.role === "speaker") continue;
     const s = secAt.get(u.i); if (s) { const sw = new Wire(s.id, "section"); sw.set("title", s.title || `section ${s.id}`); wires.push(sw); }
     for (const d of opBefore.get(u.i) || []) {
-      const w = new Wire(`d${++nd}`, d.op === "unless" ? "if" : d.op); const [k1, k2] = OPERATORS[d.op === "unless" ? "if" : d.op] || ["scope"];
+      const w = new Wire(`d${++nd}`, d.op); const [k1, k2] = OPERATORS[d.op] || ["scope"];
       const extra = [];
       if (d.op === "says") { w.set("_sentence", String(d.scope)); w.set("speaker", d.speaker || "~"); w.set("scope", ["ref", top.get(d.scope)]); w.set("_link.scope", "rule:connective"); wires.push(w); continue; }
       const A = top.get(d.a), B = top.get(d.b);

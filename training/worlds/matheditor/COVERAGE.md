@@ -1,132 +1,132 @@
-# Coverage of the matheditor world (generate.py seed 0, n = 1000)
+# Coverage of the matheditor world (generate.py seed 0, n = 20000)
 
-Legend sha256:fa1a3fd9ce167c3b78669b58548d7fa5c5e22047c744fbe460d43f4162b1a7c9. Training: 700 formulas and 300 commands. Verbaliser candidates rejected (the drawn tree was not a reading of its own sentence, or a command was not read back): 11 (source not among the readings: 9; no-parse: expected end_frac at word 9: 1; no-parse: expected end_frac at word 12: 1).
+Legend sha256:fa1a3fd9ce167c3b78669b58548d7fa5c5e22047c744fbe460d43f4162b1a7c9. Training: 14000 formulas and 6000 commands. Verbaliser candidates rejected (the drawn tree was not a reading of its own sentence, or a command was not read back): 0.
 
 ## Formulas in training
 
 | tree depth | sentences |
 |---|---|
-| 0 | 25 |
-| 1 | 304 |
-| 2 | 371 |
+| 0 | 44 |
+| 1 | 5635 |
+| 2 | 8321 |
 
 | readings per sentence | sentences |
 |---|---|
-| 1 | 685 |
-| 2 | 14 |
-| 4 | 1 |
+| 1 | 12403 |
+| 2 | 1569 |
+| 4 | 28 |
 
 | family | sentences |
 |---|---|
-| textbook | 152 |
-| informal | 155 |
-| delimited | 192 |
-| spelled | 201 |
+| textbook | 3651 |
+| informal | 3107 |
+| delimited | 3470 |
+| spelled | 3772 |
 
 | operator | nodes | roles (count) |
 |---|---|---|
-| plus | 164 | left 164, right 164 |
-| minus | 115 | left 115, right 115 |
-| times | 96 | left 96, right 96 |
-| fraction | 137 | numerator 137, denominator 137 |
-| power | 155 | base 155, exponent 155 |
-| subscript | 54 | base 54, index 54 |
-| root | 73 | index 19, argument 73 |
-| apply | 89 | argument 89 |
-| paren | 22 | operand 22 |
-| abs | 32 | operand 32 |
-| neg | 39 | operand 39 |
-| sum | 31 | index 31, lower 31, upper 31, body 31 |
-| product | 18 | index 18, lower 18, upper 18, body 18 |
-| integral | 17 | lower 7, upper 7, body 17, index 17 |
-| equals | 39 | left 39, right 39 |
-| less | 11 | left 11, right 11 |
-| greater | 11 | left 11, right 11 |
-| approx | 3 | left 3, right 3 |
-| implies | 0 | left 0, right 0 |
+| plus | 3526 | left 3526, right 3526 |
+| minus | 2284 | left 2284, right 2284 |
+| times | 2222 | left 2222, right 2222 |
+| fraction | 3669 | numerator 3669, denominator 3669 |
+| power | 3303 | base 3303, exponent 3303 |
+| subscript | 943 | base 943, index 943 |
+| root | 1379 | index 459, argument 1379 |
+| apply | 1816 | argument 1816 |
+| paren | 465 | operand 465 |
+| abs | 581 | operand 581 |
+| neg | 742 | operand 742 |
+| sum | 614 | index 614, lower 614, upper 614, body 614 |
+| product | 330 | index 330, lower 330, upper 330, body 330 |
+| integral | 496 | lower 250, upper 250, body 496, index 496 |
+| equals | 994 | left 994, right 994 |
+| less | 309 | left 309, right 309 |
+| greater | 253 | left 253, right 253 |
+| approx | 121 | left 121, right 121 |
+| implies | 59 | left 59, right 59 |
 
 | template | sentences | held out with families |
 |---|---|---|
-| abs.absolute_value | 31 |  |
-| apply.bare | 17 |  |
-| apply.of | 49 |  |
-| apply.the_of | 22 |  |
-| approx.approximately | 3 |  |
-| approx.is_approximately | 0 | spelled |
-| close.comma | 5 |  |
-| close.end_abs | 6 |  |
-| close.end_exponent | 61 |  |
-| close.end_fraction | 63 |  |
-| close.end_root | 10 |  |
-| close.end_sub | 26 |  |
-| close.end_sum | 28 |  |
-| close.paren_arg | 56 |  |
-| close.quantity | 41 |  |
-| equals.equals | 17 | textbook |
-| equals.is_equal_to | 22 |  |
-| fraction.all_over | 18 | delimited |
-| fraction.divided_by | 25 | informal |
-| fraction.over | 22 |  |
-| fraction.the_fraction | 42 |  |
-| fraction.with_numerator | 31 |  |
-| greater.greater_than | 9 |  |
-| greater.is_greater_than | 2 | delimited, informal |
-| implies.implies | 0 |  |
-| integral.from_to | 7 | delimited |
-| integral.indefinite | 10 |  |
-| integral.wrt | 2 |  |
-| less.is_less_than | 6 |  |
-| less.less_than | 5 | textbook |
-| minus.minus | 111 |  |
-| neg.minus | 13 | delimited |
-| neg.negative | 26 |  |
-| paren.left_right | 7 |  |
-| paren.open_close | 11 |  |
-| paren.paren | 4 | informal |
-| plus.plus | 150 |  |
-| power.all_squared | 6 |  |
-| power.cubed | 7 | spelled |
-| power.raised_to | 41 |  |
-| power.squared | 12 |  |
-| power.to_the | 63 |  |
-| power.to_the_power_of | 28 | textbook |
-| product.from_to | 18 |  |
-| root.cube | 8 |  |
-| root.nth | 10 |  |
-| root.root_of | 21 |  |
-| root.square_root_of | 33 | delimited |
-| subscript.sub | 29 |  |
-| subscript.subscript | 25 |  |
-| sum.from_to | 31 |  |
-| times.jux | 18 | delimited, informal |
-| times.multiplied_by | 39 |  |
-| times.times | 41 | informal, spelled |
+| abs.absolute_value | 572 |  |
+| apply.bare | 298 |  |
+| apply.of | 997 |  |
+| apply.the_of | 494 |  |
+| approx.approximately | 64 |  |
+| approx.is_approximately | 57 | spelled |
+| close.comma | 329 |  |
+| close.end_abs | 137 |  |
+| close.end_exponent | 1031 |  |
+| close.end_fraction | 1377 |  |
+| close.end_root | 329 |  |
+| close.end_sub | 459 |  |
+| close.end_sum | 363 |  |
+| close.paren_arg | 924 |  |
+| close.quantity | 1089 |  |
+| equals.equals | 440 | textbook |
+| equals.is_equal_to | 550 |  |
+| fraction.all_over | 495 | delimited |
+| fraction.divided_by | 733 | informal |
+| fraction.over | 1064 |  |
+| fraction.the_fraction | 726 |  |
+| fraction.with_numerator | 632 |  |
+| greater.greater_than | 152 |  |
+| greater.is_greater_than | 94 | delimited, informal |
+| implies.implies | 59 |  |
+| integral.from_to | 248 | delimited |
+| integral.indefinite | 246 |  |
+| integral.wrt | 107 |  |
+| less.is_less_than | 201 |  |
+| less.less_than | 103 | textbook |
+| minus.minus | 2170 |  |
+| neg.minus | 255 | delimited |
+| neg.negative | 493 |  |
+| paren.left_right | 99 |  |
+| paren.open_close | 271 |  |
+| paren.paren | 95 | informal |
+| plus.plus | 3227 |  |
+| power.all_squared | 84 |  |
+| power.cubed | 128 | spelled |
+| power.raised_to | 862 |  |
+| power.squared | 214 |  |
+| power.to_the | 1210 |  |
+| power.to_the_power_of | 785 | textbook |
+| product.from_to | 329 |  |
+| root.cube | 232 |  |
+| root.nth | 224 |  |
+| root.root_of | 441 |  |
+| root.square_root_of | 470 | delimited |
+| subscript.sub | 526 |  |
+| subscript.subscript | 413 |  |
+| sum.from_to | 608 |  |
+| times.jux | 464 | delimited, informal |
+| times.multiplied_by | 812 |  |
+| times.times | 944 | informal, spelled |
 
-Hops (parent operator, role, child kind) seen in training: 279.
+Hops (parent operator, role, child kind) seen in training: 471.
 
 ## Commands in training
 
 | event | n | target | owner | value | word | wrapper | joiner | position | direction |
 |---|---|---|---|---|---|---|---|---|---|
-| replace | 88 | 88 | 4 | 68 | 20 |  |  |  |  |
-| delete | 51 | 51 | 1 |  |  |  |  |  |  |
-| wrap | 45 | 45 | 2 | 8 |  | 45 |  |  |  |
-| insert | 40 | 16 | 1 | 40 |  |  | 29 | 30 |  |
-| move | 37 | 18 | 1 |  |  |  |  |  | 19 |
-| select | 10 | 10 | 1 |  |  |  |  |  |  |
-| factor | 13 | 10 |  | 13 |  |  |  |  |  |
-| swap | 7 | 7 |  |  |  |  |  |  |  |
-| undo | 5 |  |  |  |  |  |  |  |  |
-| redo | 4 |  |  |  |  |  |  |  |  |
+| replace | 1698 | 1698 | 57 | 1302 | 396 |  |  |  |  |
+| delete | 823 | 823 | 19 |  |  |  |  |  |  |
+| wrap | 964 | 964 | 36 | 156 |  | 964 |  |  |  |
+| insert | 810 | 284 | 14 | 810 |  |  | 609 | 571 |  |
+| move | 739 | 360 | 18 |  |  |  |  |  | 379 |
+| select | 316 | 316 | 16 |  |  |  |  |  |  |
+| factor | 238 | 175 | 4 | 238 |  |  |  |  |  |
+| swap | 194 | 194 |  |  |  |  |  |  |  |
+| undo | 123 |  |  |  |  |  |  |  |  |
+| redo | 95 |  |  |  |  |  |  |  |  |
 
 ## Evaluation files
 
 | file | formulas | commands | ambiguous |
 |---|---|---|---|
-| eval_heldout_formulations.sop | 100 | 50 | 0 |
-| eval_unseen_depth.sop (depth 3, every hop seen) | 100 | 0 | 7 |
-| eval_new_identities.sop | 100 | 0 | 0 |
-| eval_ambiguous.sop | 52 | 0 | 52 |
-| raw/edit_suite.jsonl (command on a formula, expected formula after) | 105 | | |
+| eval_heldout_formulations.sop | 400 | 200 | 42 |
+| eval_unseen_depth.sop (depth 3, every hop seen) | 400 | 0 | 48 |
+| eval_new_identities.sop | 400 | 0 | 0 |
+| eval_ambiguous.sop | 400 | 0 | 400 |
+| raw/edit_suite.jsonl (command on a formula, expected formula after) | 410 | | |
 
 Held-out formulation pairs: 17; held-out command combinations: 23 (split_hints.json lists both).

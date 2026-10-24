@@ -46,11 +46,10 @@ export function renderCircuit(container, circuit, ctx = {}) {
   let lane = 0;
   for (const d of circuit.discourse) {
     if (d.op === "says" || !yU.has(d.a) || !yU.has(d.b)) continue;
-    const y1 = yU.get(d.a), y2 = yU.get(d.b); const x = 6 - (lane++ % 3) * 0; const bend = 4 + (lane % 3) * 3;
+    const y1 = yU.get(d.a), y2 = yU.get(d.b); const bend = 4 + (lane++ % 3) * 3;
     const p = el("path", { d: `M10,${y1} C${-bend * 4},${y1} ${-bend * 4},${y2} 10,${y2}`, fill: "none", stroke: "var(--discourse, #7b3fa0)", "stroke-width": 1.4, "marker-end": "url(#cv-arrow)", style: "color:var(--discourse, #7b3fa0)" });
     p.appendChild(el("title", {}, `${d.op}: unit ${d.a} -> unit ${d.b} (rule:connective)`)); svg.appendChild(p);
     svg.appendChild(el("text", { x: 12, y: (y1 + y2) / 2 + 3, fill: "var(--discourse, #7b3fa0)", "font-size": 9 }, d.op));
-    void x;
   }
   // unit boxes
   for (const u of units) {

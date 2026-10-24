@@ -221,6 +221,7 @@ class Verbaliser:
         want_close = self.coin(self.F["p_close"]) if not self.closed else None
         if not want_close and not must:
             toks, top, edge = self.say(c, follow, False, False)
+            if paren_ok and toks[:1] in (["open"], ["left"]): toks, top, edge = self.group(c)   # brackets right after the opener are its own
             tight_ok = top > q_tight and q_tight >= follow
             wide = wide_ok and top > 15 and 15 >= follow
             if self.closed:
@@ -248,26 +249,26 @@ class Verbaliser:
     def _say(self, n, follow, gs, comma_ok):
         op, U = n["op"], self.used.add
         if op in ("plus", "minus"):
-            U(f"{op}.{op}"); l, _, _ = self.say_left(n["left"], 20, gs, comma_ok); r, _, e = self.say_right(n["right"], 20, follow)
-            return l + [op] + r, 20, min(20, e)
+            U(f"{op}.{op}"); l, lt, _ = self.say_left(n["left"], 20, gs, comma_ok); r, _, e = self.say_right(n["right"], 20, follow)
+            return l + [op] + r, min(20, lt), min(20, e)
         if op == "times":
             tid = self.choose(["times.jux", "times.times", "times.multiplied_by"])
             if tid == "times.jux":
                 r, rt, e = self.say_right(n["right"], 40, follow)
                 first = r[0]
                 if rt > 40 and n["right"]["op"] != "neg" and not (first.isdigit() or first in NUM_WORDS.values()) and first not in ("minus", "negative"):
-                    l, _, _ = self.say_left(n["left"], 40, gs, comma_ok); U(tid); return l + r, 40, min(40, e)
+                    l, lt, _ = self.say_left(n["left"], 40, gs, comma_ok); U(tid); return l + r, min(40, lt), min(40, e)
                 tid = "times.times"
-            U(tid); l, _, _ = self.say_left(n["left"], 30, gs, comma_ok); r, _, e = self.say_right(n["right"], 30, follow)
-            return l + (["times"] if tid == "times.times" else ["multiplied", "by"]) + r, 30, min(30, e)
+            U(tid); l, lt, _ = self.say_left(n["left"], 30, gs, comma_ok); r, _, e = self.say_right(n["right"], 30, follow)
+            return l + (["times"] if tid == "times.times" else ["multiplied", "by"]) + r, min(30, lt), min(30, e)
         if op in ("equals", "less", "greater", "approx", "implies"):
             lp = 5 if op == "implies" else 10
             tid = self.choose([t for t in list(TEMPLATES) + FIXED if t.startswith(op + ".")])
             U(tid); words = {"equals.equals": "equals", "equals.is_equal_to": "is equal to", "less.less_than": "less than", "less.is_less_than": "is less than",
                              "greater.greater_than": "greater than", "greater.is_greater_than": "is greater than", "approx.approximately": "approximately",
                              "approx.is_approximately": "is approximately", "implies.implies": "implies"}[tid].split()
-            l, _, _ = self.say_left(n["left"], lp, gs, comma_ok); r, _, e = self.say_right(n["right"], lp, follow, gs=True)
-            return l + words + r, lp, min(lp, e)
+            l, lt, _ = self.say_left(n["left"], lp, gs, comma_ok); r, _, e = self.say_right(n["right"], lp, follow, gs=True)
+            return l + words + r, min(lp, lt), min(lp, e)
         if op == "neg":
             tid = self.choose(["neg.negative", "neg.minus"]); U(tid)
             r, _, e = self.say_right(n["operand"], 29, follow)
@@ -276,9 +277,9 @@ class Verbaliser:
         if op == "power": return self.power(n, follow, gs, comma_ok)
         if op == "subscript":
             tid = self.choose(["subscript.sub", "subscript.subscript"]); U(tid)
-            b, _, _ = self.say_left(n["base"], 60, gs, False)
+            b, bt, _ = self.say_left(n["base"], 60, gs, False)
             r, e = self.scope("subscript", n["index"], 60, follow, wide_ok=False)
-            return b + (["sub"] if tid == "subscript.sub" else ["subscript"]) + r, 60, e
+            return b + (["sub"] if tid == "subscript.sub" else ["subscript"]) + r, min(60, bt), e
         if op == "root":
             if n.get("index") is None:
                 tid = self.choose(["root.square_root_of", "root.root_of"]); U(tid)
@@ -326,13 +327,13 @@ class Verbaliser:
         if tid in ("fraction.over", "fraction.divided_by"):
             ow = ["over"] if tid == "fraction.over" else ["divided", "by"]
             wide_left = gs and not self.closed and self.coin(0.5)
-            if wide_left: l, _, _ = self.say_left(num_, 15, True, comma_ok)
+            if wide_left: l, lt, _ = self.say_left(num_, 15, True, comma_ok)
             else:
                 l, lt, _ = self.say(num_, 30, gs, False)
                 if lt < 30 or (self.closed and not gs): tid = None      # T-left would not read the numerator / would be ambiguous
             if tid:
                 U(tid); r, e = self.scope("fraction", den, 30, follow)
-                return l + ow + r, 30, e
+                return l + ow + r, (15 if wide_left else min(30, lt)), e
             tid = self.choose(["fraction.the_fraction", "fraction.with_numerator"] + (["fraction.all_over"] if gs else []))
         if tid == "fraction.all_over":
             U(tid); l, _, _ = self.say_left(num_, 15, True, comma_ok); r, e = self.scope("fraction", den, 30, follow)
@@ -368,17 +369,17 @@ class Verbaliser:
         if sq and gs: opts.append("power.all_squared")
         tid = self.choose(opts)
         if tid in ("power.squared", "power.cubed"):
-            l, _, _ = self.say(b, 70, gs, False)
+            l, lt, _ = self.say(b, 70, gs, False)
             word = "squared" if ex["v"] == "2" else "cubed"
-            U(tid); return l + [word], 70, INF
+            U(tid); return l + [word], min(70, lt), INF
         if tid == "power.all_squared":
             U(tid); l, _, _ = self.say_left(b, 15, True, comma_ok)
             return l + ["all", "squared" if ex["v"] == "2" else "cubed"], 15, INF
         U(tid); l, lt, _ = self.say(b, 50, gs, False)
-        if lt <= 50: l, _, _ = self.group(b)
+        if lt <= 50: l, lt, _ = self.group(b)
         r, e = self.scope("power", ex, 49, follow)
         w = {"power.to_the": ["to", "the"], "power.to_the_power_of": ["to", "the", "power", "of"], "power.raised_to": ["raised", "to", "the"]}[tid]
-        return l + w + r, 50, e
+        return l + w + r, min(50, lt), e
 
 
 # ------------------------------------------------------------------ the reference parser through node
@@ -646,7 +647,7 @@ def build(out, n, n_eval, seed, cmd_share=0.3, amb_share=0.12, quiet=False):
     ev_depth = [finish(m) for m in select(meta3, "mix", n_eval, lambda m: not is_held(m) and hops(m["tree"]) <= train_hops)]
     meta_new, err = formula_candidates(n_eval * 3, ([1, 2], [0.4, 0.6]), vars_new + vars_train[:4], nums_new, np.random.default_rng(400 + seed), "n"); all_errors += err
     ev_new = [finish(m) for m in select(meta_new, "unamb", n_eval, lambda m: not is_held(m) and leaf_words(m["tree"]) & set(vars_new + nums_new))]
-    meta_amb, err = formula_candidates(n_eval * 6, ([1, 2], [0.4, 0.6]), vars_train, nums_train, np.random.default_rng(500 + seed), "a"); all_errors += err
+    meta_amb, err = formula_candidates(n_eval * 14, ([1, 2], [0.4, 0.6]), vars_train, nums_train, np.random.default_rng(500 + seed), "a"); all_errors += err
     ev_amb = [finish(m) for m in select(meta_amb, "only", n_eval, lambda m: not is_held(m) and m["text"] not in train_texts)]
 
     # --- commands
@@ -658,7 +659,9 @@ def build(out, n, n_eval, seed, cmd_share=0.3, amb_share=0.12, quiet=False):
             tid, (pid, ptxt) = combos[int(rs.choice(len(combos), p=w_ev))]
             ev, fn = CMD_TEMPLATES[tid]; words, fr, ex = fn(g)
             if "<V>" in words:
-                val = g.value(); v = Verbaliser(rs, g.pick(fams), True); vt, _, _ = v.say(val, -1, True, True)
+                for _try in range(8):        # "add minus a at the end" would read "minus" as the joiner: such a value is redrawn
+                    val = g.value(); v = Verbaliser(rs, g.pick(fams), True); vt, _, _ = v.say(val, -1, True, True)
+                    if vt[0] not in ("minus", "plus", "times", "over", "divided", "multiplied"): break
                 k_ = words.index("<V>"); words = words[:k_] + vt + words[k_ + 1:]; fr["value"] = val
             if pid == "tail": words = words + ["please"]
             elif ptxt: words = ptxt.split() + words

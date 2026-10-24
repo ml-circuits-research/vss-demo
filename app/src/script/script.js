@@ -15,7 +15,7 @@
 //                  re-plans from the checkpoint before it, reporting which units depend on the change.
 import { segment } from "../segment/segment.js";
 import { buildCircuit, unitsFromSegments, executeCircuit, unitMark } from "../segment/circuit.js";
-import { snapshot } from "../editor/scene.js";
+import { snapshot, KIND_OF, singular } from "../editor/scene.js";
 import { undo as undoScene } from "../editor/planner.js";
 
 export const ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth",
@@ -46,8 +46,9 @@ export function qualifiers(tokens) {
     if (t === "from" && tokens[i + 1] === "section" && /^\d+$/.test(tokens[i + 2] || "") && out.length) {
       quals.push({ pos: out.length - 1, head: out[out.length - 1], section: Number(tokens[i + 2]), words: tokens.slice(i, i + 3).join(" ") }); i += 2; continue;
     }
-    if (ORDINALS.includes(t) && out.length && out[out.length - 1] === "the" && i + 1 < tokens.length) { pendingOrd = { ordinal: ORDINALS.indexOf(t) + 1, words: `the ${t}` }; continue; }
-    if (pendingOrd) { quals.push({ pos: out.length, head: t, ...pendingOrd }); pendingOrd = null; }
+    if (ORDINALS.includes(t) && out.length && out[out.length - 1] === "the" && i + 1 < tokens.length) { pendingOrd = { ordinal: ORDINALS.indexOf(t) + 1, words: `the ${t}`, skipped: 0 }; continue; }
+    if (pendingOrd && (KIND_OF[singular(t)] || pendingOrd.skipped >= 2)) { quals.push({ pos: out.length, head: t, ordinal: pendingOrd.ordinal, words: pendingOrd.words }); pendingOrd = null; }
+    else if (pendingOrd) pendingOrd.skipped++;                          // an attribute between the ordinal and the kind word
     out.push(t);
   }
   return { tokens: out, quals };

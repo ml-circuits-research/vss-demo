@@ -142,6 +142,9 @@ const CMD = [
   ["replace the exponent of x with three", { event: "replace", target: { head: "exponent", attr: null, det: "the" }, owner: "x", value: "3" }],
   ["select the left hand side", { event: "select", target: { head: "side", attr: "left", det: "the" } }],
   ["undo", { event: "undo" }],
+  ["factor out the sum from i equals 1 to n of i from the numerator", { event: "factor", target: { head: "numerator", attr: null, det: "the" }, value: "\\sum_{i=1}^{n} i" }],
+  ["factor out the sum from i equals 1 to n of i", { event: "factor", value: "\\sum_{i=1}^{n} i" }],
+  ["insert natural log 9 , times mu after 8", { event: "insert", target: { head: "8", attr: null, det: null }, position: "after", value: "\\ln(9) \\mu" }],
 ];
 for (const [s, want] of CMD) {
   const r = parseCommand(s), f = r.frame;

@@ -11,9 +11,12 @@ and shows a nested expression wire only as ["wire", <operator>]).
       reading.sop = `sop formalize` of raw/edit_suite.txt. Each read frame is executed on the suite's formula by the app's executor
       (app/src/formula/commands.js) and the formula after is compared with the expected one. Criterion (Table 13): 100%.
       With reading.sop = raw/edit_suite.sop (the gold wires) the chain itself is checked: 100% by construction.
+  python3 evaluate.py extract <world> <run>/splits.json <split> <out_prefix>
+      writes <out_prefix>.sop (the gold wires of that split of the tool's run, e.g. heldout_sentences = the seen formulations, or
+      heldout_formulations = the REPORTED half, never the calibration half) and <out_prefix>.txt (their _text lines, for formalize).
 Exit 0 when every sentence could be scored; the numbers are printed, not judged here (the criteria are in Table 13).
 """
-import argparse, json, os, sys
+import argparse, collections, json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from generate import TOOL, canon, run_batch, LEAVES
 sys.path.insert(0, TOOL)
@@ -124,8 +127,36 @@ def cmd_edits(a):
     print(f"edit suite: {ok}/{len(suite)} correct ({ok / max(1, len(suite)):.3f})" + ("".join("\n  " + b for b in bad)))
 
 
+def cmd_extract(a):
+    rows = json.load(open(a.splits))["rows"]
+    if a.split not in rows: sys.exit(f"no split {a.split!r} in {a.splits} (splits: {sorted(rows)})")
+    want = collections.defaultdict(list)
+    for rid in rows[a.split]: f, wid = rid.split("#"); want[f].append(wid)
+    out = soplang.Doc(directives=[]); texts = []; k = 0
+    for f in sorted(want):
+        doc = soplang.load(os.path.join(a.world, f)); by = doc.by_id()
+        if not out.directives: out.directives = [d for d in doc.directives if d[0] in ("world", "legend")]
+        for wid in want[f]:
+            seen, order, stack = set(), [], [wid]
+            while stack:
+                x = stack.pop(0)
+                if x in seen or x not in by: continue
+                seen.add(x); order.append(x); stack += by[x].refs()
+            ren = {x: f"w{k + i + 1}" for i, x in enumerate(order)}; k += len(order)
+            for x in order:
+                w = by[x]; nw = soplang.Wire(ren[x], w.type)
+                for l in w.lines:
+                    if l.key == "_text" or not l.refs(): nw.lines.append(soplang.Line(l.key, l.raw, l.atoms, l.sep))
+                    else: nw.set(l.key, (l.sep, [("ref", ren[t.text]) if t.kind == "ref" else t.text for t in l.atoms]) if len(l.atoms) > 1 else ("ref", ren[l.atoms[0].text]))
+                out.wires.append(nw)
+            texts.append(by[wid].value("_text"))
+    open(a.out_prefix + ".sop", "w").write(soplang.write(out)); open(a.out_prefix + ".txt", "w").write("\n".join(texts) + "\n")
+    print(f"{a.split}: {len(texts)} sentences -> {a.out_prefix}.sop, {a.out_prefix}.txt")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest="cmd", required=True)
     t = sp.add_parser("trees"); t.add_argument("gold"); t.add_argument("reading"); t.add_argument("--tau", type=float, default=0.05)
     e = sp.add_parser("edits"); e.add_argument("suite"); e.add_argument("reading")
-    a = ap.parse_args(); (cmd_trees if a.cmd == "trees" else cmd_edits)(a)
+    x = sp.add_parser("extract"); x.add_argument("world"); x.add_argument("splits"); x.add_argument("split"); x.add_argument("out_prefix")
+    a = ap.parse_args(); {"trees": cmd_trees, "edits": cmd_edits, "extract": cmd_extract}[a.cmd](a)

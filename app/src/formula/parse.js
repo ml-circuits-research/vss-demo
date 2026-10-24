@@ -316,8 +316,12 @@ const DIRECTIONS = ["left", "right", "up", "down"];
 
 function stripPrefixes(w) {
   let t = w.slice(); let changed = true;
-  while (changed) { changed = false; for (const p of PREFIXES) if (p.every((x, k) => t[k] === x) && t.length > p.length) { t = t.slice(p.length); changed = true; } }
-  while (t.length > 1 && t[t.length - 1] === "please") t = t.slice(0, -1);
+  while (changed) {
+    changed = false;
+    while (t[0] === ",") { t = t.slice(1); changed = true; }
+    for (const p of PREFIXES) if (p.every((x, k) => t[k] === x) && t.length > p.length) { t = t.slice(p.length); changed = true; }
+  }
+  while (t.length > 1 && (t[t.length - 1] === "please" || t[t.length - 1] === ",")) t = t.slice(0, -1);
   return t;
 }
 /** a target description -> {head, attr, det} or null; "of <symbol>" is returned as owner */
@@ -340,7 +344,7 @@ const emptyFrame = (event) => ({ event, target: null, owner: null, value: null, 
 /** a command -> {source, status: ok|ambiguous|no-parse, frame, readings (of the value), reason, tokens, text} */
 export function parseCommand(input) {
   const words = Array.isArray(input) ? input : normalize(input);
-  const w = stripPrefixes(words.filter((x) => x !== ","));
+  const w = stripPrefixes(words);           // a pause inside a value is kept: it closes scopes there
   const res = { source: SOURCE, tokens: words, text: words.join(" "), status: "no-parse", frame: null, readings: [], reason: "" };
   const fail = (r) => { res.reason = r; return res; };
   const tgt = (span, f) => { const p = parseTarget(span); if (!p) return false; f.target = p.target; f.owner = p.owner; return true; };
@@ -425,8 +429,9 @@ export function parseCommand(input) {
   if (v === "factor") {
     const f = emptyFrame("factor"); let span = rest;
     if (span[0] === "out") {
-      span = span.slice(1); const k = idxOf(span, "from");
-      if (k > 0) { if (!tgt(span.slice(k + 1), f)) return fail("factor out: bad target"); span = span.slice(0, k); }
+      span = span.slice(1);
+      // "from <target>": the last "from" whose remainder is a target ("the sum from i equals ..." inside the value is not one)
+      for (let k = span.length - 2; k > 0; k--) if (span[k] === "from" && parseTarget(span.slice(k + 1))) { tgt(span.slice(k + 1), f); span = span.slice(0, k); break; }
       return val(span, f) ? done(f) : res;
     }
     const k = idxOf(span, "out"); if (k <= 0) return fail('factor: no "out"');
