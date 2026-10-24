@@ -32,8 +32,14 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
     if (typeof v !== "number" || v >= tau || k === "structure") continue;
     const role = k.split(".")[0]; if (!byRole.has(role) || v < byRole.get(role)[1]) byRole.set(role, [k, v]);
   }
+  // a role read as ABSENT whose presence is near its threshold is not asked: the declared default applies and the answer says so
+  // (Table 8, "a required role empty: use the declared default and say so"); a question is asked only about what the reading contains
+  const present = result.frame?.roles || {};
+  for (const [role, [k]] of [...byRole]) {
+    if (!present[role] && k.endsWith(".presence")) { byRole.delete(role); notes.push({ kind: "presence", role, text: `a ${ROLE_WORD[role] || role} may have been meant; none was used` }); }
+  }
   const low = [...byRole.values()];
-  if (result.status === "abstain" || low.length) {
+  if (low.length) {
     const qs = low.map(([k, v]) => {
       const [role, part] = k.split(".");
       const cands = result.candidates?.[role]?.slice(0, 2) || [];

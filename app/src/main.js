@@ -469,6 +469,8 @@ function showAnswer(d) {
     if (q.kind === "unknown-word") host.append(chip(`use "${q.words.join(" ")}" as a label`, () => runText(`${S.last.input} called ${q.words.join(" ")}`)));
   }
   for (const n of d.notes || []) if (n.kind === "correction") host.append(chip(`undo correction: ${n.revert.to} -> ${n.revert.from}`, () => runRaw(S.last.input, { corrector: "off" })));
+  const pres = (d.notes || []).filter((n) => n.kind === "presence");
+  if (pres.length) { const m = document.createElement("span"); m.className = "note-muted"; m.textContent = pres.map((n) => n.text).join("; "); host.append(m); }
 }
 const chip = (text, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = text; b.onclick = fn; return b; };
 const describeId = (id) => { const c = S.scene.components.get(id); return c ? `${c.label ? `"${c.label}" ` : ""}${c.word}` : id; };

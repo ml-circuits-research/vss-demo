@@ -10,8 +10,10 @@ const okPlan = { steps: [{ op: "create", explain: "create a medium box" }], ques
 check("execute", decide({ result: R(), plan: okPlan }).action === "execute", "");
 const ab = decide({ result: R({ status: "abstain", margins: { object: 0.3, color: 0.01 }, candidates: { color: ["red", "orange"] } }), plan: okPlan });
 check("ask role", ab.action === "ask" && ab.questions[0].role === "color" && /red or orange/.test(ab.line), ab.line);
-const pr = decide({ result: R({ margins: { object: 0.3, "color.presence": 0.01 } }), plan: okPlan });
-check("ask presence", pr.action === "ask" && /did you mean/.test(pr.line), pr.line);
+const pr = decide({ result: R({ frame: { event: "create", roles: { object: ["entity", "box", null, "a"], color: ["word", "red"] } }, margins: { object: 0.3, "color.presence": 0.01 } }), plan: okPlan });
+check("ask presence of a role read as present", pr.action === "ask" && /did you mean/.test(pr.line), pr.line);
+const pa = decide({ result: R({ margins: { object: 0.3, "color.presence": 0.01 } }), plan: okPlan });
+check("absent role near threshold: default and a note", pa.action === "execute" && pa.notes.some((n) => n.kind === "presence" && n.role === "color"), JSON.stringify(pa));
 const ns = decide({ result: R({ status: "no-sense", unplaced: ["frobnicate"] }), legend: { events: [{ id: "create" }] } });
 check("refuse no-sense", ns.action === "refuse" && ns.questions[0].kind === "unknown-word" && /I can: create/.test(ns.line), ns.line);
 const amb = decide({ result: R(), plan: { ...okPlan, steps: [], questions: [{ kind: "which", text: "which circle?", candidates: ["c1", "c2"] }] } });

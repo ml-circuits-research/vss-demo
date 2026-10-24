@@ -248,3 +248,5 @@ menu button:disabled { opacity: .5; cursor: not-allowed; }
 }
 @media (min-width: 821px) { .app:not(.panel-open) .workspace { grid-template-columns: 1fr 0; } .app:not(.panel-open) .panel { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.answer .note-muted { color: var(--muted); font-size: 12.5px; flex-basis: 100%; }
