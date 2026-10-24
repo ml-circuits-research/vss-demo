@@ -117,7 +117,7 @@ function handCases() {
     check("spec example: four units", s.segments.map((x) => x.text).join("|") === "add a database called orders .|connect it to the api .|make it red|never delete it .", s.segments.map((x) => x.text).join("|"));
     const c = buildCircuit(unitsFromSegments(s, { info: n.info }));
     check("spec example: _link.source=rule:recent", c.sop.includes("_link.source=rule:recent") && c.sop.includes("_link.object=rule:recent"), c.sop);
-    check("spec example: then wire", /@d1 then\n_sentence=2\nafter=\$w\d+\nscope=\$w\d+/.test(c.sop), c.sop);
+    check("spec example: then wire", /@d1 then\n_text=then\n_sentence=2\nafter=\$w\d+\nscope=\$w\d+/.test(c.sop), c.sop);
     check("spec example: not around delete", /@w\d+ not\n_text=never delete it \.\n_sentence=3\nscope=\$w\d+/.test(c.sop), c.sop);
     check("spec example: entity with its label", /@e1 entity\nhead=database\ndet=a\ntext=orders/.test(c.sop), c.sop);
     check("spec example: the api resolves to nothing and is marked", c.entities.length === 1 && c.sop.includes("_link.target=unresolved:none") && c.order.join() === "0,1,2,3", c.sop);
@@ -143,9 +143,9 @@ function handCases() {
     const s2 = segment(tok("add a cache so connect it to the api."), { reader: rd }); const c2 = buildCircuit(unitsFromSegments(s2));
     check("so: cause -> scope", c2.discourse.length === 1 && c2.discourse[0].op === "so" && c2.edges.some(([a, b, k]) => a === 0 && b === 1 && k === "so"), JSON.stringify(c2.discourse));
     const s3 = segment(tok("unless you add an api, add a box."), { reader: rd }); const c3 = buildCircuit(unitsFromSegments(s3));
-    check("unless: if with a not around the condition", s3.segments[0].connective.op === "unless" && /@d1 if\n_sentence=0\ncondition=\$n1\nconsequence=\$w2/.test(c3.sop) && /@n1 not\nscope=\$w1/.test(c3.sop), c3.sop);
+    check("unless: if with a not around the condition", s3.segments[0].connective.op === "unless" && /@d1 if\n_text=\w+\n_sentence=0\ncondition=\$n1\nconsequence=\$w2/.test(c3.sop) && /@n1 not\nscope=\$w1/.test(c3.sop), c3.sop);
     const s4 = segment(tok("paul says that add a box."), { reader: rd }); const c4 = buildCircuit(unitsFromSegments(s4));
-    check("says that: speaker and scope", s4.segments[0].role === "speaker" && /@d1 says\n_sentence=1\nspeaker=paul\nscope=\$w1/.test(c4.sop), c4.sop);
+    check("says that: speaker and scope", s4.segments[0].role === "speaker" && /@d1 says\n_text=\w+\n_sentence=1\nspeaker=paul\nscope=\$w1/.test(c4.sop), c4.sop);
   }
   { // the reader's gates as the second signal: a cut only where a gate is open
     const g = new Map([["add a box", F("create", { object: E("box", null, "a") })], ["add a circle", F("create", { object: E("circle", null, "a") })]]);

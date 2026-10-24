@@ -1,40 +1,53 @@
 {
+ "animation/eval": {
+  "corrections.jsonl": "ae02f236dc0de8ceb26943aaed00732451837450173f42cc8021d4bf546a2cc2",
+  "invariants.jsonl": "5471b86af717e39999ecab2568a91d167058ea104afab083d50b42539e1ca100",
+  "questions.jsonl": "9814a7414eac08550e74b771bbe832ed4117f0054680a4b8d88c29cdd6e8966f",
+  "timelines.jsonl": "c9d68daa191921f1c0bc5808400f7dbe884203435a1ad811735852d72389c85f"
+ },
+ "diagram/eval": {
+  "kinds.json": "9ad1c1f13483a1693da6bbf69bd697864e24fdcc27ba5e451e53b48cc791c50d",
+  "paragraphs.jsonl": "f8c122ef8fc52cca79bcbc185db70014ab06cef33577952a765123ec9d68e811",
+  "scripts_10p.jsonl": "9445b13c747bc81cd01959a877e500632f348c11ab7212c71a69383c4364b48d",
+  "scripts_1p.jsonl": "2dc12dcd2d8b3660dadf10c515465bd734a2f8a89d0985fe2e9661ed84e12c79",
+  "scripts_5p.jsonl": "44e36ebef1ef7cd79f91f7e807f51eecfe7ecf014df88ab4ced6411bd2932077"
+ },
  "diagram/n1000": {
-  "diagram/examples/eval_heldout_formulations.sop": "d496839fe137c198237a00c4bdf6f57298cca3fd113bac721533347088f53150",
-  "diagram/examples/eval_new_identities.sop": "c2855c372063687926c992382e65ce5df54fb21d601d2907e94591f20e54b9aa",
-  "diagram/examples/train.sop": "e1b62348ed22cd0f9d55d0bfdeeb14fc7e29a16cfbe10618b59b16757886fdfb",
+  "diagram/examples/eval_heldout_formulations.sop": "acbe7a1faee24e0583f1437cea6fd8aef856d162640e6038641551a1c7d5e928",
+  "diagram/examples/eval_new_identities.sop": "4263ee22b7d72ca2df225464e47655fdb3c5859cdd45213eff6ee2d73d1213c5",
+  "diagram/examples/train.sop": "10cfe5f3c71563d4c2671ec10515a4a03ff3881346daf86f43be3153d4311775",
   "diagram/kinds.tsv": "1b59a1530d65bb8df0457ad1528a102eb39d28b0a73aefad2eea8d08832268f7",
-  "diagram/legend.json": "cacc4f95d51c04523bdbc0aae94dc9a6d71be5a6cbb78a79fefc0b4b4adb6d87",
+  "diagram/legend.json": "3439ef232c21cd58e19eb203c74efec0f77c09e9a63fba66d3c25802cfa25bce",
   "diagram/raw/sentences.txt": "18a17a32913f39f0bac28a9b1c9abbbac3e9aca5cb86ba754c2e6fc48400f8fc",
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "6b77e40ec9d53aad7d5d03d953ebc2132fa3c1d7e1f67deb01dc30acbb8651f0"
  },
  "diagram/n20000": {
-  "diagram/examples/eval_heldout_formulations.sop": "d496839fe137c198237a00c4bdf6f57298cca3fd113bac721533347088f53150",
-  "diagram/examples/eval_new_identities.sop": "c2855c372063687926c992382e65ce5df54fb21d601d2907e94591f20e54b9aa",
-  "diagram/examples/train.sop": "3d36ffd1327ff9fd18b042abb89e52d020ad1453ec3bd9a098eba3cecc32300d",
+  "diagram/examples/eval_heldout_formulations.sop": "acbe7a1faee24e0583f1437cea6fd8aef856d162640e6038641551a1c7d5e928",
+  "diagram/examples/eval_new_identities.sop": "4263ee22b7d72ca2df225464e47655fdb3c5859cdd45213eff6ee2d73d1213c5",
+  "diagram/examples/train.sop": "46014478bddda81de518c1e3cef0ba74c1b0fc9cc4920c601f7bcc164764938e",
   "diagram/kinds.tsv": "1b59a1530d65bb8df0457ad1528a102eb39d28b0a73aefad2eea8d08832268f7",
-  "diagram/legend.json": "cacc4f95d51c04523bdbc0aae94dc9a6d71be5a6cbb78a79fefc0b4b4adb6d87",
+  "diagram/legend.json": "3439ef232c21cd58e19eb203c74efec0f77c09e9a63fba66d3c25802cfa25bce",
   "diagram/raw/sentences.txt": "a8e437ba1e0dbb5598acbaa25cf9d8f68a43da96903691e88c9b583ecdc82c4d",
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "6b77e40ec9d53aad7d5d03d953ebc2132fa3c1d7e1f67deb01dc30acbb8651f0"
  },
  "diagram/n5000": {
-  "diagram/examples/eval_heldout_formulations.sop": "d496839fe137c198237a00c4bdf6f57298cca3fd113bac721533347088f53150",
-  "diagram/examples/eval_new_identities.sop": "c2855c372063687926c992382e65ce5df54fb21d601d2907e94591f20e54b9aa",
-  "diagram/examples/train.sop": "9e2254def01cfd5285acc1626fe7416c4d7f7fd106ddf12b79131919fbecc7d6",
+  "diagram/examples/eval_heldout_formulations.sop": "acbe7a1faee24e0583f1437cea6fd8aef856d162640e6038641551a1c7d5e928",
+  "diagram/examples/eval_new_identities.sop": "4263ee22b7d72ca2df225464e47655fdb3c5859cdd45213eff6ee2d73d1213c5",
+  "diagram/examples/train.sop": "8b66535632d0cdad5510c92f79eca59a16bf051d5b3bc2c03f5351f6460e7d2a",
   "diagram/kinds.tsv": "1b59a1530d65bb8df0457ad1528a102eb39d28b0a73aefad2eea8d08832268f7",
-  "diagram/legend.json": "cacc4f95d51c04523bdbc0aae94dc9a6d71be5a6cbb78a79fefc0b4b4adb6d87",
+  "diagram/legend.json": "3439ef232c21cd58e19eb203c74efec0f77c09e9a63fba66d3c25802cfa25bce",
   "diagram/raw/sentences.txt": "a8e437ba1e0dbb5598acbaa25cf9d8f68a43da96903691e88c9b583ecdc82c4d",
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "6b77e40ec9d53aad7d5d03d953ebc2132fa3c1d7e1f67deb01dc30acbb8651f0"
  },
  "diagram/n50000": {
-  "diagram/examples/eval_heldout_formulations.sop": "d496839fe137c198237a00c4bdf6f57298cca3fd113bac721533347088f53150",
-  "diagram/examples/eval_new_identities.sop": "c2855c372063687926c992382e65ce5df54fb21d601d2907e94591f20e54b9aa",
-  "diagram/examples/train.sop": "7df51332011a05d0207edf0b1db30dcc5d444d6f6aa8e91cb93e275c5214d619",
+  "diagram/examples/eval_heldout_formulations.sop": "acbe7a1faee24e0583f1437cea6fd8aef856d162640e6038641551a1c7d5e928",
+  "diagram/examples/eval_new_identities.sop": "4263ee22b7d72ca2df225464e47655fdb3c5859cdd45213eff6ee2d73d1213c5",
+  "diagram/examples/train.sop": "5b5a4944575746affc0435536e8596c18110a2dc6b56edfe68d0b33385d8cc8d",
   "diagram/kinds.tsv": "1b59a1530d65bb8df0457ad1528a102eb39d28b0a73aefad2eea8d08832268f7",
-  "diagram/legend.json": "cacc4f95d51c04523bdbc0aae94dc9a6d71be5a6cbb78a79fefc0b4b4adb6d87",
+  "diagram/legend.json": "3439ef232c21cd58e19eb203c74efec0f77c09e9a63fba66d3c25802cfa25bce",
   "diagram/raw/sentences.txt": "a8e437ba1e0dbb5598acbaa25cf9d8f68a43da96903691e88c9b583ecdc82c4d",
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "6b77e40ec9d53aad7d5d03d953ebc2132fa3c1d7e1f67deb01dc30acbb8651f0"

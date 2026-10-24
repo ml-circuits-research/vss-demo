@@ -382,7 +382,7 @@ def build(out, n, n_eval, seed):
     ev_form = draw(held_combos, n_eval, LABELS_TRAIN, NUMS_TRAIN, np.random.default_rng(901 + seed))
     # legend, kinds
     legend = {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
-              "operators": ["not"], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
+              "operators": ["not", "then", "but", "so", "because"], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
               "values": [{"kind": "NUM", "pattern": "\\d+"}, {"kind": "LABEL", "pattern": "[a-z0-9]+(_[a-z0-9]+)+"}],
               "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"]}}
     wd = os.path.join(out); [os.makedirs(os.path.join(wd, d), exist_ok=True) for d in ("examples", "raw", "audit", "model", "runs", "versions", "requests")]

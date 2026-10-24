@@ -14,7 +14,7 @@ MWE = sorted(((a.split(), b.split()) for a, b in T["mwe"]), key=lambda x: -len(x
 SYN = {k: v for k, v in T["synonyms"].items() if " " not in k}
 SYN_MULTI = sorted(((k.split(), v.split()) for k, v in T["synonyms"].items() if " " in k), key=lambda x: -len(x[0]))
 NUM = T["number_words"]; NO_NUM = set(T["number_word_exceptions"]); INTRO = set(T["label_intro"])
-QUOTE = re.compile(r"\"([^\"]+)\"|'([^']+)'")
+QUOTE = re.compile(r"\"([^\"]+)\"|(?<![A-Za-z0-9])'([^']+)'(?![A-Za-z0-9])")   # a quote inside a word (let's, don't) never opens a label
 
 
 def _label_token(s): return re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_") or "label"

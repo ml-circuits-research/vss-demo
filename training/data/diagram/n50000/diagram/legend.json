@@ -233,7 +233,11 @@
   }
  ],
  "operators": [
-  "not"
+  "not",
+  "then",
+  "but",
+  "so",
+  "because"
  ],
  "moods": [
   "command"

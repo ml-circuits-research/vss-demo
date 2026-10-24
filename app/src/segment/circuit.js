@@ -325,8 +325,9 @@ function toWires(c, opts) {
     for (const d of opBefore.get(u.i) || []) {
       const w = new Wire(`d${++nd}`, d.op); const [k1, k2] = OPERATORS[d.op] || ["scope"];
       const extra = [];
-      if (d.op === "says") { w.set("_sentence", String(d.scope)); w.set("speaker", d.speaker || "~"); w.set("scope", ["ref", top.get(d.scope)]); w.set("_link.scope", "rule:connective"); wires.push(w); continue; }
+      if (d.op === "says") { w.set("_text", d.word || "says"); w.set("_sentence", String(d.scope)); w.set("speaker", d.speaker || "~"); w.set("scope", ["ref", top.get(d.scope)]); w.set("_link.scope", "rule:connective"); wires.push(w); continue; }
       const A = top.get(d.a), B = top.get(d.b);
+      w.set("_text", d.word || d.op);           // a top-level wire carries exactly one _text (tool/SPEC 3.6): the connective as written
       w.set("_sentence", String(d.op === "if" ? Math.min(d.a, d.b) : d.b));
       if (d.op === "if" && d.negated) { const n = new Wire(`n${++nn}`, "not"); n.set("scope", ["ref", A]); extra.push(n); w.set(k1, ["ref", n.id]); } else w.set(k1, ["ref", A]);
       w.set(k2, ["ref", B]); w.set(`_link.${k2}`, "rule:connective"); wires.push(w, ...extra);

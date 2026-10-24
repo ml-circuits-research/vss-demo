@@ -10,7 +10,9 @@ to its positive (unsaved -> saved).
 import hashlib, json, os, re
 
 OPERATOR_KEYS = {"not": {"scope"}, "must": {"scope"}, "may": {"scope"}, "if": {"condition", "consequence"}, "says": {"speaker", "scope"},
-                 "and": {"items"}}
+                 "and": {"items"},
+                 # discourse operators of the SOP circuit (VSS Diagram Editor spec 15.2; app/src/segment/circuit.js); vss-demo addition
+                 "then": {"after", "scope"}, "but": {"after", "scope"}, "so": {"cause", "scope"}, "because": {"scope", "cause"}}
 ENTITY_KEYS = {"head", "attr", "quantity", "unit", "det"}
 VERDICT_KEYS = {"left", "right"}
 KNOWN_OPERATORS = set(OPERATOR_KEYS)

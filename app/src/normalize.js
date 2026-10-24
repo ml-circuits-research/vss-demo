@@ -31,7 +31,7 @@ export function createNormalizer(T) {
 
   return function normalize(text) {
     const info = { labels: {}, numbers: {} };
-    text = text.replace(/"([^"]+)"|'([^']+)'/g, (_, a, b) => { const s = a || b; const tok = labelToken(s); info.labels[tok] = s; return ` ${tok} `; });
+    text = text.replace(/"([^"]+)"|(?<![A-Za-z0-9])'([^']+)'(?![A-Za-z0-9])/g, (_, a, b) => { const s = a || b; const tok = labelToken(s); info.labels[tok] = s; return ` ${tok} `; });
     let s = text.toLowerCase();
     for (const [a, b] of Object.entries(T.contractions)) s = s.split(a).join(b);
     s = s.replace(PUNCT, " $1 ");
