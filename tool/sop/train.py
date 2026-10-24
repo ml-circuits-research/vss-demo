@@ -401,7 +401,7 @@ def train_one(a, legend, rows, splits, schema, seed, model_dir, run_dir):
         vp = a.identities.split(":", 1)[1]; vp = vp if os.path.isabs(vp) else os.path.join(os.path.dirname(legend.path), vp)
         idt = {"vocab": json.load(open(vp)), "rng_seed": 300 + seed, "marker_word": "<m>",
                "source": f"np.random.default_rng(300 + seed).uniform(-pi, pi, (len(vocab), D)) over {os.path.basename(vp)} (experiment/v16_reference)"}
-    st = world.Stars(seed, a.D, a.star_seed, idt); comp = world.Compiler(legend, st)
+    st = world.Stars(seed, a.D, a.star_seed, idt, getattr(a, "star_version", 1)); comp = world.Compiler(legend, st)
     wk = dict(legend.lexicon); n_tok = n_unk = 0
     for r in rows:
         for t in r["tokens"]:
@@ -454,12 +454,12 @@ def train_one(a, legend, rows, splits, schema, seed, model_dir, run_dir):
     shutil.copyfile(legend.path, os.path.join(model_dir, "legend.json"))
     lexf = legend.raw.get("kinds", {}).get("lexicon", "kinds.tsv")
     if os.path.exists(os.path.join(legend.dir, lexf)): shutil.copyfile(os.path.join(legend.dir, lexf), os.path.join(model_dir, os.path.basename(lexf)))
-    catalog = {"seed": seed, "star_seed": a.star_seed, "star": "identity of a word = sha256(star_seed + ':id:' + word)[:8] little-endian -> numpy default_rng -> "
+    catalog = {"seed": seed, "star_seed": a.star_seed, "star_version": getattr(a, "star_version", 1), "star": ("star_version 2 (portable): sha256(seed + ':' + name)[:16] -> xoshiro128** -> D phases 2*pi*(u+0.5)/2**32 - pi; " if getattr(a, "star_version", 1) == 2 else "") + "identity of a word = sha256(star_seed + ':id:' + word)[:8] little-endian -> numpy default_rng -> "
                "D uniform phases in [-pi, pi); role vectors the same with the world seed and 'role:<id>' / 'op:<name>'",
                "words": {w: ({"kind": k, "lemma": legend.lemma[w]} if w in legend.lemma else {"kind": k}) for w, k in sorted(wk.items())},
                "schema": schema, "kinds_report": kinds_report, "identity_table": idt}
     with open(os.path.join(model_dir, "catalog.json"), "w") as f: json.dump(catalog, f, indent=1, sort_keys=True)
-    cfg = {"world": a.world_name, "D": a.D, "seed": seed, "language": a.language, "legend_sha256": legend.sha, "legend_version": legend.version,
+    cfg = {"world": a.world_name, "D": a.D, "seed": seed, "star_version": getattr(a, "star_version", 1), "language": a.language, "legend_sha256": legend.sha, "legend_version": legend.version,
            "training_code_commit": a.commit, "trained": datetime.datetime.now().isoformat(timespec="seconds"), "codes": list(a.code_list),
            "gate_init": "closed", "depth_estimator": a.depth_estimator, "presence_readout": "decided", "batch": a.batch, "lr": a.lr, "epochs": a.epochs, "n_train_steps_sentences": len(sents),
            "thresholds": {"tau": a.tau, "tau_source": "stated (the repository's v16 value), not fitted on any rows", "no_sense_share": 0.5,
@@ -759,6 +759,8 @@ def main(argv=None):
     ap.add_argument("--no_ckpt", action="store_true", help="no checkpoint file (the run folder keeps logs, metrics, splits, command only)")
     ap.add_argument("--run_dir", help="write this run's folder here instead of <world>/runs/<timestamp>")
     ap.add_argument("--eval_only", action="store_true", help="re-score the saved model/ (no training): metrics.json and REPORT.md rewritten")
+    ap.add_argument("--star_version", type=int, default=1, choices=[1, 2], help="1 = the NumPy star function (every existing world); 2 = the "
+                    "portable star function (SHA-256 -> xoshiro128**), reproduced exactly in the browser by web/vss.js (VSS Diagram Editor spec 5.1)")
     ap.add_argument("--star_seed", default=world.GLOBAL_STAR_SEED, help="seed of the word-star catalog; default the GLOBAL one shared by all worlds (spec v2 s.0)")
     ap.add_argument("--identities", default="stars", help="'stars' (the tool's star function) or 'table:<vocab.json>': the per-seed draw of "
                     "experiment/v16_reference, np.random.default_rng(300 + seed) over that vocabulary (isolation run C)")

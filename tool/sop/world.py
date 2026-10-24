@@ -33,11 +33,34 @@ def star(seed, name, D):
 GLOBAL_STAR_SEED = "sop-stars-v1"      # spec v2 section 0: a word's star is the same in every world (catalog of word stars, shared)
 
 
+def _xoshiro128ss_phases(key16, D):
+    """portable stars (star_version 2, VSS Diagram Editor spec 5.1): xoshiro128** seeded with 4 little-endian uint32 words, each 32-bit output u
+    gives the phase 2*pi*(u + 0.5)/2**32 - pi. Reproduced exactly by web/vss.js (no NumPy generator in the browser)."""
+    M = 0xFFFFFFFF
+    s = [int.from_bytes(key16[4 * i:4 * i + 4], "little") for i in range(4)]
+    if not any(s): s = [0x9E3779B9, 0x243F6A88, 0xB7E15162, 0x6A09E667]
+    rotl = lambda x, k: ((x << k) | (x >> (32 - k))) & M
+    out = np.empty(D, dtype=np.float64)
+    for i in range(D):
+        r = (rotl((s[1] * 5) & M, 7) * 9) & M
+        t = (s[1] << 9) & M
+        s[2] ^= s[0]; s[3] ^= s[1]; s[1] ^= s[2]; s[0] ^= s[3]; s[2] ^= t; s[3] = rotl(s[3], 11)
+        out[i] = 2 * np.pi * (r + 0.5) / 4294967296.0 - np.pi
+    return out
+
+
+def star_v2(seed, name, D):
+    """star_version 2: SHA-256(f"{seed}:{name}") first 16 bytes -> xoshiro128** -> D phases"""
+    h = hashlib.sha256(f"{seed}:{name}".encode("utf-8")).digest()
+    return np.exp(1j * _xoshiro128ss_phases(h[:16], D))
+
+
 class Stars:
     """cache of stars: word identities from the GLOBAL star seed (shared across worlds), role / operator vectors and the occupancy marker
     from the world's training seed (the world's named stars; not shared)"""
-    def __init__(self, seed, D, star_seed=GLOBAL_STAR_SEED, identity_table=None):
+    def __init__(self, seed, D, star_seed=GLOBAL_STAR_SEED, identity_table=None, star_version=1):
         self.seed, self.D, self.star_seed, self.cache = seed, D, star_seed, {}
+        self.star_version = int(star_version or 1)          # 1 = NumPy generator (every existing world), 2 = portable (browser)
         self.table = None
         if identity_table:      # a per-seed identity DRAW over a world vocabulary, as experiment/v16_reference (judgment e9274a9 C2, run C)
             voc = identity_table["vocab"]; rng = np.random.default_rng(identity_table["rng_seed"])
@@ -45,7 +68,7 @@ class Stars:
             self.marker_word = identity_table.get("marker_word")
     def get(self, name, seed=None):
         seed = self.seed if seed is None else seed; v = self.cache.get((seed, name))
-        if v is None: v = self.cache[(seed, name)] = star(seed, name, self.D)
+        if v is None: v = self.cache[(seed, name)] = (star_v2 if self.star_version == 2 else star)(seed, name, self.D)
         return v
     def id(self, word):
         t = value_token(word)

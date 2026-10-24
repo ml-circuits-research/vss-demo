@@ -80,8 +80,10 @@ class Routebook:
 
 
 class Reader:
-    def __init__(self, model_dir, legend_path=None, force=False):
-        self.dir = model_dir
+    def __init__(self, model_dir, legend_path=None, force=False, sentence_candidates=False):
+        """sentence_candidates (default off: the existing behaviour): the candidates of a role are the catalog words of the role's kinds AND the
+        sentence's own tokens whose kind is one of them (new labels and numbers read without retraining; mirrored by web/vss.js)"""
+        self.dir = model_dir; self.sentence_candidates = bool(sentence_candidates); self._sent_tokens = ()
         need = ["config.json", "legend.json", "catalog.json", "routebook.npz"]
         for n in need:
             if not os.path.exists(os.path.join(model_dir, n)): raise ModelError(f"model incomplete: {n} missing in {model_dir}")
@@ -95,7 +97,8 @@ class Reader:
             if other.sha != self.legend.sha and not force:
                 raise ModelError(f"legend mismatch: {legend_path} is {other.sha}, the model was trained with {self.legend.sha} (--force to inspect)")
         self.rb = Routebook(os.path.join(model_dir, "routebook.npz")); self.D = self.rb.D
-        self.st = world.Stars(self.cfg["seed"], self.D, self.cat.get("star_seed", world.GLOBAL_STAR_SEED), self.cat.get("identity_table"))
+        self.st = world.Stars(self.cfg["seed"], self.D, self.cat.get("star_seed", world.GLOBAL_STAR_SEED), self.cat.get("identity_table"),
+                              self.cfg.get("star_version", 1))
         self.comp = world.Compiler(self.legend, self.st)
         self.words = self.cat["words"]                      # word -> {"kind", "lemma"?}
         self.schema = self.cat["schema"]; self.th = self.cfg.get("thresholds", {})
@@ -116,9 +119,13 @@ class Reader:
         e = self.words.get(tok) or self.words.get(tok.lower()); return (e or {}).get("lemma", tok)
 
     def cands(self, kinds, filt=None):
-        key = (tuple(sorted(kinds)), None if filt is None else frozenset(filt))
+        extra = ()
+        if self.sentence_candidates and self._sent_tokens:
+            ks = set(kinds)
+            extra = tuple(sorted({t for t in self._sent_tokens if t not in self.words and t.lower() not in self.words and self.kind(t) in ks}))
+        key = (tuple(sorted(kinds)), None if filt is None else frozenset(filt), extra)
         if key not in self._cands:
-            ws = sorted(w for w, e in self.words.items() if e["kind"] in kinds and (filt is None or w in filt))
+            ws = sorted(w for w, e in self.words.items() if e["kind"] in kinds and (filt is None or w in filt)) + [t for t in extra if filt is None or t in filt]
             M = np.array([self.st.id(w) for w in ws]) / np.sqrt(self.D) if ws else np.zeros((0, self.D), complex)
             self._cands[key] = (ws, M)
         return self._cands[key]
@@ -274,7 +281,7 @@ class Reader:
         The negation is always chosen by the fit at the chosen depth. The depth estimates are kept on the frame (depth_gates, depth_kinds,
         depth_fit) and written on the top-level wire. presence='all' reads every role of the schema without the presence decision (as the
         repository's v16 readout, which always reads C); the default 'decided' applies the calibrated presence thresholds."""
-        nS = np.linalg.norm(S)
+        nS = np.linalg.norm(S); self._sent_tokens = tuple(tokens) if tokens is not None else ()
         if table is not None: self._table = list(table)
         f = {"speakers": [], "neg": False, "event": None, "roles": {}, "shape": "ok", "lemma": None, "margins": {}, "presence": {}}
         if nS < 1e-9: f["shape"] = "unknown"; return f

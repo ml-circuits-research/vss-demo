@@ -75,6 +75,13 @@ test (golden file from Python on the dequantized model, node comparison). Exit (
 golden sentence, state cosine >= 0.9999, margins and presence ratios within 1e-4. Report the model size on disk (8-bit and 4-bit) and the
 median and p95 reading time per sentence in node and in a headless browser on a stated machine.
 
+Notes from the CPU preparation (smoke models only, not results):
+- train the step 3 model with `--star_version 2` (portable stars); a v1 model cannot read new words in the browser.
+- `bash web/tests/run_all.sh` runs the whole step 5 chain (export at 8, 4 and 32 bits, golden files, parity, new-word sentences, bench);
+  point it at the real model as described in web/README.md.
+- on the smoke models the 4-bit export changed 14 of 55 frames, so the 4-bit parity must be measured on the real model before 4 bits
+  is shipped; 8 bits passed on every smoke model.
+
 ## After step 5
 
 Steps 6 onwards (diagram library choice, planner, layout, correctors' full evaluation with the recorded speech set, interface, text,
