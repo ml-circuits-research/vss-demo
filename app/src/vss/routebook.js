@@ -12,6 +12,7 @@ export class Routebook {
     const g = (n) => (arrays[n] ? arrays[n] : null);
     this.path = g("path"); this.bg0 = g("bg0"); this.bg = g("bg"); this.A = g("A"); this.L = g("L"); this.logits = g("logits");
     this.rel = g("rel"); this.relMask = g("rel_mask"); this.takerMask = g("taker_mask"); this.pos = g("pos"); this.pc = g("pc");
+    this.vo = g("vo"); this.verbMask = g("verb_mask"); this.voNmax = header.vo_nmax === undefined || header.vo_nmax === null ? null : header.vo_nmax;
     this.C = this.cats.length;
     // cos / sin tables of the arrays used only through exp(i phase) (Float32Array: half the memory, error ~1e-7, far below the 1e-4 parity bound)
     const tab = (x) => { if (!x) return null; const n = x.data.length, c = new Float32Array(n), s = new Float32Array(n); for (let i = 0; i < n; i++) { c[i] = Math.cos(x.data[i]); s[i] = Math.sin(x.data[i]); } return { c, s }; };
@@ -79,6 +80,20 @@ export class Routebook {
         }
       }
       for (let k = 0; k < T; k++) for (let d = 0; d < D; d++) { terms[k].re[d] += fin[k].re[d]; terms[k].im[d] += fin[k].im[d]; }
+    }
+    if (this.vo && this.verbMask) {                       // the verb-order route (infer.Routebook.vorder_index)
+      const VM = this.verbMask.data, VO = this.vo.data, N = this.voNmax, verbs = [];
+      for (let k = 0; k < T; k++) if (VM[c[k]] > 0) verbs.push(k);
+      for (let k = 0; k < T; k++) {
+        if (VM[c[k]] > 0) continue;
+        let side, vcat, ord = 0, j = -1;
+        for (const v of verbs) if (v < k) j = v;
+        if (j >= 0) { side = 1; vcat = c[j]; for (let i = j + 1; i < k; i++) if (c[i] === c[k]) ord++; }
+        else { const r = verbs.find((v) => v > k); if (r === undefined) continue; side = 0; vcat = c[r]; for (let i = 0; i < k; i++) if (c[i] === c[k]) ord++; }
+        ord = Math.min(ord, N - 1);
+        const o = (((side * C + vcat) * C + c[k]) * N + ord) * D, t = terms[k];
+        for (let d = 0; d < D; d++) { const ph = VO[o + d]; t.re[d] += Math.cos(ph); t.im[d] += Math.sin(ph); }
+      }
     }
     if (this.rel && T > 1) {
       const tR = this.tRel, RM = this.relMask.data, TM = this.takerMask.data;

@@ -369,6 +369,8 @@ def export_routebook(m, path):
         z.update(rel=wrap(m.rel.detach().cpu().numpy()), rel_mask=m.rel_mask.cpu().numpy(), taker_mask=m.taker_mask.cpu().numpy())
     if "pos" in m.codes:
         z.update(pos=wrap(th[m.ipos.cpu().numpy()]), pc=wrap(th[m.ipc.cpu().numpy()]), pos_max=np.array(getattr(m, "pos_max", None) or 40))
+    if getattr(m, "vo", None) is not None:
+        z.update(vo=wrap(m.vo.detach().cpu().numpy()), verb_mask=m.verb_mask.cpu().numpy(), vo_nmax=np.array(m.vo_nmax))
     np.savez_compressed(path, **z)
 
 
@@ -435,6 +437,10 @@ def train_one(a, legend, rows, splits, schema, seed, model_dir, run_dir):
     gg = legend.reader.get("gates_given") or {}
     if gg.get("open"): print(f"[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): {m.fix_gates(gg['open'], True)}")
     if gg.get("closed"): print(f"[train] gates GIVEN closed (legend reader.gates_given, rule 20, not learned): {m.fix_gates(gg['closed'], False)}")
+    if "vorder" in a.code_list:   # the verb-order route: verb kinds = the kinds of the legend's verbs and level openers (given, like the kinds)
+        verbs = set(legend.all_verbs())
+        vk = sorted({k for w, k in legend.lexicon.items() if legend.lemma_of(w) in verbs or w in verbs} | set(legend.reader.get("level_openers") or []))
+        print(f"[train] verb-order route (reader.codes / --codes): verb kinds {m.set_vorder(vk, nmax=int(legend.reader.get('vorder_nmax') or 4))}"); params.append(m.vo)
     rel = legend.reader.get("rel_emitters")
     if rel:      # C2b beacon-relative emitters (GIVEN set of kinds, learned displacement): part of the world's reader block (quantifier v2)
         print(f"[train] beacon-relative emitters (given): {m.set_rel_emitters(rel['emitters'], rel['takers'])} -> takers {rel['takers']}"); params.append(m.rel)
@@ -771,8 +777,8 @@ def main(argv=None):
     legend = Legend(os.path.join(wd, "legend.json"))
     if legend.errors: print("legend errors:\n  " + "\n  ".join(legend.errors)); return 1
     a.code_list = [c.strip() for c in (a.codes.split(",") if a.codes else (legend.reader.get("codes") or ["path", "chainL", "bigram"])) if c.strip()]
-    bad = [c for c in a.code_list if c not in ("path", "chainL", "bigram", "pos")]
-    if bad or not a.code_list: print(f"unknown codes {bad} (allowed: path, chainL, bigram, pos)"); return 1
+    bad = [c for c in a.code_list if c not in ("path", "chainL", "bigram", "pos", "vorder")]
+    if bad or not a.code_list: print(f"unknown codes {bad} (allowed: path, chainL, bigram, pos, vorder)"); return 1
     wj = os.path.join(wd, "world.json"); a.language = json.load(open(wj)).get("language", "en") if os.path.exists(wj) else "en"
     ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S"); a.run_dir = os.path.abspath(a.run_dir) if a.run_dir else os.path.join(wd, "runs", ts)
     os.makedirs(a.run_dir, exist_ok=True)

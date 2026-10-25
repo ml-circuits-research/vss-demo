@@ -94,6 +94,10 @@ class V8(v6.V6):
                 addrL = torch.stack(addrLs, 1)
                 gk = g.unsqueeze(-1).to(EA.dtype); addr = gk * addr + (1 - gk) * addrL
             terms = terms + addr
+        if getattr(self, "vo", None) is not None:                                        # the verb-order route (set_vorder)
+            side, vcat, ordinal, valid = self.vorder_index(cats, mask)
+            ph = self.vo[side, vcat, cats, ordinal]                                       # B x T x D
+            terms = terms + E(ph) * valid.to(self.dtype).unsqueeze(-1)
         if getattr(self, "rel", None) is not None:                                       # C2b: second drawing of the taker, relative to its own address
             B, T = cats.shape; z1 = torch.zeros(B, 1, dtype=self.dtype, device=self.device)
             sel = torch.cat([z1, (self.rel_mask[cats] * mask)[:, :-1] * self.taker_mask[cats][:, 1:]], 1)      # word k takes if k-1 is an emitter and k a taker
@@ -115,6 +119,43 @@ class V8(v6.V6):
             cos = torch.real((torch.conj(tgt) * S).sum(-1)) / (S.abs().pow(2).sum(-1).sqrt() * tgt.abs().pow(2).sum(-1).sqrt())
             opt.zero_grad(); (-cos.mean()).backward(); opt.step()
             with torch.no_grad(): self.theta[0] = 0
+
+    def set_vorder(self, verb_cats, nmax=4):
+        """the VERB-ORDER route (vss-demo 2026-10-25, vss-vs-bert R47; addendum q-formalisation 11): every non-verb word is drawn a second
+        time at a learned displacement keyed by (side, the category of the nearest verb, the word's own category, its ordinal among the words
+        of its category since that verb): side 1 = after the nearest verb to the left, counted from that verb; side 0 = no verb to the left,
+        keyed by the nearest verb to the right and counted from the sentence start. Independent of the cue chain, so "gives p4 o3" and
+        "gives o3 to p4" draw p4 and o3 at the same verb-order addresses. One phase vector per key, learned; omitted for verbs and when the
+        sentence has no verb. Returns the verb categories found."""
+        K = len(self.cats); self.vo_nmax = int(nmax)
+        self.verb_mask = torch.zeros(K, dtype=self.dtype, device=self.device)
+        found = [c for c in verb_cats if c in self.cat_id]
+        for c in found: self.verb_mask[self.cat_id[c]] = 1
+        rng = np.random.default_rng(int(self.rng.integers(1 << 30)))
+        self.vo = torch.nn.Parameter(torch.tensor(rng.uniform(-np.pi, np.pi, (2, K, K, self.vo_nmax, self.theta.shape[1])), dtype=self.dtype, device=self.device))
+        return found
+
+    def vorder_index(self, cats, mask):
+        """(side B x T, vcat B x T, ord B x T, valid B x T) of set_vorder, from the category indices alone (torch, no Python per word)"""
+        B, T = cats.shape; dev = cats.device; K = len(self.cats)
+        isv = (self.verb_mask[cats] * mask) > 0                                                       # B x T
+        idx = torch.arange(T, device=dev).unsqueeze(0).expand(B, T)
+        left = torch.where(isv, idx, torch.full_like(idx, -1)); left = torch.cummax(left, 1).values    # nearest verb at or left of k
+        left_excl = torch.cat([torch.full((B, 1), -1, dtype=left.dtype, device=dev), left[:, :-1]], 1)  # strictly left of k
+        big = T + 1
+        right = torch.where(isv, idx, torch.full_like(idx, big)); right = torch.flip(torch.cummin(torch.flip(right, [1]), 1).values, [1])
+        right_excl = torch.cat([right[:, 1:], torch.full((B, 1), big, dtype=right.dtype, device=dev)], 1)   # strictly right of k
+        has_l = left_excl >= 0; has_r = right_excl < big
+        side = has_l.long(); vpos = torch.where(has_l, left_excl, right_excl.clamp(max=T - 1))
+        vcat = torch.gather(cats, 1, vpos)
+        onehot = torch.nn.functional.one_hot(cats, K).to(torch.long) * mask.unsqueeze(-1).long()      # B x T x K
+        cum = torch.cumsum(onehot, 1)                                                                 # inclusive counts
+        own = torch.gather(cum, 2, cats.unsqueeze(-1)).squeeze(-1)                                    # count of own category up to k inclusive
+        before_k = own - 1                                                                            # strictly before k
+        at_v = torch.gather(cum, 1, vpos.unsqueeze(-1).expand(B, T, K)); at_v = torch.gather(at_v, 2, cats.unsqueeze(-1)).squeeze(-1)
+        ordinal = torch.where(has_l, before_k - at_v, before_k).clamp(min=0, max=self.vo_nmax - 1)
+        valid = ((has_l | has_r) & ~isv) & (mask > 0)
+        return side, vcat, ordinal, valid
 
     def set_rel_emitters(self, emitters, takers):
         """C2b (judgment 3b4f837 E2): a BEACON-RELATIVE emitter. A word of an emitter category draws the NEXT word (if its category is a taker)
