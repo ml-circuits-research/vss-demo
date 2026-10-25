@@ -1,0 +1,17 @@
+{
+ "name": "diagram_ro",
+ "language": "ro",
+ "description": "VSS Diagram Editor, Level 1, Romanian commands; the English diagram legend (training/worlds/diagram_ro/README.md)",
+ "created": "2026-10-25",
+ "version": 1,
+ "min_examples": 500,
+ "max_versions_per_run": 3,
+ "models": {
+  "pipeline": "claude-haiku-5-5",
+  "annotate": "claude-haiku-5-5",
+  "second_look": "claude-haiku-5-5",
+  "evolve": "claude-opus-5-5"
+ },
+ "second_look_escalate": 0.05,
+ "second_look_retrain": 0.05
+}

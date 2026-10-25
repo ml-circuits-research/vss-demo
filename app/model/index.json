@@ -13,5 +13,14 @@
    "exported": "2026-10-24"
   }
  ],
- "measured": null
+ "measured": null,
+ "dictionaries": [
+  {
+   "language": "ro",
+   "file": "model/dict/ro.json",
+   "target_world": "diagram",
+   "note": "given Romanian -> English dictionary generated from the Romanian lexicon (training/worlds/diagram_ro/lexicon_ro.py), 11002 keys; no training",
+   "exported": "2026-10-25"
+  }
+ ]
 }

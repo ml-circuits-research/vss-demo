@@ -380,6 +380,92 @@ with the animation legend once an API key is available; that step is not GPU wor
   the disagreements are reported with the cases. The numbers are reported, with the unread or misread sentences listed by cause (out of
   the legend, reader error, segmentation, timeline rule).
 
+### 2.6 Other languages: Romanian, mixed and dictionaries
+
+Design: `vision/ADDENDUM_languages_2026-10-25.md`. Three variants, one English legend (sha256 `e3e44ee9f7e8...`, the same file for
+diagram, diagram_ro and diagram_multi): A = `diagram_ro` (a world trained on Romanian sentences), B = `diagram_multi` (one world trained on
+English 0.4, Romanian 0.4 and mixed 0.2), C = the dictionary `training/worlds/diagram_ro/translate_en.json` before the English reader of
+step 1.1 (no training). Generator, lexicon and what is not covered: `training/worlds/diagram_ro/README.md`. Frozen data:
+`training/data/diagram_ro/n{1000,5000,20000,50000}`, `training/data/diagram_multi/n{1000,5000,20000,50000}` (seed 0; each with
+`eval_parallel.jsonl`, the same 400 frames in four realisations). Prepared and checked on the CPU, not results: `sop check` OK on every
+file; a smoke training of diagram_ro (D 128, 1 epoch, 364 sentences) runs to the end, exports, and passes the parity chain (55/55 frames,
+statuses and SOP text identical, cosine 1.000000); the dictionary port of `eval_variants.py` gives the same variants as
+`app/src/translate.js` on 1200/1200 parallel sentences.
+
+#### 1. Criteria, written before the runs
+
+| row | measure | criterion |
+|---|---|---|
+| Table 13 rows for diagram_ro | the rows of 1.1 on diagram_ro's own splits: seen formulations FULL; held-out formulations (confident-wrong at tau, coverage, FULL); new labels (label role); value slots (amount, unit, fraction, anchor); negated attributes and prohibitions (scope) | the thresholds of 1.1 (>= 0.98; < 2% at > 80%; >= 0.99; >= 0.98; >= 0.97) |
+| the same rows for diagram_multi | per language: Romanian splits (`heldout_formulations`, `new_identities`) and English splits (`heldout_formulations_en`, `new_identities_en`) | reported; the English rows beside the English world's of 1.1 (does Romanian in training cost English?) |
+| mixed eval (`eval_mixed.sop`, split `mixed`) | FULL, for A and B | reported (A never saw a mixed sentence in training; B did) |
+| parallel check | share of the 400 frames of `eval_parallel.jsonl` whose frame read by the English reader on the English realisation is identical to the frame read by A on the Romanian realisation (and B on both) | reported; >= 0.95 at the shipped size to call the demo multilingual |
+| variants compared | FULL on eval_parallel's Romanian, mixed and Romglish realisations for A, B and C (C = dictionary + the English model of 1.1) | reported; the comparison is the finding |
+| dispatch by fit over all routes | every route (A, B, C) reads each realisation, the clearest reading wins (app rule: status, then the minimum margin, then the residual); share routed to a route that reads it right, FULL after the choice, and the oracle (some route reads it right) | reported; >= 0.98 routed right on clean in-world sentences (the addendum's row) |
+
+Per seed and the mean and spread over five seeds (rule 27). FULL compares the frame with the predicate lemma (sop world.canon); in the
+parallel set 'every' is written 'each' in English (Romanian 'fiecare' is both) and the determiner 'an' counts as 'a'.
+
+#### 2. Training (GPU, five seeds, D 1024, portable stars, frozen data)
+
+From the repository root, on a committed tree, under the run lock (`logs/.run.lock`), the guards and options of
+`training/gpu_diagram_step3.sh` (copy it with `diagram` -> `diagram_ro` / `diagram_multi`, or run the loop):
+
+```
+COMMIT=$(git rev-parse --short HEAD); WORK=$(mktemp -d)
+# no --no_ckpt here: sop train then keeps every seed's model ($OUT/<n>/seed<k>/model; seed 0 in model/), which section 3 reads per seed
+COMMON="--D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit"
+for w in diagram_ro diagram_multi; do
+  OUT=runs/${w}_$COMMIT; mkdir -p $OUT
+  for n in 1000 5000 20000 50000; do
+    python3 training/data/unpack.py $w/n$n $WORK/$n | tee -a $OUT/$w.log                          # sha256 checked against MANIFEST.json
+    tool/bin/sop check --legend $WORK/$n/$w/legend.json $WORK/$n/$w/examples/*.sop | tail -1 | tee -a $OUT/$w.log
+    tool/bin/sop train $WORK/$n/$w $COMMON --run_dir $OUT/$n 2>&1 | grep "\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]" | tee -a $OUT/$w.log
+    cp $WORK/$n/$w/legend.json $WORK/$n/$w/kinds.tsv $OUT/$n/; cp training/data/$w/n$n/COVERAGE.md $OUT/COVERAGE_n$n.md
+    cp -r $WORK/$n/$w/model $OUT/model_$n                                                         # every size: the variant comparison runs per size
+  done
+done
+```
+
+Exit check: the legend sha256 in every `$OUT/<n>/config.json` equals the English world's (`runs/diagram_step3_<commit>/<n>/config.json`).
+Fill the Table 13 rows of 1. from `$OUT/<n>/metrics.json` and REPORT.md, per seed and size; the shipped size of each world by the rule of
+1.1 (the smallest after which the held-out formulation row stops improving within seed variance).
+
+#### 3. The parallel check, the variants and the dispatch (after 2. and step 1.1; CPU is enough)
+
+For each size n and each seed k of A and B (seed 0: `model_$n`; the others: `$OUT/$n/seed<k>/model`), with the English model of 1.1 at the
+same n (1.1 runs with `--no_ckpt`, which keeps the first seed's model only: EN and C use that one model for every seed of A and B, stated in
+the report):
+
+```
+python3 training/data/unpack.py diagram_ro/n$n $WORK/par$n                                       # eval_parallel.jsonl (the same 400 frames at every n)
+python3 training/worlds/diagram_ro/eval_variants.py --parallel $WORK/par$n/diagram_ro/examples/eval_parallel.jsonl \
+  --en_model runs/diagram_step3_<commit>/model_$n --ro_model runs/diagram_ro_$COMMIT/model_$n --multi_model runs/diagram_multi_$COMMIT/model_$n \
+  --dict training/worlds/diagram_ro/translate_en.json --out runs/diagram_ro_$COMMIT/variants_n$n.json | tee runs/diagram_ro_$COMMIT/variants_n$n.log
+```
+
+It prints and writes, per variant and realisation (A/ro, A/mix, A/romglish, B/en, B/ro, B/mix, B/romglish, C/ro, C/mix, C/romglish,
+EN/en): FULL, FULL with status ok and the status counts; the parallel check (A(ro) = EN(en), B(ro) = B(en)); the dispatch per realisation
+(FULL after the choice, the oracle, which route was chosen). Report the table of variants x realisations at every size, mean and spread
+over seeds, with the parallel check at the shipped size against its 0.95 criterion. C needs no training: its row is the English model of
+1.1 read through the dictionary. Commit the `variants_n*.json` / `.log` files with the run folders.
+
+#### 4. Export to the browser (the coordinator's export_app.py)
+
+```
+python3 training/export_app.py --world diagram_ro --model runs/diagram_ro_$COMMIT/model_<size> --purpose diagram --language ro --bits 8 --status demo --note "<run, size, seed, commit>"
+python3 training/export_app.py --world diagram_multi --model runs/diagram_multi_$COMMIT/model_<size> --purpose diagram --language en+ro --bits 8 --status demo --note "<run, size, seed, commit>"
+python3 training/export_app.py --dict training/worlds/diagram_ro/translate_en.json --language ro --target diagram --note "given dictionary, built from lexicon_ro.py"
+```
+
+Each world ships its own normalizer table (`training/worlds/diagram_ro/normalize.json`, also for diagram_multi: it contains the English
+table unchanged; NORMALIZERS in export_app.py, or `--normalizer`). Then the parity chain on each exported model (as 1.3:
+`training/parity/make_golden.py --model <model> --world $WORK/<size>/<world> --dequantize-from app/model/<world>` and
+`node app/tests/parity.mjs`; criteria: frames and statuses identical, cosine >= 0.9999, SOP text identical), the normalizer parity
+(`node app/tests/normalize_test.mjs training/worlds/diagram_ro/normalize_golden.jsonl training/worlds/diagram_ro/normalize.json`), and
+`node app/tests/routes.mjs` with the three routes installed. Size: the route book has three K x K x D tables; diagram_ro has 59 route-book
+kinds (with `unknown`) against the English world's 49, so its route book is about 1.45 times the English one at the same D and bits.
+
 ## 3. What needs people, not the DGX
 
 - The recorded speech set (spec 13.5): at least ten speakers, non-native speakers included, two microphones, with consent; commands

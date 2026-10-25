@@ -1,8 +1,12 @@
 // normalize_test.mjs: the JavaScript normalizer reproduces the Python one exactly.
 // Usage: python3 training/worlds/diagram/normalize_golden.py > /tmp/golden.jsonl && node app/tests/normalize_test.mjs /tmp/golden.jsonl
+//        node app/tests/normalize_test.mjs training/worlds/diagram_ro/normalize_golden.jsonl training/worlds/diagram_ro/normalize.json
+// The second argument (a normalizer table) defaults to the English diagram world's table.
 import fs from "node:fs";
+import path from "node:path";
 import { createNormalizer } from "../src/normalize.js";
-const T = JSON.parse(fs.readFileSync(new URL("../../training/worlds/diagram/normalize.json", import.meta.url)));
+const tablePath = process.argv[3] ? path.resolve(process.argv[3]) : new URL("../../training/worlds/diagram/normalize.json", import.meta.url);
+const T = JSON.parse(fs.readFileSync(tablePath, "utf8"));
 const normalize = createNormalizer(T);
 const lines = fs.readFileSync(process.argv[2], "utf8").split("\n").filter(Boolean);
 let ok = 0, bad = [];

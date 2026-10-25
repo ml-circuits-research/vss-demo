@@ -1,0 +1,915 @@
+{
+ "about": "The normalizer of the Romanian diagram world (diagram_ro, and the bilingual diagram_multi): the English table of training/worlds/diagram/normalize.json unchanged, plus the Romanian rules (built by normalize_table.py from lexicon_ro.py). Order: Romanian quotation marks to '\"'; quoted strings become one label token; lower-case; diacritics folded to ASCII; contractions; punctuation split; hyphenated pronoun clitics split; genitive-context phrases; multi-word expressions (longest first); single-word synonyms; number words to digits (tens + 'si' + unit joined; 'one', 'unu', 'una' never); label intro words. The reader never sees the surface forms on the left.",
+ "quote_marks": {
+  "„": "\"",
+  "”": "\"",
+  "“": "\"",
+  "«": "\"",
+  "»": "\""
+ },
+ "fold_diacritics": true,
+ "contractions": {
+  "don't": "do not",
+  "dont": "do not",
+  "doesn't": "does not",
+  "let's": "lets",
+  "can't": "can not",
+  "won't": "will not",
+  "i'd": "i would",
+  "it's": "it is",
+  "%": " percent",
+  "dintr-un": "din un",
+  "dintr-o": "din o",
+  "intr-un": "in un",
+  "intr-o": "in o",
+  "n-o": "nu -o",
+  "s-o": "sa -o"
+ },
+ "label_intro": [
+  "called",
+  "named",
+  "labelled",
+  "labeled",
+  "titled",
+  "saying",
+  "numit",
+  "numita",
+  "numiti",
+  "numite",
+  "denumit",
+  "denumita",
+  "denumite",
+  "etichetat",
+  "etichetata",
+  "intitulat",
+  "intitulata",
+  "cu_numele"
+ ],
+ "clitics": [
+  "-le",
+  "-l",
+  "-o",
+  "-i"
+ ],
+ "mwe_genitive": [
+  [
+   "la stanga",
+   "left_of"
+  ],
+  [
+   "in stanga",
+   "left_of"
+  ],
+  [
+   "la dreapta",
+   "right_of"
+  ],
+  [
+   "in dreapta",
+   "right_of"
+  ]
+ ],
+ "genitive_endings": [
+  "ului",
+  "ei",
+  "ii",
+  "lor"
+ ],
+ "mwe": [
+  [
+   "top left corner",
+   "top_left"
+  ],
+  [
+   "top right corner",
+   "top_right"
+  ],
+  [
+   "bottom left corner",
+   "bottom_left"
+  ],
+  [
+   "bottom right corner",
+   "bottom_right"
+  ],
+  [
+   "upper left corner",
+   "top_left"
+  ],
+  [
+   "upper right corner",
+   "top_right"
+  ],
+  [
+   "lower left corner",
+   "bottom_left"
+  ],
+  [
+   "lower right corner",
+   "bottom_right"
+  ],
+  [
+   "top left",
+   "top_left"
+  ],
+  [
+   "top right",
+   "top_right"
+  ],
+  [
+   "bottom left",
+   "bottom_left"
+  ],
+  [
+   "bottom right",
+   "bottom_right"
+  ],
+  [
+   "upper left",
+   "top_left"
+  ],
+  [
+   "upper right",
+   "top_right"
+  ],
+  [
+   "lower left",
+   "bottom_left"
+  ],
+  [
+   "lower right",
+   "bottom_right"
+  ],
+  [
+   "left side",
+   "left_side"
+  ],
+  [
+   "right side",
+   "right_side"
+  ],
+  [
+   "left hand side",
+   "left_side"
+  ],
+  [
+   "right hand side",
+   "right_side"
+  ],
+  [
+   "to the left of",
+   "left_of"
+  ],
+  [
+   "to the right of",
+   "right_of"
+  ],
+  [
+   "left of",
+   "left_of"
+  ],
+  [
+   "right of",
+   "right_of"
+  ],
+  [
+   "next to",
+   "next_to"
+  ],
+  [
+   "close to",
+   "next_to"
+  ],
+  [
+   "on top of",
+   "above"
+  ],
+  [
+   "underneath",
+   "below"
+  ],
+  [
+   "beneath",
+   "below"
+  ],
+  [
+   "under",
+   "below"
+  ],
+  [
+   "over",
+   "above"
+  ],
+  [
+   "beside",
+   "next_to"
+  ],
+  [
+   "right edge",
+   "right_edge"
+  ],
+  [
+   "left edge",
+   "left_edge"
+  ],
+  [
+   "top edge",
+   "top_edge"
+  ],
+  [
+   "bottom edge",
+   "bottom_edge"
+  ],
+  [
+   "right border",
+   "right_edge"
+  ],
+  [
+   "left border",
+   "left_edge"
+  ],
+  [
+   "top border",
+   "top_edge"
+  ],
+  [
+   "bottom border",
+   "bottom_edge"
+  ],
+  [
+   "to the next one",
+   "to_next"
+  ],
+  [
+   "to the next",
+   "to_next"
+  ],
+  [
+   "to the following one",
+   "to_next"
+  ],
+  [
+   "one after the other",
+   "in_chain"
+  ],
+  [
+   "one after another",
+   "in_chain"
+  ],
+  [
+   "in a chain",
+   "in_chain"
+  ],
+  [
+   "in sequence",
+   "in_chain"
+  ],
+  [
+   "from left to right",
+   "flow_lr"
+  ],
+  [
+   "left to right",
+   "flow_lr"
+  ],
+  [
+   "from top to bottom",
+   "flow_td"
+  ],
+  [
+   "top to bottom",
+   "flow_td"
+  ],
+  [
+   "top down",
+   "flow_td"
+  ],
+  [
+   "text box",
+   "textbox"
+  ],
+  [
+   "data base",
+   "database"
+  ],
+  [
+   "half way",
+   "half"
+  ],
+  [
+   "halfway",
+   "half"
+  ],
+  [
+   "a third of the way",
+   "third"
+  ],
+  [
+   "a quarter of the way",
+   "quarter"
+  ],
+  [
+   "bring to the front",
+   "bring to front"
+  ],
+  [
+   "send to the back",
+   "send to back"
+  ],
+  [
+   "zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "in coltul din stanga sus",
+   "top_left"
+  ],
+  [
+   "coltul din stanga sus",
+   "top_left"
+  ],
+  [
+   "in coltul stanga sus",
+   "top_left"
+  ],
+  [
+   "coltul stanga sus",
+   "top_left"
+  ],
+  [
+   "stanga sus",
+   "top_left"
+  ],
+  [
+   "sus in stanga",
+   "top_left"
+  ],
+  [
+   "sus stanga",
+   "top_left"
+  ],
+  [
+   "in coltul din dreapta sus",
+   "top_right"
+  ],
+  [
+   "coltul din dreapta sus",
+   "top_right"
+  ],
+  [
+   "in coltul dreapta sus",
+   "top_right"
+  ],
+  [
+   "coltul dreapta sus",
+   "top_right"
+  ],
+  [
+   "dreapta sus",
+   "top_right"
+  ],
+  [
+   "sus in dreapta",
+   "top_right"
+  ],
+  [
+   "sus dreapta",
+   "top_right"
+  ],
+  [
+   "in coltul din stanga jos",
+   "bottom_left"
+  ],
+  [
+   "coltul din stanga jos",
+   "bottom_left"
+  ],
+  [
+   "in coltul stanga jos",
+   "bottom_left"
+  ],
+  [
+   "coltul stanga jos",
+   "bottom_left"
+  ],
+  [
+   "stanga jos",
+   "bottom_left"
+  ],
+  [
+   "jos in stanga",
+   "bottom_left"
+  ],
+  [
+   "jos stanga",
+   "bottom_left"
+  ],
+  [
+   "in coltul din dreapta jos",
+   "bottom_right"
+  ],
+  [
+   "coltul din dreapta jos",
+   "bottom_right"
+  ],
+  [
+   "in coltul dreapta jos",
+   "bottom_right"
+  ],
+  [
+   "coltul dreapta jos",
+   "bottom_right"
+  ],
+  [
+   "dreapta jos",
+   "bottom_right"
+  ],
+  [
+   "jos in dreapta",
+   "bottom_right"
+  ],
+  [
+   "jos dreapta",
+   "bottom_right"
+  ],
+  [
+   "partea de sus",
+   "top"
+  ],
+  [
+   "partea de jos",
+   "bottom"
+  ],
+  [
+   "partea stanga",
+   "left_side"
+  ],
+  [
+   "partea dreapta",
+   "right_side"
+  ],
+  [
+   "partea din stanga",
+   "left_side"
+  ],
+  [
+   "partea din dreapta",
+   "right_side"
+  ],
+  [
+   "la stanga lui",
+   "left_of"
+  ],
+  [
+   "in stanga lui",
+   "left_of"
+  ],
+  [
+   "la dreapta lui",
+   "right_of"
+  ],
+  [
+   "in dreapta lui",
+   "right_of"
+  ],
+  [
+   "in interiorul",
+   "inside"
+  ],
+  [
+   "alaturi de",
+   "next_to"
+  ],
+  [
+   "la marginea din dreapta",
+   "right_edge"
+  ],
+  [
+   "marginea din dreapta",
+   "right_edge"
+  ],
+  [
+   "la marginea dreapta",
+   "right_edge"
+  ],
+  [
+   "marginea dreapta",
+   "right_edge"
+  ],
+  [
+   "la marginea din stanga",
+   "left_edge"
+  ],
+  [
+   "marginea din stanga",
+   "left_edge"
+  ],
+  [
+   "la marginea stanga",
+   "left_edge"
+  ],
+  [
+   "marginea stanga",
+   "left_edge"
+  ],
+  [
+   "la marginea de sus",
+   "top_edge"
+  ],
+  [
+   "marginea de sus",
+   "top_edge"
+  ],
+  [
+   "la marginea de jos",
+   "bottom_edge"
+  ],
+  [
+   "marginea de jos",
+   "bottom_edge"
+  ],
+  [
+   "la marginea superioara",
+   "top_edge"
+  ],
+  [
+   "marginea superioara",
+   "top_edge"
+  ],
+  [
+   "la marginea inferioara",
+   "bottom_edge"
+  ],
+  [
+   "marginea inferioara",
+   "bottom_edge"
+  ],
+  [
+   "la jumatatea drumului",
+   "half"
+  ],
+  [
+   "la jumatatea distantei",
+   "half"
+  ],
+  [
+   "jumatate din drum",
+   "half"
+  ],
+  [
+   "o treime din drum",
+   "third"
+  ],
+  [
+   "o treime din distanta",
+   "third"
+  ],
+  [
+   "un sfert din drum",
+   "quarter"
+  ],
+  [
+   "un sfert din distanta",
+   "quarter"
+  ],
+  [
+   "cu urmatorul",
+   "to_next"
+  ],
+  [
+   "cu urmatoarea",
+   "to_next"
+  ],
+  [
+   "de urmatorul",
+   "to_next"
+  ],
+  [
+   "de urmatoarea",
+   "to_next"
+  ],
+  [
+   "la urmatorul",
+   "to_next"
+  ],
+  [
+   "la urmatoarea",
+   "to_next"
+  ],
+  [
+   "in lant",
+   "in_chain"
+  ],
+  [
+   "in sir",
+   "in_chain"
+  ],
+  [
+   "unul dupa altul",
+   "in_chain"
+  ],
+  [
+   "una dupa alta",
+   "in_chain"
+  ],
+  [
+   "de la stanga la dreapta",
+   "flow_lr"
+  ],
+  [
+   "de sus in jos",
+   "flow_td"
+  ],
+  [
+   "de sus pana jos",
+   "flow_td"
+  ],
+  [
+   "mai mare",
+   "bigger"
+  ],
+  [
+   "mai mari",
+   "bigger"
+  ],
+  [
+   "mai mic",
+   "smaller"
+  ],
+  [
+   "mai mica",
+   "smaller"
+  ],
+  [
+   "mai mici",
+   "smaller"
+  ],
+  [
+   "la suta",
+   "percent"
+  ],
+  [
+   "o suta",
+   "100"
+  ],
+  [
+   "as vrea",
+   "as_vrea"
+  ],
+  [
+   "as dori",
+   "as_dori"
+  ],
+  [
+   "cu numele",
+   "cu_numele"
+  ],
+  [
+   "prim plan",
+   "fata"
+  ],
+  [
+   "prim-plan",
+   "fata"
+  ],
+  [
+   "fundal",
+   "spate"
+  ],
+  [
+   "fa zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "fa zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "face zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "face zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "faci zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "faci zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "faceti zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "faceti zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "facem zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "facem zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "da zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "da zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "da zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "da zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "dai zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "dai zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "dati zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "dati zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "dam zoom in",
+   "zoom zoom_in"
+  ],
+  [
+   "dam zoom out",
+   "zoom zoom_out"
+  ],
+  [
+   "baza de date",
+   "baza_de_date"
+  ],
+  [
+   "baza de date",
+   "baza_de_date"
+  ],
+  [
+   "baze de date",
+   "baze_de_date"
+  ],
+  [
+   "bazele de date",
+   "bazele_de_date"
+  ],
+  [
+   "bazei de date",
+   "bazei_de_date"
+  ],
+  [
+   "bazelor de date",
+   "bazelor_de_date"
+  ],
+  [
+   "caseta de text",
+   "caseta_de_text"
+  ],
+  [
+   "caseta de text",
+   "caseta_de_text"
+  ],
+  [
+   "casete de text",
+   "casete_de_text"
+  ],
+  [
+   "casetele de text",
+   "casetele_de_text"
+  ],
+  [
+   "casetei de text",
+   "casetei_de_text"
+  ],
+  [
+   "casetelor de text",
+   "casetelor_de_text"
+  ]
+ ],
+ "synonyms": {
+  "colour": "color",
+  "grey": "gray",
+  "centre": "center",
+  "middle": "center",
+  "pixels": "px",
+  "pixel": "px",
+  "units": "px",
+  "percent": "percent",
+  "per cent": "percent",
+  "rectangle": "rectangle",
+  "rect": "rectangle",
+  "db": "database",
+  "dbs": "databases",
+  "big": "large",
+  "bigger": "bigger",
+  "larger": "bigger",
+  "little": "small",
+  "smaller": "smaller",
+  "upwards": "up",
+  "downwards": "down",
+  "dotted": "dotted",
+  "broken": "dashed",
+  "pls": "please",
+  "plz": "please",
+  "u": "you",
+  "ok": "okay",
+  "alright": "okay",
+  "pixeli": "px",
+  "inauntru": "inauntrul"
+ },
+ "number_words": {
+  "zero": 0,
+  "one": 1,
+  "two": 2,
+  "three": 3,
+  "four": 4,
+  "five": 5,
+  "six": 6,
+  "seven": 7,
+  "eight": 8,
+  "nine": 9,
+  "ten": 10,
+  "eleven": 11,
+  "twelve": 12,
+  "thirteen": 13,
+  "fourteen": 14,
+  "fifteen": 15,
+  "sixteen": 16,
+  "seventeen": 17,
+  "eighteen": 18,
+  "nineteen": 19,
+  "twenty": 20,
+  "thirty": 30,
+  "forty": 40,
+  "fifty": 50,
+  "sixty": 60,
+  "seventy": 70,
+  "eighty": 80,
+  "ninety": 90,
+  "hundred": 100,
+  "unu": 1,
+  "una": 1,
+  "doi": 2,
+  "doua": 2,
+  "trei": 3,
+  "patru": 4,
+  "cinci": 5,
+  "sase": 6,
+  "sapte": 7,
+  "opt": 8,
+  "noua": 9,
+  "zece": 10,
+  "unsprezece": 11,
+  "doisprezece": 12,
+  "douasprezece": 12,
+  "treisprezece": 13,
+  "paisprezece": 14,
+  "cincisprezece": 15,
+  "saisprezece": 16,
+  "saptesprezece": 17,
+  "optsprezece": 18,
+  "nouasprezece": 19,
+  "douazeci": 20,
+  "treizeci": 30,
+  "patruzeci": 40,
+  "cincizeci": 50,
+  "saizeci": 60,
+  "saptezeci": 70,
+  "optzeci": 80,
+  "nouazeci": 90,
+  "suta": 100,
+  "sute": 100
+ },
+ "number_word_exceptions": [
+  "one",
+  "unu",
+  "una"
+ ],
+ "number_joiners": [
+  "si"
+ ],
+ "punctuation": ".,;:!?"
+}

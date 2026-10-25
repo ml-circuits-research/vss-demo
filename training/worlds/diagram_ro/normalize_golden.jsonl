@@ -1,0 +1,641 @@
+{"surface": "Adaugă o cutie roșie în colțul din stânga sus.", "tokens": ["adauga", "o", "cutie", "rosie", "top_left", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "Adauga o cutie rosie in coltul din stanga sus.", "tokens": ["adauga", "o", "cutie", "rosie", "top_left", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "Adaugă o cutie roşie în colţul din stânga sus.", "tokens": ["adauga", "o", "cutie", "rosie", "top_left", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "pune o notiță „Verifică Stocul” sub baza de date", "tokens": ["pune", "o", "notita", "verifica_stocul", "sub", "baza_de_date"], "info": {"labels": {"verifica_stocul": "Verifică Stocul"}, "numbers": {}}}
+{"surface": "mută-l la 20 de pixeli în stânga cutiei roșii", "tokens": ["muta", "-l", "la", "20", "de", "px", "left_of", "cutiei", "rosii"], "info": {"labels": {}, "numbers": {"20": 20}}}
+{"surface": "nu-l muta la stânga", "tokens": ["nu", "-l", "muta", "la", "stanga"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "n-o șterge", "tokens": ["nu", "-o", "sterge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți s-o muți într-o coloană?", "tokens": ["poti", "sa", "-o", "muti", "in", "o", "coloana", "?"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vreau să le ștergi pe toate", "tokens": ["vreau", "sa", "le", "stergi", "pe", "toate"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "adaugă douăzeci și cinci de cercuri", "tokens": ["adauga", "25", "de", "cercuri"], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "adaugă două sute de cutii", "tokens": ["adauga", "200", "de", "cutii"], "info": {"labels": {}, "numbers": {"2": 2, "200": 200}}}
+{"surface": "fă cercul cu 50% mai mare", "tokens": ["fa", "cercul", "cu", "50", "percent", "bigger"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "fă cercul cu cincizeci la sută mai mic", "tokens": ["fa", "cercul", "cu", "50", "percent", "smaller"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "aș vrea să faci zoom in", "tokens": ["as_vrea", "sa", "zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "conectează fiecare cutie cu următoarea", "tokens": ["conecteaza", "fiecare", "cutie", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "conectează toate cutiile una după alta", "tokens": ["conecteaza", "toate", "cutiile", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aranjează totul ca un flux de la stânga la dreapta", "tokens": ["aranjeaza", "totul", "ca", "un", "flux", "flow_lr"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mută serverul la jumătatea drumului spre marginea din dreapta", "tokens": ["muta", "serverul", "half", "spre", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "adaugă o cutie numită 'Plăți Noi' în partea stângă", "tokens": ["adauga", "o", "cutie", "numita", "plati_noi", "in", "left_side"], "info": {"labels": {"plati_noi": "Plăți Noi"}, "numbers": {}}}
+{"surface": "redenumește cache-ul în „Sesiuni”", "tokens": ["redenumeste", "cache-ul", "in", "sesiuni"], "info": {"labels": {"sesiuni": "Sesiuni"}, "numbers": {}}}
+{"surface": "pune un database roșu below cutia", "tokens": ["pune", "un", "database", "rosu", "below", "cutia"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect cutia la server", "tokens": ["connect", "cutia", "la", "server"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "adaugă o casetă de text cu numele titlu", "tokens": ["adauga", "o", "caseta_de_text", "cu_numele", "titlu"], "info": {"labels": {"titlu": "titlu"}, "numbers": {}}}
+{"surface": "mută cutia la stânga lui orders", "tokens": ["muta", "cutia", "left_of", "orders"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mută cutia deasupra cercului mare", "tokens": ["muta", "cutia", "deasupra", "cercului", "mare"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mută cutia la dreapta", "tokens": ["muta", "cutia", "la", "dreapta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mută cutia în stânga serverului", "tokens": ["muta", "cutia", "left_of", "serverului"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "spațiază cutiile la 40 de pixeli distanță", "tokens": ["spatiaza", "cutiile", "la", "40", "de", "px", "distanta"], "info": {"labels": {}, "numbers": {"40": 40}}}
+{"surface": "adaugă unu cerc", "tokens": ["adauga", "unu", "cerc"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "Adaugă Trei Cercuri Albastre!", "tokens": ["adauga", "3", "cercuri", "albastre", "!"], "info": {"labels": {}, "numbers": {"3": 3}}}
+{"surface": "schițează un titlu .", "tokens": ["schiteaza", "un", "titlu", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să desenați o coadă roșie", "tokens": ["va", "rog", "sa", "desenati", "o", "coada", "rosie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să schițezi o elipsă galbenă .", "tokens": ["ai", "putea", "sa", "schitezi", "o", "elipsa", "galbena", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să creezi un actor care nu e alb", "tokens": ["poti", "sa", "creezi", "un", "actor", "care", "nu", "e", "alb"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să adaugi un pas .", "tokens": ["ai", "putea", "sa", "adaugi", "un", "pas", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "acum create un cerc albastru", "tokens": ["acum", "create", "un", "cerc", "albastru"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "creează a nor", "tokens": ["creeaza", "a", "nor"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "desenează un pas la dreapta pătratului", "tokens": ["deseneaza", "un", "pas", "right_of", "patratului"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog adaugă un titlu sus în stânga", "tokens": ["te", "rog", "adauga", "un", "titlu", "top_left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să desenezi un titlu roz în interiorul casetei de text .", "tokens": ["ai", "putea", "sa", "desenezi", "un", "titlu", "roz", "inside", "casetei_de_text", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să adaugi un dreptunghi alături de chestie .", "tokens": ["poti", "sa", "adaugi", "un", "dreptunghi", "next_to", "chestie", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci inserează un cumpărător mare în centru .", "tokens": ["deci", "insereaza", "un", "cumparator", "mare", "in", "centru", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "create un star dashed la 50 de pixeli left of maria vă rog", "tokens": ["create", "un", "star", "dashed", "la", "50", "de", "px", "left_of", "maria", "va", "rog"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "schițează a raport left of the titlu", "tokens": ["schiteaza", "a", "raport", "left_of", "the", "titlu"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "lângă ledger , inserați o notiță .", "tokens": ["langa", "ledger", ",", "inserati", "o", "notita", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog în stânga formei , adaugă un început", "tokens": ["te", "rog", "left_of", "formei", ",", "adauga", "un", "inceput"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea în colțul din dreapta jos , să schițați un dreptunghi turcoaz", "tokens": ["ati", "putea", "bottom_right", ",", "sa", "schitati", "un", "dreptunghi", "turcoaz"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți la stânga procesului întrerupt , să creați un element mare", "tokens": ["puteti", "left_of", "procesului", "intrerupt", ",", "sa", "creati", "un", "element", "mare"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci next to end-ul , desenează un nor dashed", "tokens": ["deci", "next_to", "end-ul", ",", "deseneaza", "un", "nor", "dashed"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog next to decision-ul , să adăugați un service pink .", "tokens": ["va", "rog", "next_to", "decision-ul", ",", "sa", "adaugati", "un", "service", "pink", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "above the elipsă , adaugă a maro legendă", "tokens": ["above", "the", "elipsa", ",", "adauga", "a", "maro", "legenda"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "desenează un server numit inventory", "tokens": ["deseneaza", "un", "server", "numit", "inventory"], "info": {"labels": {"inventory": "inventory"}, "numbers": {}}}
+{"surface": "vă rog să adăugați un document mare numit nginx .", "tokens": ["va", "rog", "sa", "adaugati", "un", "document", "mare", "numit", "nginx", "."], "info": {"labels": {"nginx": "nginx"}, "numbers": {}}}
+{"surface": "ai putea să creezi un pas punctat cu numele elena .", "tokens": ["ai", "putea", "sa", "creezi", "un", "pas", "punctat", "cu_numele", "elena", "."], "info": {"labels": {"elena": "elena"}, "numbers": {}}}
+{"surface": "poți să adaugi un api uriaș etichetat reports_db", "tokens": ["poti", "sa", "adaugi", "un", "api", "urias", "etichetat", "reports_db"], "info": {"labels": {"reports_db": "reports_db"}, "numbers": {}}}
+{"surface": "deci schițează un decision solid denumit final", "tokens": ["deci", "schiteaza", "un", "decision", "solid", "denumit", "final"], "info": {"labels": {"final": "final"}, "numbers": {}}}
+{"surface": "creați un titlu gri cu numele warehouse .", "tokens": ["creati", "un", "titlu", "gri", "cu_numele", "warehouse", "."], "info": {"labels": {"warehouse": "warehouse"}, "numbers": {}}}
+{"surface": "schițează a gri depozit named profile", "tokens": ["schiteaza", "a", "gri", "depozit", "named", "profile"], "info": {"labels": {"profile": "profile"}, "numbers": {}}}
+{"surface": "schițați un raport denumit frontend în colțul din stânga jos .", "tokens": ["schitati", "un", "raport", "denumit", "frontend", "bottom_left", "."], "info": {"labels": {"frontend": "frontend"}, "numbers": {}}}
+{"surface": "vă rog să desenați un depozit gros numit refunds deasupra cache-ului", "tokens": ["va", "rog", "sa", "desenati", "un", "depozit", "gros", "numit", "refunds", "deasupra", "cache-ului"], "info": {"labels": {"refunds": "refunds"}, "numbers": {}}}
+{"surface": "ați putea să desenați un proces mare numit beta în partea de sus", "tokens": ["ati", "putea", "sa", "desenati", "un", "proces", "mare", "numit", "beta", "in", "top"], "info": {"labels": {"beta": "beta"}, "numbers": {}}}
+{"surface": "puteți să creați un sfârșit continuu cu numele mailer la cinci pixeli în stânga documentului .", "tokens": ["puteti", "sa", "creati", "un", "sfarsit", "continuu", "cu_numele", "mailer", "la", "5", "px", "left_of", "documentului", "."], "info": {"labels": {"mailer": "mailer"}, "numbers": {"5": 5}}}
+{"surface": "am nevoie să schițezi o casetă de text etichetată supplier în bottom right .", "tokens": ["am", "nevoie", "sa", "schitezi", "o", "caseta_de_text", "etichetata", "supplier", "in", "bottom_right", "."], "info": {"labels": {"supplier": "supplier"}, "numbers": {}}}
+{"surface": "vreau să inserezi o coadă uriașă cu numele approval în partea de jos", "tokens": ["vreau", "sa", "inserezi", "o", "coada", "uriasa", "cu_numele", "approval", "in", "bottom"], "info": {"labels": {"approval": "approval"}, "numbers": {}}}
+{"surface": "schițează a sarcină called tom in the bottom_right", "tokens": ["schiteaza", "a", "sarcina", "called", "tom", "in", "the", "bottom_right"], "info": {"labels": {"tom": "tom"}, "numbers": {}}}
+{"surface": "creează patru chestii minuscule .", "tokens": ["creeaza", "4", "chestii", "minuscule", "."], "info": {"labels": {}, "numbers": {"4": 4}}}
+{"surface": "vă rog să adăugați două începuturi .", "tokens": ["va", "rog", "sa", "adaugati", "2", "inceputuri", "."], "info": {"labels": {}, "numbers": {"2": 2}}}
+{"surface": "ai putea să schițezi 5 porți groase", "tokens": ["ai", "putea", "sa", "schitezi", "5", "porti", "groase"], "info": {"labels": {}, "numbers": {"5": 5}}}
+{"surface": "poți să desenezi 2 romburi subțiri", "tokens": ["poti", "sa", "desenezi", "2", "romburi", "subtiri"], "info": {"labels": {}, "numbers": {"2": 2}}}
+{"surface": "am nevoie să create 5 legende .", "tokens": ["am", "nevoie", "sa", "create", "5", "legende", "."], "info": {"labels": {}, "numbers": {"5": 5}}}
+{"surface": "vă rog create 4 files maro", "tokens": ["va", "rog", "create", "4", "files", "maro"], "info": {"labels": {}, "numbers": {"4": 4}}}
+{"surface": "desenează 4 mov stele", "tokens": ["deseneaza", "4", "mov", "stele"], "info": {"labels": {}, "numbers": {"4": 4}}}
+{"surface": "pune procesul deasupra lui auth", "tokens": ["pune", "procesul", "deasupra", "lui", "auth"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog pune o formă în colțul din stânga jos .", "tokens": ["te", "rog", "pune", "o", "forma", "bottom_left", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să așezați un început uriaș la dreapta raportului", "tokens": ["ati", "putea", "sa", "asezati", "un", "inceput", "urias", "right_of", "raportului"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să așezați un cache mediu în partea din stânga", "tokens": ["puteti", "sa", "asezati", "un", "cache", "mediu", "in", "left_side"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aș vrea să place settings right of mailer", "tokens": ["as_vrea", "sa", "place", "settings", "right_of", "mailer"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să puneți un început sub kafka .", "tokens": ["va", "rog", "sa", "puneti", "un", "inceput", "sub", "kafka", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "pune the punctat sarcină on the left_side", "tokens": ["pune", "the", "punctat", "sarcina", "on", "the", "left_side"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "șterge depozitul .", "tokens": ["sterge", "depozitul", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog șterge documentul", "tokens": ["te", "rog", "sterge", "documentul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să elimini legenda albastră .", "tokens": ["ai", "putea", "sa", "elimini", "legenda", "albastra", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să eliminați acea sarcină turcoaz .", "tokens": ["puteti", "sa", "eliminati", "acea", "sarcina", "turcoaz", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci elimină acest report minuscul .", "tokens": ["deci", "elimina", "acest", "report", "minuscul", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să erase acel pătrat mediu", "tokens": ["te", "rog", "sa", "erase", "acel", "patrat", "mediu"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "elimină the componentă", "tokens": ["elimina", "the", "componenta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ștergeți fiecare proces", "tokens": ["stergeti", "fiecare", "proces"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog șterge clienții care nu sunt albi .", "tokens": ["te", "rog", "sterge", "clientii", "care", "nu", "sunt", "albi", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să ștergi toate romburile .", "tokens": ["ai", "putea", "sa", "stergi", "toate", "romburile", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să radiați romburile roz .", "tokens": ["puteti", "sa", "radiati", "romburile", "roz", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să remove toți norii .", "tokens": ["am", "nevoie", "sa", "remove", "toti", "norii", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să delete cercurile groase .", "tokens": ["ai", "putea", "sa", "delete", "cercurile", "groase", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "elimină all roșu casete de text", "tokens": ["elimina", "all", "rosu", "casete_de_text"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "împinge fișierul alături de raport", "tokens": ["impinge", "fisierul", "next_to", "raport"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog trage începutul continuu în dreapta sus", "tokens": ["te", "rog", "trage", "inceputul", "continuu", "in", "top_right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să tragi cache-ul în colțul din dreapta jos .", "tokens": ["ai", "putea", "sa", "tragi", "cache-ul", "bottom_right", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să glisați începutul turcoaz la două sute de px sub client .", "tokens": ["puteti", "sa", "glisati", "inceputul", "turcoaz", "la", "200", "de", "px", "sub", "client", "."], "info": {"labels": {}, "numbers": {"2": 2, "200": 200}}}
+{"surface": "te rog mută-l în colțul dreapta jos .", "tokens": ["te", "rog", "muta", "-l", "bottom_right", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să drag notița care nu este mov sub refunds .", "tokens": ["te", "rog", "sa", "drag", "notita", "care", "nu", "este", "mov", "sub", "refunds", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mută the coadă in the top_left", "tokens": ["muta", "the", "coada", "in", "the", "top_left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deplasează elipsa cu douăzeci de pixeli la stânga .", "tokens": ["deplaseaza", "elipsa", "cu", "20", "de", "px", "la", "stanga", "."], "info": {"labels": {}, "numbers": {"20": 20}}}
+{"surface": "vă rog mutați cumpărătorul subțire 30 de px jos", "tokens": ["va", "rog", "mutati", "cumparatorul", "subtire", "30", "de", "px", "jos"], "info": {"labels": {}, "numbers": {"30": 30}}}
+{"surface": "ați putea să glisați cercul care nu e portocaliu 50 de px în jos", "tokens": ["ati", "putea", "sa", "glisati", "cercul", "care", "nu", "e", "portocaliu", "50", "de", "px", "in", "jos"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "poți să tragi documentul alb 25 de px în sus", "tokens": ["poti", "sa", "tragi", "documentul", "alb", "25", "de", "px", "in", "sus"], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "vă rog mutați kafka în jos", "tokens": ["va", "rog", "mutati", "kafka", "in", "jos"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să mutați dreptunghiul continuu 10 pixeli în sus .", "tokens": ["am", "nevoie", "sa", "mutati", "dreptunghiul", "continuu", "10", "px", "in", "sus", "."], "info": {"labels": {}, "numbers": {"10": 10}}}
+{"surface": "împinge the subțire sarcină ten pixels dreapta", "tokens": ["impinge", "the", "subtire", "sarcina", "10", "px", "dreapta"], "info": {"labels": {}, "numbers": {"10": 10}}}
+{"surface": "trageți chestia întreruptă la jumătatea drumului până la marginea inferioară .", "tokens": ["trageti", "chestia", "intrerupta", "half", "pana", "bottom_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să muți serverul un sfert din drum spre marginea de jos", "tokens": ["te", "rog", "sa", "muti", "serverul", "quarter", "spre", "bottom_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să muți cutia o treime din distanță până la marginea din dreapta .", "tokens": ["ai", "putea", "sa", "muti", "cutia", "third", "pana", "right_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să împingi cercul la jumătatea distanței până la marginea de jos .", "tokens": ["poti", "sa", "impingi", "cercul", "half", "pana", "bottom_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să mutăm reports_db a third of the way spre left edge .", "tokens": ["hai", "sa", "mutam", "reports_db", "third", "spre", "left_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aș vrea să glisați notița a third of the way spre marginea de sus", "tokens": ["as_vrea", "sa", "glisati", "notita", "third", "spre", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "glisează the maro pas a quarter of the way to the top edge", "tokens": ["gliseaza", "the", "maro", "pas", "quarter", "to", "the", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deplasați depozitul minuscul spre marginea inferioară .", "tokens": ["deplasati", "depozitul", "minuscul", "spre", "bottom_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog mutați poarta spre marginea de sus .", "tokens": ["va", "rog", "mutati", "poarta", "spre", "top_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să tragi componenta spre marginea de jos", "tokens": ["ai", "putea", "sa", "tragi", "componenta", "spre", "bottom_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să împingeți steaua spre marginea din stânga .", "tokens": ["puteti", "sa", "impingeti", "steaua", "spre", "left_edge", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să împingeți poarta purple la marginea de sus", "tokens": ["am", "nevoie", "sa", "impingeti", "poarta", "purple", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "trage rectangle spre bottom edge te rog .", "tokens": ["trage", "rectangle", "spre", "bottom_edge", "te", "rog", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "mută the depozit to the bottom edge", "tokens": ["muta", "the", "depozit", "to", "the", "bottom_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vopsește notița în turcoaz .", "tokens": ["vopseste", "notita", "in", "turcoaz", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog vopsește clientul în portocaliu .", "tokens": ["te", "rog", "vopseste", "clientul", "in", "portocaliu", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să faceți legenda galbenă .", "tokens": ["ati", "putea", "sa", "faceti", "legenda", "galbena", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să faceți done roșu", "tokens": ["puteti", "sa", "faceti", "done", "rosu"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "turn pătratul maro în galben vă rog", "tokens": ["turn", "patratul", "maro", "in", "galben", "va", "rog"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să make circle care nu este turcoaz albastru", "tokens": ["va", "rog", "sa", "make", "circle", "care", "nu", "este", "turcoaz", "albastru"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă the sfârșit alb", "tokens": ["fa", "the", "sfarsit", "alb"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă săgeata groasă", "tokens": ["fa", "sageata", "groasa"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să faci sarcina punctată", "tokens": ["te", "rog", "sa", "faci", "sarcina", "punctata"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să faceți săgeata continuă subțire .", "tokens": ["ati", "putea", "sa", "faceti", "sageata", "continua", "subtire", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să faci decizia minusculă subțire .", "tokens": ["poti", "sa", "faci", "decizia", "minuscula", "subtire", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă step-ul gros .", "tokens": ["fa", "step-ul", "gros", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să faceți săgeata întreruptă", "tokens": ["am", "nevoie", "sa", "faceti", "sageata", "intrerupta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă the cutie întrerupt", "tokens": ["fa", "the", "cutie", "intrerupt"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "schimbă culoarea pasului în maro .", "tokens": ["schimba", "culoarea", "pasului", "in", "maro", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să nu schimbați culoarea componentei în turcoaz", "tokens": ["va", "rog", "sa", "nu", "schimbati", "culoarea", "componentei", "in", "turcoaz"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să setați culoarea serviciului la alb", "tokens": ["ati", "putea", "sa", "setati", "culoarea", "serviciului", "la", "alb"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să schimbi culoarea lui scheduler în verde", "tokens": ["poti", "sa", "schimbi", "culoarea", "lui", "scheduler", "in", "verde"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să change culoarea file-ului în portocaliu", "tokens": ["am", "nevoie", "sa", "change", "culoarea", "file-ului", "in", "portocaliu"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să set culoarea lui login la yellow .", "tokens": ["ai", "putea", "sa", "set", "culoarea", "lui", "login", "la", "yellow", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "setează the color of reports_db to alb", "tokens": ["seteaza", "the", "color", "of", "reports_db", "to", "alb"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "nu face steaua care nu e gri mică", "tokens": ["nu", "face", "steaua", "care", "nu", "e", "gri", "mica"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să nu faceți elementul mai mic", "tokens": ["va", "rog", "sa", "nu", "faceti", "elementul", "smaller"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să faceți triunghiul uriaș .", "tokens": ["ati", "putea", "sa", "faceti", "triunghiul", "urias", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să faci coada minusculă .", "tokens": ["poti", "sa", "faci", "coada", "minuscula", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să make item-ul alb tiny", "tokens": ["am", "nevoie", "sa", "make", "item-ul", "alb", "tiny"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să faci caseta de text small .", "tokens": ["am", "nevoie", "sa", "faci", "caseta_de_text", "small", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă the proces bigger", "tokens": ["fa", "the", "proces", "bigger"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă componenta cu 10 la sută mai mare", "tokens": ["fa", "componenta", "cu", "10", "percent", "bigger"], "info": {"labels": {}, "numbers": {"10": 10}}}
+{"surface": "vă rog să faceți chestia cu 60 la sută mai mare .", "tokens": ["va", "rog", "sa", "faceti", "chestia", "cu", "60", "percent", "bigger", "."], "info": {"labels": {}, "numbers": {"60": 60}}}
+{"surface": "ați putea să faceți approval cu douăzeci și cinci la sută mai mic", "tokens": ["ati", "putea", "sa", "faceti", "approval", "cu", "25", "percent", "smaller"], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "puteți s-o faceți cu 5 la sută mai mică .", "tokens": ["puteti", "sa", "-o", "faceti", "cu", "5", "percent", "smaller", "."], "info": {"labels": {}, "numbers": {"5": 5}}}
+{"surface": "deci faceți component cu 60 de procente mai mare .", "tokens": ["deci", "faceti", "component", "cu", "60", "de", "procente", "bigger", "."], "info": {"labels": {}, "numbers": {"60": 60}}}
+{"surface": "poți să make cache cu șaizeci de procente mai mare .", "tokens": ["poti", "sa", "make", "cache", "cu", "60", "de", "procente", "bigger", "."], "info": {"labels": {}, "numbers": {"60": 60}}}
+{"surface": "fă the stea 15 % smaller", "tokens": ["fa", "the", "stea", "15", "percent", "smaller"], "info": {"labels": {}, "numbers": {"15": 15}}}
+{"surface": "scalează fișierul la dimensiunea uriașă .", "tokens": ["scaleaza", "fisierul", "la", "dimensiunea", "uriasa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog redimensionează hexagonul la mărimea mică", "tokens": ["te", "rog", "redimensioneaza", "hexagonul", "la", "marimea", "mica"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să scalezi legenda la mărimea mică .", "tokens": ["ai", "putea", "sa", "scalezi", "legenda", "la", "marimea", "mica", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să scalezi elementul la mărimea mare", "tokens": ["poti", "sa", "scalezi", "elementul", "la", "marimea", "mare"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să scalezi partner la mărimea uriașă .", "tokens": ["ai", "putea", "sa", "scalezi", "partner", "la", "marimea", "uriasa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "scalează cumpărătorul la dimensiunea large", "tokens": ["scaleaza", "cumparatorul", "la", "dimensiunea", "large"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redimensionează the dreptunghi that is not roșu to uriaș", "tokens": ["redimensioneaza", "the", "dreptunghi", "that", "is", "not", "rosu", "to", "urias"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "crește începutul subțire .", "tokens": ["creste", "inceputul", "subtire", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog creșteți mailer .", "tokens": ["va", "rog", "cresteti", "mailer", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să creșteți notița .", "tokens": ["ati", "putea", "sa", "cresteti", "notita", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să creșteți frontend", "tokens": ["puteti", "sa", "cresteti", "frontend"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci creșteți clientul uriaș", "tokens": ["deci", "cresteti", "clientul", "urias"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să crești cumpărătorul care nu e turcoaz", "tokens": ["te", "rog", "sa", "cresti", "cumparatorul", "care", "nu", "e", "turcoaz"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "micșorează the portocaliu cerc", "tokens": ["micsoreaza", "the", "portocaliu", "cerc"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "unește actorul cu comentariul", "tokens": ["uneste", "actorul", "cu", "comentariul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog niciodată să nu legați titlul cu poarta", "tokens": ["va", "rog", "niciodata", "sa", "nu", "legati", "titlul", "cu", "poarta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să conectezi decizia cu sarcina verde", "tokens": ["ai", "putea", "sa", "conectezi", "decizia", "cu", "sarcina", "verde"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să uniți actorul cu legenda .", "tokens": ["puteti", "sa", "uniti", "actorul", "cu", "legenda", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vreau să atașezi comment-ul de elipsa .", "tokens": ["vreau", "sa", "atasezi", "comment-ul", "de", "elipsa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vreau să atașați service-ul la cutia .", "tokens": ["vreau", "sa", "atasati", "service-ul", "la", "cutia", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "unește the api to the formă", "tokens": ["uneste", "the", "api", "to", "the", "forma"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "uniți fișierul cu sfârșitul cu o săgeată uriașă .", "tokens": ["uniti", "fisierul", "cu", "sfarsitul", "cu", "o", "sageata", "uriasa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să conectezi chestia la serviciul maro cu o linie neagră .", "tokens": ["te", "rog", "sa", "conectezi", "chestia", "la", "serviciul", "maro", "cu", "o", "linie", "neagra", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să atașezi baza de date la începutul cu o săgeată mare", "tokens": ["ai", "putea", "sa", "atasezi", "baza_de_date", "la", "inceputul", "cu", "o", "sageata", "mare"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să legați obiectul întrerupt de coada cu un conector .", "tokens": ["puteti", "sa", "legati", "obiectul", "intrerupt", "de", "coada", "cu", "un", "conector", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "unește chestia cu elipsa cu un line minuscul te rog .", "tokens": ["uneste", "chestia", "cu", "elipsa", "cu", "un", "line", "minuscul", "te", "rog", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "leagă circle mare cu cloud-ul cu o săgeată roșie", "tokens": ["leaga", "circle", "mare", "cu", "cloud-ul", "cu", "o", "sageata", "rosie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "atașează the elipsă to the dreptunghi with a linie", "tokens": ["ataseaza", "the", "elipsa", "to", "the", "dreptunghi", "with", "a", "linie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "nu conectați chestia și elementul cu o săgeată .", "tokens": ["nu", "conectati", "chestia", "si", "elementul", "cu", "o", "sageata", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog niciodată să nu conectați elementul și reports_db cu o linie", "tokens": ["va", "rog", "niciodata", "sa", "nu", "conectati", "elementul", "si", "reports_db", "cu", "o", "linie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să conectați rombul și steaua cu o linie", "tokens": ["ati", "putea", "sa", "conectati", "rombul", "si", "steaua", "cu", "o", "linie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să conectați cutia medie și componenta galbenă cu un conector .", "tokens": ["puteti", "sa", "conectati", "cutia", "medie", "si", "componenta", "galbena", "cu", "un", "conector", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci conectați title și ellipse huge cu un line", "tokens": ["deci", "conectati", "title", "si", "ellipse", "huge", "cu", "un", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să conectăm steaua și process cu o linie", "tokens": ["hai", "sa", "conectam", "steaua", "si", "process", "cu", "o", "linie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "conectează orders and the sfârșit with an săgeată", "tokens": ["conecteaza", "orders", "and", "the", "sfarsit", "with", "an", "sageata"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "nu lega toate cutiile în șir", "tokens": ["nu", "lega", "toate", "cutiile", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să atașezi fiecare pas cu următorul .", "tokens": ["te", "rog", "sa", "atasezi", "fiecare", "pas", "to_next", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să conectezi serviciile roz în șir", "tokens": ["ai", "putea", "sa", "conectezi", "serviciile", "roz", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să conectezi toți utilizatorii în lanț", "tokens": ["poti", "sa", "conectezi", "toti", "utilizatorii", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să link fiecare început punctat to the next", "tokens": ["am", "nevoie", "sa", "link", "fiecare", "inceput", "punctat", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci conectați fiecare queue to the next", "tokens": ["deci", "conectati", "fiecare", "queue", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "conectează the roz cutii in a chain", "tokens": ["conecteaza", "the", "roz", "cutii", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "etichetează procesul care nu e negru login", "tokens": ["eticheteaza", "procesul", "care", "nu", "e", "negru", "login"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog denumiți chestia metrics .", "tokens": ["va", "rog", "denumiti", "chestia", "metrics", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să etichetați chestia roșie final .", "tokens": ["ati", "putea", "sa", "etichetati", "chestia", "rosie", "final", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să etichetați clientul mediu logger", "tokens": ["puteti", "sa", "etichetati", "clientul", "mediu", "logger"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să redenumim hexagonul tom .", "tokens": ["hai", "sa", "redenumim", "hexagonul", "tom", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vreau să numești norul small scheduler", "tokens": ["vreau", "sa", "numesti", "norul", "small", "scheduler"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redenumește the cutie anna", "tokens": ["redenumeste", "the", "cutie", "anna"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "nu redenumiți api-ul în checkout", "tokens": ["nu", "redenumiti", "api-ul", "in", "checkout"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog redenumiți cercul maro în approval .", "tokens": ["va", "rog", "redenumiti", "cercul", "maro", "in", "approval", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să redenumiți search în auth .", "tokens": ["ati", "putea", "sa", "redenumiti", "search", "in", "auth", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să redenumiți profile în elena .", "tokens": ["puteti", "sa", "redenumiti", "profile", "in", "elena", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să redenumești logger în mailer .", "tokens": ["te", "rog", "sa", "redenumesti", "logger", "in", "mailer", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să rename notița punctată în supplier .", "tokens": ["hai", "sa", "rename", "notita", "punctata", "in", "supplier", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redenumește admin to payments", "tokens": ["redenumeste", "admin", "to", "payments"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplică cumpărătorul care nu e verde .", "tokens": ["duplica", "cumparatorul", "care", "nu", "e", "verde", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog duplicați documentul", "tokens": ["va", "rog", "duplicati", "documentul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să duplici serviciul", "tokens": ["ai", "putea", "sa", "duplici", "serviciul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să copiați baza de date mică", "tokens": ["puteti", "sa", "copiati", "baza_de_date", "mica"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să clone titlul .", "tokens": ["puteti", "sa", "clone", "titlul", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "acum nu copia serviciul", "tokens": ["acum", "nu", "copia", "serviciul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clonează the cutie", "tokens": ["cloneaza", "the", "cutie"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "nu duplicați fișierul întrerupt la 120 de px în dreapta serverului .", "tokens": ["nu", "duplicati", "fisierul", "intrerupt", "la", "120", "de", "px", "right_of", "serverului", "."], "info": {"labels": {}, "numbers": {"120": 120}}}
+{"surface": "vă rog copiați clientul minuscul la dreapta norului", "tokens": ["va", "rog", "copiati", "clientul", "minuscul", "right_of", "norului"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să clonezi pending în partea stângă .", "tokens": ["ai", "putea", "sa", "clonezi", "pending", "in", "left_side", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să clonezi notița galbenă la 5 px sub baza de date portocalie", "tokens": ["poti", "sa", "clonezi", "notita", "galbena", "la", "5", "px", "sub", "baza_de_date", "portocalie"], "info": {"labels": {}, "numbers": {"5": 5}}}
+{"surface": "duplicați pătratul în partea de jos", "tokens": ["duplicati", "patratul", "in", "bottom"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să clonăm sessions lângă începutul thin", "tokens": ["hai", "sa", "clonam", "sessions", "langa", "inceputul", "thin"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplică the subțire fișier inside the cerc", "tokens": ["duplica", "the", "subtire", "fisier", "inside", "the", "cerc"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "grupează toate componentele într-un container cu numele settings .", "tokens": ["grupeaza", "toate", "componentele", "in", "un", "container", "cu_numele", "settings", "."], "info": {"labels": {"settings": "settings"}, "numbers": {}}}
+{"surface": "vă rog grupați aceste legende ca payments .", "tokens": ["va", "rog", "grupati", "aceste", "legende", "ca", "payments", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să grupați toate rapoartele într-un container numit sara .", "tokens": ["ati", "putea", "sa", "grupati", "toate", "rapoartele", "in", "un", "container", "numit", "sara", "."], "info": {"labels": {"sara": "sara"}, "numbers": {}}}
+{"surface": "poți să grupezi casetele de text într-un container etichetat supplier", "tokens": ["poti", "sa", "grupezi", "casetele_de_text", "in", "un", "container", "etichetat", "supplier"], "info": {"labels": {"supplier": "supplier"}, "numbers": {}}}
+{"surface": "grupați dreptunghiurile într-un container denumit omega", "tokens": ["grupati", "dreptunghiurile", "in", "un", "container", "denumit", "omega"], "info": {"labels": {"omega": "omega"}, "numbers": {}}}
+{"surface": "poți să grupezi aceste documente thin într-un container numit orders .", "tokens": ["poti", "sa", "grupezi", "aceste", "documente", "thin", "in", "un", "container", "numit", "orders", "."], "info": {"labels": {"orders": "orders"}, "numbers": {}}}
+{"surface": "grupează these chestii into a container called login", "tokens": ["grupeaza", "these", "chestii", "into", "a", "container", "called", "login"], "info": {"labels": {"login": "login"}, "numbers": {}}}
+{"surface": "grupează titlurile .", "tokens": ["grupeaza", "titlurile", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să nu grupați toate porțile uriașe .", "tokens": ["va", "rog", "sa", "nu", "grupati", "toate", "portile", "uriase", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să grupezi toate api-urile", "tokens": ["ai", "putea", "sa", "grupezi", "toate", "api-urile"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să încadrezi toate sfârșiturile .", "tokens": ["poti", "sa", "incadrezi", "toate", "sfarsiturile", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "grupați aceste servere roșii", "tokens": ["grupati", "aceste", "servere", "rosii"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "am nevoie să grupezi toate elipsele .", "tokens": ["am", "nevoie", "sa", "grupezi", "toate", "elipsele", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "încadrează all the pătrate", "tokens": ["incadreaza", "all", "the", "patrate"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "degrupați banda", "tokens": ["degrupati", "banda"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog degrupați banda neagră .", "tokens": ["va", "rog", "degrupati", "banda", "neagra", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să degrupezi banda", "tokens": ["ai", "putea", "sa", "degrupezi", "banda"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să degrupezi containerul .", "tokens": ["poti", "sa", "degrupezi", "containerul", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aș vrea să degrupezi acest container întrerupt", "tokens": ["as_vrea", "sa", "degrupezi", "acest", "container", "intrerupt"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "degrupați containerul vă rog .", "tokens": ["degrupati", "containerul", "va", "rog", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "degrupează this container", "tokens": ["degrupeaza", "this", "container"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aranjați totul ca un arbore", "tokens": ["aranjati", "totul", "ca", "un", "arbore"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog aranjați toate cutiile într-o coloană", "tokens": ["va", "rog", "aranjati", "toate", "cutiile", "in", "o", "coloana"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să organizezi totul pe o coloană", "tokens": ["ai", "putea", "sa", "organizezi", "totul", "pe", "o", "coloana"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să aranjezi toate elipsele într-un cerc .", "tokens": ["poti", "sa", "aranjezi", "toate", "elipsele", "in", "un", "cerc", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să organizați toate fișierele într-un rând", "tokens": ["puteti", "sa", "organizati", "toate", "fisierele", "in", "un", "rand"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aranjați actorii uriași într-un row .", "tokens": ["aranjati", "actorii", "uriasi", "in", "un", "row", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "organizează the legende as a flow from top to bottom", "tokens": ["organizeaza", "the", "legende", "as", "a", "flow", "flow_td"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aliniază casetele de text la dreapta", "tokens": ["aliniaza", "casetele_de_text", "la", "dreapta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog aliniază toate stelele vertical .", "tokens": ["te", "rog", "aliniaza", "toate", "stelele", "vertical", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să aliniezi toți clienții la dreapta", "tokens": ["ai", "putea", "sa", "aliniezi", "toti", "clientii", "la", "dreapta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să aliniați obiectele la dreapta", "tokens": ["puteti", "sa", "aliniati", "obiectele", "la", "dreapta"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aș vrea să aliniezi cache-urile roșii right", "tokens": ["as_vrea", "sa", "aliniezi", "cache-urile", "rosii", "right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci align depozitele vertical .", "tokens": ["deci", "align", "depozitele", "vertical", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "aliniază all chestii to the stânga", "tokens": ["aliniaza", "all", "chestii", "to", "the", "stanga"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "distribuie bazele de date galbene uniform orizontal .", "tokens": ["distribuie", "bazele_de_date", "galbene", "uniform", "orizontal", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog spațiază toate cozile la 75 de pixeli distanță", "tokens": ["te", "rog", "spatiaza", "toate", "cozile", "la", "75", "de", "px", "distanta"], "info": {"labels": {}, "numbers": {"75": 75}}}
+{"surface": "ai putea să spațiezi toate începuturile la 5 px distanță .", "tokens": ["ai", "putea", "sa", "spatiezi", "toate", "inceputurile", "la", "5", "px", "distanta", "."], "info": {"labels": {}, "numbers": {"5": 5}}}
+{"surface": "puteți să distribuiți utilizatorii verzi uniform vertical .", "tokens": ["puteti", "sa", "distribuiti", "utilizatorii", "verzi", "uniform", "vertical", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să spațiem toate gateways mici la 50 de pixeli distanță", "tokens": ["hai", "sa", "spatiem", "toate", "gateways", "mici", "la", "50", "de", "px", "distanta"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "acum distribuiți deciziile uniform vertical", "tokens": ["acum", "distribuiti", "deciziile", "uniform", "vertical"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "spațiază all api-uri 150 px apart", "tokens": ["spatiaza", "all", "api-uri", "150", "px", "apart"], "info": {"labels": {}, "numbers": {"150": 150}}}
+{"surface": "adu api-ul subțire în față", "tokens": ["adu", "api-ul", "subtire", "in", "fata"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog să aduceți actorul în prim-plan .", "tokens": ["va", "rog", "sa", "aduceti", "actorul", "in", "fata", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să aduceți elipsa în față .", "tokens": ["ati", "putea", "sa", "aduceti", "elipsa", "in", "fata", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să aduceți ledger în prim-plan", "tokens": ["puteti", "sa", "aduceti", "ledger", "in", "fata"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "adu rectangle-ul în prim-plan te rog", "tokens": ["adu", "rectangle-ul", "in", "fata", "te", "rog"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci aduceți decizia în față .", "tokens": ["deci", "aduceti", "decizia", "in", "fata", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "adu delta to front", "tokens": ["adu", "delta", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "trimiteți delta în fundal .", "tokens": ["trimiteti", "delta", "in", "spate", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să trimiți search în spate", "tokens": ["te", "rog", "sa", "trimiti", "search", "in", "spate"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să trimiți titlul în fundal .", "tokens": ["ai", "putea", "sa", "trimiti", "titlul", "in", "spate", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să trimiți decizia roz în fundal .", "tokens": ["poti", "sa", "trimiti", "decizia", "roz", "in", "spate", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci trimite end small în fundal .", "tokens": ["deci", "trimite", "end", "small", "in", "spate", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să trimiți queue gros în spate", "tokens": ["poti", "sa", "trimiti", "queue", "gros", "in", "spate"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "trimite nginx to back", "tokens": ["trimite", "nginx", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "dă zoom out", "tokens": ["zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să faci zoom out", "tokens": ["te", "rog", "sa", "zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să faceți zoom in", "tokens": ["ati", "putea", "sa", "zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să faceți zoom in .", "tokens": ["puteti", "sa", "zoom", "zoom_in", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "acum dați zoom in", "tokens": ["acum", "zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să zoom in .", "tokens": ["poti", "sa", "zoom", "zoom_in", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom out", "tokens": ["zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "anulează .", "tokens": ["anuleaza", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să anulezi .", "tokens": ["te", "rog", "sa", "anulezi", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să anulați .", "tokens": ["ati", "putea", "sa", "anulati", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "poți să anulezi", "tokens": ["poti", "sa", "anulezi"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vă rog anulați", "tokens": ["va", "rog", "anulati"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să anulezi", "tokens": ["ai", "putea", "sa", "anulezi"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "anulează", "tokens": ["anuleaza"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "refă .", "tokens": ["refa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să refaci", "tokens": ["te", "rog", "sa", "refaci"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să refaceți", "tokens": ["ati", "putea", "sa", "refaceti"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să refaceți", "tokens": ["puteti", "sa", "refaceti"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vreau să refaceți .", "tokens": ["vreau", "sa", "refaceti", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "vreau să refaceți .", "tokens": ["vreau", "sa", "refaceti", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "refă", "tokens": ["refa"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "curățați planșa .", "tokens": ["curatati", "plansa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "te rog să cureți planșa", "tokens": ["te", "rog", "sa", "cureti", "plansa"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ai putea să golești planșa .", "tokens": ["ai", "putea", "sa", "golesti", "plansa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să curățați planșa", "tokens": ["puteti", "sa", "curatati", "plansa"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "hai să clear planșa", "tokens": ["hai", "sa", "clear", "plansa"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "deci curățați planșa .", "tokens": ["deci", "curatati", "plansa", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "golește the planșă", "tokens": ["goleste", "the", "plansa"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "Please add a \"Check Stock\" box in the top left corner.", "tokens": ["please", "add", "a", "check_stock", "box", "in", "the", "top_left", "."], "info": {"labels": {"check_stock": "Check Stock"}, "numbers": {}}}
+{"surface": "don't move it 20 pixels to the left of the DB", "tokens": ["do", "not", "move", "it", "20", "px", "left_of", "the", "database"], "info": {"labels": {}, "numbers": {"20": 20}}}
+{"surface": "make it 50% bigger", "tokens": ["make", "it", "50", "percent", "bigger"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "add twenty five boxes", "tokens": ["add", "25", "boxes"], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "connect each step to the next one", "tokens": ["connect", "each", "step", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom in please", "tokens": ["zoom", "zoom_in", "please"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "Put 'Order Received' halfway to the right edge!", "tokens": ["put", "order_received", "half", "to", "the", "right_edge", "!"], "info": {"labels": {"order_received": "Order Received"}, "numbers": {}}}
+{"surface": "space the boxes forty pixels apart", "tokens": ["space", "the", "boxes", "40", "px", "apart"], "info": {"labels": {}, "numbers": {"40": 40}}}
+{"surface": "add two hundred boxes", "tokens": ["add", "200", "boxes"], "info": {"labels": {}, "numbers": {"2": 2, "200": 200}}}
+{"surface": "let's link the API to the data base", "tokens": ["lets", "link", "the", "api", "to", "the", "database"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the cache a third of the way to the top border", "tokens": ["move", "the", "cache", "third", "to", "the", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "sketch a title", "tokens": ["sketch", "a", "title"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "create a purple comment", "tokens": ["create", "a", "purple", "comment"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "draw a box", "tokens": ["draw", "a", "box"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "sketch a yellow ellipse", "tokens": ["sketch", "a", "yellow", "ellipse"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "draw a pink decision", "tokens": ["draw", "a", "pink", "decision"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add a component that is not green", "tokens": ["add", "a", "component", "that", "is", "not", "green"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "create a title", "tokens": ["create", "a", "title"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "insert a shape that is not gray", "tokens": ["insert", "a", "shape", "that", "is", "not", "gray"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "create a square at the top", "tokens": ["create", "a", "square", "at", "the", "top"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "insert a file in the center", "tokens": ["insert", "a", "file", "in", "the", "center"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "draw a cloud in the top_right", "tokens": ["draw", "a", "cloud", "in", "the", "top_right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "draw a rectangle in the bottom_right", "tokens": ["draw", "a", "rectangle", "in", "the", "bottom_right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "add a dotted document in the top_left", "tokens": ["add", "a", "dotted", "document", "in", "the", "top_left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "insert an element right of the title", "tokens": ["insert", "an", "element", "right_of", "the", "title"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "insert a decision in the center", "tokens": ["insert", "a", "decision", "in", "the", "center"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "insert a black process 200 px above the title", "tokens": ["insert", "a", "black", "process", "200", "px", "above", "the", "title"], "info": {"labels": {}, "numbers": {"200": 200}}}
+{"surface": "in the top_right , create a thick server", "tokens": ["in", "the", "top_right", ",", "create", "a", "thick", "server"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "below the orange file , add a pink actor", "tokens": ["below", "the", "orange", "file", ",", "add", "a", "pink", "actor"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "in the center , create a task", "tokens": ["in", "the", "center", ",", "create", "a", "task"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "at the top , create a brown thing", "tokens": ["at", "the", "top", ",", "create", "a", "brown", "thing"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "in the center , sketch a service", "tokens": ["in", "the", "center", ",", "sketch", "a", "service"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "in the bottom_right , draw a solid server", "tokens": ["in", "the", "bottom_right", ",", "draw", "a", "solid", "server"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "next to ledger , insert a thick rectangle", "tokens": ["next_to", "ledger", ",", "insert", "a", "thick", "rectangle"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "at the bottom , insert a small process", "tokens": ["at", "the", "bottom", ",", "insert", "a", "small", "process"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "draw a thick diamond labelled checkout", "tokens": ["draw", "a", "thick", "diamond", "labelled", "checkout"], "info": {"labels": {"checkout": "checkout"}, "numbers": {}}}
+{"surface": "create a solid customer called peter", "tokens": ["create", "a", "solid", "customer", "called", "peter"], "info": {"labels": {"peter": "peter"}, "numbers": {}}}
+{"surface": "sketch a circle named pricing", "tokens": ["sketch", "a", "circle", "named", "pricing"], "info": {"labels": {"pricing": "pricing"}, "numbers": {}}}
+{"surface": "create a yellow ellipse named invoices", "tokens": ["create", "a", "yellow", "ellipse", "named", "invoices"], "info": {"labels": {"invoices": "invoices"}, "numbers": {}}}
+{"surface": "create a dashed process labelled cart", "tokens": ["create", "a", "dashed", "process", "labelled", "cart"], "info": {"labels": {"cart": "cart"}, "numbers": {}}}
+{"surface": "create a caption named settings", "tokens": ["create", "a", "caption", "named", "settings"], "info": {"labels": {"settings": "settings"}, "numbers": {}}}
+{"surface": "sketch a shape called epsilon", "tokens": ["sketch", "a", "shape", "called", "epsilon"], "info": {"labels": {"epsilon": "epsilon"}, "numbers": {}}}
+{"surface": "draw a step called done", "tokens": ["draw", "a", "step", "called", "done"], "info": {"labels": {"done": "done"}, "numbers": {}}}
+{"surface": "draw a white thing named orders right of the yellow start", "tokens": ["draw", "a", "white", "thing", "named", "orders", "right_of", "the", "yellow", "start"], "info": {"labels": {"orders": "orders"}, "numbers": {}}}
+{"surface": "create a red end called review above the cache", "tokens": ["create", "a", "red", "end", "called", "review", "above", "the", "cache"], "info": {"labels": {"review": "review"}, "numbers": {}}}
+{"surface": "insert a red client called gamma left of the thin thing", "tokens": ["insert", "a", "red", "client", "called", "gamma", "left_of", "the", "thin", "thing"], "info": {"labels": {"gamma": "gamma"}, "numbers": {}}}
+{"surface": "draw a dashed diamond named profile below the triangle", "tokens": ["draw", "a", "dashed", "diamond", "named", "profile", "below", "the", "triangle"], "info": {"labels": {"profile": "profile"}, "numbers": {}}}
+{"surface": "draw a gray textbox called billing in the top_left", "tokens": ["draw", "a", "gray", "textbox", "called", "billing", "in", "the", "top_left"], "info": {"labels": {"billing": "billing"}, "numbers": {}}}
+{"surface": "draw a solid client named maria at the bottom", "tokens": ["draw", "a", "solid", "client", "named", "maria", "at", "the", "bottom"], "info": {"labels": {"maria": "maria"}, "numbers": {}}}
+{"surface": "insert a black component named payments inside the caption", "tokens": ["insert", "a", "black", "component", "named", "payments", "inside", "the", "caption"], "info": {"labels": {"payments": "payments"}, "numbers": {}}}
+{"surface": "insert a thick decision called alpha next to the circle", "tokens": ["insert", "a", "thick", "decision", "called", "alpha", "next_to", "the", "circle"], "info": {"labels": {"alpha": "alpha"}, "numbers": {}}}
+{"surface": "create four titles", "tokens": ["create", "4", "titles"], "info": {"labels": {}, "numbers": {"4": 4}}}
+{"surface": "add 4 textboxes", "tokens": ["add", "4", "textboxes"], "info": {"labels": {}, "numbers": {"4": 4}}}
+{"surface": "sketch six notes", "tokens": ["sketch", "6", "notes"], "info": {"labels": {}, "numbers": {"6": 6}}}
+{"surface": "draw 3 dashed clouds", "tokens": ["draw", "3", "dashed", "clouds"], "info": {"labels": {}, "numbers": {"3": 3}}}
+{"surface": "insert three servers", "tokens": ["insert", "3", "servers"], "info": {"labels": {}, "numbers": {"3": 3}}}
+{"surface": "add 4 steps", "tokens": ["add", "4", "steps"], "info": {"labels": {}, "numbers": {"4": 4}}}
+{"surface": "draw two boxes", "tokens": ["draw", "2", "boxes"], "info": {"labels": {}, "numbers": {"2": 2}}}
+{"surface": "draw five tiny textboxes", "tokens": ["draw", "5", "tiny", "textboxes"], "info": {"labels": {}, "numbers": {"5": 5}}}
+{"surface": "place the solid star in the bottom_left", "tokens": ["place", "the", "solid", "star", "in", "the", "bottom_left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "place a box in the bottom_left", "tokens": ["place", "a", "box", "in", "the", "bottom_left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put the dotted item inside the large thing", "tokens": ["put", "the", "dotted", "item", "inside", "the", "large", "thing"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "place the customer that is not green 15 pixels left of the end", "tokens": ["place", "the", "customer", "that", "is", "not", "green", "15", "px", "left_of", "the", "end"], "info": {"labels": {}, "numbers": {"15": 15}}}
+{"surface": "place the dotted component fifty px below the box", "tokens": ["place", "the", "dotted", "component", "50", "px", "below", "the", "box"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "put the red step at the top", "tokens": ["put", "the", "red", "step", "at", "the", "top"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put the item on the left_side", "tokens": ["put", "the", "item", "on", "the", "left_side"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "put an user inside the server", "tokens": ["put", "an", "user", "inside", "the", "server"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase the element that is not gray", "tokens": ["erase", "the", "element", "that", "is", "not", "gray"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase the client", "tokens": ["erase", "the", "client"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove the cloud", "tokens": ["remove", "the", "cloud"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase the black gateway", "tokens": ["erase", "the", "black", "gateway"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete gamma", "tokens": ["delete", "gamma"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete the database", "tokens": ["delete", "the", "database"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete the database", "tokens": ["delete", "the", "database"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove that solid rectangle", "tokens": ["remove", "that", "solid", "rectangle"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete all ends", "tokens": ["delete", "all", "ends"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "remove all the shapes", "tokens": ["remove", "all", "the", "shapes"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete all black clouds", "tokens": ["delete", "all", "black", "clouds"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete all the things", "tokens": ["delete", "all", "the", "things"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase all medium apis", "tokens": ["erase", "all", "medium", "apis"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "delete all servers that are not red", "tokens": ["delete", "all", "servers", "that", "are", "not", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase all items", "tokens": ["erase", "all", "items"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "erase all large gateways", "tokens": ["erase", "all", "large", "gateways"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "push it at the bottom", "tokens": ["push", "it", "at", "the", "bottom"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shift the thick api next to the database", "tokens": ["shift", "the", "thick", "api", "next_to", "the", "database"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "push the dashed rectangle 40 px left of the shape", "tokens": ["push", "the", "dashed", "rectangle", "40", "px", "left_of", "the", "shape"], "info": {"labels": {}, "numbers": {"40": 40}}}
+{"surface": "move the pink square above the box", "tokens": ["move", "the", "pink", "square", "above", "the", "box"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shift the user 25 px left of the star", "tokens": ["shift", "the", "user", "25", "px", "left_of", "the", "star"], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "drag the file left of the textbox", "tokens": ["drag", "the", "file", "left_of", "the", "textbox"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "drag the yellow textbox in the top_right", "tokens": ["drag", "the", "yellow", "textbox", "in", "the", "top_right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "slide the report that is not red 60 pixels above the circle", "tokens": ["slide", "the", "report", "that", "is", "not", "red", "60", "px", "above", "the", "circle"], "info": {"labels": {}, "numbers": {"60": 60}}}
+{"surface": "drag the large document 30 pixels right", "tokens": ["drag", "the", "large", "document", "30", "px", "right"], "info": {"labels": {}, "numbers": {"30": 30}}}
+{"surface": "move the purple square 120 px left", "tokens": ["move", "the", "purple", "square", "120", "px", "left"], "info": {"labels": {}, "numbers": {"120": 120}}}
+{"surface": "shift the green element 25 pixels right", "tokens": ["shift", "the", "green", "element", "25", "px", "right"], "info": {"labels": {}, "numbers": {"25": 25}}}
+{"surface": "shift accounts to the right", "tokens": ["shift", "accounts", "to", "the", "right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the large diamond 120 px up", "tokens": ["move", "the", "large", "diamond", "120", "px", "up"], "info": {"labels": {}, "numbers": {"120": 120}}}
+{"surface": "drag postgres down", "tokens": ["drag", "postgres", "down"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the process to the left", "tokens": ["move", "the", "process", "to", "the", "left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "drag the white rectangle twenty px down", "tokens": ["drag", "the", "white", "rectangle", "20", "px", "down"], "info": {"labels": {}, "numbers": {"20": 20}}}
+{"surface": "move the file halfway to the right edge", "tokens": ["move", "the", "file", "half", "to", "the", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "push the thing a third of the way to the bottom edge", "tokens": ["push", "the", "thing", "third", "to", "the", "bottom_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shift the tiny hexagon a third of the way to the right edge", "tokens": ["shift", "the", "tiny", "hexagon", "third", "to", "the", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "push paul a quarter of the way to the top edge", "tokens": ["push", "paul", "quarter", "to", "the", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shift the thin document a quarter of the way to the left edge", "tokens": ["shift", "the", "thin", "document", "quarter", "to", "the", "left_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the yellow circle a third of the way to the left edge", "tokens": ["move", "the", "yellow", "circle", "third", "to", "the", "left_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "drag the teal ellipse a quarter of the way to the left edge", "tokens": ["drag", "the", "teal", "ellipse", "quarter", "to", "the", "left_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "slide the client halfway to the left edge", "tokens": ["slide", "the", "client", "half", "to", "the", "left_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the solid note to the left edge", "tokens": ["move", "the", "solid", "note", "to", "the", "left_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move auth to the right edge", "tokens": ["move", "auth", "to", "the", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the shape to the right edge", "tokens": ["move", "the", "shape", "to", "the", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move the shape to the top edge", "tokens": ["move", "the", "shape", "to", "the", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "move accounts to the top edge", "tokens": ["move", "accounts", "to", "the", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "drag the dotted cloud to the right edge", "tokens": ["drag", "the", "dotted", "cloud", "to", "the", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shift the thin caption to the right edge", "tokens": ["shift", "the", "thin", "caption", "to", "the", "right_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "push the caption to the top edge", "tokens": ["push", "the", "caption", "to", "the", "top_edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "turn the decision orange", "tokens": ["turn", "the", "decision", "orange"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the component pink", "tokens": ["make", "the", "component", "pink"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the note red", "tokens": ["make", "the", "note", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the actor red", "tokens": ["make", "the", "actor", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "turn the user gray", "tokens": ["turn", "the", "user", "gray"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "paint the process red", "tokens": ["paint", "the", "process", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "paint the customer green", "tokens": ["paint", "the", "customer", "green"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the white document red", "tokens": ["make", "the", "white", "document", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the box dotted", "tokens": ["make", "the", "box", "dotted"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make ledger thin", "tokens": ["make", "ledger", "thin"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the large task dashed", "tokens": ["make", "the", "large", "task", "dashed"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the decision dashed", "tokens": ["make", "the", "decision", "dashed"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the decision solid", "tokens": ["make", "the", "decision", "solid"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make logger thin", "tokens": ["make", "logger", "thin"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make review solid", "tokens": ["make", "review", "solid"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the connector dashed", "tokens": ["make", "the", "connector", "dashed"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the report to blue", "tokens": ["change", "the", "color", "of", "the", "report", "to", "blue"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "set the color of the item to red", "tokens": ["set", "the", "color", "of", "the", "item", "to", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the diamond to red", "tokens": ["change", "the", "color", "of", "the", "diamond", "to", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the element to teal", "tokens": ["change", "the", "color", "of", "the", "element", "to", "teal"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the server to red", "tokens": ["change", "the", "color", "of", "the", "server", "to", "red"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the star to black", "tokens": ["change", "the", "color", "of", "the", "star", "to", "black"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the decision to gray", "tokens": ["change", "the", "color", "of", "the", "decision", "to", "gray"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "change the color of the report that is not red to pink", "tokens": ["change", "the", "color", "of", "the", "report", "that", "is", "not", "red", "to", "pink"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the white thing large", "tokens": ["make", "the", "white", "thing", "large"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the cloud tiny", "tokens": ["make", "the", "cloud", "tiny"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make sara small", "tokens": ["make", "sara", "small"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make reports_db small", "tokens": ["make", "reports_db", "small"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make it tiny", "tokens": ["make", "it", "tiny"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the step smaller", "tokens": ["make", "the", "step", "smaller"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the store huge", "tokens": ["make", "the", "store", "huge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make draft tiny", "tokens": ["make", "draft", "tiny"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make partner fifty percent smaller", "tokens": ["make", "partner", "50", "percent", "smaller"], "info": {"labels": {}, "numbers": {"50": 50}}}
+{"surface": "make the dashed database 100 percent bigger", "tokens": ["make", "the", "dashed", "database", "100", "percent", "bigger"], "info": {"labels": {}, "numbers": {"100": 100}}}
+{"surface": "make the orange server 150 percent bigger", "tokens": ["make", "the", "orange", "server", "150", "percent", "bigger"], "info": {"labels": {}, "numbers": {"150": 150}}}
+{"surface": "make the pink component 30 percent bigger", "tokens": ["make", "the", "pink", "component", "30", "percent", "bigger"], "info": {"labels": {}, "numbers": {"30": 30}}}
+{"surface": "make checkout 100 % smaller", "tokens": ["make", "checkout", "100", "percent", "smaller"], "info": {"labels": {}, "numbers": {"100": 100}}}
+{"surface": "make the service 30 % smaller", "tokens": ["make", "the", "service", "30", "percent", "smaller"], "info": {"labels": {}, "numbers": {"30": 30}}}
+{"surface": "make review 60 percent smaller", "tokens": ["make", "review", "60", "percent", "smaller"], "info": {"labels": {}, "numbers": {"60": 60}}}
+{"surface": "make the box 60 percent smaller", "tokens": ["make", "the", "box", "60", "percent", "smaller"], "info": {"labels": {}, "numbers": {"60": 60}}}
+{"surface": "scale the textbox to small", "tokens": ["scale", "the", "textbox", "to", "small"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "resize the ellipse to huge", "tokens": ["resize", "the", "ellipse", "to", "huge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "resize the queue to medium", "tokens": ["resize", "the", "queue", "to", "medium"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "scale the white client to huge", "tokens": ["scale", "the", "white", "client", "to", "huge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "scale the database to tiny", "tokens": ["scale", "the", "database", "to", "tiny"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "resize the dashed document to huge", "tokens": ["resize", "the", "dashed", "document", "to", "huge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "resize the client to huge", "tokens": ["resize", "the", "client", "to", "huge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "resize the start to large", "tokens": ["resize", "the", "start", "to", "large"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "grow the database", "tokens": ["grow", "the", "database"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shrink approval", "tokens": ["shrink", "approval"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "grow the red thing", "tokens": ["grow", "the", "red", "thing"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shrink the rectangle", "tokens": ["shrink", "the", "rectangle"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "grow the purple end", "tokens": ["grow", "the", "purple", "end"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shrink the dotted thing", "tokens": ["shrink", "the", "dotted", "thing"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "shrink the thing that is not teal", "tokens": ["shrink", "the", "thing", "that", "is", "not", "teal"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "enlarge the cache", "tokens": ["enlarge", "the", "cache"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link the rectangle to the box", "tokens": ["link", "the", "rectangle", "to", "the", "box"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the gray user to the square", "tokens": ["attach", "the", "gray", "user", "to", "the", "square"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the medium process to the client that is not blue", "tokens": ["connect", "the", "medium", "process", "to", "the", "client", "that", "is", "not", "blue"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the store that is not brown to the component", "tokens": ["connect", "the", "store", "that", "is", "not", "brown", "to", "the", "component"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the diamond to the step", "tokens": ["connect", "the", "diamond", "to", "the", "step"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the store to the green file", "tokens": ["attach", "the", "store", "to", "the", "green", "file"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the gateway to the teal caption", "tokens": ["connect", "the", "gateway", "to", "the", "teal", "caption"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link the actor to the thin service", "tokens": ["link", "the", "actor", "to", "the", "thin", "service"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "join the yellow textbox to the caption with a small connector", "tokens": ["join", "the", "yellow", "textbox", "to", "the", "caption", "with", "a", "small", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the teal file to the large hexagon with a solid connector", "tokens": ["connect", "the", "teal", "file", "to", "the", "large", "hexagon", "with", "a", "solid", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach paul to reports_db with a blue line", "tokens": ["attach", "paul", "to", "reports_db", "with", "a", "blue", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link the user to billing with a huge line", "tokens": ["link", "the", "user", "to", "billing", "with", "a", "huge", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the box to the process with a connector", "tokens": ["attach", "the", "box", "to", "the", "process", "with", "a", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the cloud to the huge textbox with a yellow line", "tokens": ["attach", "the", "cloud", "to", "the", "huge", "textbox", "with", "a", "yellow", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link the task to the large database with a pink connector", "tokens": ["link", "the", "task", "to", "the", "large", "database", "with", "a", "pink", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach approval to sara with a line", "tokens": ["attach", "approval", "to", "sara", "with", "a", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the large report and the item with an arrow", "tokens": ["connect", "the", "large", "report", "and", "the", "item", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the hexagon and the api with a line", "tokens": ["connect", "the", "hexagon", "and", "the", "api", "with", "a", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the dotted element and auth with an arrow", "tokens": ["connect", "the", "dotted", "element", "and", "auth", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the cloud and the comment with a line", "tokens": ["connect", "the", "cloud", "and", "the", "comment", "with", "a", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the file and the queue with an orange line", "tokens": ["connect", "the", "file", "and", "the", "queue", "with", "an", "orange", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the actor and the component with a connector", "tokens": ["connect", "the", "actor", "and", "the", "component", "with", "a", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the actor and the orange star with a teal line", "tokens": ["connect", "the", "actor", "and", "the", "orange", "star", "with", "a", "teal", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the end and the api with an arrow", "tokens": ["connect", "the", "end", "and", "the", "api", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the circles one after the other", "tokens": ["attach", "the", "circles", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link all steps in a chain", "tokens": ["link", "all", "steps", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link each small ellipse to the next", "tokens": ["link", "each", "small", "ellipse", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link the elements one after the other", "tokens": ["link", "the", "elements", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "join all the ellipses one after the other", "tokens": ["join", "all", "the", "ellipses", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the yellow users one after the other", "tokens": ["attach", "the", "yellow", "users", "in_chain"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "join each service to the next one", "tokens": ["join", "each", "service", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect each pink diamond to the next one", "tokens": ["connect", "each", "pink", "diamond", "to_next"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "call the note refunds", "tokens": ["call", "the", "note", "refunds"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "label the actor pending", "tokens": ["label", "the", "actor", "pending"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "name the dotted actor pending", "tokens": ["name", "the", "dotted", "actor", "pending"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "name the gray cache gamma", "tokens": ["name", "the", "gray", "cache", "gamma"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "name the customer mailer", "tokens": ["name", "the", "customer", "mailer"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "name the note anna", "tokens": ["name", "the", "note", "anna"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "label the comment mark", "tokens": ["label", "the", "comment", "mark"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "name the pink user accounts", "tokens": ["name", "the", "pink", "user", "accounts"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the dashed report to paul", "tokens": ["rename", "the", "dashed", "report", "to", "paul"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the cache to sara", "tokens": ["rename", "the", "cache", "to", "sara"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the solid gateway to checkout", "tokens": ["rename", "the", "solid", "gateway", "to", "checkout"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the brown star to partner", "tokens": ["rename", "the", "brown", "star", "to", "partner"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the orange item to epsilon", "tokens": ["rename", "the", "orange", "item", "to", "epsilon"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the box to settings", "tokens": ["rename", "the", "box", "to", "settings"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the service to orders", "tokens": ["rename", "the", "service", "to", "orders"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "rename the small component to omega", "tokens": ["rename", "the", "small", "component", "to", "omega"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the caption", "tokens": ["duplicate", "the", "caption"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clone the huge store", "tokens": ["clone", "the", "huge", "store"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clone the solid caption", "tokens": ["clone", "the", "solid", "caption"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the start", "tokens": ["duplicate", "the", "start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clone the huge component", "tokens": ["clone", "the", "huge", "component"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the store", "tokens": ["duplicate", "the", "store"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "copy the cloud", "tokens": ["copy", "the", "cloud"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the service", "tokens": ["duplicate", "the", "service"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the blue report next to the start", "tokens": ["duplicate", "the", "blue", "report", "next_to", "the", "start"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "copy the thing in the center", "tokens": ["copy", "the", "thing", "in", "the", "center"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the item on the right_side", "tokens": ["duplicate", "the", "item", "on", "the", "right_side"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the thing below the black rectangle", "tokens": ["duplicate", "the", "thing", "below", "the", "black", "rectangle"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "copy the api right of the element", "tokens": ["copy", "the", "api", "right_of", "the", "element"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "duplicate the tiny file in the top_left", "tokens": ["duplicate", "the", "tiny", "file", "in", "the", "top_left"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "copy the solid step right of the note", "tokens": ["copy", "the", "solid", "step", "right_of", "the", "note"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clone the red textbox next to the task", "tokens": ["clone", "the", "red", "textbox", "next_to", "the", "task"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group the apis into a container called scheduler", "tokens": ["group", "the", "apis", "into", "a", "container", "called", "scheduler"], "info": {"labels": {"scheduler": "scheduler"}, "numbers": {}}}
+{"surface": "group these rectangles into a container called refunds", "tokens": ["group", "these", "rectangles", "into", "a", "container", "called", "refunds"], "info": {"labels": {"refunds": "refunds"}, "numbers": {}}}
+{"surface": "group all processes into a container called login", "tokens": ["group", "all", "processes", "into", "a", "container", "called", "login"], "info": {"labels": {"login": "login"}, "numbers": {}}}
+{"surface": "group these textboxes as pricing", "tokens": ["group", "these", "textboxes", "as", "pricing"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group all the users as login", "tokens": ["group", "all", "the", "users", "as", "login"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group these thick ends as final", "tokens": ["group", "these", "thick", "ends", "as", "final"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group the huge shapes as anna", "tokens": ["group", "the", "huge", "shapes", "as", "anna"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group these titles into a container called invoices", "tokens": ["group", "these", "titles", "into", "a", "container", "called", "invoices"], "info": {"labels": {"invoices": "invoices"}, "numbers": {}}}
+{"surface": "wrap all large gateways", "tokens": ["wrap", "all", "large", "gateways"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group these hexagons", "tokens": ["group", "these", "hexagons"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group the things", "tokens": ["group", "the", "things"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group the yellow starts", "tokens": ["group", "the", "yellow", "starts"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group these white clients", "tokens": ["group", "these", "white", "clients"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "wrap these ellipses", "tokens": ["wrap", "these", "ellipses"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "group these comments", "tokens": ["group", "these", "comments"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "wrap all the shapes", "tokens": ["wrap", "all", "the", "shapes"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup elena", "tokens": ["ungroup", "elena"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup metrics", "tokens": ["ungroup", "metrics"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup this container", "tokens": ["ungroup", "this", "container"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup the container", "tokens": ["ungroup", "the", "container"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup this container", "tokens": ["ungroup", "this", "container"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup the container", "tokens": ["ungroup", "the", "container"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup this lane", "tokens": ["ungroup", "this", "lane"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ungroup the red container", "tokens": ["ungroup", "the", "red", "container"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "organize the users in a circle", "tokens": ["organize", "the", "users", "in", "a", "circle"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "arrange everything as a flow from left to right", "tokens": ["arrange", "everything", "as", "a", "flow", "flow_lr"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "arrange the titles in a grid", "tokens": ["arrange", "the", "titles", "in", "a", "grid"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "tidy everything in a row", "tokens": ["tidy", "everything", "in", "a", "row"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "arrange everything as a flow from top to bottom", "tokens": ["arrange", "everything", "as", "a", "flow", "flow_td"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "organize everything in a circle", "tokens": ["organize", "everything", "in", "a", "circle"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "organize the queues as a flow from top to bottom", "tokens": ["organize", "the", "queues", "as", "a", "flow", "flow_td"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "organize everything in a column", "tokens": ["organize", "everything", "in", "a", "column"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the documents vertically", "tokens": ["align", "the", "documents", "vertically"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the tasks horizontally", "tokens": ["align", "the", "tasks", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the stores vertically", "tokens": ["align", "the", "stores", "vertically"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the things horizontally", "tokens": ["align", "the", "things", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the tasks horizontally", "tokens": ["align", "the", "tasks", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the clients horizontally", "tokens": ["align", "the", "clients", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align all rectangles to the right", "tokens": ["align", "all", "rectangles", "to", "the", "right"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "align the huge comments vertically", "tokens": ["align", "the", "huge", "comments", "vertically"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "distribute all the green captions evenly vertically", "tokens": ["distribute", "all", "the", "green", "captions", "evenly", "vertically"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "distribute all diamonds evenly horizontally", "tokens": ["distribute", "all", "diamonds", "evenly", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "space the black titles ten px apart", "tokens": ["space", "the", "black", "titles", "10", "px", "apart"], "info": {"labels": {}, "numbers": {"10": 10}}}
+{"surface": "distribute the solid squares evenly vertically", "tokens": ["distribute", "the", "solid", "squares", "evenly", "vertically"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "space the clouds 200 px apart", "tokens": ["space", "the", "clouds", "200", "px", "apart"], "info": {"labels": {}, "numbers": {"200": 200}}}
+{"surface": "distribute the clients evenly horizontally", "tokens": ["distribute", "the", "clients", "evenly", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "space all the captions 30 px apart", "tokens": ["space", "all", "the", "captions", "30", "px", "apart"], "info": {"labels": {}, "numbers": {"30": 30}}}
+{"surface": "distribute the processes evenly horizontally", "tokens": ["distribute", "the", "processes", "evenly", "horizontally"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring the process to front", "tokens": ["bring", "the", "process", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring the brown textbox to front", "tokens": ["bring", "the", "brown", "textbox", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring warehouse to front", "tokens": ["bring", "warehouse", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring the hexagon to front", "tokens": ["bring", "the", "hexagon", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring the user to front", "tokens": ["bring", "the", "user", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring the diamond to front", "tokens": ["bring", "the", "diamond", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring catalog to front", "tokens": ["bring", "catalog", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "bring the queue that is not pink to front", "tokens": ["bring", "the", "queue", "that", "is", "not", "pink", "to", "front"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send the api to back", "tokens": ["send", "the", "api", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send the yellow document to back", "tokens": ["send", "the", "yellow", "document", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send the api to back", "tokens": ["send", "the", "api", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send checkout to back", "tokens": ["send", "checkout", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send the solid report to back", "tokens": ["send", "the", "solid", "report", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send the blue report to back", "tokens": ["send", "the", "blue", "report", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send auth to back", "tokens": ["send", "auth", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "send the tiny caption to back", "tokens": ["send", "the", "tiny", "caption", "to", "back"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom out", "tokens": ["zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom in", "tokens": ["zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom out", "tokens": ["zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom out", "tokens": ["zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom out", "tokens": ["zoom", "zoom_out"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom in", "tokens": ["zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom in", "tokens": ["zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "zoom in", "tokens": ["zoom", "zoom_in"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "undo", "tokens": ["undo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "redo", "tokens": ["redo"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "clear the canvas", "tokens": ["clear", "the", "canvas"], "info": {"labels": {}, "numbers": {}}}

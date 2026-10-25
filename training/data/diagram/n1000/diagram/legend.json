@@ -261,6 +261,7 @@
   "occupancy_marker": true,
   "definite_dets": [
    "the"
-  ]
+  ],
+  "identity": "lemma"
  }
 }
