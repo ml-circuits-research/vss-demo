@@ -124,7 +124,17 @@ references resolved with the rule (criterion >= 0.95), the final diagram against
 recall), reading and planning time per page. `--full` executes every document; the editor re-routes all connectors after each change
 (src/editor/router.js), which dominates the time of the 10-page documents (one process, no other heavy job beside it).
 
-#### 3. The large model as the author (Table 13: "Large model as author"; protocol in training/worlds/diagram/llm_author/PROTOCOL.md)
+##### 2.9 Gates given: measure before trusting the default (added 2026-10-25, from vss-vs-bert R14 / R37)
+
+In the basic world of vss-vs-bert, fixing the cue gates open (hard, logit +8, not trainable) removed the seed spread and lifted depth-3
+exact match to 0.999, but LOWERED slot accuracy on new formulations by 0.08-0.10 against learned gates (0.764 / 0.789 vs 0.864 / 0.868).
+Before shipping any world with `reader.gates_given`: train each world three ways with the same seeds (learned from closed; given hard;
+given as trainable initialisation at the typical learned logit) and report Table 13's new-formulation rows for all three. Ship the best
+mean; if "given hard" loses on new formulations here too, change the default in tool/sop/train.py to initialisation, not fixing, and say
+so in the addendum (vision/ADDENDUM_languages_2026-10-25.md section 7). Criterion: the shipped variant must not be below the learned
+variant on any Table 13 row by more than one seed std.
+
+## 3. The large model as the author (Table 13: "Large model as author"; protocol in training/worlds/diagram/llm_author/PROTOCOL.md)
 
 Needs API keys, not the GPU: `ANTHROPIC_API_KEY` (and `OPENAI_API_KEY` / `GEMINI_API_KEY` for other providers, with their model ids on
 the command line). Models of the first run: `anthropic:claude-opus-5-5`, `anthropic:claude-sonnet-5-5`, `anthropic:claude-haiku-5-5`,
