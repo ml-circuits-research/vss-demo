@@ -1,6 +1,6 @@
 # Coverage of the animation world (generate.py seed 0, 20000 training sentences)
 
-Legend sha256:32241c4a7a2fab6ca1823653119f554f63c1a1b99104c496f379d795af4304b3. Templates 55; formulations (template x start x duration x modifier x prefix) 78690, held out 8733. Moods in training: command 17984, question 2016.
+Legend sha256:04ecad9f34cb6c881091ba33688fd6f62f5e24f7ceb617d6332fc2f798378e36. Templates 55; formulations (template x start x duration x modifier x prefix) 78690, held out 8733. Moods in training: command 17984, question 2016.
 
 Sentences per event and role (training file; the temporal roles of spec Table 12 first):
 

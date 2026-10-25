@@ -369,7 +369,8 @@ def build(out, n, n_eval, seed):
     legend = {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
               "operators": [], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
               "values": [{"kind": "MATCH", "pattern": "[a-z0-9][a-z0-9']*(_[a-z0-9']+)*"}],
-              "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"]}}
+              "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"],
+                         "gates_given": {"open": ["to", "of", "in", "on", "at", "with", "into", "as", "from", "by", "for", "and", ",", "."], "closed": []}}}
     wd = out; [os.makedirs(os.path.join(wd, d), exist_ok=True) for d in ("examples", "raw", "audit", "model", "runs", "versions", "requests")]
     lp = os.path.join(wd, "legend.json"); json.dump(legend, open(lp, "w"), indent=1)
     with open(os.path.join(wd, "kinds.tsv"), "w") as f:

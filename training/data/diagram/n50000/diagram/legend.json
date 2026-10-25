@@ -262,6 +262,24 @@
   "definite_dets": [
    "the"
   ],
-  "identity": "lemma"
+  "identity": "lemma",
+  "gates_given": {
+   "open": [
+    "to",
+    "of",
+    "in",
+    "on",
+    "at",
+    "by",
+    "from",
+    "with",
+    "into",
+    "as",
+    "and",
+    ",",
+    "."
+   ],
+   "closed": []
+  }
  }
 }

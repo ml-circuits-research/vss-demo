@@ -2,7 +2,7 @@
  "name": "animation",
  "language": "en",
  "description": "VSS Diagram Editor, animation (vision/VSS_Diagram_Editor_Specification.md, section 19)",
- "created": "2026-10-24",
+ "created": "2026-10-25",
  "version": 1,
  "min_examples": 500,
  "max_versions_per_run": 3,

@@ -497,7 +497,8 @@ def build(out, n, n_eval, seed):
     legend = {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
               "operators": ["not"], "moods": ["command", "question"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
               "values": [{"kind": "NUM", "pattern": "\\d+(\\.\\d+)?"}, {"kind": "LABEL", "pattern": "[a-z0-9]+(_[a-z0-9]+)+"}],
-              "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"]},
+              "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"],
+                         "gates_given": {"open": ["to", "of", "in", "on", "at", "by", "from", "into", "as", "and", ",", "."], "closed": []}},
               "repertoire": {"characters": CHARACTERS, "motions": sorted(MOTIONS), "travellers": TRAVELLERS,
                              "note": "spec 19.5: named motions are written once by the world's authors (app/src/animate/characters.js); a motion the legend lacks is reported unknown"}}
     wd = out; [os.makedirs(os.path.join(wd, d), exist_ok=True) for d in ("examples", "raw", "audit", "model", "runs", "versions", "requests")]

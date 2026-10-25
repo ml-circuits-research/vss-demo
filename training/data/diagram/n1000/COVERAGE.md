@@ -1,6 +1,6 @@
 # Coverage of the diagram world, Level 1 (generate.py seed 0, 1000 training sentences)
 
-Legend sha256:e3e44ee9f7e82ca74ab101ed8b3dc66b9645799139b319c5bd25b30fb78324cf. Templates 40, prefixes 11, combinations 440, held out 46.
+Legend sha256:1a43ffc61bd5364df1ebc56decefdfb773f173b0b40b0cfbd829170a2b884b4f. Templates 40, prefixes 11, combinations 440, held out 46.
 
 Sentences per event and role (training file):
 

@@ -53,3 +53,13 @@ values) and its correctors work over its own lexicon.
 The dictionary path inherits the English word order; a language with a different order needs variant A or B to be read well. Speech
 recognition in Romanian depends on the browser's engine. The textedit, matheditor and animation worlds are English only; the same design
 applies to them (a purpose, a legend, routes) when their generators gain other languages.
+
+## 7. Addendum of the same day: the role-cue gates are given, not learned
+
+Run 1a of vss-vs-bert showed that the learned gates of the reader differ by seed (one seed opens "from" instead of the sentence end)
+and that this is the whole source of the spread on new formulations. The words that open a role's address (to, of, in, on, at, by, from,
+with, into, as, and, the comma, the sentence end) are a given of the legend, like the kinds (rule 20): the legend already states which
+roles exist and which question each answers; stating the cue words those questions rest on is the same kind of knowledge. Every world of
+the demo (diagram in its three languages, textedit, animation) now carries `reader.gates_given` with its cue words open; everything else is
+still learned. The frozen data were regenerated (new legend sha256; the sentences are unchanged). In the comparison with BERT the given
+gates are a separate declared row with the matching treatment for BERT (vss-vs-bert responses R14); the demo uses them by default.

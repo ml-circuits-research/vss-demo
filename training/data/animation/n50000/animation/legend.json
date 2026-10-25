@@ -331,7 +331,24 @@
   "occupancy_marker": true,
   "definite_dets": [
    "the"
-  ]
+  ],
+  "gates_given": {
+   "open": [
+    "to",
+    "of",
+    "in",
+    "on",
+    "at",
+    "by",
+    "from",
+    "into",
+    "as",
+    "and",
+    ",",
+    "."
+   ],
+   "closed": []
+  }
  },
  "repertoire": {
   "characters": [

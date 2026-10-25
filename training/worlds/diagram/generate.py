@@ -120,7 +120,10 @@ def legend_dict():
     return {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
             "operators": ["not", "then", "but", "so", "because"], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
             "values": [{"kind": "NUM", "pattern": "\\d+"}, {"kind": "LABEL", "pattern": "[a-z0-9]+(_[a-z0-9]+)+"}],
-            "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"], "identity": "lemma"}}
+            "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"], "identity": "lemma",
+                       # the words that open a role's address are a GIVEN of the legend (rule 20), like the kinds: the learned gates found several
+                       # equivalent sets on the training sentences and chose by seed (vss-vs-bert run 1a; responses R14); the demo gives them
+                       "gates_given": {"open": ["to", "of", "in", "on", "at", "by", "from", "with", "into", "as", "and", ",", "."], "closed": []}}}
 
 
 class Gen:

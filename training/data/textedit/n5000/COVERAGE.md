@@ -1,6 +1,6 @@
 # Coverage of the textedit world, Level 1 (generate.py seed 0, 5000 training sentences)
 
-Legend sha256:cf7ec2555d8754cd8ca1e208735205304a4351ceae620ed98df28513de858d95. Templates 41, prefixes 11, combinations 451, held out 47.
+Legend sha256:4c42eb08b9dd51b958b09338798336accc00cfc7d2efb6aae0d88b4749e5c5cd. Templates 41, prefixes 11, combinations 451, held out 47.
 
 Sentences per event and role (training file):
 

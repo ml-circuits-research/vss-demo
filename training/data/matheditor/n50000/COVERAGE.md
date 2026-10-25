@@ -1,6 +1,6 @@
 # Coverage of the matheditor world (generate.py seed 0, n = 50000)
 
-Legend sha256:fa1a3fd9ce167c3b78669b58548d7fa5c5e22047c744fbe460d43f4162b1a7c9. Training: 35000 formulas and 15000 commands. Verbaliser candidates rejected (the drawn tree was not a reading of its own sentence, or a command was not read back): 0.
+Legend sha256:d3614ed01b01467dc66ea830d626de1bcdea401b9307374af0c7fa072de991a8. Training: 35000 formulas and 15000 commands. Verbaliser candidates rejected (the drawn tree was not a reading of its own sentence, or a command was not read back): 0.
 
 ## Formulas in training
 
