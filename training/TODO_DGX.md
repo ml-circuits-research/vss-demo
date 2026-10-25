@@ -484,6 +484,18 @@ and the FULL on the planted roles' sentences before and after. Then `training/ga
 journals, with the same rows, once any journal has been sent. The endpoint that receives journals is not part of this repository: a
 static file drop (any HTTPS endpoint that accepts a POST and stores the body) is enough; its address is entered in the editor's Settings.
 
+
+### 2.8 Query wires: nothing unknown is silent or invented (vision/ADDENDUM_qformalisation_2026-10-25.md, section 7)
+
+A change of the format and the decoder, before the demo's models are called q-formalisers: (1) `query` wire in tool/sop/soplang.py and
+check.py (fields about, kind, evidence, resolve); (2) tool/sop/infer.py and app/src/vss/reader.js emit a query instead of an abstained
+value for roles under tau, for unplaced words and for no-sense (parity: training/parity/run_all.sh extended with query cases); (3)
+app/src/dialog.js and the planner consume queries (the person, the scene, the rule of 10.3), the circuit links the answer
+(`_link.<role>=query:<resolver>`); (4) a planted-questions world: 300 diagram sentences with a question the legend lacks (angle, time,
+count), gold = `unsupported`. Rows, criteria written now: values emitted under tau = 0; planted questions reported `unsupported` >= 0.90;
+the hallucination rate (confidently wrong decisions) reported per axis for every model of the demo. CPU work except the parity on the
+trained model.
+
 ## 3. What needs people, not the DGX
 
 - The recorded speech set (spec 13.5): at least ten speakers, non-native speakers included, two microphones, with consent; commands

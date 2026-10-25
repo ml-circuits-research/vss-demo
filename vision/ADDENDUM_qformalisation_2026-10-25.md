@@ -75,3 +75,23 @@ One night, one world, five steps, each a script that runs alone (training/gaps/R
 Plant three missing roles in a world (remove them from the legend and the generator; keep their sentences as a synthetic journal), run
 the loop, and count the roles recovered and the false proposals. Criterion written now: at least two of three recovered, at most one
 false proposal accepted by the mechanical checks per night. Then the same with real journals.
+
+## 7. Requirement added the same day: nothing unknown is silent, nothing unknown is invented (query wires)
+
+The limits of Layer 2 are a problem only if the reader hides them or fills them with a value. The requirement of q-formalisation is
+therefore completed: every place where the reader does not know becomes an explicit **query wire**, and no slot ever carries a value
+whose margin is under tau. A query wire has four fields: `about` (a role of a wire, an unplaced word, the whole sentence, or a relation
+between two wires), `kind` (`undecided` with the candidates and their margins; `unplaced` with the word and its position; `unknown` with
+the residual; `unsupported` when the question is in the text but not in the legend; `inferred` when the answer needs knowledge or
+computation, not reading), `evidence` (candidates, margins, residual, neighbouring words) and `resolve` (who can answer: the person, the
+planner from the state of the world, a dictionary, the symbolic layer, a large model). The main wire keeps the slot as a reference to the
+query. Today's three signals (abstain with a top candidate, `_unplaced`, `no-sense`) become three kinds of the same wire; the cases of
+Layer 2 become queries resolved by the planner (counting, geometric comparison), by the rule of 10.3 (reference), or by a person.
+
+Evaluation gains the axis that matters: every decision is counted as correct, queried, or confidently wrong; the last is the
+hallucination rate, defined identically for every model (for a tagger, a query is emitted from its threshold). Criteria, written now:
+no value emitted under tau (all become queries); questions planted in a test world that the legend does not have reported as
+`unsupported` in >= 0.90 of the cases; the hallucination rate reported for every model on every axis. Steps: the query wire in SOP Lang
+and `sop check`; `formalize` and vss.js emit it (parity tested); the dialog and the planner consume it, with `_link.<role>=query:<who
+answered>` in the circuit; a planted-questions world; the same form in vss-vs-bert as a declared row (never a change of the
+pre-registered rows). Planned in training/TODO_DGX.md, section 2.8.
