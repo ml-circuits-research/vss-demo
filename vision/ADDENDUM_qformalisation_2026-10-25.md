@@ -107,3 +107,18 @@ were local. The `about` of a query may be a tree of the format's own operators (
 leaves are values or other queries; the planner resolves the local leaves, the symbolic layer (Datalog or SMT over the scene) evaluates
 the tree with the global leaves, and what remains goes to the person with the partially evaluated tree visible. No `xor`: it is
 `(a|b) & not(a&b)`, and an operator is added only when it occurs in text (the rule of the paper), not when it is convenient.
+
+## 8. Related work the term must be anchored in, and what remains ours
+
+Question-based formalisation is not new as a form: QA-SRL (He, Lewis, Zettlemoyer 2015) annotates semantic roles as natural questions
+and answers; MRC-style extraction (Li et al. 2020 for named entities; zero-shot slot filling as question answering) feeds a question as
+text to a pretrained encoder and returns a span of the sentence or NULL; NLI-as-classification turns intents into entailment checks; and
+the practice of strict neuro-symbolic decoupling (the model fills a dictionary of answers, deterministic code validates types, invariants
+and the execution tree), of explicit NULL training for refusal, of standardised question templates and of stateful partial slot filling is
+established engineering. q-formalisation sits in this line and must cite it. What it adds, and what the comparison with a BERT-MRC
+baseline (vss-vs-bert, responses R24) has to show rather than assert: one state read through every question of the legend in a single
+pass, against one encoder pass per question (the cost grows with the legend for MRC, not for the reader); margins between competing
+candidates in the same space and a residual over the whole sentence, against a NULL classifier; determinism and a model of a few
+megabytes; and a legend that grows from use (section 5), where MRC changes the questions it asks but not what it was trained to answer.
+Span anchoring removes invented values, not wrong choices; the hallucination rate of section 7 counts both and is the measure to report
+for every model.
