@@ -70,7 +70,7 @@ export class Reader {
     const rr = this.legend.reader; this.closed = rr.closed_values || {}; this.tableRoles = new Set(rr.table_roles || []); this.setRoles = new Set(rr.set_roles || []);
     if (this.tableRoles.size || this.setRoles.size || rr.value_identity === "bundle_alnum")
       throw new Error("vss.js: table roles, set roles and bundle_alnum value identities (the WikiSQL world) are not ported");
-    this.sentenceCandidates = !!opts.sentenceCandidates; this.sentTokens = []; this._cands = new Map(); this.sqrtD = Math.sqrt(this.D);
+    this.sentenceCandidates = !!opts.sentenceCandidates; this.sentTokens = []; this._cands = new Map(); this.sqrtD = Math.sqrt(this.D); this.filt = null;
   }
   // ---------------- words
   wordEntry(tok) { return this.words.get(tok) || this.words.get(tok.toLowerCase()) || null; }
@@ -84,16 +84,37 @@ export class Reader {
   }
   cands(kinds) {
     let extra = [];
-    const ks = new Set(kinds);
+    const ks = new Set(kinds), filt = this.filt;      // filt (infer.Reader filt): the sentence-candidates decoder restricts to the sentence's words
     if (this.sentenceCandidates && this.sentTokens.length)
       extra = [...new Set(this.sentTokens.filter((t) => !this.words.has(t) && !this.words.has(t.toLowerCase()) && ks.has(this.kind(t))))].sort();
-    const key = JSON.stringify([[...kinds].sort(), extra]);
+    const key = JSON.stringify([[...kinds].sort(), extra, filt ? [...filt].sort() : null]);
     if (!this._cands.has(key)) {
-      let ws = [...this.words.keys()].filter((w) => ks.has(this.words.get(w).kind)).sort().concat(extra);
+      if (this._cands.size > 4000) this._cands.clear();
+      let ws = [...this.words.keys()].filter((w) => ks.has(this.words.get(w).kind) && (!filt || filt.has(w))).sort().concat(extra.filter((t) => !filt || filt.has(t)));
       if (this.legend.reader.identity === "lemma") ws = [...new Set(ws.map((w) => this.ident(w)))];   // one candidate per canonical value
       this._cands.set(key, [ws, this._rows(ws, (w) => this.st.id(w))]);
     }
     return this._cands.get(key);
+  }
+  static headOf(fl) { return fl && (fl[0] === "entity" || fl[0] === "word" || fl[0] === "negword") ? fl[1] : null; }
+  /** the one-to-one rule of the sentence-candidates decoder (infer.Reader.one_to_one): a word fills at most one role */
+  oneToOne(Sn, K, core, f, filt, presence) {
+    for (let round = 0; round < 3; round++) {
+      const heads = new Map();
+      for (const [r, fl] of Object.entries(f.roles)) { const h = Reader.headOf(fl); if (h !== null) { if (!heads.has(h)) heads.set(h, []); heads.get(h).push(r); } }
+      const dup = [...heads].filter(([, rs]) => rs.length > 1);
+      if (!dup.length) return;
+      for (const [h, rs] of dup) {
+        let keep = rs[0]; for (const r of rs) if ((f.margins[r] || 0) > (f.margins[keep] || 0)) keep = r;
+        for (const r of rs) {
+          if (r === keep) continue;
+          const sub = new Set([...filt].filter((w) => w !== h && w.toLowerCase() !== h.toLowerCase()));
+          const saved = this.filt; this.filt = sub; const o = this.readRole(Sn, K, r, core, presence); this.filt = saved;
+          if (o.present && o.filler && Reader.headOf(o.filler) !== null) { f.roles[r] = o.filler; Object.assign(f.margins, o.margins); (f.one_to_one = f.one_to_one || {})[r] = "re-read"; }
+          else { delete f.roles[r]; delete f.margins[r]; (f.one_to_one = f.one_to_one || {})[r] = "not given"; }
+        }
+      }
+    }
   }
   roleCands(r) {
     if (Object.hasOwn(this.closed, r)) {
@@ -258,6 +279,7 @@ export class Reader {
         if (o.runnerUp != null) (f.runner_up = f.runner_up || {})[r] = [o.filler[0] === "entity" ? o.filler[1] : o.filler[1], o.runnerUp];
       }
     }
+    if (this.filt && this.cfg.candidates === "sentence") this.oneToOne(Sn, K, core, f, this.filt, presence);
     if (this.legend.reader.scope_terms) this.readScope(Sn, K, core, f);
     if (f.event === null) f.shape = "unknown";
     return f;
@@ -461,7 +483,10 @@ export class Reader {
   formalize(text, sentence, ids, opts = {}) {
     const t0 = performance.now(), tokens = tokenize(text), [S, kept, unknown] = this.chart(tokens), t1 = performance.now();
     const estimator = opts.estimator || this.cfg.depth_estimator || "gates", presence = opts.presence || this.cfg.presence_readout || "decided";
-    let f = kept.length ? this.read(S, tokens, { estimator, presence, force: opts.force, forceDepth: opts.forceDepth }) : { shape: "unknown", roles: {}, speakers: [], margins: {}, neg: false, lemma: null };
+    this.filt = this.cfg.candidates === "sentence" ? new Set(tokens.concat(tokens.map((t) => t.toLowerCase()))) : null;   // the sentence-candidates decoder (R46)
+    let f;
+    try { f = kept.length ? this.read(S, tokens, { estimator, presence, force: opts.force, forceDepth: opts.forceDepth }) : { shape: "unknown", roles: {}, speakers: [], margins: {}, neg: false, lemma: null }; }
+    finally { this.filt = null; }
     const placed = f.shape === "ok" ? this.placedWords(f) : new Set(); let unplaced = [...unknown];
     for (const i of kept) { const t = tokens[i], k = this.kind(t); if (this.contentKinds.has(k) && !placed.has(t) && !placed.has(this.lemma(t))) unplaced.push(i); }
     unplaced = [...new Set(unplaced)].sort((a, b) => a - b);

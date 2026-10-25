@@ -352,10 +352,36 @@ class Reader:
                     f.setdefault("identity_margins", {})[r] = o["margins"].get(r)
                     f["margins"][r] = min(o["margins"].get(r, 1.0), o["presence_margin"])   # the role's margin = min(identity, presence)
                 if "det_best" in o: f.setdefault("det_best", {})[r] = o["det_best"]
+        if filt is not None and self.cfg.get("candidates") == "sentence": self.one_to_one(Sn, K, core, f, filt, presence)
         st = self.legend.reader.get("scope_terms")
         if st: self.read_scope(Sn, K, core, f)
         if f["event"] is None: f["shape"] = "unknown"
         return f
+
+    @staticmethod
+    def head_of(fl): return fl[1] if fl and fl[0] in ("entity", "word", "negword") else None
+
+    def one_to_one(self, Sn, K, core, f, filt, presence):
+        """the one-to-one rule of the sentence-candidates decoder (vss-vs-bert R10 / R46): a word fills at most one role. When two roles read
+        the same head, the role with the larger margin keeps it and the other is read again without that word; a role left with no
+        candidate becomes 'not given'. At most three rounds (three core roles)."""
+        for _ in range(3):
+            heads = {}
+            for r, fl in f["roles"].items():
+                h = self.head_of(fl)
+                if h is not None: heads.setdefault(h, []).append(r)
+            dup = {h: rs for h, rs in heads.items() if len(rs) > 1}
+            if not dup: return
+            for h, rs in dup.items():
+                keep = max(rs, key=lambda r: f["margins"].get(r, 0.0))
+                for r in rs:
+                    if r == keep: continue
+                    sub = {w for w in filt if w != h and w.lower() != h.lower()}
+                    o = self.read_role(Sn, K, r, core, sub, presence)
+                    if o.get("present") and o.get("filler") is not None and self.head_of(o["filler"]) is not None:
+                        f["roles"][r] = o["filler"]; f["margins"].update(o["margins"]); f.setdefault("one_to_one", {})[r] = "re-read"
+                    else:
+                        f["roles"].pop(r, None); f["margins"].pop(r, None); f.setdefault("one_to_one", {})[r] = "not given"
 
     def read_scope(self, Sn, K, core, f):
         """the quantifier world v2 (C2c, RESULTS 9c-sexies): category-local terms R_wide (x) R_role (x) f_head (wide-scope marker) and
@@ -532,6 +558,8 @@ class Reader:
     def formalize(self, text, sentence, ids, filt=None, force=None, force_depth=None, estimator=None, presence=None, table=None):
         """one sentence -> (wires, frame, info). force / force_depth: see read() (evaluation only; the CLI estimates both)"""
         tokens = tokenize(text); S, kept, unknown, addr = self.chart(tokens)
+        if filt is None and self.cfg.get("candidates") == "sentence":     # the sentence-candidates decoder (R46): a role's filler is a word of the sentence
+            filt = set(tokens) | {t.lower() for t in tokens}
         # a model without the key predates round 3: its primary estimator was the open-gate count
         estimator = estimator or self.cfg.get("depth_estimator", "gates"); presence = presence or self.cfg.get("presence_readout", "decided")
         f = self.read(S, tokens, filt, force, force_depth, estimator, presence, table) if kept else {"shape": "unknown", "roles": {}, "speakers": [], "margins": {}, "neg": False, "lemma": None}

@@ -8,8 +8,8 @@
  "n_stars": 1308,
  "files": {
   "model.json": {
-   "sha256": "5d4b7906ed42aeeb11f4b0c7c8d799ed22b7bb867859d8e0f0c37ab239ce4737",
-   "bytes": 109982
+   "sha256": "87d0b7410e286c965d20faa0cfcd171b7c549d45d736459647c12c7ac13adfeb",
+   "bytes": 110029
   },
   "routebook.bin": {
    "sha256": "21afe8cd1b9178fc81483913ecf0d2092601167b48bd47d48bc05e5a54f83a5e",

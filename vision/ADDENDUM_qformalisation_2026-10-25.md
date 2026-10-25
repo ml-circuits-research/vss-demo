@@ -159,3 +159,31 @@ world the demo ships, off in the paper's decoder): an identity left in no role, 
 that role into an 'undecided' query with both as candidates (`_undecided.<role>="p3|p5"`), the role's margin becomes 0 and the reading
 abstains; the dialog asks which. It is what a person does, it changes no accuracy, and the claim of its effect is measured in
 vss-vs-bert on the fresh seeds (R54).
+
+## 11. The demo's decoder after the comparison (BUILT, parity tested, shipped; measured in vss-vs-bert on the fresh seeds 5-9)
+
+Three decoder-level changes, none of which retrains a model, now ship in every world of the demo (training/export_app.py sets them;
+the tool's default stays the paper's decoder so that every earlier parity test and the paper's rows are unchanged):
+- `candidates: "sentence"`: a role's filler is a word OF THE SENTENCE whose kind the role admits (the extractive assumption every
+  tagger and MRC baseline carries by construction), with the one-to-one rule (a word fills at most one role; a role left without a
+  candidate is 'not given'). Measured: new formulations with unseen transitions 0.835 -> 0.973 on the basic world (vss-vs-bert R46, seeds
+  5-9), depth-3 exact match 0.998 at coverage 0.999. The decision provenance (by the address, by restriction, by elimination) is what the
+  comparison reports, so that nobody reads the gain as "the reader learned the forms"; the address-level fix is the verb-order route (12).
+- `residual: "explained"` (section 9): with the sentence-candidates frames it separates in- from out-of-world at AUROC 0.979 and rejects
+  random / other-world / unknown-word sentences at 0.99 / 0.93 / 1.00 with 2.6 % false rejection (from 44 %).
+- `undecided_adjacent: true` (section 10): 'undecided' queries 0.51 -> 0.999.
+The diagram worlds' own numbers for these three (Table 13 rows, the planted-questions world) are the measurement of training/TODO_DGX.md
+2.10 / 2.11, still to run on the DGX; the defaults are on now because the basic-world evidence is on fresh seeds and the changes cannot
+lower an in-world row by construction (the gold is always in the sentence).
+
+## 12. The verb-order route (BUILT, under measurement)
+
+The diagnosis of the comparison's design set (vss-vs-bert R46 / R47) found the core of the reader's errors on new formulations at the
+address level: a filler in a position the routes never encoded for its role (the recipient right after the verb without 'to'; the agent
+after a cleft 'that') lands at an empty or another role's address, because the three routes compose a filler's address from the cue
+chain. The route added (`vorder` in reader.codes; experiment/v8_gates.V8.set_vorder, tool/sop/infer.py Routebook.vorder_index,
+app/src/vss/routebook.js) draws every non-verb word a second time at a learned displacement keyed by the side of the nearest verb, that
+verb's kind, the word's kind and its ordinal among the words of its kind since that verb, independent of the cues: "gives p4 o3" and
+"gives o3 to p4" put p4 and o3 at the same verb-order addresses. It needs retraining; it runs in vss-vs-bert as its own declared row
+(R56) with the per-cell provenance table, and enters the demo's generators only if the in-world rows do not fall and the cells are
+decided by the address.
