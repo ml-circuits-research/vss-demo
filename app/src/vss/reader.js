@@ -448,6 +448,11 @@ export class Reader {
     return cnorm(cadd(Sn, cscale(rn, a), -1));
   }
   /** the explained-tokens residual (infer.Reader.residual_explained): rec' = the chart of the explained tokens only */
+  /** infer.Reader.frame_incomplete: a core question or a speaker of the depth not answered -> the explained residual is 1.0 */
+  frameIncomplete(f) {
+    if ((this.schema.core_roles || []).some((r) => f.roles[r] === undefined || f.roles[r] === null)) return true;
+    return (f.speakers || []).some((sp) => sp === null || sp === undefined);
+  }
   residualExplained(S, tokens, kept, placed) {
     if (!kept.length) return 1.0;
     const ex = [];
@@ -507,7 +512,7 @@ export class Reader {
     const si = top.lines.findIndex((l) => l.key === "_sentence");
     top.lines.splice(si >= 0 ? si + 1 : 0, 0, line("_world", this.cfg.world || "?"));
     const mode = this.cfg.residual || "compiled";                      // "compiled" (the paper's) | "explained" (R41)
-    const res = f.shape === "ok" ? (mode === "explained" ? this.residualExplained(S, tokens, kept, placed) : this.residual(S, wires, tokens)) : 1.0;
+    const res = f.shape === "ok" ? (mode === "explained" ? (this.frameIncomplete(f) ? 1.0 : this.residualExplained(S, tokens, kept, placed)) : this.residual(S, wires, tokens)) : 1.0;
     top.set("_residual", fmt(res));
     if (unplaced.length) top.set("_unplaced", unplaced.map((i) => tokens[i]).join(","));
     for (const [r, [a, b]] of Object.entries(undecided)) top.set(`_undecided.${r}`, `${a}|${b}`);
