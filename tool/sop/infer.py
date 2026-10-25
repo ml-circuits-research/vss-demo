@@ -45,6 +45,7 @@ class Routebook:
         self.vo = z["vo"].astype(float) if "vo" in z.files else None                  # the verb-order route (2, K, K, nmax, D)
         self.verb_mask = z["verb_mask"].astype(float) if "verb_mask" in z.files else None
         self.vo_nmax = int(z["vo_nmax"]) if "vo_nmax" in z.files else None
+        self.cue_mask = z["cue_mask"].astype(float) if "cue_mask" in z.files else (np.zeros(len(self.cats)) if self.vo is not None else None)
         self.D = self.path.shape[1]
 
     def vorder_index(self, c):
@@ -52,13 +53,15 @@ class Routebook:
         before any verb (keyed by the nearest verb to the right, counted from the sentence start); verbs and sentences without a verb omitted"""
         T = len(c); side = np.zeros(T, int); vcat = np.zeros(T, int); ordinal = np.zeros(T, int); valid = np.zeros(T, bool)
         isv = self.verb_mask[c] > 0; verbs = [k for k in range(T) if isv[k]]
+        cued = [k > 0 and self.cue_mask[c[k - 1]] > 0 for k in range(T)]          # variant b: introduced by a role cue -> left to the chain
+        bare = lambda i: c[i] == c[k] and not cued[i]
         for k in range(T):
-            if isv[k]: continue
+            if isv[k] or cued[k]: continue
             left = [j for j in verbs if j < k]; right = [j for j in verbs if j > k]
             if left:
-                j = left[-1]; side[k] = 1; vcat[k] = c[j]; ordinal[k] = sum(1 for i in range(j + 1, k) if c[i] == c[k])
+                j = left[-1]; side[k] = 1; vcat[k] = c[j]; ordinal[k] = sum(1 for i in range(j + 1, k) if bare(i))
             elif right:
-                j = right[0]; side[k] = 0; vcat[k] = c[j]; ordinal[k] = sum(1 for i in range(k) if c[i] == c[k])
+                j = right[0]; side[k] = 0; vcat[k] = c[j]; ordinal[k] = sum(1 for i in range(k) if bare(i))
             else: continue
             ordinal[k] = min(ordinal[k], self.vo_nmax - 1); valid[k] = True
         return side, vcat, ordinal, valid

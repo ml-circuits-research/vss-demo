@@ -120,7 +120,7 @@ class V8(v6.V6):
             opt.zero_grad(); (-cos.mean()).backward(); opt.step()
             with torch.no_grad(): self.theta[0] = 0
 
-    def set_vorder(self, verb_cats, nmax=4):
+    def set_vorder(self, verb_cats, nmax=4, cue_cats=()):
         """the VERB-ORDER route (vss-demo 2026-10-25, vss-vs-bert R47; addendum q-formalisation 11): every non-verb word is drawn a second
         time at a learned displacement keyed by (side, the category of the nearest verb, the word's own category, its ordinal among the words
         of its category since that verb): side 1 = after the nearest verb to the left, counted from that verb; side 0 = no verb to the left,
@@ -131,6 +131,11 @@ class V8(v6.V6):
         self.verb_mask = torch.zeros(K, dtype=self.dtype, device=self.device)
         found = [c for c in verb_cats if c in self.cat_id]
         for c in found: self.verb_mask[self.cat_id[c]] = 1
+        # variant b (vss-vs-bert R58): a word introduced by a role cue (the previous word's category in cue_cats) is CUED: it is left to the
+        # cue chain, drawn by no order term and not counted in the ordinals; the order route addresses the BARE fillers only
+        self.cue_mask = torch.zeros(K, dtype=self.dtype, device=self.device)
+        for c in cue_cats:
+            if c in self.cat_id: self.cue_mask[self.cat_id[c]] = 1
         rng = np.random.default_rng(int(self.rng.integers(1 << 30)))
         self.vo = torch.nn.Parameter(torch.tensor(rng.uniform(-np.pi, np.pi, (2, K, K, self.vo_nmax, self.theta.shape[1])), dtype=self.dtype, device=self.device))
         return found
@@ -148,13 +153,14 @@ class V8(v6.V6):
         has_l = left_excl >= 0; has_r = right_excl < big
         side = has_l.long(); vpos = torch.where(has_l, left_excl, right_excl.clamp(max=T - 1))
         vcat = torch.gather(cats, 1, vpos)
-        onehot = torch.nn.functional.one_hot(cats, K).to(torch.long) * mask.unsqueeze(-1).long()      # B x T x K
+        cued = torch.cat([torch.zeros(B, 1, dtype=torch.bool, device=dev), (self.cue_mask[cats][:, :-1] * mask[:, :-1]) > 0], 1)   # B x T
+        onehot = torch.nn.functional.one_hot(cats, K).to(torch.long) * (mask.unsqueeze(-1).long() * (~cued).long().unsqueeze(-1))   # bare words only
         cum = torch.cumsum(onehot, 1)                                                                 # inclusive counts
         own = torch.gather(cum, 2, cats.unsqueeze(-1)).squeeze(-1)                                    # count of own category up to k inclusive
         before_k = own - 1                                                                            # strictly before k
         at_v = torch.gather(cum, 1, vpos.unsqueeze(-1).expand(B, T, K)); at_v = torch.gather(at_v, 2, cats.unsqueeze(-1)).squeeze(-1)
         ordinal = torch.where(has_l, before_k - at_v, before_k).clamp(min=0, max=self.vo_nmax - 1)
-        valid = ((has_l | has_r) & ~isv) & (mask > 0)
+        valid = ((has_l | has_r) & ~isv & ~cued) & (mask > 0)
         return side, vcat, ordinal, valid
 
     def set_rel_emitters(self, emitters, takers):

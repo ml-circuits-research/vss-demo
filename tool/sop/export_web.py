@@ -22,7 +22,7 @@ import numpy as np
 
 MAGIC = b"VSSBIN1\n"
 PHASE_ARRAYS = ("path", "bg0", "bg", "A", "L", "rel", "pos", "pc", "vo")
-FLOAT_ARRAYS = ("logits", "rel_mask", "taker_mask", "verb_mask")
+FLOAT_ARRAYS = ("logits", "rel_mask", "taker_mask", "verb_mask", "cue_mask")
 DECODER_OPS = ("pred", "says.scope", "says.speaker", "not", "attr", "det", "wide", "q", "quantity", "must", "may", "if.condition",
                "if.consequence", "and.next")
 

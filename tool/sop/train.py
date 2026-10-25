@@ -370,7 +370,7 @@ def export_routebook(m, path):
     if "pos" in m.codes:
         z.update(pos=wrap(th[m.ipos.cpu().numpy()]), pc=wrap(th[m.ipc.cpu().numpy()]), pos_max=np.array(getattr(m, "pos_max", None) or 40))
     if getattr(m, "vo", None) is not None:
-        z.update(vo=wrap(m.vo.detach().cpu().numpy()), verb_mask=m.verb_mask.cpu().numpy(), vo_nmax=np.array(m.vo_nmax))
+        z.update(vo=wrap(m.vo.detach().cpu().numpy()), verb_mask=m.verb_mask.cpu().numpy(), vo_nmax=np.array(m.vo_nmax), cue_mask=m.cue_mask.cpu().numpy())
     np.savez_compressed(path, **z)
 
 
@@ -440,7 +440,8 @@ def train_one(a, legend, rows, splits, schema, seed, model_dir, run_dir):
     if "vorder" in a.code_list:   # the verb-order route: verb kinds = the kinds of the legend's verbs and level openers (given, like the kinds)
         verbs = set(legend.all_verbs())
         vk = sorted({k for w, k in legend.lexicon.items() if legend.lemma_of(w) in verbs or w in verbs} | set(legend.reader.get("level_openers") or []))
-        print(f"[train] verb-order route (reader.codes / --codes): verb kinds {m.set_vorder(vk, nmax=int(legend.reader.get('vorder_nmax') or 4))}"); params.append(m.vo)
+        cues = (legend.reader.get("gates_given") or {}).get("open") or []    # variant b: words introduced by a role cue are left to the chain
+        print(f"[train] verb-order route (reader.codes / --codes): verb kinds {m.set_vorder(vk, nmax=int(legend.reader.get('vorder_nmax') or 4), cue_cats=cues)}; cue kinds {cues}"); params.append(m.vo)
     rel = legend.reader.get("rel_emitters")
     if rel:      # C2b beacon-relative emitters (GIVEN set of kinds, learned displacement): part of the world's reader block (quantifier v2)
         print(f"[train] beacon-relative emitters (given): {m.set_rel_emitters(rel['emitters'], rel['takers'])} -> takers {rel['takers']}"); params.append(m.rel)
