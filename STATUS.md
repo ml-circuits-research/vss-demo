@@ -29,6 +29,7 @@ below comes from a trained demo model: none exists yet (the installed model is a
 | 20 | large model as author | PREPARED (needs API keys) | training/worlds/diagram/llm_author/ | |
 | 21 | animation | BUILT; animation world training PLANNED | app/tests/animate.mjs | timelines 60/60, corrections 56/56, violations 24/24, questions 277/277 |
 | 22 | optional slow path | PLANNED | | |
+| addendum | other languages: Romanian world, bilingual world, dictionary route, automatic choice (vision/ADDENDUM_languages_2026-10-25.md) | BUILT; training PLANNED (DGX, TODO 2.6) | app/tests/translate.mjs, routes.mjs; training/worlds/diagram_ro/eval_variants.py | 7/7, 7/7; lemma identity parity 55/55 (smoke); gold frames identical English vs Romanian on 400 parallel rows |
 
 Deviations from the specification, each recorded in the module's README: own SVG engine instead of maxGraph (single-file offline build);
 own rich-text model instead of ProseMirror; MathML Core instead of KaTeX / MathLive; own $P recogniser instead of $Q; textedit "make" /

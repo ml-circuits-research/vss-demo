@@ -15,8 +15,9 @@ const { worlds } = await loadWorlds(assets); const W = worlds.get("diagram");
 let pass = 0, fail = 0; const bad = []; const check = (n, c, d = "") => { if (c) pass++; else { fail++; bad.push(`${n}: ${d}`); } };
 const dict = JSON.parse(fs.readFileSync(new URL("tests/data/dict_ro_sample.json", root), "utf8"));
 const dictionaries = [{ language: "ro", target_world: "diagram", dict, translator: createTranslator(dict) }];
-const routes = routesFor("diagram", worlds, dictionaries);
-check("two routes: the English reader and the Romanian dictionary", routes.length === 2 && routes[0].kind === "reader" && routes[1].kind === "dictionary", JSON.stringify(routes.map((r) => r.id)));
+const all = routesFor("diagram", worlds, dictionaries);
+check("routes: every installed diagram reader, then the dictionary", all[0].id === "diagram" && all[all.length - 1].kind === "dictionary" && all.filter((r) => r.kind === "reader").length === [...worlds.values()].filter((w) => (w.purpose || "diagram") === "diagram").length, JSON.stringify(all.map((r) => r.id)));
+const routes = all.filter((r) => r.id === "diagram" || r.kind === "dictionary");     // the English reader and the dictionary (the pipes built below)
 const pipes = new Map([["diagram", { world: W, normalize: createNormalizer(await assets.json("model/diagram/normalize.json")), corr: { classic: createCorrector({ lexicon: lexiconOf(W) }) } }]]);
 const ro = readRoutes({ routes, pipes, alternatives: [{ text: "adaugă o bază de date numită Comenzi în stânga sus" }] });
 check("Romanian input: the dictionary route reads into the English legend", ro.byRoute.has("dict:ro>diagram") && ro.byRoute.get("dict:ro>diagram").input.startsWith("add a database called"), ro.byRoute.get("dict:ro>diagram")?.input);

@@ -250,3 +250,7 @@ menu button:disabled { opacity: .5; cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 .answer .note-muted { color: var(--muted); font-size: 12.5px; flex-basis: 100%; }
+select { max-width: 100%; min-width: 0; text-overflow: ellipsis; }
+#set-route { width: 100%; }
+#route-info p { overflow-wrap: anywhere; margin: 4px 0; }
+dialog.sheet { overflow-x: hidden; }

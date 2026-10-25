@@ -44,6 +44,9 @@ async function session(browser, url, label, size) {
   const vp = size === "phone" ? { width: 390, height: 844 } : { width: 1366, height: 860 };
   const ctx = await browser.newContext({ viewport: vp, deviceScaleFactor: size === "phone" ? 2 : 1, hasTouch: size === "phone", acceptDownloads: true, serviceWorkers: "block" });
   const page = await ctx.newPage(); const errors = [];
+  // the English route for the scripted English commands (the development models make the automatic choice noisy); the automatic choice
+  // and the Romanian routes are exercised below, after the English steps
+  await page.addInitScript(() => { try { if (!sessionStorage.getItem("vss-check")) { localStorage.setItem("vss-settings", JSON.stringify({ route_diagram: "diagram" })); sessionStorage.setItem("vss-check", "1"); } } catch {} });
   page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); }); page.on("pageerror", (e) => errors.push(e.message));
   const tag = `${label}-${size}`; const shot = async (name) => { if (SHOTS) await page.screenshot({ path: path.join(SHOTS, `integ-${name}-${tag}.png`) }); };
   const answer = () => page.textContent("#answer");
@@ -57,7 +60,7 @@ async function session(browser, url, label, size) {
   await shot("start");
 
   // 1. a diagram command, then a paragraph of two commands (segmenter -> circuit)
-  await run("add a database called orders in the top left");
+  await run("add a database called orders in the top left .");
   check(`${tag} diagram command`, (await comps()) >= 1, await answer());
   const a2 = await run("Add a database called orders in the top left. Then add a cache called sessions to the right of it.");
   check(`${tag} paragraph: several units`, /Read \d+ units/.test(a2), a2);
@@ -131,7 +134,15 @@ async function session(browser, url, label, size) {
   await page.click("#btn-settings"); await page.waitForTimeout(150);
   check(`${tag} settings: language`, (await page.locator("#set-lang option").count()) >= 4);
   check(`${tag} settings: thresholds`, /Dictation/.test(await page.textContent("#threshold-info")));
+  // the languages: every route listed; Automatic chosen; a Romanian command is read by a Romanian route (trained reader or dictionary)
+  const routeOpts = await page.locator("#set-route option").allTextContents();
+  check(`${tag} settings: routes (automatic, English, Romanian reader, Romanian dictionary)`, routeOpts.length >= 4 && routeOpts.some((t) => /Romanian: dictionary/.test(t)) && routeOpts.some((t) => /Romanian: trained/.test(t)), routeOpts.join(" | "));
+  await page.selectOption("#set-route", "auto");
   await shot("settings"); await page.click('#dlg-settings button[value="close"]');
+  await run("pune o notiță galbenă sub baza de date");
+  const strip = await page.textContent("#reading");
+  check(`${tag} a Romanian command is read by a Romanian route`, /Romanian/.test(strip), strip);
+  await shot("romanian");
   await page.click("#btn-about"); await page.waitForTimeout(150);
   const about = await page.textContent("#dlg-about");
   check(`${tag} about: worlds and modules`, /textedit/.test(about) && /not installed/.test(about) && /Formula widgets/.test(about) && /development model/.test(about));

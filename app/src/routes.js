@@ -1,7 +1,7 @@
 // routes.js: reading one input through several routes (the languages design; DOM-free, used by main.js and tested in node).
 // A route is a trained reader of one world, or a dictionary followed by the reader of its target world (worlds.js routesFor). Every route
 // reads every alternative (speech alternatives x spelling variants x dictionary variants) and the clearest reading wins
-// (speech.js chooseClearest: status, then the minimum margin, then the residual), whatever route it came from. All the routes of one
+// (status first; at equal status a trained reader before a dictionary; then speech.js chooseClearest: minimum margin, residual). All the routes of one
 // purpose read into one English legend, so the winner's frame is the same kind of circuit whatever the language.
 //   readRoutes({ routes, pipes, alternatives, mode, corrector, labels }) -> {best, ranked, reason, byRoute}
 // pipes: world name -> {world, normalize, corr: {classic, form}, formIndex}
@@ -28,7 +28,12 @@ export function readRoutes({ routes, pipes, alternatives, mode = "typed", correc
     }
   }
   if (!readings.length) return { best: null, ranked: [], reason: "no route", byRoute: new Map() };
-  const choice = chooseClearest(readings);
+  // stated order: status (ok, abstain, the rest); at equal status a trained reader before a dictionary (a substitution is a guess the
+  // trained reader does not need); then the clearest reading (chooseClearest: minimum margin, then residual)
+  const rank = (r) => (r.result.status === "ok" ? 0 : r.result.status === "abstain" ? 1 : 2) * 2 + (r.route.kind === "dictionary" ? 1 : 0);
+  const top = Math.min(...readings.map(rank));
+  const pool = readings.filter((r) => rank(r) === top), rest = readings.filter((r) => rank(r) !== top).sort((a, b) => rank(a) - rank(b));
+  const choice = chooseClearest(pool); choice.ranked = choice.ranked.concat(rest);
   const byRoute = new Map(); for (const r of choice.ranked) if (!byRoute.has(r.route.id)) byRoute.set(r.route.id, r);
   if (byRoute.size > 1) choice.reason = `${choice.best.route.label} read it most clearly (${choice.best.result.status}); ` + [...byRoute.values()].slice(1).map((r) => `${r.route.label}: ${r.result.status}`).join("; ");
   choice.byRoute = byRoute;

@@ -1,5 +1,5 @@
 {
- "id": "70366a1de3d6",
+ "id": "08dad7c5c047",
  "files": [
   "./",
   "index.html",
@@ -89,6 +89,12 @@
   "model/diagram/normalize.json",
   "model/diagram/routebook.bin",
   "model/diagram/stars.bin",
+  "model/diagram_ro/manifest.json",
+  "model/diagram_ro/model.json",
+  "model/diagram_ro/normalize.json",
+  "model/diagram_ro/routebook.bin",
+  "model/diagram_ro/stars.bin",
+  "model/dict/ro.json",
   "model/index.json",
   "examples/request-film.json"
  ]

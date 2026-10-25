@@ -47,6 +47,12 @@ Everything below works in the one-file build (file://) and in the hosted folder,
   sentences such as "the request goes from the user to the gateway, two seconds per hop" are read into the timeline; without it (the
   case today) a film is opened from a JSON timeline file (Export, "Open a timeline file", or "Open the example film"). Export saves the
   film as WebM video (when the browser can record a canvas), animated SVG or a JSON timeline.
+- **Other languages** (vision/ADDENDUM_languages_2026-10-25.md): commands in Romanian, or Romanian mixed with English, are read into the
+  same English circuits. Three routes, chosen in Settings ("Read commands with") or all at once (Automatic: the clearest reading wins;
+  at equal status a trained reader before a dictionary): the English reader, the Romanian reader (diagram_ro, trained on Romanian
+  grammar), and the Romanian dictionary into the English reader (no training; also covers English grammar with Romanian words). A
+  dictionary for another language is a JSON file (training/worlds/DICTIONARIES.md) installed with training/export_app.py --dict. The
+  reading strip says which route answered. The speech language can be Romanian.
 - **Settings**: spelling correction (classic, VSS form level, off), the speech language, the thresholds that decide when a command runs,
   the theme. **About**: every world with its model (demo, development, or not installed) and the status of every module.
 

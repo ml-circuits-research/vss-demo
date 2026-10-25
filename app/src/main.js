@@ -183,7 +183,7 @@ function handle(alternatives, source = "typed") {
 function fillRoutes() {
   const sel = $("set-route"); sel.replaceChildren();
   const add = (v, t) => { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.append(o); };
-  add("auto", S.routes.length > 1 ? `Automatic: every reader reads, the clearest reading wins (${S.routes.length} routes)` : "Automatic");
+  add("auto", S.routes.length > 1 ? `Automatic (the clearest of ${S.routes.length} readings)` : "Automatic");
   for (const r of S.routes) add(r.id, r.label);
   sel.value = S.settings.route_diagram && [...sel.options].some((o) => o.value === S.settings.route_diagram) ? S.settings.route_diagram : "auto";
   const lines = S.routes.map((r) => { const w = S.worlds.get(r.world); return `${r.label}: ${r.kind === "dictionary" ? `${r.dictionary.translator.size} dictionary entries, words replaced before the ${w.name} reader (no training; word order stays as typed)` : `${w.status === "demo" ? "demo" : "development"} model, D ${w.vss.model.config.D}`}`; });
