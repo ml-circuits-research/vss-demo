@@ -43,3 +43,35 @@ export function lexiconOf(world) {
   for (const w of Object.keys(m.lexicon || {})) out[w] = out[w] || 1;
   return out;
 }
+
+// ------------------------------------------------------------------ purposes, languages and routes (the languages design)
+// Every installed world serves one PURPOSE (what its readings are for: diagram commands, text editing, formulas, animation) in one
+// LANGUAGE ("en", "ro", "ro+en" for a bilingual world). Worlds of the same purpose share one English legend, so their readings are the
+// same circuits whatever the language. A DICTIONARY (app/model/dict/<lang>.json, training/worlds/DICTIONARIES.md) adds a route without
+// a trained world: the words are replaced mechanically and the English world of its target reads them. index.json:
+//   {"worlds": [{name, dir, purpose, language, status, ...}], "dictionaries": [{language, file, target_world, note}]}
+const PURPOSE_BY_NAME = { textedit: "textedit", matheditor: "matheditor", animation: "animation", scene: "scene" };
+export function purposeOf(entry) { return entry.purpose || PURPOSE_BY_NAME[entry.name] || (String(entry.name).startsWith("diagram") ? "diagram" : entry.name); }
+export function languageOf(entry) { return entry.language || (String(entry.name).endsWith("_ro") ? "ro" : String(entry.name).endsWith("_multi") ? "en+ro" : "en"); }
+export const LANGUAGE_NAMES = { en: "English", ro: "Romanian", "en+ro": "English and Romanian", "ro+en": "Romanian and English", fr: "French", it: "Italian", de: "German", es: "Spanish" };
+export const languageName = (l) => LANGUAGE_NAMES[l] || l;
+
+export async function loadDictionaries(assets, index) {
+  const out = [], errors = [];
+  for (const d of index.dictionaries || []) {
+    try { out.push({ ...d, dict: await assets.json(d.file) }); } catch (e) { errors.push(`dictionary ${d.language}: ${e.message}`); }
+  }
+  return { dictionaries: out, errors };
+}
+
+/** the routes of a purpose: one per installed world of that purpose (a trained reader), and one per dictionary whose target world is
+ *  installed (dictionary, then the target's reader). Each: {id, kind: "reader" | "dictionary", world (name of the reader), language, label} */
+export function routesFor(purpose, worlds, dictionaries = []) {
+  const routes = [];
+  for (const [name, w] of worlds) if (purposeOf(w) === purpose) routes.push({ id: name, kind: "reader", world: name, language: languageOf(w), label: `${languageName(languageOf(w))}: trained reader (${name})` });
+  for (const d of dictionaries) {
+    const tgt = d.target_world || "diagram"; const w = worlds.get(tgt);
+    if (w && purposeOf(w) === purpose) routes.push({ id: `dict:${d.language}>${tgt}`, kind: "dictionary", world: tgt, language: d.language, dictionary: d, label: `${languageName(d.language)}: dictionary into the ${languageName(languageOf(w))} reader (${tgt})` });
+  }
+  return routes;
+}

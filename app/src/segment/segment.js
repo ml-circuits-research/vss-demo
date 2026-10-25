@@ -26,6 +26,11 @@ export const CONNECTIVES = [   // [normalized words, operator, class]; longest m
   [["says", "that"], "says", "sub"], [["if", "you"], "if", "sub"], [["when", "you"], "if", "sub"], [["unless", "you"], "unless", "sub"],
   [["and"], "and", "conj"], [["then"], "then", "conj"], [["also"], "and", "conj"], [["because"], "because", "discourse"],
   [["so"], "so", "discourse"], [["but"], "but", "discourse"], [["if"], "if", "sub"], [["when"], "if", "sub"], [["unless"], "unless", "sub"],
+  // Romanian, ASCII-folded as the Romanian normalizer writes it (training/worlds/diagram_ro); the operators are the legend's English ones
+  [["si", "apoi"], "then", "conj"], [["dupa", "aceea"], "then", "discourse"], [["si", "dupa", "aceea"], "then", "discourse"], [["inainte", "de", "asta"], "before", "discourse"],
+  [["de", "asemenea"], "and", "conj"], [["pentru", "ca"], "because", "discourse"], [["spune", "ca"], "says", "sub"], [["apoi"], "then", "conj"],
+  [["si"], "and", "conj"], [["deoarece"], "because", "discourse"], [["deci"], "so", "discourse"], [["dar"], "but", "discourse"], [["insa"], "but", "discourse"],
+  [["daca"], "if", "sub"], [["cand"], "if", "sub"],
 ].sort((a, b) => b[0].length - a[0].length);
 export const SENTENCE_END = new Set([".", "!", "?", ";"]);
 const KEEP_END = new Set([".", "?"]);

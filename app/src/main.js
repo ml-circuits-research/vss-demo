@@ -4,7 +4,9 @@
 // film (19, src/animate). No decision is taken here: each stage is its own module with its stated rules; this file passes data between
 // them, keeps the history and says on screen which reader (or which fallback) answered.
 import { createAssets } from "./assets.js";
-import { loadWorlds, lexiconOf } from "./worlds.js";
+import { loadWorlds, lexiconOf, loadDictionaries, routesFor, purposeOf, languageOf, languageName } from "./worlds.js";
+import { createTranslator } from "./translate.js";
+import { readRoutes } from "./routes.js";
 import { createNormalizer } from "./normalize.js";
 import { createCorrector } from "./correct.js";
 import { createFormIndex } from "./form.js";
@@ -69,23 +71,45 @@ async function start() {
   S.slots = createSlots($("canvas"), { textDoc: textDocOf, formula: (id) => S.scene.components.get(id)?.formula || null, label: (id) => S.scene.components.get(id)?.label || null,
     active: () => S.active, dictating: () => (S.mode === "dictation" ? S.active : null) });
   const { worlds, errors, index } = await loadWorlds(S.assets);
-  S.worlds = worlds; S.index = index; S.loadErrors = errors; S.diagram = worlds.get("diagram") || null;
-  try { S.normalize = createNormalizer(await S.assets.json("model/diagram/normalize.json")); } catch { S.normalize = (t) => ({ tokens: t.toLowerCase().split(/\s+/).filter(Boolean), info: { labels: {}, numbers: {} } }); errors.push("normalize.json missing: plain lower-casing"); }
-  if (S.diagram) { await setupCorrectors(); S.segReader = readerAdapter(S.diagram.vss); }
+  S.worlds = worlds; S.index = index; S.loadErrors = errors;
+  // the diagram purpose: every installed world of it (one per language, or bilingual) gets its own pipeline; S.diagram is the English one
+  // (or the first), used where one reader is needed (scripts); commands go through the routes (readVariants)
+  const diagWorlds = [...worlds.values()].filter((w) => purposeOf(w) === "diagram");
+  S.diagram = worlds.get("diagram") || diagWorlds[0] || null;
+  S.pipes = new Map(); for (const w of diagWorlds) S.pipes.set(w.name, await buildPipe(w, errors));
+  const dl = await loadDictionaries(S.assets, index); errors.push(...dl.errors);
+  S.dictionaries = dl.dictionaries.map((d) => ({ ...d, translator: createTranslator(d.dict) }));
+  S.routes = routesFor("diagram", worlds, S.dictionaries);
+  if (S.diagram) { const P = S.pipes.get(S.diagram.name); S.normalize = P.normalize; S.corr = P.corr; S.formIndex = P.formIndex; S.segReader = readerAdapter(S.diagram.vss); }
+  else S.normalize = (t) => ({ tokens: t.toLowerCase().split(/\s+/).filter(Boolean), info: { labels: {}, numbers: {} } });
   await setupTextedit(); setupMatheditor(); await setupAnimation();
   showModelBadge(errors);
   setupSpeech(); setupUI(); refresh();
 }
 
-async function setupCorrectors() {
-  const lex = lexiconOf(S.diagram);
-  let isEnglish = () => false;
+let englishCheck = null;
+async function isEnglishFn() {
+  if (englishCheck) return englishCheck;
+  englishCheck = () => false;
   try {
-    if (globalThis.Typo) { const aff = await S.assets.text("vendor/typo/en_US/en_US.aff"), dic = await S.assets.text("vendor/typo/en_US/en_US.dic"); const typo = new globalThis.Typo("en_US", aff, dic); isEnglish = (w) => /^[a-z]+$/.test(w) && typo.check(w); }
+    if (globalThis.Typo) { const aff = await S.assets.text("vendor/typo/en_US/en_US.aff"), dic = await S.assets.text("vendor/typo/en_US/en_US.dic"); const typo = new globalThis.Typo("en_US", aff, dic); englishCheck = (w) => /^[a-z]+$/.test(w) && typo.check(w); }
   } catch { /* without the dictionary every unknown word is a correction candidate; stated in About */ }
-  S.corr.classic = createCorrector({ lexicon: lex, isEnglish });
-  S.formIndex = createFormIndex({ words: Object.keys(lex), D: 512 });
-  S.corr.form = createCorrector({ lexicon: lex, isEnglish, candidates: S.formIndex.asCandidateFn() });
+  return englishCheck;
+}
+// one pipeline per world: its own normalizer table (model/<world>/normalize.json) and correctors over its own lexicon
+async function buildPipe(w, errors = []) {
+  let normalize;
+  try { normalize = createNormalizer(await S.assets.json(`${w.dir}/normalize.json`)); }
+  catch { normalize = (t) => ({ tokens: t.toLowerCase().split(/\s+/).filter(Boolean), info: { labels: {}, numbers: {} } }); errors.push(`${w.name}: normalize.json missing: plain lower-casing`); }
+  const lex = lexiconOf(w); const isEnglish = await isEnglishFn();
+  const formIndex = createFormIndex({ words: Object.keys(lex), D: 512 });
+  return { world: w, normalize, formIndex, corr: { classic: createCorrector({ lexicon: lex, isEnglish }), form: createCorrector({ lexicon: lex, isEnglish, candidates: formIndex.asCandidateFn() }) } };
+}
+/** the routes used for a command: the one chosen in Settings, or all of them ("auto": the clearest reading decides) */
+function activeRoutes() {
+  const pick = S.settings.route_diagram || "auto";
+  const r = pick === "auto" ? S.routes : S.routes.filter((x) => x.id === pick);
+  return r.length ? r : S.routes;
 }
 
 // the textedit world (spec 14.3) when its model is installed; without it dictation writes everything as content and says so
@@ -118,18 +142,9 @@ async function setupAnimation() {
 function labelsInScene() { return [...S.scene.components.values()].map((c) => c.label).filter(Boolean).map((l) => l.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")); }
 
 // ------------------------------------------------------------------ the pipeline
+// every active route reads every alternative; the clearest reading wins (src/routes.js)
 function readVariants(alternatives, source) {
-  const mode = source === "speech" ? "speech" : "typed"; const cands = [];
-  const corr = S.settings.corrector === "off" ? null : S.corr[S.settings.corrector] || S.corr.classic;
-  if (corr) { const ls = labelsInScene(); corr.setLabels(ls); if (S.settings.corrector === "form") S.formIndex.setLabels(ls); }
-  for (const alt of alternatives) {
-    const n = S.normalize(alt.text);
-    const c = corr ? corr.correct(n.tokens, { mode }) : { tokens: n.tokens, corrections: [], alternatives: [n.tokens] };
-    c.alternatives.forEach((v, i) => cands.push({ input: v.join(" "), tokens: v, info: n.info, corrections: i === 0 ? c.corrections : [], heard: alt.text }));
-  }
-  const seen = new Set(); const uniq = cands.filter((c) => (seen.has(c.input) ? false : (seen.add(c.input), true)));
-  const readings = uniq.map((c) => ({ ...c, result: S.diagram.vss.read(c.input) }));
-  return chooseClearest(readings);
+  return readRoutes({ routes: activeRoutes(), pipes: S.pipes, alternatives, mode: source === "speech" ? "speech" : "typed", corrector: S.settings.corrector, labels: labelsInScene() });
 }
 
 function handle(alternatives, source = "typed") {
@@ -143,22 +158,51 @@ function handle(alternatives, source = "typed") {
   if (!S.diagram) { showAnswer({ action: "refuse", line: "No reader model is installed in this copy of the editor. You can still draw with the mouse, by touch or with the sketch pad." }); return; }
   // several commands in one input (spec 15): only when the segmenter finds a strong cut is the paragraph segmented and read unit by unit
   if (S.segReader) {
-    const n = S.normalize(text);
-    if (candidateCuts(n.tokens, { kind: S.segReader.kind }).cuts.some((c) => c.strong)) {
-      const seg = segment(n.tokens, { reader: S.segReader });
+    const L = longRoute(text);                          // the route whose words cover the text best segments a paragraph (stated rule)
+    const n = L.pipe.normalize(L.text);
+    if (candidateCuts(n.tokens, { kind: L.reader.kind }).cuts.some((c) => c.strong)) {
+      const seg = segment(n.tokens, { reader: L.reader });
       if (seg.segments.filter((s) => s.role === "command").length > 1) return handleLong(text, source, seg, n.info);
     }
   }
   const choice = readVariants(alternatives, source); const best = choice.best;
   if (S.animation && tryAnimation(text, best)) return;
   const p = ["ok", "abstain"].includes(best.result.status) ? makePlan(S.scene, best.result.frame, best.info) : null;
-  const d = decide({ result: best.result, plan: p, corrections: best.corrections, tau: S.diagram.tau, legend: S.diagram.legend, alternatives: choice });
+  const W = S.worlds.get(best.route?.world) || S.diagram;
+  const d = decide({ result: best.result, plan: p, corrections: best.corrections, tau: W.tau, legend: W.legend, alternatives: choice });
   let ex = null;
   if (d.action === "execute") { ex = execute(S.scene, p); }
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
   S.history.push({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop });
   refresh(); showAnswer(d);
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
+}
+
+// Settings: one choice per purpose (today the diagram commands): automatic over every route, or one route. Every route reads into the
+// same English legend, so the circuits are the same whichever is chosen.
+function fillRoutes() {
+  const sel = $("set-route"); sel.replaceChildren();
+  const add = (v, t) => { const o = document.createElement("option"); o.value = v; o.textContent = t; sel.append(o); };
+  add("auto", S.routes.length > 1 ? `Automatic: every reader reads, the clearest reading wins (${S.routes.length} routes)` : "Automatic");
+  for (const r of S.routes) add(r.id, r.label);
+  sel.value = S.settings.route_diagram && [...sel.options].some((o) => o.value === S.settings.route_diagram) ? S.settings.route_diagram : "auto";
+  const lines = S.routes.map((r) => { const w = S.worlds.get(r.world); return `${r.label}: ${r.kind === "dictionary" ? `${r.dictionary.translator.size} dictionary entries, words replaced before the ${w.name} reader (no training; word order stays as typed)` : `${w.status === "demo" ? "demo" : "development"} model, D ${w.vss.model.config.D}`}`; });
+  lines.push("Every reader writes the same English circuits (one legend); the Reading strip says which one answered.");
+  renderLines($("route-info"), lines);
+}
+const routeTag = (r) => (r.kind === "dictionary" ? `${languageName(r.language)} via dictionary` : `${languageName(r.language)} reader`);
+// a paragraph or a script needs ONE reader for its units: among the active routes, the one whose lexicon (or dictionary plus the target
+// lexicon) knows the largest share of the text's words; ties go to the first route. Stated rule; the units are then read by that route.
+function longRoute(text) {
+  let best = null;
+  for (const route of activeRoutes()) {
+    const P = S.pipes.get(route.world); if (!P) continue;
+    const t = route.kind === "dictionary" ? route.dictionary.translator.translate(text).variants[0].join(" ") : text;
+    const toks = P.normalize(t).tokens.filter((x) => !/^[.,;:!?]$/.test(x)); const rd = P.world.vss.reader;
+    const known = toks.filter((x) => rd.kind(x) !== null).length / Math.max(1, toks.length);
+    if (!best || known > best.known) best = { route, pipe: P, text: t, known, reader: route.world === S.diagram?.name && t === text ? S.segReader : readerAdapter(P.world.vss) };
+  }
+  return best || { route: null, pipe: S.pipes.get(S.diagram.name), text, known: 0, reader: S.segReader };
 }
 
 // a paragraph: segmenter -> one reading per unit -> circuit -> one plan, one undo entry (spec 15.1-15.3)
@@ -430,7 +474,7 @@ function refresh() {
   if (L?.note) renderNote($("reading"), L.note);
   else if (L?.kind === "long" && L.units?.length) renderUnits($("reading"), L.units);
   else if (L?.kind === "sketch") renderNote($("reading"), { text: L.rec.groups.map((g) => String(g.kind).replace(/_/g, " ")).join(", ") || "no ink", as: "drawn on the sketch pad", reason: L.res.active, world: "sketch", kind: "command" });
-  else renderReading($("reading"), { result: best?.result, corrections: best?.corrections || [], labels: best?.info?.labels || {}, world: L?.world || "diagram" });
+  else renderReading($("reading"), { result: best?.result, corrections: best?.corrections || [], labels: best?.info?.labels || {}, world: best?.route ? routeTag(best.route) : (L?.world || "diagram") });
   renderFrame($("tab-frame"), { result: best?.result, legend: (L?.world === "animation" ? S.animation : S.diagram)?.legend, tau: S.diagram?.tau ?? 0.05 });
   if (L?.kind === "sketch") renderSketch($("tab-plan"), { rec: L.rec, res: L.res, low: PASS_OPTIONS.ambiguousMargin });
   else if (L?.kind === "long") renderUnitsPlan($("tab-plan"), { results: L.ex?.results, circuit: L.circuit, line: L.line });
@@ -600,7 +644,7 @@ function setupUI() {
   const ds = $("dlg-settings");
   $("btn-settings").onclick = () => {
     for (const [k, v] of Object.entries(S.settings)) { const r = ds.querySelector(`[name="${k}"][value="${v}"]`); if (r && r.type === "radio") r.checked = true; const c = ds.querySelector(`[name="${k}"][type=checkbox]`); if (c) c.checked = !!v; const s = ds.querySelector(`select[name="${k}"]`); if (s) s.value = v; }
-    renderLines($("threshold-info"), thresholdInfo()); ds.showModal();
+    fillRoutes(); renderLines($("threshold-info"), thresholdInfo()); ds.showModal();
   };
   ds.addEventListener("change", (e) => { const t = e.target; S.settings[t.name] = t.type === "checkbox" ? t.checked : t.value; saveSettings(); applyTheme(); if (t.name === "lang") { if (S.speech.listening) S.speech.stop(); makeSpeech(); } });
   $("btn-about").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); };

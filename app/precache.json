@@ -1,5 +1,5 @@
 {
- "id": "e185bc38e539",
+ "id": "70366a1de3d6",
  "files": [
   "./",
   "index.html",
@@ -38,6 +38,7 @@
   "src/formula/view.js",
   "src/main.js",
   "src/normalize.js",
+  "src/routes.js",
   "src/script/script.js",
   "src/script/view.js",
   "src/segment/circuit.js",
@@ -56,6 +57,7 @@
   "src/text/table.js",
   "src/text/textnorm.js",
   "src/text/view.js",
+  "src/translate.js",
   "src/ui/canvas.js",
   "src/ui/film.js",
   "src/ui/info.js",

@@ -118,9 +118,15 @@
           <option value="en-IN">English (India)</option>
           <option value="en-NZ">English (New Zealand)</option>
           <option value="en-ZA">English (South Africa)</option>
+          <option value="ro-RO">Romanian (Romania)</option>
         </select></label>
-      <p class="muted small">The readers understand English only; the language sets the accent the recogniser expects.</p>
+      <p class="muted small">The language the speech recogniser listens for. What the editor understands depends on the readers below.</p>
       <label><input type="checkbox" name="speakback"> Read the confirmation aloud</label>
+    </fieldset>
+    <fieldset><legend>Language and reader for commands</legend>
+      <label class="select-row">Read commands with
+        <select name="route_diagram" id="set-route"></select></label>
+      <div id="route-info" class="muted small"></div>
     </fieldset>
     <fieldset><legend>Commands and writing</legend>
       <div id="threshold-info" class="muted small"></div>
