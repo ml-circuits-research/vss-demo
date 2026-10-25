@@ -117,6 +117,10 @@ class Reader:
         return self.legend.kind(tok)
     def lemma(self, tok):
         e = self.words.get(tok) or self.words.get(tok.lower()); return (e or {}).get("lemma", tok)
+    def ident(self, tok):
+        """the word whose star stands for a token: the token, or its lexicon lemma when the legend says reader.identity = "lemma"
+        (a given bilingual lexicon: the surface forms of several languages share the canonical value's identity)"""
+        return self.lemma(tok) if self.legend.reader.get("identity") == "lemma" else tok
 
     def cands(self, kinds, filt=None):
         extra = ()
@@ -126,6 +130,7 @@ class Reader:
         key = (tuple(sorted(kinds)), None if filt is None else frozenset(filt), extra)
         if key not in self._cands:
             ws = sorted(w for w, e in self.words.items() if e["kind"] in kinds and (filt is None or w in filt)) + [t for t in extra if filt is None or t in filt]
+            if self.legend.reader.get("identity") == "lemma": ws = list(dict.fromkeys(self.ident(w) for w in ws))     # one candidate per canonical value
             M = np.array([self.st.id(w) for w in ws]) / np.sqrt(self.D) if ws else np.zeros((0, self.D), complex)
             self._cands[key] = (ws, M)
         return self._cands[key]
@@ -168,7 +173,7 @@ class Reader:
     def chart(self, tokens):
         kept, cidx, unknown = self.encode(tokens)
         if not kept: return np.zeros(self.D, complex), kept, unknown, np.zeros((0, self.D), complex)
-        addr = self.rb.addresses(cidx); F = np.array([self.st.id(tokens[i]) for i in kept])
+        addr = self.rb.addresses(cidx); F = np.array([self.st.id(self.ident(tokens[i])) for i in kept])
         return (addr * F).sum(0), kept, unknown, addr
 
     # ---------------- readout

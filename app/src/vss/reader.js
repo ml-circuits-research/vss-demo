@@ -76,6 +76,8 @@ export class Reader {
   wordEntry(tok) { return this.words.get(tok) || this.words.get(tok.toLowerCase()) || null; }
   kind(tok) { const e = this.wordEntry(tok); return e ? e.kind : this.legend.kind(tok); }
   lemma(tok) { const e = this.wordEntry(tok); return (e && e.lemma) || tok; }
+  /** the word whose star stands for a token: the token, or its lemma when legend reader.identity = "lemma" (tool/sop/infer.py ident) */
+  ident(tok) { return this.legend.reader.identity === "lemma" ? this.lemma(tok) : tok; }
   _rows(ws, f) {
     const M = []; for (const w of ws) { const v = f(w); if (!v) throw new Error(`vss.js: no star for ${JSON.stringify(w)} (star_version 1 model: only exported stars)`); M.push(cscale(v, 1 / this.sqrtD)); }
     return M;
@@ -87,7 +89,8 @@ export class Reader {
       extra = [...new Set(this.sentTokens.filter((t) => !this.words.has(t) && !this.words.has(t.toLowerCase()) && ks.has(this.kind(t))))].sort();
     const key = JSON.stringify([[...kinds].sort(), extra]);
     if (!this._cands.has(key)) {
-      const ws = [...this.words.keys()].filter((w) => ks.has(this.words.get(w).kind)).sort().concat(extra);
+      let ws = [...this.words.keys()].filter((w) => ks.has(this.words.get(w).kind)).sort().concat(extra);
+      if (this.legend.reader.identity === "lemma") ws = [...new Set(ws.map((w) => this.ident(w)))];   // one candidate per canonical value
       this._cands.set(key, [ws, this._rows(ws, (w) => this.st.id(w))]);
     }
     return this._cands.get(key);
@@ -127,7 +130,7 @@ export class Reader {
     if (!kept.length) return [S, kept, unknown];
     const addr = this.rb.addresses(cidx);
     kept.forEach((i, j) => {
-      const F = this.st.id(tokens[i]);
+      const F = this.st.id(this.ident(tokens[i]));
       if (!F) return;          // a star_version 1 model has no star for a word outside its catalog: the word adds nothing (stars.missing lists it)
       const a = addr[j];
       for (let d = 0; d < D; d++) { S.re[d] += a.re[d] * F.re[d] - a.im[d] * F.im[d]; S.im[d] += a.re[d] * F.im[d] + a.im[d] * F.re[d]; }

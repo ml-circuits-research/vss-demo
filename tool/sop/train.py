@@ -425,7 +425,8 @@ def train_one(a, legend, rows, splits, schema, seed, model_dir, run_dir):
     targets = np.array([comp.wire(train[i]["wire"], train[i]["by"], train[i]["tokens"]) for i in order])
     print(f"[train] seed {seed}: {len(train)} training rows x {a.epochs} epoch(s) -> {len(sents)} steps' sentences; D={a.D}; kinds {len(set(wk.values()))}; "
           f"vocab {len(shim.vocab)}; predicate lemma not found in {comp.missing_lemma} targets", flush=True)
-    F = np.array([st.id(w) for w in shim.vocab])
+    ident = (lambda w: legend.lemma_of(w)) if legend.reader.get("identity") == "lemma" else (lambda w: w)   # reader.identity (legend.py)
+    F = np.array([st.id(ident(w)) for w in shim.vocab])
     m = v8.V8(shim, a.D, np.random.default_rng(200 + seed), list(a.code_list), a.device, gate_init="closed"); m.set_F(F)
     if "pos" in a.code_list:
         m.pos_max = max(len(s_) for s_ in sents)        # the position term is OMITTED beyond the trained length (B7 (b), the stated behaviour)

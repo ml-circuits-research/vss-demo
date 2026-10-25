@@ -112,6 +112,17 @@ PREFIXES = [("bare", ""), ("please", "please"), ("could", "could you"), ("can", 
             ("need", "i need you to"), ("lets", "let's"), ("now", "now"), ("okay", "okay so"), ("tail", "")]   # 'tail' = trailing 'please'
 
 
+def legend_dict():
+    """the diagram legend, shared by every language of the diagram world (training/worlds/diagram_ro imports it): the same events, roles,
+    operators and values, so a reading in any language is a circuit of this one English legend (same sha256). reader.identity = "lemma":
+    a token is read by the identity of its lexicon lemma (kinds.tsv third column), which maps the surface forms of other languages to the
+    canonical English values; English words have no lemma column here, so for English this is the token itself."""
+    return {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
+            "operators": ["not", "then", "but", "so", "because"], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
+            "values": [{"kind": "NUM", "pattern": "\\d+"}, {"kind": "LABEL", "pattern": "[a-z0-9]+(_[a-z0-9]+)+"}],
+            "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"], "identity": "lemma"}}
+
+
 class Gen:
     def __init__(self, rng, labels, nums):
         self.r, self.labels, self.nums = rng, labels, nums
@@ -381,10 +392,7 @@ def build(out, n, n_eval, seed):
     ev_new = [r for r in ev_new if any(x in LABELS_NEW or x in map(str, NUMS_NEW) for x in r[1].split())][:n_eval]
     ev_form = draw(held_combos, n_eval, LABELS_TRAIN, NUMS_TRAIN, np.random.default_rng(901 + seed))
     # legend, kinds
-    legend = {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
-              "operators": ["not", "then", "but", "so", "because"], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
-              "values": [{"kind": "NUM", "pattern": "\\d+"}, {"kind": "LABEL", "pattern": "[a-z0-9]+(_[a-z0-9]+)+"}],
-              "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"]}}
+    legend = legend_dict()
     wd = os.path.join(out); [os.makedirs(os.path.join(wd, d), exist_ok=True) for d in ("examples", "raw", "audit", "model", "runs", "versions", "requests")]
     lp = os.path.join(wd, "legend.json"); json.dump(legend, open(lp, "w"), indent=1)
     with open(os.path.join(wd, "kinds.tsv"), "w") as f:
