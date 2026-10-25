@@ -95,3 +95,15 @@ no value emitted under tau (all become queries); questions planted in a test wor
 and `sop check`; `formalize` and vss.js emit it (parity tested); the dialog and the planner consume it, with `_link.<role>=query:<who
 answered>` in the circuit; a planted-questions world; the same form in vss-vs-bert as a declared row (never a change of the
 pre-registered rows). Planned in training/TODO_DGX.md, section 2.8.
+
+### 7.1 Scope of a query and queries over trees
+
+A query is **local** when its answer is in the conversation (the circuit's earlier wires, the components the last request touched, the
+selection) or **global** when it needs knowledge outside the conversation (the state of the world: counts, comparisons; a dictionary; a
+knowledge base; a large model; the person). The wire carries `scope` and the resolution chain tried, in order (for "it": circuit, then
+scene.lastTouched, then person), so that a pronoun resolved by a rule is written `_link.<role>=query:circuit` or `query:scene`, never a
+bare value. A global answer carries its own margin; a global query with no answer is reported as such, not asked of the person as if it
+were local. The `about` of a query may be a tree of the format's own operators (`&`, `|`, `~`, `and`, `not`, `if`, the quantifiers) whose
+leaves are values or other queries; the planner resolves the local leaves, the symbolic layer (Datalog or SMT over the scene) evaluates
+the tree with the global leaves, and what remains goes to the person with the partially evaluated tree visible. No `xor`: it is
+`(a|b) & not(a&b)`, and an operator is added only when it occurs in text (the rule of the paper), not when it is convenient.
