@@ -129,8 +129,11 @@ The comparison with BERT (vss-vs-bert, R17 (i) on the reader) showed that a thre
 calibration rows also rejected every depth-3 sentence and every new formulation with an unseen transition, sentences the reader decodes
 correctly. The reason is the residual's definition, visible from calibration numbers alone: it compared the reader's state S with the
 COMPILER's state of the decoded frame (the role addresses only), while S also carries every token's deposit through the routes (path,
-chain, bigram), which the compiler never writes. The residual was therefore 0.43 on the training distribution itself and grew with the
-number of tokens (depth 3: 0.72; long new formulations: 0.77-0.90; random words: 0.99). It measured length as much as unexplained content.
+chain, bigram), which the compiler never writes. The residual was therefore 0.43 on the training distribution itself (a floor: the share of the state the reconstruction never
+contains) and rose above that floor with the NOVELTY of the form (depth 3: 0.72; new formulations with unseen transitions: 0.90; random
+word order: 0.99), not with the number of tokens: the calibration check of vss-vs-bert (R43; Spearman with the token count −0.15 on seed
+0, no rise with depth within the training distribution) refuted the first reading, "it measures length", written in R41. It is a detector
+of an unfamiliar form, which is why it cannot separate "new but in the world" from "out of the world"; kept as that signal.
 
 The corrected measure, the **explained-tokens residual** (tool/sop/infer.py residual_explained, app/src/vss/reader.js residualExplained,
 switched on by `residual: "explained"` in the model's config; the default stays the paper's definition so that every earlier parity
