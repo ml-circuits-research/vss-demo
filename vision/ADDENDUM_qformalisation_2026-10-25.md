@@ -147,3 +147,15 @@ Criterion, written before the measurement (vss-vs-bert R41, claim on the fresh s
 explained residual above the compiled residual's, and the 2 % false-rejection table with depth-3 and unseen-transition sentences no
 longer rejected wholesale. The old residual stays in every table beside the new one. The demo's shipped worlds switch to the explained
 residual only after that measurement (training/TODO_DGX.md 2.10).
+
+## 10. Correction of the same day: 'undecided' by adjacency (BUILT, parity tested, shipped in the demo's worlds)
+
+The planted sets of vss-vs-bert showed that the reader reports an identity no question asks for as a query in 0.98 of the sentences, but
+flags 'undecided' (two identities of the same class side by side, "p3 p5 gives o1 to p2") in only 0.51: the second identity sits at an
+address the role's readout touches with little interference, so the margin does not see a tie, and the identity is reported as
+unplaced instead. The query was never silent, but it had the wrong kind, and a person asked "what is p5?" instead of "p3 or p5?".
+Rule (tool/sop/infer.py undecided_adjacent, app/src/vss/reader.js undecidedAdjacent; config `undecided_adjacent: true`, on in every
+world the demo ships, off in the paper's decoder): an identity left in no role, next to the filler of a role whose kinds admit it, turns
+that role into an 'undecided' query with both as candidates (`_undecided.<role>="p3|p5"`), the role's margin becomes 0 and the reading
+abstains; the dialog asks which. It is what a person does, it changes no accuracy, and the claim of its effect is measured in
+vss-vs-bert on the fresh seeds (R54).

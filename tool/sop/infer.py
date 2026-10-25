@@ -484,6 +484,23 @@ class Reader:
         Sn, rn = S / nS, rec / nr; a = max(0.0, float(np.real(np.vdot(rn, Sn))))
         return float(np.linalg.norm(Sn - a * rn))
 
+    def undecided_adjacent(self, f, tokens, unplaced):
+        """the adjacency rule (addendum q-formalisation 7; vss-vs-bert R54): an identity left in no role, next to the filler of a role whose
+        kinds admit it, turns that role into an 'undecided' query with both as candidates ("p3 p5 gives o1 to p2": who gives, p3 or p5?).
+        Returns {role: (filler word, the other word)}. Config `undecided_adjacent: true`; off by default (the paper's decoder)."""
+        out = {}
+        pos = {t: i for i, t in enumerate(tokens)}
+        for r, fl in f["roles"].items():
+            ws = world.filler_words(fl)
+            if not ws: continue
+            rs = self.schema["roles"].get(r) or {}; kinds = set(rs.get("head_kinds") or rs.get("kinds") or [])
+            head = ws[0]; i = pos.get(head)
+            if i is None: continue
+            for j in (i - 1, i + 1):
+                if j in unplaced and self.kind(tokens[j]) in kinds and tokens[j] != head:
+                    out[r] = (head, tokens[j]); break
+        return out
+
     def placed_words(self, f):
         ws = set(f["speakers"]) | ({f["lemma"]} if f.get("lemma") else set())
         for fl in f["roles"].values(): ws |= set(world.filler_words(fl))
@@ -502,6 +519,9 @@ class Reader:
             t = tokens[i]; k = self.kind(t)
             if k in self.content_kinds and t not in placed and self.lemma(t) not in placed: unplaced.append(i)
         unplaced = sorted(set(unplaced))
+        undecided = self.undecided_adjacent(f, tokens, unplaced) if f["shape"] == "ok" and self.cfg.get("undecided_adjacent") else {}
+        for r, (a, b) in undecided.items():                              # the role becomes a query: both candidates, no margin
+            f["margins"][r] = 0.0; unplaced = [i for i in unplaced if tokens[i] != b]
         status = "ok"
         has_verb = any(self.legend.event_of_lemma(self.lemma(t)) for t in tokens) or not self.legend.reader["predicate_role"]
         nss = self.legend.reader.get("no_sense_share") or self.cfg.get("thresholds", {}).get("no_sense_share", 0.5)
@@ -523,6 +543,7 @@ class Reader:
         res = (self.residual_explained(S, addr, kept, tokens, placed) if mode == "explained" else self.residual(S, wires, tokens)) if f["shape"] == "ok" else 1.0
         top.set("_residual", fmt(res))
         if unplaced: top.set("_unplaced", ",".join(tokens[i] for i in unplaced))
+        for r, (a, b) in undecided.items(): top.set(f"_undecided.{r}", f"{a}|{b}")
         if f.get("depth_gates") is not None: top.set("_depth.gates", str(f["depth_gates"]))
         if f.get("depth_kinds") is not None: top.set("_depth.kinds", str(f["depth_kinds"]))
         if f.get("depth_fit") is not None: top.set("_depth.fit", str(f["depth_fit"]))

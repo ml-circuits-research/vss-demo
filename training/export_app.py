@@ -44,6 +44,12 @@ def main():
         norm = a.normalizer or NORMALIZERS.get(a.world) or os.path.join(HERE, "worlds", a.world, "normalize.json")
         if os.path.exists(norm): shutil.copy(norm, os.path.join(out, "normalize.json"))
         cfg = json.load(open(os.path.join(a.model, "config.json")))
+        # decoder rules the demo ships ON (vss-vs-bert R54; TODO_DGX 2.11): the adjacency rule for 'undecided'. The explained residual and
+        # the sentence-candidates mode stay off until TODO_DGX 2.10 / 2.11 measure them on every shipped world.
+        mj = os.path.join(out, "model.json"); m = json.load(open(mj)); m["config"]["undecided_adjacent"] = True
+        json.dump(m, open(mj, "w"), separators=(",", ":"))
+        import hashlib; b = open(mj, "rb").read(); mp = os.path.join(out, "manifest.json"); man = json.load(open(mp))
+        man["files"]["model.json"] = {"sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}; json.dump(man, open(mp, "w"), indent=1)
         purpose = a.purpose or ({"textedit": "textedit", "matheditor": "matheditor", "animation": "animation"}.get(a.world) or ("diagram" if a.world.startswith("diagram") else a.world))
         language = a.language or ("ro" if a.world.endswith("_ro") else "en+ro" if a.world.endswith("_multi") else "en")
         entry = {"name": a.world, "dir": f"model/{a.world}", "purpose": purpose, "language": language, "bits": a.bits, "status": a.status, "note": a.note,

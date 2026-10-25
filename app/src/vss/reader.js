@@ -441,6 +441,17 @@ export class Reader {
     const Sn = cscale(S, 1 / nS), rn = cscale(rec, 1 / nr), a = Math.max(0, cdotRe(rn, Sn));
     return cnorm(cadd(Sn, cscale(rn, a), -1));
   }
+  /** the adjacency rule (infer.Reader.undecided_adjacent): an unplaced identity next to a role's filler whose kinds admit it -> that role is undecided */
+  undecidedAdjacent(f, tokens, unplaced) {
+    const out = {}, pos = new Map(tokens.map((t, i) => [t, i])), up = new Set(unplaced);
+    for (const [r, fl] of Object.entries(f.roles)) {
+      const ws = fillerWords(fl); if (!ws.length) continue;
+      const rs = this.schema.roles[r] || {}, kinds = new Set(rs.head_kinds || rs.kinds || []);
+      const head = ws[0], i = pos.get(head); if (i === undefined) continue;
+      for (const j of [i - 1, i + 1]) { if (up.has(j) && kinds.has(this.kind(tokens[j])) && tokens[j] !== head) { out[r] = [head, tokens[j]]; break; } }
+    }
+    return out;
+  }
   placedWords(f) {
     const ws = new Set(f.speakers); if (f.lemma) ws.add(f.lemma);
     for (const fl of Object.values(f.roles)) for (const w of fillerWords(fl)) ws.add(w);
@@ -454,6 +465,8 @@ export class Reader {
     const placed = f.shape === "ok" ? this.placedWords(f) : new Set(); let unplaced = [...unknown];
     for (const i of kept) { const t = tokens[i], k = this.kind(t); if (this.contentKinds.has(k) && !placed.has(t) && !placed.has(this.lemma(t))) unplaced.push(i); }
     unplaced = [...new Set(unplaced)].sort((a, b) => a - b);
+    const undecided = f.shape === "ok" && this.cfg.undecided_adjacent ? this.undecidedAdjacent(f, tokens, unplaced) : {};
+    for (const [r, [, b]] of Object.entries(undecided)) { f.margins[r] = 0.0; unplaced = unplaced.filter((i) => tokens[i] !== b); }
     let status = "ok";
     const hasVerb = tokens.some((t) => this.legend.eventOfLemma(this.lemma(t))) || !this.legend.reader.predicate_role;
     const nss = this.legend.reader.no_sense_share || (this.th.no_sense_share !== undefined ? this.th.no_sense_share : 0.5);
@@ -472,6 +485,7 @@ export class Reader {
     const res = f.shape === "ok" ? (mode === "explained" ? this.residualExplained(S, tokens, kept, placed) : this.residual(S, wires, tokens)) : 1.0;
     top.set("_residual", fmt(res));
     if (unplaced.length) top.set("_unplaced", unplaced.map((i) => tokens[i]).join(","));
+    for (const [r, [a, b]] of Object.entries(undecided)) top.set(`_undecided.${r}`, `${a}|${b}`);
     if (f.depth_gates !== undefined && f.depth_gates !== null) top.set("_depth.gates", String(f.depth_gates));
     if (f.depth_kinds !== undefined && f.depth_kinds !== null) top.set("_depth.kinds", String(f.depth_kinds));
     if (f.depth_fit !== undefined && f.depth_fit !== null) top.set("_depth.fit", String(f.depth_fit));
