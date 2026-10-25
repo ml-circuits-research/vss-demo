@@ -540,6 +540,13 @@ def build_dictionary(lex):
             elif a.startswith("la marginea"): add(a, f"to the {b}")
             elif a.split()[0] in ("coltul", "partea", "marginea"): add(a, f"the {b}")
             else: add(a, b)
+    # regions with a preposition before them ("în stânga sus"): longest match first must not stop at "în stânga" (left_of)
+    for corner, en in (("stânga sus", "top_left"), ("dreapta sus", "top_right"), ("stânga jos", "bottom_left"), ("dreapta jos", "bottom_right")):
+        side, vert = corner.split()
+        for pre in ("în", "la", "pe"):
+            add(f"{pre} {corner}", f"in the {en}"); add(f"{pre} {vert} în {side}", f"in the {en}"); add(f"{pre} {vert} {side}", f"in the {en}")
+    # "notă" is a common word for a note even though the lexicon uses "notiță" (to keep "note" English): the dictionary accepts both
+    for k, v in {"notă": ["note", "the note"], "nota": ["the note", "note"], "notele": ["the notes"], "o notă": ["a note"]}.items(): add(k, *v)
     for a, b in L.MWE_GENITIVE:
         if a.startswith("la"): add(a, "to the " + ("left" if "stanga" in a else "right"), b)
         else: add(a, b)
