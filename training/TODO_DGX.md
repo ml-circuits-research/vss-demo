@@ -124,7 +124,7 @@ references resolved with the rule (criterion >= 0.95), the final diagram against
 recall), reading and planning time per page. `--full` executes every document; the editor re-routes all connectors after each change
 (src/editor/router.js), which dominates the time of the 10-page documents (one process, no other heavy job beside it).
 
-##### 2.9 Gates given: measure before trusting the default (added 2026-10-25, from vss-vs-bert R14 / R37)
+##### 2.9 Gates given: measure before trusting the default (DEFAULT WITHDRAWN for shipping until measured: vss-vs-bert R47 found that opening 'from' in training breaks the object-last reading) (added 2026-10-25, from vss-vs-bert R14 / R37)
 
 In the basic world of vss-vs-bert, fixing the cue gates open (hard, logit +8, not trainable) removed the seed spread and lifted depth-3
 exact match to 0.999, but LOWERED slot accuracy on new formulations by 0.08-0.10 against learned gates (0.764 / 0.789 vs 0.864 / 0.868).
@@ -142,6 +142,20 @@ in-vocabulary sentences) for both, and the no-fit threshold (`thresholds.no_fit_
 for each. Switch the config of the shipped models to "explained" only if its AUROC is at least the compiled residual's on every world;
 state the switch in STATUS with both numbers. The dispatcher (infer.py by-fit) and the automatic route choice (app/src/main.js) compare
 residuals across readers, so all readers of one purpose must use the same definition.
+
+### 2.11 Two reader improvements found on the vss-vs-bert design set (added 2026-10-25, responses R46 / R47)
+
+Diagnosis on new formulations (basic world, five seeds): a shared core of errors that no gate set changes, where a filler in a position
+the routes never encoded for its role (the recipient right after the verb without 'to'; the agent after a cleft 'that') lands at an empty
+or another role's address, and the cleanup then returns a catalog word that is not in the sentence (median margin 0.01).
+(a) **Decoder only, no retraining: sentence candidates + one-to-one.** Restrict each role's cleanup to the sentence's words of the kinds
+the role admits (the existing sentence-candidates mode) and assign one-to-one; report per decision whether it was decided by the
+address, by restriction or by elimination; the margin of an elimination is the single-candidate floor. Measure on every demo world
+(Table 13 rows, coverage, confident error, AUROC of the explained residual against the planted and random sets) before making it the
+default of app/src/vss; expected cost: random in-vocabulary sentences filled into frames more often.
+(b) **Routes: a filler's category order relative to the verb.** A route that encodes "the n-th P / O after (before) the event verb"
+independently of the cue chain, learned like the others; needs retraining and a parity export; enters as its own row against the same
+seeds, never replacing the earlier models' rows.
 
 ## 3. The large model as the author (Table 13: "Large model as author"; protocol in training/worlds/diagram/llm_author/PROTOCOL.md)
 
