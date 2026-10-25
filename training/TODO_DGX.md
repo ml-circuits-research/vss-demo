@@ -134,6 +134,15 @@ mean; if "given hard" loses on new formulations here too, change the default in 
 so in the addendum (vision/ADDENDUM_languages_2026-10-25.md section 7). Criterion: the shipped variant must not be below the learned
 variant on any Table 13 row by more than one seed std.
 
+### 2.10 Explained-tokens residual: measure before switching the shipped worlds (added 2026-10-25, addendum q-formalisation 9)
+
+For each shipped world: read the calibration rows and Table 13's rows with `residual: "explained"` and with the default; report the
+residual means per row for both, the AUROC in-world vs out-of-world (the out-of-world sets of 2.8's planted-questions world and random
+in-vocabulary sentences) for both, and the no-fit threshold (`thresholds.no_fit_residual`) that gives 2 % false rejection on calibration
+for each. Switch the config of the shipped models to "explained" only if its AUROC is at least the compiled residual's on every world;
+state the switch in STATUS with both numbers. The dispatcher (infer.py by-fit) and the automatic route choice (app/src/main.js) compare
+residuals across readers, so all readers of one purpose must use the same definition.
+
 ## 3. The large model as the author (Table 13: "Large model as author"; protocol in training/worlds/diagram/llm_author/PROTOCOL.md)
 
 Needs API keys, not the GPU: `ANTHROPIC_API_KEY` (and `OPENAI_API_KEY` / `GEMINI_API_KEY` for other providers, with their model ids on

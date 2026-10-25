@@ -122,3 +122,25 @@ candidates in the same space and a residual over the whole sentence, against a N
 megabytes; and a legend that grows from use (section 5), where MRC changes the questions it asks but not what it was trained to answer.
 Span anchoring removes invented values, not wrong choices; the hallucination rate of section 7 counts both and is the measure to report
 for every model.
+
+## 9. Correction of the same day: the residual measured length, not what was left unexplained (BUILT, parity tested, not yet measured)
+
+The comparison with BERT (vss-vs-bert, R17 (i) on the reader) showed that a threshold on the residual set at 2 % false rejection on the
+calibration rows also rejected every depth-3 sentence and every new formulation with an unseen transition, sentences the reader decodes
+correctly. The reason is the residual's definition, visible from calibration numbers alone: it compared the reader's state S with the
+COMPILER's state of the decoded frame (the role addresses only), while S also carries every token's deposit through the routes (path,
+chain, bigram), which the compiler never writes. The residual was therefore 0.43 on the training distribution itself and grew with the
+number of tokens (depth 3: 0.72; long new formulations: 0.77-0.90; random words: 0.99). It measured length as much as unexplained content.
+
+The corrected measure, the **explained-tokens residual** (tool/sop/infer.py residual_explained, app/src/vss/reader.js residualExplained,
+switched on by `residual: "explained"` in the model's config; the default stays the paper's definition so that every earlier parity
+test is unchanged): rec' is the reader's OWN chart of the explained tokens, i.e. the fillers of the decoded roles, the speakers, the event
+lemma, and every token whose kind is not a content kind (cue words, openers, punctuation); residual' = ||S_n - a rec'_n||. When every
+token is explained rec' = S and the residual is 0 by construction; a content word in no role, or a word of the kind `unknown`,
+contributes its share of the state (one of sixteen tokens: 0.26; two of four: 0.63 on the reference smoke model). It is deterministic,
+needs no training, changes no accuracy or status, and is the quantity the query wire of kind `unknown` (section 7) should carry.
+
+Criterion, written before the measurement (vss-vs-bert R41, claim on the fresh splits of R39): AUROC in-world vs out-of-world of the
+explained residual above the compiled residual's, and the 2 % false-rejection table with depth-3 and unseen-transition sentences no
+longer rejected wholesale. The old residual stays in every table beside the new one. The demo's shipped worlds switch to the explained
+residual only after that measurement (training/TODO_DGX.md 2.10).

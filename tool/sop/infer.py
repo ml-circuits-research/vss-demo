@@ -9,7 +9,8 @@ infer.py — the reader at inference, numpy only (spec 4-5): a `model/` folder -
      scored by the mean best cleanup cosine of the always-present roles; per role: presence (occupancy marker or best cosine, as a ratio
      to the structure score, against a threshold set on CALIBRATION rows = training sentences, model/config.json), identity by cleanup
      over the catalog words of the role's kinds, margin = top1 - top2 cosine;
-  4. `_residual` = ||S - a * rec|| / ||S|| with rec = the state of the decoded frame (world.Compiler) and a the best real scale;
+  4. `_residual` = ||S - a * rec|| / ||S|| with rec = the state of the decoded frame (world.Compiler) and a the best real scale; with
+     config residual = "explained", rec = the reader's own chart of the explained tokens (residual_explained; 0 when all are explained);
      `_status`: ok | abstain (some margin < tau) | unknown-event | no-sense (more than `no_sense_share` of the tokens unplaced).
 What the v1 decoder reads: says* -> [not] -> event, with fillers word | negated word | entity(head, attr [negated], det). Other wire
 types (if, must, may, and, `|` alternatives, `~`) are written by annotators and compiled into training targets, but not decoded (stated).
@@ -467,6 +468,22 @@ class Reader:
         Sn, rn = S / nS, rec / nr; a = max(0.0, float(np.real(np.vdot(rn, Sn))))
         return float(np.linalg.norm(Sn - a * rn))
 
+    def residual_explained(self, S, addr, kept, tokens, placed):
+        """the explained-tokens residual (addendum q-formalisation 9; vss-vs-bert R41): rec' = the reader's OWN chart of the explained tokens
+        (fillers of decoded roles, speakers, the event lemma, and every token whose kind is not a content kind: cue words, openers,
+        punctuation); residual' = ||S_n - a rec'_n||. When every token is explained rec' = S and the residual is 0 by construction; an
+        unplaced content word, or a word of the kind `unknown`, contributes its share of the state. The compiled residual (`residual`)
+        compares S with the compiler's state of the frame, which lacks the routes' deposits and therefore grows with the sentence length."""
+        if not kept: return 1.0
+        ex = [j for j, i in enumerate(kept) if self.kind(tokens[i]) not in self.content_kinds and self.kind(tokens[i]) != UNKNOWN_KIND
+              or tokens[i] in placed or self.lemma(tokens[i]) in placed]
+        if not ex: return 1.0
+        F = np.array([self.st.id(self.ident(tokens[kept[j]])) for j in ex]); rec = (addr[ex] * F).sum(0)
+        nS, nr = np.linalg.norm(S), np.linalg.norm(rec)
+        if nS < 1e-9 or nr < 1e-9: return 1.0
+        Sn, rn = S / nS, rec / nr; a = max(0.0, float(np.real(np.vdot(rn, Sn))))
+        return float(np.linalg.norm(Sn - a * rn))
+
     def placed_words(self, f):
         ws = set(f["speakers"]) | ({f["lemma"]} if f.get("lemma") else set())
         for fl in f["roles"].values(): ws |= set(world.filler_words(fl))
@@ -502,7 +519,8 @@ class Reader:
             top.set("_margin", "0")
         top.set("_status", status)
         top.lines.insert(next((i + 1 for i, l in enumerate(top.lines) if l.key == "_sentence"), 0), soplang.line("_world", self.cfg.get("world", "?")))
-        res = self.residual(S, wires, tokens) if f["shape"] == "ok" else 1.0
+        mode = self.cfg.get("residual", "compiled")                      # "compiled" (the paper's) | "explained" (R41)
+        res = (self.residual_explained(S, addr, kept, tokens, placed) if mode == "explained" else self.residual(S, wires, tokens)) if f["shape"] == "ok" else 1.0
         top.set("_residual", fmt(res))
         if unplaced: top.set("_unplaced", ",".join(tokens[i] for i in unplaced))
         if f.get("depth_gates") is not None: top.set("_depth.gates", str(f["depth_gates"]))

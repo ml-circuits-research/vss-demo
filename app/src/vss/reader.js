@@ -425,6 +425,22 @@ export class Reader {
     const Sn = cscale(S, 1 / nS), rn = cscale(rec, 1 / nr), a = Math.max(0, cdotRe(rn, Sn));
     return cnorm(cadd(Sn, cscale(rn, a), -1));
   }
+  /** the explained-tokens residual (infer.Reader.residual_explained): rec' = the chart of the explained tokens only */
+  residualExplained(S, tokens, kept, placed) {
+    if (!kept.length) return 1.0;
+    const ex = [];
+    kept.forEach((i, j) => { const k = this.kind(tokens[i]), t = tokens[i]; if ((!this.contentKinds.has(k) && k !== "unknown") || placed.has(t) || placed.has(this.lemma(t))) ex.push(j); });
+    if (!ex.length) return 1.0;
+    const [, cidx] = this.encode(tokens), addr = this.rb.addresses(cidx), D = this.D, rec = cz(D);
+    for (const j of ex) {
+      const F = this.st.id(this.ident(tokens[kept[j]])); if (!F) continue; const a = addr[j];
+      for (let d = 0; d < D; d++) { rec.re[d] += a.re[d] * F.re[d] - a.im[d] * F.im[d]; rec.im[d] += a.re[d] * F.im[d] + a.im[d] * F.re[d]; }
+    }
+    const nS = cnorm(S), nr = cnorm(rec);
+    if (nS < 1e-9 || nr < 1e-9) return 1.0;
+    const Sn = cscale(S, 1 / nS), rn = cscale(rec, 1 / nr), a = Math.max(0, cdotRe(rn, Sn));
+    return cnorm(cadd(Sn, cscale(rn, a), -1));
+  }
   placedWords(f) {
     const ws = new Set(f.speakers); if (f.lemma) ws.add(f.lemma);
     for (const fl of Object.values(f.roles)) for (const w of fillerWords(fl)) ws.add(w);
@@ -452,7 +468,8 @@ export class Reader {
     top.set("_status", status);
     const si = top.lines.findIndex((l) => l.key === "_sentence");
     top.lines.splice(si >= 0 ? si + 1 : 0, 0, line("_world", this.cfg.world || "?"));
-    const res = f.shape === "ok" ? this.residual(S, wires, tokens) : 1.0;
+    const mode = this.cfg.residual || "compiled";                      // "compiled" (the paper's) | "explained" (R41)
+    const res = f.shape === "ok" ? (mode === "explained" ? this.residualExplained(S, tokens, kept, placed) : this.residual(S, wires, tokens)) : 1.0;
     top.set("_residual", fmt(res));
     if (unplaced.length) top.set("_unplaced", unplaced.map((i) => tokens[i]).join(","));
     if (f.depth_gates !== undefined && f.depth_gates !== null) top.set("_depth.gates", String(f.depth_gates));
