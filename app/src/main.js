@@ -7,6 +7,7 @@ import { createAssets } from "./assets.js";
 import { loadWorlds, lexiconOf, loadDictionaries, routesFor, purposeOf, languageOf, languageName } from "./worlds.js";
 import { createTranslator } from "./translate.js";
 import { readRoutes } from "./routes.js";
+import { createGaps, entryFromReading } from "./gaps.js";
 import { createNormalizer } from "./normalize.js";
 import { createCorrector } from "./correct.js";
 import { createFormIndex } from "./form.js";
@@ -52,10 +53,11 @@ import { answer as answerFilm } from "./animate/questions.js";
 import { exportJSON as filmJSON, exportSVG as filmSVG, exportWebM, capabilities as filmCaps, importTimeline } from "./animate/export.js";
 
 const $ = (id) => document.getElementById(id);
-const DEFAULTS = { corrector: "classic", theme: "auto", speakback: false, lang: "en-US" };
+const DEFAULTS = { corrector: "classic", theme: "auto", speakback: false, lang: "en-US", gaps_collect: true, gaps_endpoint: "", gaps_consent: false };
 const S = {
   assets: createAssets(), worlds: new Map(), diagram: null, normalize: null, corr: { classic: null, form: null }, formIndex: null,
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
+  gaps: null, lastGapId: null,
   mode: "command", active: null, texts: new Map(), formulas: new Map(), dict: null, textedit: null, textNorm: null, calibration: null,
   formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "frame",
 };
@@ -83,6 +85,7 @@ async function start() {
   if (S.diagram) { const P = S.pipes.get(S.diagram.name); S.normalize = P.normalize; S.corr = P.corr; S.formIndex = P.formIndex; S.segReader = readerAdapter(S.diagram.vss); }
   else S.normalize = (t) => ({ tokens: t.toLowerCase().split(/\s+/).filter(Boolean), info: { labels: {}, numbers: {} } });
   await setupTextedit(); setupMatheditor(); await setupAnimation();
+  S.gaps = createGaps({ storage: (() => { try { return globalThis.localStorage; } catch { return null; } })(), tau: S.diagram?.tau ?? 0.05 });
   showModelBadge(errors);
   setupSpeech(); setupUI(); refresh();
 }
@@ -174,6 +177,7 @@ function handle(alternatives, source = "typed") {
   if (d.action === "execute") { ex = execute(S.scene, p); }
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
   S.history.push({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop });
+  recordGap({ result: best.result, route: best.route, tokens: best.tokens, info: best.info, decision: d, world: W.name });
   refresh(); showAnswer(d);
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
 }
@@ -513,8 +517,19 @@ function showAnswer(d) {
     if (q.kind === "unknown-word") host.append(chip(`use "${q.words.join(" ")}" as a label`, () => runText(`${S.last.input} called ${q.words.join(" ")}`)));
   }
   for (const n of d.notes || []) if (n.kind === "correction") host.append(chip(`undo correction: ${n.revert.to} -> ${n.revert.from}`, () => runRaw(S.last.input, { corrector: "off" })));
+  if (S.lastGapId && d.action !== "execute" && S.settings.gaps_collect) host.append(chip("this should have worked", () => markGap(S.lastGapId)));
   const pres = (d.notes || []).filter((n) => n.kind === "presence");
   if (pres.length) { const m = document.createElement("span"); m.className = "note-muted"; m.textContent = pres.map((n) => n.text).join("; "); host.append(m); }
+}
+// the gaps journal (src/gaps.js): every diagram reading is recorded locally (labels masked) when collection is on; a reading that was
+// not executed gets a chip "this should have worked", which marks it with an optional note; export and sending are explicit actions
+function recordGap(args) {
+  if (!S.gaps || !S.settings.gaps_collect) { S.lastGapId = null; return; }
+  S.lastGapId = S.gaps.record(entryFromReading({ ...args, tau: S.diagram?.tau ?? 0.05 }));
+}
+function markGap(id) {
+  const note = prompt("What should have happened? (optional, a few words; names you typed are not stored)", "") ?? "";
+  if (S.gaps.mark(id, note)) { showAnswer({ action: "execute", line: "Thanks. The reading is marked in the local journal (Settings: Help improve the readers)." }); }
 }
 const chip = (text, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = text; b.onclick = fn; return b; };
 const describeId = (id) => { const c = S.scene.components.get(id); return c ? `${c.label ? `"${c.label}" ` : ""}${c.word}` : id; };
@@ -647,6 +662,15 @@ function setupUI() {
     fillRoutes(); renderLines($("threshold-info"), thresholdInfo()); ds.showModal();
   };
   ds.addEventListener("change", (e) => { const t = e.target; S.settings[t.name] = t.type === "checkbox" ? t.checked : t.value; saveSettings(); applyTheme(); if (t.name === "lang") { if (S.speech.listening) S.speech.stop(); makeSpeech(); } });
+  // the gaps journal: summary, export, send (explicit consent and an address), clear
+  const gapsSummary = () => { const g = S.gaps?.summary(); if (!g) return; renderLines($("gaps-summary"), [`${g.entries} readings in the journal, ${g.flagged} marked or reformulated` + (g.topUnplaced.length ? `; words most often not placed: ${g.topUnplaced.slice(0, 5).map((x) => `${x.w} (${x.n})`).join(", ")}` : "") + (g.lowRoles.length ? `; roles most often unsure: ${g.lowRoles.slice(0, 5).map((x) => `${x.w} (${x.n})`).join(", ")}` : "")]); };
+  $("btn-settings").addEventListener("click", () => { gapsSummary(); const ep = ds.querySelector("#set-gaps-endpoint"); if (ep) ep.value = S.settings.gaps_endpoint || ""; });
+  $("gaps-export").onclick = () => download(new Blob([S.gaps.export()], { type: "application/json" }), `vss-gaps-${new Date().toISOString().slice(0, 10)}.json`);
+  $("gaps-send").onclick = async () => {
+    const r = await S.gaps.send(S.settings.gaps_endpoint, { consent: !!S.settings.gaps_consent });
+    renderLines($("gaps-summary"), [r.ok ? `Sent ${r.sent} readings.` : `Not sent: ${r.reason || `HTTP ${r.status}`}. ${!S.settings.gaps_consent ? "Tick the consent box first." : !S.settings.gaps_endpoint ? "Enter an address first." : ""}`]);
+  };
+  $("gaps-clear").onclick = () => { S.gaps.clear(); gapsSummary(); };
   $("btn-about").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); };
   // export
   const dx = $("dlg-export");

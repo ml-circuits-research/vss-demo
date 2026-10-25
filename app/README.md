@@ -53,6 +53,10 @@ Everything below works in the one-file build (file://) and in the hosted folder,
   grammar), and the Romanian dictionary into the English reader (no training; also covers English grammar with Romanian words). A
   dictionary for another language is a JSON file (training/worlds/DICTIONARIES.md) installed with training/export_app.py --dict. The
   reading strip says which route answered. The speech language can be Romanian.
+- **Help improve the readers** (vision/ADDENDUM_qformalisation_2026-10-25.md): a local journal of readings the editor did not
+  understand (names masked), a chip "this should have worked" on any refused or unsure reading, export as a file, and sending to an
+  address you enter after a consent box. The About panel explains how sent journals become new questions of the legend and retrained
+  models, with a person accepting every change. The sending is UNTESTED against a real endpoint.
 - **Settings**: spelling correction (classic, VSS form level, off), the speech language, the thresholds that decide when a command runs,
   the theme. **About**: every world with its model (demo, development, or not installed) and the status of every module.
 

@@ -1,5 +1,5 @@
 {
- "id": "08dad7c5c047",
+ "id": "bb3fd9ef1506",
  "files": [
   "./",
   "index.html",
@@ -36,6 +36,7 @@
   "src/formula/parse.js",
   "src/formula/tree.js",
   "src/formula/view.js",
+  "src/gaps.js",
   "src/main.js",
   "src/normalize.js",
   "src/routes.js",

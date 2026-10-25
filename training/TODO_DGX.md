@@ -466,6 +466,24 @@ table unchanged; NORMALIZERS in export_app.py, or `--normalizer`). Then the pari
 `node app/tests/routes.mjs` with the three routes installed. Size: the route book has three K x K x D tables; diagram_ro has 59 route-book
 kinds (with `unknown`) against the English world's 49, so its route book is about 1.45 times the English one at the same D and bits.
 
+
+### 2.7 The improvement loop from use (vision/ADDENDUM_qformalisation_2026-10-25.md; training/gaps/, UNTESTED skeleton)
+
+Nothing here runs before the diagram model of 1.1 exists. First measurement, criteria written before the run: plant three roles missing
+from the diagram world (remove them from the legend and the generator in a copy; generate 300 sentences that use them and write them as a
+journal in the vss-gaps-1 format with status no-sense / abstain), then:
+```
+python3 training/gaps/aggregate.py <journals dir> --out runs/loop_plant/report.json --md runs/loop_plant/report.md
+ANTHROPIC_API_KEY=... python3 training/gaps/propose.py --report runs/loop_plant/report.json --world <planted world> --out runs/loop_plant/proposals
+python3 training/gaps/apply.py --world <planted world> --proposals runs/loop_plant/proposals/proposals.jsonl --out runs/loop_plant/world
+tool/bin/sop train runs/loop_plant/world --D 1024 --seeds 5 --device cuda --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --run_dir runs/loop_plant/train
+python3 training/gaps/accept.py --before runs/diagram_step3_<commit>/50000 --after runs/loop_plant/train --report runs/loop_plant/report.json --out runs/loop_plant/REPORT.md
+```
+Rows: roles recovered (criterion >= 2 of 3), false proposals accepted by the mechanical checks (criterion <= 1), the acceptance verdict,
+and the FULL on the planted roles' sentences before and after. Then `training/gaps/nightly.sh diagram <journals> --apply` on real
+journals, with the same rows, once any journal has been sent. The endpoint that receives journals is not part of this repository: a
+static file drop (any HTTPS endpoint that accepts a POST and stores the body) is enough; its address is entered in the editor's Settings.
+
 ## 3. What needs people, not the DGX
 
 - The recorded speech set (spec 13.5): at least ten speakers, non-native speakers included, two microphones, with consent; commands

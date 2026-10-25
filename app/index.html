@@ -131,6 +131,20 @@
     <fieldset><legend>Commands and writing</legend>
       <div id="threshold-info" class="muted small"></div>
     </fieldset>
+    <fieldset><legend>Help improve the readers</legend>
+      <label><input type="checkbox" name="gaps_collect" checked> Keep a local journal of readings the editor did not understand</label>
+      <p class="muted small">The journal stays in this browser. It holds the command as the editor read it, with the names you typed replaced by a placeholder, what was understood, how sure the reader was, and what you did next. Nothing is sent anywhere unless you send it.</p>
+      <div id="gaps-summary" class="muted small"></div>
+      <label class="select-row">Send to
+        <input type="url" name="gaps_endpoint" id="set-gaps-endpoint" placeholder="https://… (optional)" inputmode="url" spellcheck="false"></label>
+      <label><input type="checkbox" name="gaps_consent"> I agree to send the journal to this address when I press Send</label>
+      <menu class="inline">
+        <button type="button" id="gaps-export">Save the journal as a file</button>
+        <button type="button" id="gaps-send">Send</button>
+        <button type="button" id="gaps-clear">Clear</button>
+      </menu>
+      <p class="muted small">What happens with a sent journal: the unplaced words, the unsure roles and the marked readings are grouped into gaps, a large model proposes new questions for the legend and new example sentences for each gap, the readers are retrained on the DGX and compared on the same frozen tests, and a person accepts or rejects each change before a new model ships. The process is described in the About panel.</p>
+    </fieldset>
     <fieldset><legend>Appearance</legend>
       <label><input type="radio" name="theme" value="auto" checked> Follow the system</label>
       <label><input type="radio" name="theme" value="light"> Light</label>
@@ -148,6 +162,8 @@
     <div id="about-models"></div>
     <h3>Modules</h3>
     <div id="about-modules"></div>
+    <h3>How the readers improve from use</h3>
+    <p>A command the editor does not understand is evidence that the legend lacks a question (a role), a word, or a formulation. Every reading carries that evidence: the words it could not place, the roles it was unsure about, the share of the sentence it could not explain, and whether you reformulated or marked it. With your permission the editor keeps this journal locally and you can send it. On our side the journal is grouped into gaps; a large model proposes, for each gap, a new question of the legend with example sentences, or new words and formulations; the proposals are validated mechanically (sop check), the readers are retrained on frozen data and compared with the previous ones on the same tests, and a person accepts each change before it ships. No model is ever changed directly: only the legend, the generators and the rules, all versioned.</p>
     <h3>What is measured</h3>
     <div id="about-measured"></div>
     <h3>Licences</h3>
