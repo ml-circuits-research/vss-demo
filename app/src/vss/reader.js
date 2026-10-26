@@ -295,8 +295,9 @@ export class Reader {
       const o = this.readRole(Sn, K, r, core, presence); f.presence[r] = o.presence;
       for (const part of ["attr", "det"]) if ((part + "_ratio") in o) f.presence[r + "." + part] = o[part + "_ratio"];
       if ("presence_margin" in o) {
-        if (o.present || !this.cfg.presence_query) f.margins[r + ".presence"] = o.presence_margin;
-        else if (o.presence_margin < this.tau) (f.presence_queries = f.presence_queries || {})[r] = o.presence_margin;   // D14 item 1: an absent role near its threshold is a query, not an abstention of the frame
+        const given = o.present && o.filler !== null && o.filler !== undefined;
+        if (given || !this.cfg.presence_query) f.margins[r + ".presence"] = o.presence_margin;
+        else if (o.presence_margin < this.tau || o.present) (f.presence_queries = f.presence_queries || {})[r] = o.presence_margin;   // D14 item 1 / Q38: a role not given (absent near its threshold, or present with no admissible word)
       }
       if (o.present && o.filler) {
         f.roles[r] = o.filler; Object.assign(f.margins, o.margins);
@@ -505,7 +506,13 @@ export class Reader {
       const ws = fillerWords(fl); if (!ws.length) continue;
       const rs = this.schema.roles[r] || {}, kinds = new Set(rs.head_kinds || rs.kinds || []);
       const head = ws[0], i = pos.get(head); if (i === undefined) continue;
-      for (const j of [i - 1, i + 1]) { if (up.has(j) && kinds.has(this.kind(tokens[j])) && tokens[j] !== head) { out[r] = [head, tokens[j]]; break; } }
+      const run = this.legend.reader.spans === "kind_run";
+      for (const j of [i - 1, i + 1]) {
+        if (up.has(j) && kinds.has(this.kind(tokens[j])) && tokens[j] !== head) {
+          if (run && this.kind(tokens[j]) === this.kind(head)) continue;      // the same run (a multi-word span), not a competitor (Q38)
+          out[r] = [head, tokens[j]]; break;
+        }
+      }
     }
     return out;
   }
@@ -523,6 +530,14 @@ export class Reader {
     try { f = kept.length ? this.read(S, tokens, { estimator, presence, force: opts.force, forceDepth: opts.forceDepth }) : { shape: "unknown", roles: {}, speakers: [], margins: {}, neg: false, lemma: null }; }
     finally { this.filt = null; }
     const placed = f.shape === "ok" ? this.placedWords(f) : new Set(); let unplaced = [...unknown];
+    if (f.shape === "ok" && this.legend.reader.spans === "kind_run") {      // Q38 / R87 (infer.py): a multi-word filler is the run of its kind around the head
+      const ks = tokens.map((t) => this.kind(t));
+      for (const fl of Object.values(f.roles)) for (const w of fillerWords(fl)) tokens.forEach((t, i) => {
+        if (t !== w || !String(ks[i]).startsWith("S:")) return;
+        let a = i, b = i; while (a > 0 && ks[a - 1] === ks[i]) a--; while (b + 1 < tokens.length && ks[b + 1] === ks[i]) b++;
+        for (const x of tokens.slice(a, b + 1)) placed.add(x);
+      });
+    }
     if (placed.size && (f.lemma === null || f.lemma === undefined) && f.event) {      // no predicate role: the event's FIRST verb only (Q32)
       const ev = tokens.find((t) => this.legend.eventOfLemma(this.lemma(t)) === f.event); if (ev !== undefined) placed.add(ev);
     }
