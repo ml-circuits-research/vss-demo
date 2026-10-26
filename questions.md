@@ -6,6 +6,11 @@ from this file once its answer is satisfactory (the answer stays in `responses.m
 
 (no open questions; Q4-Q6 answered by D5, D8, D10 and removed)
 
+For the interface thread: the owner wants the editor as a set of tabs with a chat input ("in the chat I write what I want and
+things happen through the tabs"), one tab being the assistant's detected intents and results; it is built by a separate thread (a
+Sonnet agent, through the API; it does not touch the training runs). Detailed requirements, with D10's two kept items and the file
+ownership that keeps it apart from the reader's mirror: vision/UI_tabs_requirements_2026-10-26.md.
+
 Notes for the record (not questions):
 - The owner (2026-10-26, about 12:25): the interface work of Q6 / D10 is a side task, done only when there is time; the focus stays on
   what was planned (the 2.12 runs, their export, the decoder rules). The shell of the "Requests" tab (D10) waits with it.
