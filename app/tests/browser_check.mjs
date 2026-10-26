@@ -1,7 +1,7 @@
 // browser_check.mjs: a SMOKE test of the application in a real browser (Chromium through Playwright), on desktop (1366 x 860) and phone
 // (390 x 844) sizes, from the single-file build (file://) and from the hosted folder (a small static server started here).
 // It checks only that the page is alive and wired: it loads and shows the model badge; there is no console error and no page error during
-// the whole session; every main tab button exists and opens a non-empty panel; one typed command gives a reading line and an answer; the
+// the whole session; every main tab button exists and opens a non-empty panel; one typed command gives a History entry and an answer; the
 // examples paperclip opens its sheet and filling an example puts text in the input without running it; the export sheet opens; and the
 // build banner is present in a preview build.
 // Why only a smoke test: the owner decided (owner, 2026-10-26) that click / coordinate browser checks are not worth maintaining. The logic
@@ -59,7 +59,8 @@ async function session(browser, url, label, size) {
 
   // one typed command first (some panels, e.g. SOP and Log, fill from it): a reading line and an answer
   await page.fill("#input", "add a database called orders in the top left ."); await page.press("#input", "Enter"); await page.waitForTimeout(300);
-  check(`${tag} command: a reading line`, (await page.textContent("#reading")).trim().length > 0);
+  check(`${tag} command: no reading strip above the input`, (await page.locator("#reading").count()) === 0);
+  check(`${tag} command: History has the entry (text, status, behaviour)`, await page.evaluate(() => { const r = document.querySelector("#tab-history .hist-row"); return !!r && /database/.test(r.textContent) && !!r.querySelector(".chip"); }));
   check(`${tag} command: an answer`, (await page.textContent("#answer")).trim().length > 0);
   await shot("command");
 

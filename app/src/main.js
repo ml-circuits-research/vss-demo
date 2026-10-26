@@ -18,7 +18,6 @@ import { createScene } from "./editor/scene.js";
 import * as ops from "./editor/ops.js";
 import { place } from "./editor/geometry.js";
 import { plan as makePlan, execute, undo, redo } from "./editor/planner.js";
-import { renderReading, renderNote, renderUnits } from "./ui/reading.js";
 import { renderFrame, renderPlan, renderGeometry, renderSOP, renderSketch, renderUnitsPlan, renderWidgetInfo } from "./ui/panel.js";
 import { exportSVG, exportPNG, exportJSON, importJSON, createView } from "./ui/canvas.js";
 import { createSlots } from "./ui/widgets.js";
@@ -72,7 +71,9 @@ const S = {
 };
 
 // the history of inputs; an entry also carries when it was made and, where the handler has them, world, frame, minMargin, residual
-function pushHistory(entry) { S.history.push({ time: Date.now(), ...entry }); }
+// an entry that comes from a reading carries `last` (S.last as it was then) and `rec` (entries.js readingRecord: behaviour, rule, steps)
+function recOf(last) { if (!last) return null; const world = last.kind === "long" ? S.diagram?.name : (last.world || last.best?.route?.world); return readingRecord(last, { time: Date.now(), world }); }
+function pushHistory(entry) { const e = { time: Date.now(), ...entry }; if (e.last) e.rec = recOf(e.last); S.history.push(e); return e; }
 function loadSettings() { try { return Object.assign({ ...DEFAULTS }, JSON.parse(localStorage.getItem("vss-settings") || "{}")); } catch { return { ...DEFAULTS }; } }
 function saveSettings() { try { localStorage.setItem("vss-settings", JSON.stringify(S.settings)); } catch { /* private mode: settings for this visit only */ } }
 function applyTheme() { if (S.settings.theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = S.settings.theme; }
@@ -187,7 +188,7 @@ function handle(alternatives, source = "typed") {
   let ex = null;
   if (d.action === "execute") { ex = execute(S.scene, p); }
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
-  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, ...historyExtras(best.result, W.name) });
+  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, last: S.last, routeLabel: best.route ? routeTag(best.route) : "", ...historyExtras(best.result, W.name) });
   recordGap({ result: best.result, route: best.route, tokens: best.tokens, info: best.info, decision: d, world: W.name });
   refresh(); showAnswer(d);
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
@@ -202,7 +203,7 @@ function fillRoutes() {
   for (const r of S.routes) add(r.id, r.label);
   sel.value = S.settings.route_diagram && [...sel.options].some((o) => o.value === S.settings.route_diagram) ? S.settings.route_diagram : "auto";
   const lines = S.routes.map((r) => { const w = S.worlds.get(r.world); return `${r.label}: ${r.kind === "dictionary" ? `${r.dictionary.translator.size} dictionary entries, words replaced before the ${w.name} reader (no training; word order stays as typed)` : `${w.status === "demo" ? "demo" : "development"} model, D ${w.vss.model.config.D}`}`; });
-  lines.push("Every reader writes the same English circuits (one legend); the Reading strip says which one answered.");
+  lines.push("Every reader writes the same English circuits (one legend); each History entry says which one answered.");
   renderLines($("route-info"), lines);
 }
 const routeTag = (r) => (r.kind === "dictionary" ? `${languageName(r.language)} via dictionary` : `${languageName(r.language)} reader`);
@@ -236,7 +237,7 @@ function handleLong(text, source, seg, info, choices = {}) {
   const units = circuit.units.filter((u) => u.role === "command").map((u) => ({ ...u, mark: byI.get(u.i)?.mark || null }));
   const lastRead = [...units].reverse().find((u) => u.reading);
   S.last = { kind: "long", input: text, seg, info, circuit, ex, units, line, best: lastRead ? { result: lastRead.reading, corrections: [], info } : null };
-  pushHistory({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop, world: (longRoute(text).route?.world) || S.diagram?.name });
+  pushHistory({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop, world: (longRoute(text).route?.world) || S.diagram?.name, last: S.last });
   refresh();
   const d = { action, line, questions };
   showAnswer(d);
@@ -256,7 +257,11 @@ function tryAnimation(text, diagramBest) {
   const reason = `dispatch by fit: animation ${r.status}, residual ${(r.residual ?? 0).toFixed(3)}; diagram ${diagramBest.result.status}, residual ${(diagramBest.result.residual ?? 0).toFixed(3)}`;
   const d = decide({ result: r, plan: { steps: [{ op: "animate", explain: "" }], questions: [], blocked: [] }, tau: S.animation.tau, legend: S.animation.legend });
   const best = { result: r, corrections: [], info: n.info };
-  if (d.action !== "execute") { S.last = { kind: "diagram", input: text, best, decision: { ...d, rule: `${d.rule}; ${reason}` } }; refresh(); showAnswer(d); return true; }
+  if (d.action !== "execute") {
+    S.last = { kind: "diagram", input: text, best, world: "animation", decision: { ...d, rule: `${d.rule}; ${reason}` } };
+    pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line: d.line, action: d.action, sop: r.sop, last: S.last, ...historyExtras(r, "animation") });
+    refresh(); showAnswer(d); return true;
+  }
   const tl = S.film.timeline || createTimeline(S.scene); const it = animationIntent(r.frame, n.tokens); let line;
   if (it.intent === "question") { const ans = answerFilm(tl, r.frame, n.info, n.tokens); line = ans.text; if (ans.t != null && S.film.player) { S.film.show(true); S.film.player.seek(ans.t); } }
   else {
@@ -266,7 +271,7 @@ function tryAnimation(text, diagramBest) {
     if (res.kind === "error") d.action = "refuse";
   }
   S.last = { kind: "diagram", input: text, best, world: "animation", decision: { action: d.action, line, rule: `${it.rule}; ${reason}` } };
-  pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line, action: d.action, sop: r.sop, ...historyExtras(r, "animation") });
+  pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line, action: d.action, sop: r.sop, last: S.last, ...historyExtras(r, "animation") });
   refresh(); showAnswer({ action: d.action, line });
   return true;
 }
@@ -456,7 +461,7 @@ function runScriptText(text) {
   const circuit = buildScript(read, { scene: S.scene, tau: S.diagram.tau });
   const run = runScript(S.scene, circuit, { blocking: "stop", conflicts: "in-order" });
   S.script = { text, read, circuit, run };
-  showScript(); pushHistory({ input: `(script) ${read.title || text.slice(0, 40)}`, source: "script", used: "", status: `${read.units.length} units`, line: "script", action: "script", sop: circuit.sop });
+  const he = pushHistory({ input: `(script) ${read.title || text.slice(0, 40)}`, source: "script", used: "", status: `${read.units.length} units`, line: "script", action: "script", sop: circuit.sop }); showScript(); he.last = S.last; he.rec = recOf(S.last); refresh();
 }
 function showScript() {
   const { read, circuit, run } = S.script; const model = documentModel(read, circuit, run); const rep = authorReport(read, circuit, run);
@@ -488,10 +493,6 @@ function refresh() {
   S.slots.sync();
   $("empty-hint").hidden = S.scene.components.size > 0 || !!S.last || S.sketch?.isOpen;
   const L = S.last; const best = L?.best;
-  if (L?.note) renderNote($("reading"), L.note);
-  else if (L?.kind === "long" && L.units?.length) renderUnits($("reading"), L.units);
-  else if (L?.kind === "sketch") renderNote($("reading"), { text: L.rec.groups.map((g) => String(g.kind).replace(/_/g, " ")).join(", ") || "no ink", as: "drawn on the sketch pad", reason: L.res.active, world: "sketch", kind: "command" });
-  else renderReading($("reading"), { result: best?.result, corrections: best?.corrections || [], labels: best?.info?.labels || {}, world: best?.route ? routeTag(best.route) : (L?.world || "diagram") });
   renderFrame($("tab-frame"), { result: best?.result, legend: (L?.world === "animation" ? S.animation : S.diagram)?.legend, tau: S.diagram?.tau ?? 0.05 });
   if (L?.kind === "sketch") renderSketch($("tab-plan"), { rec: L.rec, res: L.res, low: PASS_OPTIONS.ambiguousMargin });
   else if (L?.kind === "long") renderUnitsPlan($("tab-plan"), { results: L.ex?.results, circuit: L.circuit, line: L.line });
@@ -692,9 +693,9 @@ function makeSpeech() {
   const mic = $("btn-mic");
   S.speech = createSpeech({
     lang: S.settings.lang,
-    onInterim: (t) => { const r = $("reading"); r.replaceChildren(Object.assign(document.createElement("p"), { className: "interim", textContent: t })); },
+    onInterim: (t) => { $("answer").replaceChildren(Object.assign(document.createElement("span"), { className: "interim", textContent: t })); },
     onFinal: ({ alternatives }) => handle(alternatives, "speech"),
-    onState: (st) => mic.classList.toggle("listening", st === "listening"),
+    onState: (st) => { mic.classList.toggle("listening", st === "listening"); if (st !== "listening" && $("answer").querySelector(".interim")) $("answer").replaceChildren(); },
     onError: (e) => showAnswer({ action: "refuse", line: `Voice: ${e}` }),
   });
   const info = S.speech.info(); $("voice-info").textContent = info.note; mic.disabled = !info.available; mic.title = info.available ? "Hold to speak (or hold the space bar when the input is empty)" : info.note;

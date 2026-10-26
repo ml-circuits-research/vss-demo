@@ -49,6 +49,7 @@ export function historyRow(h) {
     status: h.status || "", action: h.action || "",
     event: h.frame?.event ? `${h.frame.event}${filled.length ? ": " + filled.map(([r, f]) => `${r} ${fillerText(f)}`).join(", ") : ""}` : (h.line || ""),
     minMargin: h.minMargin ?? null, residual: h.residual ?? null, rereadable: h.source === "typed" || h.source === "speech",
+    behaviour: h.rec?.behaviour || "", rule: h.rec?.rule || "", outcome: h.line || "", steps: h.rec?.steps || [],
   };
 }
 

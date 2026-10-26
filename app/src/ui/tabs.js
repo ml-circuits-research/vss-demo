@@ -2,6 +2,7 @@
 // entries.js (plain data) and the example list from examples.js. No decisions.
 import { historyRow, assistantLines } from "./entries.js";
 import { renderFrame } from "./panel.js";
+import { renderReading } from "./reading.js";
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const MAX_ROWS = 200;
@@ -31,6 +32,16 @@ export function renderHistory(host, history, { onPick } = {}) {
     if (r.minMargin != null) bits.push(`min margin ${r.minMargin.toFixed(3)}`);
     if (r.residual != null) bits.push(`residual ${r.residual.toFixed(3)}`);
     meta.textContent = bits.join(" · "); if (bits.length) li.append(meta);
+    if (r.outcome && r.outcome !== r.event) {
+      const out = el("div", "hist-outcome"); if (r.behaviour) out.append(el("span", `chip beh beh-${r.behaviour}`, r.behaviour), " ");
+      out.append(r.outcome); li.append(out);
+    }
+    if (r.rule) li.append(el("div", "act-rule", `Rule: ${r.rule}`));
+    const best = h.last?.best;
+    if (best?.result) {   // what the reader made of each word (the reading strip of earlier builds)
+      const d = el("details", "hist-reading"); d.append(el("summary", null, "How the words were read"));
+      const box = el("div"); renderReading(box, { result: best.result, corrections: best.corrections || [], labels: best.info?.labels || {}, world: h.routeLabel || h.world || "diagram" }); d.append(box); li.append(d);
+    }
     list.append(li);
   }
   host.append(list);
