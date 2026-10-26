@@ -249,3 +249,9 @@ identities -0.017 with sd 0.016). English 800-sentence diagnostic (D's own eval 
 rise: `vorder` was accepted in C and NOT in D: in D it won the marked rows 0.758 -> 0.806 but lost calibration_heldout_formulations 0.904 ->
 0.891 (tolerance 0.01), in C it won 0.711 -> 0.737 and lost 0.007 on train; one-seed trials on about 650 selection rows decide on
 differences of one or two rows, so the route flips between probes that differ by one form. Questions.md Q15.
+
+Interface (responses D21 / D22, the owner's requirements after using the published preview): full-width popups with a fixed X, no
+reading strip (its content into History), contrast and font size up, History as the single record with details as popups (fewer main
+tabs; the D10 live panel stays), two rendered diagrams for a sketch (classical pass and VSS scene reader). Being built by a Sonnet agent of
+this session, in D21's order (commits "ui-1", "ui-2", "ui-3", "ui-5", "ui-4"); publishing is the owner's workflow (publish-preview.yml),
+not this session.
