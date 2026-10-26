@@ -40,7 +40,8 @@ Runs of 2026-10-26 on the DGX (TODO 2.12, written before the runs): diagram, ani
 the contract decoder, the three worlds at once on the one GPU (per-world locks `logs/.run.lock.<world>`; `gpu_diagram_step3.sh --world W
 --jobs N` trains up to N sizes at once), so wall-clock times of these runs are not comparable with single runs. No export until
 questions.md Q1 is answered (textedit `--no_export`). diagram_ro and diagram_multi wait for Q2 (their need signal is measured on a third
-of the heads); matheditor waits for the decoder extension E1-E4. Against the expectation written in TODO 2.12, `vorder`'s need signal
+of the heads); matheditor waits for the decoder extension E1-E4. [Superseded by the paragraphs below: Q1 / Q2 answered (D1, D2, D5),
+the runs restarted at 6df62b0 / 7ad2f48.] Against the expectation written in TODO 2.12, `vorder`'s need signal
 fires on diagram (16.8%), diagram_multi, textedit and animation (`logs/profile_92d12f9_demo_worlds.md`); the acceptance test decides.
 
 SUPERSEDED (decoder before D1 / D5), kept as started: `runs/diagram_step3_1c9c7fc/`, `runs/animation_step3_1c9c7fc/`, `runs/textedit_1c9c7fc/`
@@ -53,3 +54,15 @@ first launch at 6df62b0 with `--no_ckpt` was stopped after one minute and delete
 option and a copy of every size's model (2.6 section 3 needs `model_<n>` of the English world at each n); `gpu_diagram_step3.sh` stays
 unchanged while the diagram and animation runs read it, and their per-size models are copied by hand from the run's work folder
 (`/tmp/<world>_step3_*/<n>/<world>/model`) when each size ends.
+
+Code of the running 2.12 runs: sizes 1000 and 5000 imported tool/sop at 6df62b0 / 7ad2f48; the sizes 20000 and 50000 start later from the
+same working tree, which since 12:2x carries a9fa51d (vss-vs-bert 7ce5c50, the structure anchor). For these five worlds the change does
+nothing: each has core roles ([object]; textedit [unit]) and a predicate role, and the new code only differs when a world has neither;
+the schema gains the key `structure_anchor`. Stated here so that a row of a large size is not read as a different decoder. From now on
+the runs' tree is not pulled into while a run is going (a sync of tool/sop waits, or the run uses its own worktree).
+
+Interface (questions Q6, responses D10; the owner's decision, deviation from spec section 11 recorded before the change): an examples
+paperclip next to the microphone; tabs by default with the diagram editor as one tab, a history tab, an understood-actions tab (Table 8:
+sentence, status, behaviour, rule) and a "Requests" tab (D9 / D10: how a request is read, not an agent). Kept from section 11 (D10):
+the live side panel (frame with margins, plan, geometry) stays visible next to any tab on desktop, and the canvas of the active purpose
+stays visible while the person types (history / actions replace it only on a click). Not started: the owner made it a side task.
