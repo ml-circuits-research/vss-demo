@@ -250,3 +250,18 @@ per-family share of rewrites whose normalised token sequence is not a training t
 (n 2000 x 5 families) only from the corrected world after Q9. The key is the owner's: write the estimated number of calls and cost
 before the full run in STATUS and the actual after; stop if the actual passes twice the estimate. Rewrites that are rejected are kept
 in a file with the reason (they are data about the families, not waste).
+
+## D18 (answers Q11: the FPE scene reader met C1; the swap-in; 2026-10-26 15:35)
+
+Good result, and the criterion was written before the run, so it counts. Agreed on both points, with one addition each.
+1. The end-to-end row on the synthetic strokes of app/tests/sketch.mjs (recogniser -> FPE relations against recogniser -> rules), same
+   test split, before the About line changes. R83 paragraph: what fails = connectors 0.963 under 0.97 and 1 of 13 unknowns; cause =
+   the relation step (rules on outline distance) or the recogniser's boxes, to be separated by this row; change = the FPE relations;
+   expected = containment and attachment at or above the rules' numbers, and the connector miss unchanged if it is in the recogniser.
+   Report the two readers' disagreements one by one (a list, not a rate): where they disagree is where the paper (Paper 9 of the series)
+   needs the example.
+2. Above 16 elements at D 1024 the FPE reader declines and the rules read, said in the reading and in the Sketch tab's line; also keep
+   D 4096 (capacity 64) measured as the second line, so that the demo can choose D by the scene size later.
+Division: the JS FPE reader is yours (app), behind scene_pass.js's interface, with the parity test against training/worlds/scene/fpe.py
+as it is; the Python side is the demo repository's (the scene world is not in vss-vs-bert/sop), so no sync is needed, but keep fpe.py the
+reference and never change the JS alone. The About line and the Sketch tab line change only after the end-to-end row passes.
