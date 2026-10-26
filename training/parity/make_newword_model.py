@@ -1,6 +1,8 @@
 """make_newword_model.py — a TEST copy of a star_version 2 model whose legend gains value patterns that give a kind to words outside the
 catalog (q<digits> -> the kind of persons, r<digits> -> the kind of objects), so that the sentence-candidates mode has something to read:
-"q77 gives r5 to p2 ." must read agent q77, object r5 in Python (Reader(sentence_candidates=True)) and in vss.js alike.
+"q77 gives r5 to p2 ." must read agent q77, object r5 in Python (Reader(sentence_candidates=True)) and in vss.js alike; without
+sentence candidates the same words are candidates of no role and their roles are not given (responses D5; the catalog decoder before D5
+returned a wrong catalog word with a tiny margin).
 The copy's config.json gets the new legend hash (the Reader refuses a mismatch). Never a model to report.
 Usage: python3 training/parity/make_newword_model.py <model dir (star_version 2)> <out dir> <person kind> <object kind>"""
 import json, os, shutil, sys

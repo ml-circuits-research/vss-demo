@@ -30,6 +30,8 @@ if [ -f tool/worlds/reference/model_v2/config.json ]; then
     node app/tests/parity.mjs "$OUT/newword-8" "$OUT/golden-newword${sc:+-sc}.json" $sc
   done
   python3 -c "import json,sys; g=json.load(open('$OUT/golden-newword-sc.json'))['items']; ok=sum(x['frame']['roles'].get('agent',[0,0])[1].startswith('q') for x in g[:2]); print(f'new words read as agents in sentence-candidates mode: {ok}/2'); sys.exit(0 if ok==2 else 1)"
+  # without sentence candidates a word outside the catalog is a candidate of no role: such a role is not given (responses D5), never a catalog word
+  python3 -c "import json,re,sys; g=json.load(open('$OUT/golden-newword.json'))['items']; bad=[x['text'] for x in g if any(f and re.fullmatch('[qr][0-9]+', str(f[1])) or f is None or f[1] is None for f in x['frame']['roles'].values())]; print(f'new words given no role in catalog mode: {len(g)-len(bad)}/{len(g)}'); sys.exit(0 if not bad else 1)"
 fi
 node app/tests/bench.mjs "$OUT/reference-8" "$OUT/golden-reference-8.json" || true
 echo "run_all.sh: PASS"

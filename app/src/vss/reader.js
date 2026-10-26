@@ -212,6 +212,7 @@ export class Reader {
     if (!present) return out;
     if (rs.main === "entity") {
       const [h, mg, top, h2] = Reader.best(cmul(Sn, key), this.cands(rs.head_kinds)); out.margins[r] = mg; out.runnerUp = h2;
+      if (h === null || h === undefined) { out.filler = null; out.no_candidate = true; delete out.margins[r]; delete out.runnerUp; return out; }   // same rule for an entity head (infer.py, D5)
       let attr = null;
       if (rs.attr_kinds && rs.attr_kinds.length) {
         const ka = cmulc(key, this.st.op("attr")), ca = this.cands(rs.attr_kinds);
@@ -231,7 +232,8 @@ export class Reader {
     } else {
       const c = this.cands(rs.kinds); let w1 = Reader.best(cmul(Sn, key), c), neg = false;
       if (rs.negword) { const w2 = Reader.best(cmulc(cmul(Sn, key), this.st.op("not")), c); if (w2[2] > w1[2]) { w1 = w2; neg = true; } }
-      out.filler = [neg ? "negword" : "word", w1[0]]; out.margins[r] = w1[1]; out.runnerUp = w1[3];
+      if (w1[0] === null || w1[0] === undefined) { out.filler = null; out.no_candidate = true; }      // present by the threshold, no admissible word in the sentence: not given (vss-demo Q4 / D5)
+      else { out.filler = [neg ? "negword" : "word", w1[0]]; out.margins[r] = w1[1]; out.runnerUp = w1[3]; }
     }
     return out;
   }
