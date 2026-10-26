@@ -208,3 +208,17 @@ direction for zoom, none for undo / redo / clear; connect: source only, not sour
 Expected on the 800 sentences: create readings without their object and status ok 49 -> 0 (they become incomplete frames with a presence
 query on object); connect heads-exact >= 0.8 (object no longer a candidate for connect); heads-exact >= 0.723 (no fall); the order swap of
 "connect X and Y" counted after the run.
+
+RESULT of probe C (runs/diagram_step3_C_a9929b6; 800-sentence diagnostic, seed 0): heads-exact 0.723 (B) -> 0.942; create 0.700 -> 0.958;
+connect 0.764 -> 0.910; predicate wrong 5 -> 0; create readings without their object and status ok 49 -> 0; ok / abstain 584 / 211 -> 644 /
+156; trainer FULL (catalog, mean of 3 seeds) heldout formulations 0.640 -> 0.864, heldout sentences 0.689 -> 0.871, new identities 0.588 ->
+0.850 (Table 13 asks 0.98 / 0.99: not met). Every expectation written before the run is met. `vorder` accepted again. What remains (45 of
+779 frames): a LABEL filler without a determiner right after a relation or a cue ("put the document left_of paul", "join the textbox to
+broker", "label the rectangle routing"): about 19, a form at 1.6% of the training rows (landmark after REL) against 6.5% in new
+identities; order swaps of two same-kind fillers ("connect X and Y" 5, object / landmark around a relation 4); quantity, direction, style
+2 each. Next: questions.md Q14.
+
+## Proposal (D16 rule), before the run: diagram_ro and diagram_multi probe C (the same change on their n5000_req data)
+
+What fails / cause / change: as probe C above (per-event role sets; the two worlds share the legend). Expected: the same direction as
+the English world (heads-exact up, create and connect up, no 'ok' frame without its required role), read on their trainer splits.

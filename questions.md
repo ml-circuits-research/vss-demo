@@ -193,3 +193,14 @@ synthetic split; available in Settings"; and, to give FPE a case where it should
 few scenes with large containers and shapes near their outlines (the probe's form, 20 scenes), and an "outline-aware" nearest (the decoded
 tip compared with each element's box edges, which the corner addresses already give) as a proposal for fpe.py, measured on those scenes
 before any change of default. The recogniser's misses (connectors 6 of 161, 1 unknown) are a separate item for the classical step.
+
+## Q14 (2026-10-26) — probe C met every expectation (heads-exact 0.723 -> 0.942); what remains points to one rare FORM in the examples (not blocking ro / multi C, which run now)
+
+Numbers in STATUS ("RESULT of probe C"). The 45 remaining errors of 779: about 19 are a LABEL filler with no determiner right after a
+relation word or a cue ("put the document left_of paul", "drag irina below notifications", "join the textbox to broker", "label the
+rectangle routing"); in training, a landmark right after the relation word is 79 rows of 5000 (1.6%), in new identities 6.5%. By D16 the
+remedy is the form, not more data: in the generator, give landmark and target a label head more often in the relation and connect
+templates (label_p 0.15 -> 0.35 there; same n 5000, same seed), so that "REL + LABEL" and "to + LABEL" are ordinary forms. Expected: those
+~19 errors -> near 0, nothing else down. Second, the order swaps (9): `vorder` is accepted, and they remain; I will count them after the
+form fix before proposing a reader change. Also: probe C is the best model so far, so the preview build in builds/ moves to it (same
+banner, "preview, not final"). Agree with the form fix as the next diagram run?
