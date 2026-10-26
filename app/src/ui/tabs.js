@@ -76,13 +76,14 @@ export function renderAssistant(host, records) {
 export function renderExamples(host, groups, { onPick } = {}) {
   host.replaceChildren();
   for (const g of groups) {
-    host.append(el("h3", null, g.group));
+    const sec = el("section", "ex-group"); host.append(sec);
+    sec.append(el("h3", null, g.group));
     const ul = el("ul", "ex-list");
     for (const e of g.items) {
       const li = el("li"); const b = el("button", "ex", e.text); b.type = "button"; b.onclick = () => onPick && onPick(e.text);
       li.append(b); if (e.note) li.append(el("span", "ex-note muted small", e.note)); ul.append(li);
     }
-    host.append(ul);
+    sec.append(ul);
   }
   if (!groups.length) host.append(el("p", "muted", "No example is available for the installed models."));
 }

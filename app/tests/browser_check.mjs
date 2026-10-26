@@ -85,6 +85,17 @@ async function session(browser, url, label, size) {
   check(`${tag} export sheet opens`, await page.evaluate(() => document.getElementById("dlg-export").open));
   await shot("export"); await page.keyboard.press("Escape");
 
+  // every popup (D21 item 1, D22): opens, uses the width of the window (desktop) or of the phone, has an X that closes it
+  const vw = page.viewportSize().width;
+  for (const [btn, dlg] of [["#btn-about", "dlg-about"], ["#btn-settings", "dlg-settings"], ["#btn-export", "dlg-export"], ["#btn-script", "dlg-script"], ["#build-banner-more", "dlg-build"], ["#btn-examples", "dlg-examples"]]) {
+    await page.click(btn); await page.waitForTimeout(150);
+    const w = await page.evaluate((d) => { const e = document.getElementById(d); return e.open ? e.getBoundingClientRect().width : -1; }, dlg);
+    check(`${tag} popup ${dlg}: opens, uses the width (${Math.round(w)} of ${vw})`, w >= vw * 0.9, String(w));
+    check(`${tag} popup ${dlg}: has an X in a header`, await page.isVisible(`#${dlg} .sheet-head .sheet-x`));
+    await page.click(`#${dlg} .sheet-x`); await page.waitForTimeout(100);
+    check(`${tag} popup ${dlg}: the X closes it`, await page.evaluate((d) => !document.getElementById(d).open, dlg));
+  }
+
   check(`${tag} no console error, no page error`, errors.length === 0, errors.slice(0, 3).join(" / "));
   await ctx.close();
 }

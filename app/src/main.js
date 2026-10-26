@@ -25,6 +25,8 @@ import { createSlots } from "./ui/widgets.js";
 import { createFilm } from "./ui/film.js";
 import { createSketchMode } from "./ui/sketch.js";
 import { createScriptDialog } from "./ui/script.js";
+import { openPopup, wireDialogs } from "./ui/popup.js";
+import { renderBuildStatus } from "./ui/buildview.js";
 import { renderRows, renderLines } from "./ui/info.js";
 import { renderHistory, renderActions, renderAssistant, renderExamples, renderRequestResult } from "./ui/tabs.js";
 import { historyExtras, readingRecord, requestView } from "./ui/entries.js";
@@ -708,6 +710,7 @@ function setupSpeech() {
 }
 
 function setupUI() {
+  wireDialogs();
   $("input-form").addEventListener("submit", (e) => { e.preventDefault(); const t = $("input").value; $("input").value = ""; handle([{ text: t }]); });
   $("input").addEventListener("paste", (e) => {
     const t = e.clipboardData?.getData("text") || ""; if (S.mode !== "command" || !looksLikeScript(t).script) return;
@@ -765,15 +768,10 @@ function setupUI() {
   $("gaps-clear").onclick = () => { S.gaps.clear(); gapsSummary(); };
   $("btn-about").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); };
   // the state of this build (buildstatus.js): a banner on a preview build, and the full list in About
-  { const B = BUILD_STATUS, host = $("about-build"); host.replaceChildren(); host.className = "build-list";
-    const p = document.createElement("p"); p.textContent = `${B.headline} (${B.date})`; host.append(p);
-    for (const [title, items] of [["What works", B.works], ["Temporary in this build", B.temporary], ["What is next", B.next]]) {
-      const h = document.createElement("h4"); h.textContent = title; const ul = document.createElement("ul");
-      for (const t of items) { const li = document.createElement("li"); li.textContent = t; ul.append(li); } host.append(h, ul);
-    }
+  { const B = BUILD_STATUS; renderBuildStatus($("about-build"), B); renderBuildStatus($("build-body"), B);
     let hidden = false; try { hidden = sessionStorage.getItem("vss-build-banner") === B.date; } catch {}
     $("build-banner").hidden = B.kind !== "preview" || hidden; $("build-banner-text").textContent = B.headline;
-    $("build-banner-more").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); $("about-build").scrollIntoView(); };
+    $("build-banner-more").onclick = () => $("dlg-build").showModal();
     $("build-banner-close").onclick = () => { $("build-banner").hidden = true; try { sessionStorage.setItem("vss-build-banner", B.date); } catch {} };
   }
   // export

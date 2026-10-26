@@ -122,8 +122,9 @@
 </div>
 
 <dialog id="dlg-settings" class="sheet">
-  <form method="dialog">
-    <h2>Settings</h2>
+  <form method="dialog" class="sheet-form">
+    <header class="sheet-head"><h2>Settings</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body sheet-grid">
     <fieldset><legend>Spelling correction</legend>
       <label><input type="radio" name="corrector" value="classic" checked> Classic: keyboard distance and dictionary</label>
       <label><input type="radio" name="corrector" value="form"> VSS form level: letter patterns, the same algebra as the reader</label>
@@ -132,6 +133,7 @@
     <fieldset><legend>Sketch: how the scene is read</legend>
       <label><input type="radio" name="sketch_reader" value="rules" checked> Rules on boxes and outlines (the shapes are always read by the classical recogniser)</label>
       <label><input type="radio" name="sketch_reader" value="fpe"> VSS scene reader (experimental): containment and connector ends read from positions as addresses; above 16 components the rules read</label>
+      <p class="muted small">Whichever is chosen here, the preview that opens at Done shows both readings side by side and you choose.</p>
     </fieldset>
     <fieldset><legend>Voice</legend>
       <p class="muted" id="voice-info"></p>
@@ -158,7 +160,14 @@
     <fieldset><legend>Commands and writing</legend>
       <div id="threshold-info" class="muted small"></div>
     </fieldset>
-    <fieldset><legend>Help improve the readers</legend>
+    <fieldset><legend>Appearance</legend>
+      <label><input type="radio" name="theme" value="auto" checked> Follow the system</label>
+      <label><input type="radio" name="theme" value="light"> Light</label>
+      <label><input type="radio" name="theme" value="dark"> Dark</label>
+    </fieldset>
+    <fieldset class="span-all"><legend>Help improve the readers</legend>
+      <div class="two-cols">
+      <div>
       <label><input type="checkbox" name="gaps_collect" checked> Keep a local journal of readings the editor did not understand</label>
       <p class="muted small">The journal stays in this browser. It holds the command as the editor read it, with the names you typed replaced by a placeholder, what was understood, how sure the reader was, and what you did next. Nothing is sent anywhere unless you send it.</p>
       <div id="gaps-summary" class="muted small"></div>
@@ -170,76 +179,93 @@
         <button type="button" id="gaps-send">Send</button>
         <button type="button" id="gaps-clear">Clear</button>
       </menu>
+      </div>
       <p class="muted small">What happens with a sent journal: the unplaced words, the unsure roles and the marked readings are grouped into gaps, a large model proposes new questions for the legend and new example sentences for each gap, the readers are retrained on the DGX and compared on the same frozen tests, and a person accepts or rejects each change before a new model ships. The process is described in the About panel.</p>
+      </div>
     </fieldset>
-    <fieldset><legend>Appearance</legend>
-      <label><input type="radio" name="theme" value="auto" checked> Follow the system</label>
-      <label><input type="radio" name="theme" value="light"> Light</label>
-      <label><input type="radio" name="theme" value="dark"> Dark</label>
-    </fieldset>
-    <menu><button value="close" class="primary">Done</button></menu>
+    </div>
+    <menu class="sheet-foot"><button value="close" class="primary">Done</button></menu>
   </form>
 </dialog>
 
 <dialog id="dlg-about" class="sheet">
-  <form method="dialog">
-    <h2>About this demo</h2>
-    <p>Every command is read in your browser by a VSS reader: a small model that turns a sentence into a frame of roles (what to do, to what, where), with a margin for every decision. Nothing is sent to a server, apart from the browser's own speech recognition when you use the microphone (see Settings).</p>
-    <h3>State of this build</h3>
-    <div id="about-build"></div>
-    <h3>Worlds and their models</h3>
-    <div id="about-models"></div>
-    <h3>Modules</h3>
-    <div id="about-modules"></div>
-    <h3>How the readers improve from use</h3>
-    <p>A command the editor does not understand is evidence that the legend lacks a question (a role), a word, or a formulation. Every reading carries that evidence: the words it could not place, the roles it was unsure about, the share of the sentence it could not explain, and whether you reformulated or marked it. With your permission the editor keeps this journal locally and you can send it. On our side the journal is grouped into gaps; a large model proposes, for each gap, a new question of the legend with example sentences, or new words and formulations; the proposals are validated mechanically (sop check), the readers are retrained on frozen data and compared with the previous ones on the same tests, and a person accepts each change before it ships. No model is ever changed directly: only the legend, the generators and the rules, all versioned.</p>
-    <h3>What is measured</h3>
+  <form method="dialog" class="sheet-form">
+    <header class="sheet-head"><h2>About this demo</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body sheet-grid">
+    <section class="span-all"><p>Every command is read in your browser by a VSS reader: a small model that turns a sentence into a frame of roles (what to do, to what, where), with a margin for every decision. Nothing is sent to a server, apart from the browser's own speech recognition when you use the microphone (see Settings).</p></section>
+    <section class="span-all"><h3>State of this build</h3>
+    <div id="about-build"></div></section>
+    <section><h3>Worlds and their models</h3>
+    <div id="about-models"></div></section>
+    <section><h3>Modules</h3>
+    <div id="about-modules"></div></section>
+    <section><h3>What is measured</h3>
     <div id="about-measured"></div>
     <h3>Licences</h3>
-    <p class="muted" id="about-licences">Kiwi (BSD-3-Clause), Typo.js and its en_US dictionary (BSD-3-Clause and the dictionary's licence), double-metaphone (MIT).</p>
-    <menu><button value="close" class="primary">Close</button></menu>
+    <p class="muted" id="about-licences">Kiwi (BSD-3-Clause), Typo.js and its en_US dictionary (BSD-3-Clause and the dictionary's licence), double-metaphone (MIT).</p></section>
+    <section class="span-all"><h3>How the readers improve from use</h3>
+    <p>A command the editor does not understand is evidence that the legend lacks a question (a role), a word, or a formulation. Every reading carries that evidence: the words it could not place, the roles it was unsure about, the share of the sentence it could not explain, and whether you reformulated or marked it. With your permission the editor keeps this journal locally and you can send it. On our side the journal is grouped into gaps; a large model proposes, for each gap, a new question of the legend with example sentences, or new words and formulations; the proposals are validated mechanically (sop check), the readers are retrained on frozen data and compared with the previous ones on the same tests, and a person accepts each change before it ships. No model is ever changed directly: only the legend, the generators and the rules, all versioned.</p></section>
+    </div>
+    <menu class="sheet-foot"><button value="close" class="primary">Close</button></menu>
+  </form>
+</dialog>
+
+<dialog id="dlg-build" class="sheet">
+  <form method="dialog" class="sheet-form">
+    <header class="sheet-head"><h2>State of this build</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body"><div id="build-body"></div></div>
+    <menu class="sheet-foot"><button value="close" class="primary">Close</button></menu>
   </form>
 </dialog>
 
 <dialog id="dlg-examples" class="sheet">
-  <form method="dialog">
-    <h2>Examples</h2>
+  <form method="dialog" class="sheet-form">
+    <header class="sheet-head"><h2>Examples</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body">
     <p class="muted small">A click puts the sentence into the input bar; press Enter to run it. The last group is refused or asked about on purpose.</p>
     <div id="examples-body"></div>
-    <menu><button value="close" class="primary">Close</button></menu>
+    </div>
+    <menu class="sheet-foot"><button value="close" class="primary">Close</button></menu>
   </form>
 </dialog>
 
 <dialog id="dlg-export" class="sheet">
-  <form method="dialog">
-    <h2>Export</h2>
+  <form method="dialog" class="sheet-form">
+    <header class="sheet-head"><h2>Export</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body sheet-grid">
+    <section><h3>Diagram</h3>
     <menu class="stack">
       <button value="svg">SVG picture</button>
       <button value="png">PNG picture</button>
       <button value="json">Diagram file (JSON, opens again here)</button>
       <button value="sop">The commands as SOP text</button>
       <label class="file-btn">Open a diagram file<input type="file" id="import-file" accept=".json,application/json"></label>
-      <h3>Animation</h3>
-      <p class="muted small" id="film-export-note"></p>
+    </menu></section>
+    <section><h3>Animation</h3>
+    <p class="muted small" id="film-export-note"></p>
+    <menu class="stack">
       <button value="webm" id="x-webm">Video (WebM)</button>
       <button value="asvg" id="x-asvg">Animated SVG</button>
       <button value="tljson" id="x-tljson">Timeline (JSON, opens again here)</button>
       <label class="file-btn">Open a timeline file<input type="file" id="import-timeline" accept=".json,application/json"></label>
       <button value="example-film" id="x-example">Open the example film</button>
-      <button value="close" class="primary">Close</button>
-    </menu>
+    </menu></section>
+    </div>
+    <menu class="sheet-foot"><button value="close" class="primary">Close</button></menu>
   </form>
 </dialog>
 
-<dialog id="dlg-script" class="sheet wide">
-  <form method="dialog" id="script-form">
-    <h2>Build from a script</h2>
+<dialog id="dlg-script" class="sheet">
+  <form method="dialog" id="script-form" class="sheet-form">
+    <header class="sheet-head"><h2>Build from a script</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body">
     <p class="muted small">Paste or type a document: a "# title", "## section" headings, one request per sentence. Every sentence is read; the diagram is built section by section, and a sentence the reader cannot read is marked, never guessed.</p>
     <div class="script-grid">
       <textarea id="script-text" rows="12" spellcheck="false" aria-label="Script"></textarea>
       <div class="script-doc" id="script-doc" aria-live="polite"></div>
     </div>
-    <menu>
+    </div>
+    <menu class="sheet-foot">
       <button type="button" id="script-example">Example</button>
       <button type="button" id="script-continue" hidden>Go on past this sentence</button>
       <button type="button" id="script-run" class="primary">Build the diagram</button>

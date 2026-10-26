@@ -1,5 +1,5 @@
 {
- "id": "c2ac8158fd05",
+ "id": "3be33183fa3e",
  "files": [
   "./",
   "index.html",
@@ -64,11 +64,13 @@
   "src/text/textnorm.js",
   "src/text/view.js",
   "src/translate.js",
+  "src/ui/buildview.js",
   "src/ui/canvas.js",
   "src/ui/entries.js",
   "src/ui/film.js",
   "src/ui/info.js",
   "src/ui/panel.js",
+  "src/ui/popup.js",
   "src/ui/reading.js",
   "src/ui/script.js",
   "src/ui/sketch.js",

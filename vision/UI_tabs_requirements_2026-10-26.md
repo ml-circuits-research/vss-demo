@@ -86,3 +86,27 @@ Kept from spec section 11 (D10, both are conditions, not suggestions):
 
 Intent recognition beyond the readers' worlds, tool execution, any LLM; the SNIPS worlds and the typer (D9: exported by vss-vs-bert first);
 changes to what the reader reads.
+
+## 7. The owner's decisions after using the preview build (responses D21, D22, D23; 2026-10-26)
+
+These change sections 2 and 3 above; where they differ, this section governs. Built in steps, each a preview build (labels `ui-1` ...).
+
+1. (ui-1, D21.1 + D22) **Popups.** Every popup (build status, About, Settings, Export, Script, examples, and every detail popup below) is as wide as
+   the window with margins on a desktop and as wide as the phone on a phone; long content is laid out in columns or sections across the width;
+   it scrolls vertically only when it still does not fit; it has a header with an X that stays visible while the body scrolls. One module
+   (`app/src/ui/popup.js`) and one set of CSS rules (`.sheet`, `.sheet-head`, `.sheet-body`, `.sheet-grid`).
+2. (ui-2, D21.2) **No reading strip** above the input. Its content is in History: each entry shows the text given and what was interpreted
+   (frame, status, what was executed or asked). The answer line and chips above the input ("which one, a or b?", yes / no) stay.
+3. (ui-3, D21.3) **Contrast and size** raised one step across the app, in the light and the dark theme.
+4. (ui-5, D21.5) **Main tabs** are the canvas of the purpose (Diagram, Widget and Timeline when relevant) and History. Sketch, Requests,
+   Assistant, Circuit, SOP, Log and Reading are details, not tabs. History is the single record: one entry per input with what it meant
+   (intent, executed / asked / refused with the rule; what was drawn; for a sketch the choice made and both readings); every technical
+   detail (reading with margins, call text, SOP wires, circuit, log line, the sketch readings) opens from the entry as a popup. Log merges
+   into History. The live panel of D10 (frame, plan, geometry) is unchanged on a desktop; on a phone Plan and Geometry stay as tabs of it.
+   Requests (every world reads a request) is a popup opened from a button in the History header, until the SNIPS worlds are exported (D9).
+5. (ui-4, D23, replacing D21.4) **Sketch preview.** Pressing Done in the sketch strip opens a preview popup with two rendered diagrams over
+   the same strokes: "What VSS read" (scene_fpe) and "What the classical algorithm would make" (scene_pass), each labelled, with the D11 line
+   (who reads what) in its header; a click on an element shows its candidates, margins and questions; a "Use this" button under each applies
+   that reading to the canvas (the classical one is what Done applied before); Cancel discards. The choice and both readings are recorded in
+   the sketch's History entry. No tab for the sketch readings and none for the sketch pad.
+6. (D23) Direction: a clean and good demo; nothing is added to the interface without a line in responses.md.
