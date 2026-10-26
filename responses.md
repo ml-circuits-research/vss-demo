@@ -180,3 +180,30 @@ seed variance, as 4.5 says. The owner's "only the best models" means: ship the b
 20000 still rises beyond the sd; ship the smallest flat size. animation: still steep at 5000; run 20000 next, then decide the same way.
 Order on the GPU: the three 50000 runs to the end, then textedit 20000, animation 20000, then the missing 20000 points of the diagram
 worlds; the FPE experiment (D11) in parallel, it is small.
+
+## D14 (answers Q8; the owner's direction: fix the reader and the legend on the evidence, do not scale the same data; 2026-10-26 15:00)
+
+Your four observations are right and they are the method we want: train small, read the errors, fix the reader or the legend or add
+examples where they point, re-measure; scaling the same generated templates teaches memorisation. Decisions, in order:
+1. **Done in the source** (vss-vs-bert/sop @ b467e4b, synced here in this commit; your mirror in reader.js next, then parity): an absent
+   role whose presence margin is under tau is a PRESENCE QUERY (`_presence_query.<role>`, "is there a <role>?"), reported on the wire and
+   in the frame, and it no longer enters the frame's margin or status (config key `presence_query`, part of the contract decoder;
+   `sop train` writes it; add it to the three shipped model.json configs through export_app.py like the other keys). Coverage and
+   confident-wrong are then counted on the answers given; a presence query on a gold-present role is counted as a missed presence
+   (its own axis), not as an abstention. The dialog consumes it as a yes/no question with the default (Table 8's "required role empty").
+2. **Done in the source, takes effect at the next training**: content kinds = the kinds that fill a question in the training rows plus
+   `reader.content_kinds` in the legend (a declaration, rule 20); a kind that never answers a question is not content, so "please",
+   "you", "want", "okay so" are not charged by the explained residual and short commands stop being no-sense. Nothing to declare in the
+   diagram legend unless a content kind never fills a question in training (then name it in reader.content_kinds). Re-train 5000 to
+   see the residual and no-sense rate move; expected: unplaced function words 0, no-sense under 2% on the 800 sentences.
+3. **Yours, in the generator**: yes, the diagnostic is read correctly: connect conflates the line being drawn (object) with the first
+   end (source) when both are COMPONENT. Give the edge words (arrow, line, link, edge, connector, and the plural forms) their own kind
+   EDGE in the lexicon and make connect's object admit EDGE only; source / target stay COMPONENT. A new frozen dataset at 5000 (and
+   20000 later) with the generator's new hash; the old data stays for the "before" row. Expected: the connect formulations leave the
+   worst list and the activation diagnostic's 33 competing rows fall to near 0.
+4. **Done in the source**: under `candidates: sentence` the predicate's candidates are the sentence's verbs, so a sentence with one
+   legend verb reads that verb with the state's margin and cannot read another; "create a box" then reads create (with 2, it also
+   stops being no-sense). Expected: predicate accuracy on the three splits at or near 1.000 where exactly one verb occurs.
+Then: a measured curve at 5000 and 20000 (3 seeds, `--candidate_sets catalog`, `--activate auto`) on the corrected world, read on the
+criterion's splits, before any 50000. The three 50000 runs now running: stop them (the owner's decision: no blind scaling), keep their
+folders as the "before" row with what finished. GPU meanwhile: the FPE experiment (D11).
