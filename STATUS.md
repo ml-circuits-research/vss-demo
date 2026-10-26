@@ -303,3 +303,10 @@ criterion while every decision is identical). Measurement on D2's model, the sam
 thresholds were not refitted, see Q18), 795 distinct sentences of the 800: heads-exact 0.942 -> 0.979 without asking anything; with the
 offers accepted 0.981 -> 0.981; offers 36 -> 3; roles taken in the second pass 33, all 33 right; name errors 14 -> 0. Expectation "the 14
 under-threshold texts present, nothing else down": met.
+
+Installed in app/model (the owner: the published previews need a trained reader; 20-30 MB accepted): the English diagram reader is now
+probe D2 (runs/diagram_step3_D2_448c916, data n5000_req_label, seed 0, 8 bits, 7.8 MB: without `vorder` the route book is a quarter of
+probe C's 28 MB), status dev, note PREVIEW. Parity on the export: frames, statuses and SOP identical 115 / 115; the one degenerate
+presence ratio of Q18 (230.018, 1.8e-4) again. The Romanian reader stays the development model. ui-7 merged (the corrector, D29 / D30;
+typos.mjs 179 / 179); the agent found that "creat" was already corrected and the refusal came from the old model ("create a blue box" was
+no-sense on it), which this install fixes: "create a blue box" now reads create / object a blue box.

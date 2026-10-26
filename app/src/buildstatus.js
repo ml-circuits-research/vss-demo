@@ -11,7 +11,7 @@ export const BUILD_STATUS = {
     "Examples: the paperclip next to the microphone (a click fills the input, it does not run it).",
   ],
   temporary: [
-    "English diagram reader: in the preview build, probe model C (5000 sentences, D 1024, one seed of three): about 94% of test commands read exactly, Table 13 (98-99%) not met yet; a bare label right after a relation word (\"left_of paul\") is often missed (fix planned). In a build from the repository without a preview model: the older development model (D 512). The badge says which.",
+    "English diagram reader: probe model D2 (5000 sentences, D 1024, one seed of three; run runs/diagram_step3_D2_448c916, data n5000_req_label): about 95% of test commands read exactly, about 98% when the editor asks for a missing word and you answer yes; Table 13 (98-99% without asking) not met yet. The Romanian reader is still the older development model.",
     "Romanian diagram reader: the older development model (D 512); the Romanian route through the dictionary uses the English probe model.",
     "Text, formula and animation commands: no trained reader installed yet (widgets work; dictation writes text).",
     "Sketch: shapes by the classical recogniser ($P); Done opens a preview with two readings of the scene, what VSS read and what the classical rules would make (measured equal on the synthetic split), and you choose.",

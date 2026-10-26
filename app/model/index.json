@@ -7,12 +7,12 @@
    "language": "en",
    "bits": 8,
    "status": "dev",
-   "note": "CPU development model (D 512, 10000 sentences of the frozen n20000 set, 3 epochs, one seed; shared legend with identity lemma): exercises the application; FULL about 0.59 on its own held-out sentences; not a result",
-   "D": 512,
-   "legend_sha256": "sha256:e3e44ee9f7e82ca74ab101ed8b3dc66b9645799139b319c5bd25b30fb78324cf",
+   "note": "PREVIEW, not final: probe D2 of 2026-10-26 (D 1024, 5000 sentences n5000_req_label, seed 0 of 3, run runs/diagram_step3_D2_448c916, commit 448c916; contract decoder with presence queries, sentence verbs, per-event role sets, offers). About 95% of test commands read exactly, about 98% with the offered words accepted; Table 13 not met yet.",
+   "D": 1024,
+   "legend_sha256": "sha256:d361fbea318b20d14d401d9e64aeb918628843cd366fcb1cbfe644915e48c6a9",
    "star_version": 2,
-   "training_code_commit": "7a02c69",
-   "exported": "2026-10-25"
+   "training_code_commit": "448c916",
+   "exported": "2026-10-26"
   },
   {
    "name": "diagram_ro",
@@ -35,8 +35,8 @@
    "language": "ro",
    "file": "model/dict/ro.json",
    "target_world": "diagram",
-   "note": "given Romanian -> English dictionary generated from the Romanian lexicon (training/worlds/diagram_ro/lexicon_ro.py); no training",
-   "exported": "2026-10-25"
+   "note": "given dictionary (with the edge words)",
+   "exported": "2026-10-26"
   }
  ]
 }
