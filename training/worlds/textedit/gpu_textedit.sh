@@ -16,8 +16,8 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"; REPO="$(cd "$HERE/../../.." && pwd)"; SOP="$REPO/tool/bin/sop"
 PY="${SOP_PYTHON:-}"; for c in "$REPO/.venv/bin/python3"; do [ -z "$PY" ] && [ -x "$c" ] && PY="$c"; done; PY="${PY:-python3}"
-SIZES="1000 5000 20000 50000"; WAIT=0; SHIP=""; EXPORT=1   # --no_export: stop before step (4) (the export waits for a parity question)
-while [ $# -gt 0 ]; do case "$1" in --wait) WAIT=1;; --sizes) SIZES="$2"; shift;; --ship) SHIP="$2"; shift;; --no_export) EXPORT=0;; esac; shift; done
+SIZES="1000 5000 20000 50000"; WAIT=0; SHIP=""; EXPORT=1; CURVE=1   # --no_export: stop before step (4); --skip_curve: no step (1) training, only the shipped size's data (the owner, 2026-10-26: the demo needs only the best model)
+while [ $# -gt 0 ]; do case "$1" in --wait) WAIT=1;; --sizes) SIZES="$2"; shift;; --ship) SHIP="$2"; shift;; --no_export) EXPORT=0;; --skip_curve) CURVE=0;; esac; shift; done
 [ -n "$SHIP" ] || SHIP="$(echo $SIZES | awk '{print $NF}')"
 cd "$REPO"
 if [ -n "$(git status --porcelain 2>/dev/null | grep -v "logs/" | grep -v "^?? runs/" | grep -v "\.md$" || true)" ]; then
@@ -39,10 +39,12 @@ COMMON="--D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_ver
 FILTER='\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]\|\[activate\]'
 # (1) the data-size curve, 5 seeds per size
 for n in $SIZES; do
+  [ $CURVE = 1 ] || [ "$n" = "$SHIP" ] || continue
   W="$WORK/$n/textedit"
   if [ -d "$HERE/../../data/textedit/n$n" ]; then "$PY" "$HERE/../../data/unpack.py" "textedit/n$n" "$WORK/$n" | tee -a "$LOG"   # frozen data, sha256 checked
   else "$PY" "$HERE/generate.py" --out "$W" --n "$n" --n_eval 400 --seed 0 | tee -a "$LOG"; fi
   "$SOP" check --legend "$W/legend.json" "$W"/examples/*.sop | tail -1 | tee -a "$LOG"
+  [ $CURVE = 1 ] || { echo "## size $n: curve training skipped (--skip_curve)" | tee -a "$LOG"; continue; }
   echo "## size $n: sop train $W $COMMON --seeds 5" | tee -a "$LOG"
   "$SOP" train "$W" $COMMON --seeds 5 --run_dir "$OUT/$n" 2>&1 | grep "$FILTER" | tee -a "$LOG"
   cp "$W/legend.json" "$W/kinds.tsv" "$OUT/$n/"

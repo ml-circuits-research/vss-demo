@@ -101,3 +101,9 @@ header naming the active pass and stating that the left column is not VSS; rows 
 returns two already-computed values more (attachTol, labelStrokes); sketch.mjs metric lines identical before and after; sketchrows.mjs
 20/20, browser check 216/216. Not exposed today and so not shown: the join rule that formed a group, the unknown-blob cost and thresholds
 as numbers, the containment shares, a per-component SOP wire.
+
+Data-size curve dropped for the demo (the owner's decision, 2026-10-26 about 14:45; questions.md): only the largest size (50000) of each
+demo world is trained and shipped. Stopped: animation 5000 and the 20000 runs of all five worlds; kept as a partial record: the finished
+1000 / 5000 sizes in runs/*_eccbf84. The shipped-size rule of TODO 1.1 / spec 4.5 becomes "the largest size"; the demo's runs make no
+claim about data efficiency. textedit: `gpu_textedit.sh --sizes 50000 --skip_curve --no_export` (new flag: no 5-seed curve run, only the
+five calibrated single-seed models at the shipped size).
