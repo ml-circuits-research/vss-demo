@@ -141,8 +141,7 @@ def main():
               f"{len(set(forms))} distinct kind sequences")
         print(f"    cost: {use['calls']} calls, {use['input_tokens']} input / {use['output_tokens']} output tokens{' (dry run: estimated from lengths)' if a.dry_run else ''}")
     print(f"  cost total: {tot_use['calls']} calls, {tot_use['input_tokens']} input / {tot_use['output_tokens']} output tokens")
-    stats["_total_cost"] = tot_use
-    hints["paraphrase_families"] = {"families": fams, "heldout": a.heldout_families.split(","), "stats": stats, "dry_run": a.dry_run}
+    hints["paraphrase_families"] = {"families": fams, "heldout": a.heldout_families.split(","), "stats": stats, "cost": tot_use, "dry_run": a.dry_run}   # stats: one key per family only
     json.dump(hints, open(hints_p, "w"), indent=1)
     return 0
 
