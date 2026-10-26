@@ -185,8 +185,14 @@ async function session(browser, url, label, size) {
   await closePanel();
   // a component picked on the canvas lights its rows in the tab
   await page.evaluate(() => { document.querySelectorAll("#tab-sketchread .sk-hl").forEach((e) => e.classList.remove("sk-hl")); });
-  const cbox = await page.locator("#canvas .vss-layer-components > g >> nth=-1").boundingBox();
-  await page.mouse.click(cbox.x + cbox.width / 2, cbox.y + cbox.height / 2); await page.waitForTimeout(150);
+  // a component that the sketch produced (its scene id is among a row's keys), not whatever the typed commands drew last
+  const sid = await page.evaluate(() => { const keys = new Set([...document.querySelectorAll("#tab-sketchread .sk-row")].flatMap((r) => (r.dataset.keys || "").split(" ")));
+    const g = [...document.querySelectorAll("#canvas .vss-layer-components > g[data-id]")].reverse().find((x) => keys.has(x.getAttribute("data-id"))); return g ? g.getAttribute("data-id") : null; });
+  const cbox = await page.locator(sid ? `#canvas .vss-layer-components > g[data-id="${sid}"]` : "#canvas .vss-layer-components > g >> nth=-1").boundingBox();
+  // a point of the component that no other element covers (a text widget may lie over part of it on desktop)
+  const pt = await page.evaluate(([b, id]) => { for (const fy of [0.5, 0.3, 0.7, 0.15, 0.85]) for (const fx of [0.5, 0.3, 0.7, 0.15, 0.85]) {
+    const x = b.x + b.width * fx, y = b.y + b.height * fy, e = document.elementFromPoint(x, y); if (e && e.closest(`g[data-id="${id}"]`)) return [x, y]; } return [b.x + b.width / 2, b.y + b.height / 2]; }, [cbox, sid]);
+  await page.mouse.click(pt[0], pt[1]); await page.waitForTimeout(150);
   await panel("sketchread");
   check(`${tag} sketch tab: a component selected on the canvas lights its row in both columns`, (await page.locator("#tab-sketchread .sk-hl").count()) >= 2, String(await page.locator("#tab-sketchread .sk-hl").count()));
   await closePanel();
