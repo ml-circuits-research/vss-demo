@@ -320,3 +320,10 @@ interface (vision/UI_tabs_requirements_2026-10-26.md), to be recorded there as h
    (frame, plan, geometry) as it is; it is not one of the tabs being removed.
 Order: 1, 2, 3 first (small, visible), then 5, then 4 (it depends on the FPE reader being available behind the setting, D19). After
 each step: the browser check, dist rebuilt, a preview published with the workflow (label `ui-1`, `ui-2`, ...), and a line in STATUS.
+
+## D22 (precision on D21 item 1, from the owner; 2026-10-26 17:45)
+
+Vertical scrolling inside a popup is allowed when the content is longer than the screen; what is not allowed is scrolling caused by
+the popup itself being narrow: a phone-sized box in the middle of a desktop screen that wastes the width and then scrolls. On
+desktop a popup uses the width of the window (with sensible margins), lays its content out across that width, and only then scrolls
+if it still does not fit; on a phone it is the phone's width. The X to close stays visible while scrolling (a fixed header).
