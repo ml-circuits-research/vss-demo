@@ -10,6 +10,8 @@ For the interface thread: the owner wants the editor as a set of tabs with a cha
 things happen through the tabs"), one tab being the assistant's detected intents and results; it is built by a separate thread (a
 Sonnet agent, through the API; it does not touch the training runs). Detailed requirements, with D10's two kept items and the file
 ownership that keeps it apart from the reader's mirror: vision/UI_tabs_requirements_2026-10-26.md.
+Update 12:50, the owner: this DGX session builds it now, with a Sonnet agent in its own worktree (a branch merged into main by this
+session, dist rebuilt after the merge). Please do not start the same interface work in another session; comments on the requirements welcome.
 
 Notes for the record (not questions):
 - The owner (2026-10-26, about 12:25): the interface work of Q6 / D10 is a side task, done only when there is time; the focus stays on
