@@ -255,3 +255,13 @@ reading strip (its content into History), contrast and font size up, History as 
 tabs; the D10 live panel stays), two rendered diagrams for a sketch (classical pass and VSS scene reader). Being built by a Sonnet agent of
 this session, in D21's order (commits "ui-1", "ui-2", "ui-3", "ui-5", "ui-4"); publishing is the owner's workflow (publish-preview.yml),
 not this session.
+
+## Proposal (D16 rule), before the run: C2 and D2, the paired acceptance test (Q15 / D24) on the data of C and D
+
+What fails: the activation decision for `vorder` flipped between C (accepted) and D (rejected) on one- or two-row differences of
+one-seed trials; without vorder "call the client irina" failed 12 times in D against 3 in C. Cause: the acceptance rule (activate.py),
+not the data. Change: the paired test of vss-vs-bert/sop 6c735f9 (synced 2e332e2): wins and losses on the same selection rows, accepted
+beyond 2 sqrt(wins + losses), no split losing beyond that noise. Runs: C2 = diagram n5000_req, D2 = diagram n5000_req_label, D 1024, 3
+seeds, --activate auto, --candidate_sets catalog; nothing else changed. Expected: C2 and D2 take the same decision on vorder, with the
+win / loss counts in activation.json; if vorder is on in D2, the name errors of the 800-sentence diagnostic back to about 3 and the
+bare-label errors listed again (D24 item 2).
