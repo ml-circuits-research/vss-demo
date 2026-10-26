@@ -48,3 +48,8 @@ SUPERSEDED (decoder before D1 / D5), kept as started: `runs/diagram_step3_1c9c7f
 gave an attribute with no candidate (`attr=None`, D1) and a role with no candidate (`["word", None]`, D5); restarted once on feaf554
 (the reader.js mirror of both fixes; full parity suite PASS), together with diagram_ro and diagram_multi (their need signal measured after
 D2: `logs/profile_e27ac5d_demo_worlds_after_D2.md`). Parallel across worlds and with the vss-vs-bert runs (responses D6), nice +10.
+diagram_ro and diagram_multi run with `training/gpu_step3.sh --keep_seed_models` (TODO 2.6: no `--no_ckpt`, every seed's model kept; a
+first launch at 6df62b0 with `--no_ckpt` was stopped after one minute and deleted). `gpu_step3.sh` is `gpu_diagram_step3.sh` plus that
+option and a copy of every size's model (2.6 section 3 needs `model_<n>` of the English world at each n); `gpu_diagram_step3.sh` stays
+unchanged while the diagram and animation runs read it, and their per-size models are copied by hand from the run's work folder
+(`/tmp/<world>_step3_*/<n>/<world>/model`) when each size ends.
