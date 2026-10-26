@@ -1,0 +1,83 @@
+# Publish a preview build of the one-file editor to the public repository ml-circuits-research/vss-public-demo (GitHub Pages).
+# Started by hand (Actions > "Publish preview build" > Run workflow). Nothing of the source leaves this repository: only
+# app/dist/vss-editor.html (the self-contained build) is pushed, as builds/vss-editor-<date>-<sha>[-<label>].html and as the
+# site's index.html (the latest build). Setup: docs/PUBLISH_PREVIEW.md (one deploy key on the public repository, its private
+# half as the secret PUBLIC_DEMO_DEPLOY_KEY here).
+name: Publish preview build
+on:
+  workflow_dispatch:
+    inputs:
+      label:
+        description: "Short label for this build (letters, digits, dashes), e.g. probe-c"
+        required: false
+        default: ""
+      ref:
+        description: "Commit, branch or tag of this repository to build (default: the branch the workflow runs from)"
+        required: false
+        default: ""
+      latest:
+        description: "Also make this build the site's index.html (the latest build)"
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the source (this repository)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build the one-file editor
+        run: |
+          (cd app/build && npm ci)
+          node app/build/build.mjs
+          ls -la app/dist/vss-editor.html
+      - name: Name the build
+        id: name
+        run: |
+          SHA=$(git rev-parse --short HEAD); DATE=$(date -u +%Y%m%d-%H%M)
+          LABEL="${{ inputs.label }}"; LABEL=$(echo "$LABEL" | tr -c 'A-Za-z0-9-\n' '-' | sed 's/-*$//')
+          NAME="vss-editor-${DATE}-${SHA}${LABEL:+-$LABEL}.html"
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"; echo "sha=$SHA" >> "$GITHUB_OUTPUT"; echo "date=$DATE" >> "$GITHUB_OUTPUT"
+          echo "build $NAME"
+      - name: Check out the public repository (deploy key)
+        uses: actions/checkout@v4
+        with:
+          repository: ml-circuits-research/vss-public-demo
+          ssh-key: ${{ secrets.PUBLIC_DEMO_DEPLOY_KEY }}
+          path: public
+      - name: Add the build to the public repository
+        run: |
+          set -e
+          cd public
+          mkdir -p builds
+          cp ../app/dist/vss-editor.html "builds/${{ steps.name.outputs.name }}"
+          if [ "${{ inputs.latest }}" = "true" ]; then cp ../app/dist/vss-editor.html index.html; fi
+          touch .nojekyll
+          python3 - <<'PY'
+          import json, os, glob, datetime
+          p = "builds/index.json"
+          lst = json.load(open(p)) if os.path.exists(p) else []
+          lst = [b for b in lst if b.get("file") != "${{ steps.name.outputs.name }}"]
+          lst.insert(0, {"file": "${{ steps.name.outputs.name }}", "source_commit": "${{ steps.name.outputs.sha }}",
+                         "built": "${{ steps.name.outputs.date }}", "label": "${{ inputs.label }}",
+                         "latest": ${{ inputs.latest && 'True' || 'False' }}})
+          for i, b in enumerate(lst): b["latest"] = (i == 0 and b["latest"])
+          json.dump(lst, open(p, "w"), indent=1)
+          rows = "\n".join(f"| [{b['file']}](builds/{b['file']}) | {b['source_commit']} | {b['built']} | {b.get('label','')} |" for b in lst)
+          open("README.md", "w").write("# VSS editor: preview builds\n\nEach file is the self-contained one-file build of the VSS editor "
+            "(open it in a browser, desktop or phone; works offline). The latest build is also the site's page. Built by the private "
+            "source repository's workflow; nothing of the source is here.\n\n| build | source commit | built (UTC) | label |\n|---|---|---|---|\n" + rows + "\n")
+          PY
+          git config user.name "vss-demo publish-preview"; git config user.email "noreply@ml-circuits-research"
+          git add -A
+          git commit -m "preview build ${{ steps.name.outputs.name }} (source ${{ steps.name.outputs.sha }})" || echo "nothing to commit"
+          git push origin HEAD:main
+      - name: Summary
+        run: echo "Published builds/${{ steps.name.outputs.name }} to ml-circuits-research/vss-public-demo" >> "$GITHUB_STEP_SUMMARY"
