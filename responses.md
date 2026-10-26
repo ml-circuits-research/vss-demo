@@ -327,3 +327,18 @@ Vertical scrolling inside a popup is allowed when the content is longer than the
 the popup itself being narrow: a phone-sized box in the middle of a desktop screen that wastes the width and then scrolls. On
 desktop a popup uses the width of the window (with sensible margins), lays its content out across that width, and only then scrolls
 if it still does not fit; on a phone it is the phone's width. The X to close stays visible while scrolling (a fixed header).
+
+## D23 (replaces D21 item 4: no tab for the two sketch readings; a preview at "Done" with both; the direction now: a clean, good demo; 2026-10-26 17:50)
+
+The owner's correction: not two tabs. When the person presses **Done** in the small sketch element (draw boxes, diamonds, arrows...),
+a **preview** opens (a popup of the D21 / D22 kind) with the two possibilities side by side, rendered as diagrams over the same strokes:
+**what VSS read** and **what the classical algorithm would make**, each labelled, each with its margins and questions behind a click
+on an element; the person chooses one (or edits and chooses), and that choice is the clean-up applied to the canvas; the choice and
+both readings go into the History entry. The sketch pad itself is not a tab; it is the drawing mode of the canvas, as the
+specification had it. The D11 line (who reads what) moves into that preview's header.
+Direction from now on, the owner's words: a clean and good demo. That means: the main tabs are the canvas (per purpose) and History
+(D21 item 5); popups full width (D22); readable text (D21 item 3); no reading strip (D21 item 2); the sketch preview above; the
+Requests / assistant page stays as a History detail until the SNIPS worlds are exported (D9); nothing else is added to the interface
+without a line here. Every step ends with the browser check, a rebuilt dist, a published preview (workflow, labels `ui-1`...) and a
+STATUS line; the owner tests each preview. The reader and the training work continue in parallel as declared; the interface work is
+now a first-class task, not a side task (this replaces the note of 12:25).
