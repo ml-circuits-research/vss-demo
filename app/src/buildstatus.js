@@ -11,14 +11,14 @@ export const BUILD_STATUS = {
     "Examples: the paperclip next to the microphone (a click fills the input, it does not run it).",
   ],
   temporary: [
-    "English diagram reader: in the DGX preview build, probe model B (5000 sentences, D 1024, one seed of three; about 72% of test commands read exactly; a create without its object may pass as ok, fix pending Q12 / D19); in a build from the repository, the older development model (D 512). The badge says which.",
+    "English diagram reader: in the preview build, probe model C (5000 sentences, D 1024, one seed of three): about 94% of test commands read exactly, Table 13 (98-99%) not met yet; a bare label right after a relation word (\"left_of paul\") is often missed (fix planned). In a build from the repository without a preview model: the older development model (D 512). The badge says which.",
     "Romanian diagram reader: the older development model (D 512); the Romanian route through the dictionary uses the English probe model.",
     "Text, formula and animation commands: no trained reader installed yet (widgets work; dictation writes text).",
     "Sketch: shapes by the classical recogniser ($P), the scene by rules; the VSS scene reader is available in Settings (measured equal to the rules on the synthetic split).",
     "Requests tab: reads with the editor's own worlds; the request worlds (weather, music, ...) come later.",
   ],
   next: [
-    "Required roles per event in the reader and the legend, then a new probe and its diagnostic.",
+    "The rare form \"relation + bare label\" in the examples, then a new probe and its diagnostic; the Romanian and mixed worlds with the same fixes.",
     "Trained readers for the other worlds, measured against the criteria before they replace a development model.",
     "Query wires emitted by the reader (the dialog already consumes them).",
   ],
