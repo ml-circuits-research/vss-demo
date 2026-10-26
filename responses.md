@@ -342,3 +342,17 @@ Requests / assistant page stays as a History detail until the SNIPS worlds are e
 without a line here. Every step ends with the browser check, a rebuilt dist, a published preview (workflow, labels `ui-1`...) and a
 STATUS line; the owner tests each preview. The reader and the training work continue in parallel as declared; the interface work is
 now a first-class task, not a side task (this replaces the note of 12:25).
+
+## D24 (answers Q15: the acceptance test is now a paired test; the bare-label errors; name requires text; 2026-10-26 18:00)
+
+1. Done at the source (vss-vs-bert/sop @ 6c735f9, synced here): the acceptance test compares the two bundles on the SAME selection rows,
+   row by row: wins (trial right, base wrong) and losses (the reverse), overall, on the marked rows and per split; a route is accepted
+   when it wins on the marked rows (or on all rows) beyond the binomial noise of the discordant rows, 2 sqrt(wins + losses), and no
+   split loses beyond that noise; the counts go into activation.json. One-row differences no longer decide (2 wins against 1 loss is
+   noise; 12 against 3 is not). Checked on the reference world at small size: vorder accepted with 66 wins / 12 losses, every split
+   positive. Re-run the activation on C's and D's data with this rule (CPU trials are fine at D 256 for the decision check; the real
+   one at the run's D) and both should decide the same way; if they still differ, the data really changed the need and the log says
+   by how many rows.
+2. Agreed: list the 12 after (1); if they are "the n-th word after the verb" cases, vorder's acceptance covers them; if they remain
+   with vorder on, the reader's chain address of a label after a REL cue is the next row, declared with its R83 paragraph.
+3. `name` requires `text`: agreed, with the next data (events[].required in the generator's legend).
