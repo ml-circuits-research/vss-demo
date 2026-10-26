@@ -35,3 +35,10 @@ Deviations from the specification, each recorded in the module's README: own SVG
 own rich-text model instead of ProseMirror; MathML Core instead of KaTeX / MathLive; own $P recogniser instead of $Q; textedit "make" /
 "turn" as format verbs; animation relations between units left to the circuit, paths of at most two hops per sentence; the matheditor
 operator words declared in `tree_levels`, not `level_openers`; the discourse operators then / but / so / because added to the legend.
+
+Runs of 2026-10-26 on the DGX (TODO 2.12, written before the runs): diagram, animation and textedit are trained with `--activate auto` and
+the contract decoder, the three worlds at once on the one GPU (per-world locks `logs/.run.lock.<world>`; `gpu_diagram_step3.sh --world W
+--jobs N` trains up to N sizes at once), so wall-clock times of these runs are not comparable with single runs. No export until
+questions.md Q1 is answered (textedit `--no_export`). diagram_ro and diagram_multi wait for Q2 (their need signal is measured on a third
+of the heads); matheditor waits for the decoder extension E1-E4. Against the expectation written in TODO 2.12, `vorder`'s need signal
+fires on diagram (16.8%), diagram_multi, textedit and animation (`logs/profile_92d12f9_demo_worlds.md`); the acceptance test decides.

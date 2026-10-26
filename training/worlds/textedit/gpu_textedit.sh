@@ -16,14 +16,14 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"; REPO="$(cd "$HERE/../../.." && pwd)"; SOP="$REPO/tool/bin/sop"
 PY="${SOP_PYTHON:-}"; for c in "$REPO/.venv/bin/python3"; do [ -z "$PY" ] && [ -x "$c" ] && PY="$c"; done; PY="${PY:-python3}"
-SIZES="1000 5000 20000 50000"; WAIT=0; SHIP=""
-while [ $# -gt 0 ]; do case "$1" in --wait) WAIT=1;; --sizes) SIZES="$2"; shift;; --ship) SHIP="$2"; shift;; esac; shift; done
+SIZES="1000 5000 20000 50000"; WAIT=0; SHIP=""; EXPORT=1   # --no_export: stop before step (4) (the export waits for a parity question)
+while [ $# -gt 0 ]; do case "$1" in --wait) WAIT=1;; --sizes) SIZES="$2"; shift;; --ship) SHIP="$2"; shift;; --no_export) EXPORT=0;; esac; shift; done
 [ -n "$SHIP" ] || SHIP="$(echo $SIZES | awk '{print $NF}')"
 cd "$REPO"
 if [ -n "$(git status --porcelain 2>/dev/null | grep -v "logs/" | grep -v "^?? runs/" | grep -v "\.md$" || true)" ]; then
   echo "uncommitted code changes: commit first, so that the run folder corresponds to a commit"; exit 1; fi
 COMMIT=$(git rev-parse --short HEAD); OUT="$REPO/runs/textedit_$COMMIT"
-LOCK="$REPO/logs/.run.lock"; mkdir -p "$(dirname "$LOCK")"
+LOCK="$REPO/logs/.run.lock.textedit"; mkdir -p "$(dirname "$LOCK")"   # per world, as training/gpu_diagram_step3.sh
 held() { [ -f "$LOCK" ] && kill -0 "$(cat "$LOCK" 2>/dev/null)" 2>/dev/null; }
 if held; then
   if [ $WAIT = 1 ]; then while held; do sleep 30; done
@@ -35,8 +35,8 @@ echo $$ > "$LOCK"; trap 'rm -f "$LOCK"' EXIT
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True VSA_MEM_FRACTION=${VSA_MEM_FRACTION:-0.5} VSA_MIN_AVAILABLE_GB=${VSA_MIN_AVAILABLE_GB:-16} VSA_MAX_HOURS=${VSA_MAX_HOURS:-6}
 mkdir -p "$OUT"; WORK="$(mktemp -d "${TMPDIR:-/tmp}/textedit_XXXX")"; LOG="$OUT/textedit.log"; CACHE="${PROSE_CACHE:-$HOME/.cache/vss-prose}"
 echo "# textedit, commit $COMMIT, $(date -Iseconds); worlds in $WORK; runs in $OUT; sizes $SIZES; shipped size $SHIP" | tee "$LOG"
-COMMON="--D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit"
-FILTER='\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]'
+COMMON="--D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto"   # routes selected from the world's nature (TODO 2.12); decoder contract is the default
+FILTER='\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]\|\[activate\]'
 # (1) the data-size curve, 5 seeds per size
 for n in $SIZES; do
   W="$WORK/$n/textedit"
@@ -74,8 +74,9 @@ for c in sorted(rs[0]["report"][next(k for k in rs[0]['report'] if k.startswith(
     print(f"| prose by category: {c} | executed as a command | {ms([r['report'][k]['by_category'][c]['executed_as_command'] for r in rs if c in r['report'][k]['by_category']])} |")
 EOF
 # (4) export for the browser (seed 0's model) with the normalizer table and the command threshold
+cp -r "$W/model_seed0" "$OUT/model_$SHIP"
+if [ $EXPORT = 0 ]; then echo "done (no export): commit runs/textedit_$COMMIT (and the prose lock file if it was pinned); the prose files stay in $WORK (never commit)" | tee -a "$LOG"; exit 0; fi
 mkdir -p "$REPO/app/model/textedit"
 "$SOP" export-web --model "$W/model_seed0" --out "$REPO/app/model/textedit" | tee -a "$LOG"
 cp "$HERE/normalize.json" "$REPO/app/model/textedit/normalize.json"; cp "$OUT/ship_seed0/command_threshold.json" "$REPO/app/model/textedit/command_threshold.json"
-cp -r "$W/model_seed0" "$OUT/model_$SHIP"
 echo "done: commit runs/textedit_$COMMIT and app/model/textedit (and the prose lock file if it was pinned); the prose files stay in $WORK (never commit)" | tee -a "$LOG"
