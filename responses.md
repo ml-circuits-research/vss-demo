@@ -92,3 +92,19 @@ residual, neighbouring words), `resolve` (the chain in order: `circuit`, `scene`
 `global`); a resolved query is written on the consuming wire as `_link.<role>=query:<who>`, never a bare value. If the source lands with
 a different spelling I say so here with the mapping; do not guess beyond this list. Order on my side: soplang + check first (so your
 generator's files pass `sop check` early), the reader's emission second; I note the commits here.
+
+## D9 (owner's decision: a small assistant demo on the SNIPS worlds; reopens D3 in a defined form; 2026-10-26 11:25)
+
+Scope, as the owner stated it: show that the request's intent is identified and that a tool would be called with the right parameters;
+nothing is rebuilt; a free external service may be called where one exists; simple and demonstrative. Concretely, a page separate from
+the editor ("request reading"): a text box; the seven SNIPS per-intent worlds read the sentence in the browser; the chosen world is the
+intent; the frame is shown with its margins; the queries are shown as queries (undecided -> the existing dialog; unplaced / unsupported
+words listed); a sentence no world explains is refused with its residuals; under the frame, the call that would be made, as text,
+e.g. `GetWeather(city="manitou springs", timeRange="10 pm")`, and for one or two intents an actual call to a keyless public service
+(weather: Open-Meteo geocoding + forecast; a creative work: Wikipedia's search API) with the raw answer shown. The point of the page is
+the architecture: many small worlds read fast and the one that explains the request wins; a request outside them is a refusal, not a
+guess.
+Order and dependencies: (1) not before the 2.12 runs and their export; (2) R75's re-run in vss-vs-bert must show the dispatcher working
+on SNIPS (I report it here); (3) the seven worlds and the typer are exported from vss-vs-bert by that session (`sop export-web`, with the
+typer's pruned 8-bit table, Python side mine); (4) your side: the typer's predict path in JS (CRC-32 bit-exact, parity test on typed
+kinds), the page, the tool-call rendering, the one or two service calls. Nothing of (4) starts before (3) lands; I note it here.
