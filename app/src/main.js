@@ -29,8 +29,10 @@ import { renderBuildStatus } from "./ui/buildview.js";
 import { renderRows, renderLines } from "./ui/info.js";
 import { renderHistory, renderExamples, renderRequestResult } from "./ui/tabs.js";
 import { renderDetail, DETAIL_TITLES } from "./ui/details.js";
+import { createChat } from "./ui/chat.js";
+import { plainReply, matchChoice } from "./ui/chattext.js";
 import { renderSketchReadings } from "./ui/sketchview.js";
-import { historyExtras, readingRecord, requestView } from "./ui/entries.js";
+import { historyExtras, readingRecord, requestView, detailKinds } from "./ui/entries.js";
 import { availableExamples, hintExamples, REQUEST_EXAMPLES } from "./examples.js";
 import { formulaPhrase, textCapable, findTextWidget, textHeight, looksLikeScript } from "./widgets.js";
 // text widgets and dictation (spec 14)
@@ -65,7 +67,7 @@ const DEFAULTS = { sketch_reader: "rules", corrector: "classic", theme: "auto", 
 const S = {
   assets: createAssets(), worlds: new Map(), diagram: null, normalize: null, corr: { classic: null, form: null }, formIndex: null,
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
-  gaps: null, lastGapId: null,
+  gaps: null, lastGapId: null, chat: null, pq: null, turn: null, pendingEntry: null,
   mode: "command", active: null, texts: new Map(), formulas: new Map(), dict: null, textedit: null, textNorm: null, calibration: null,
   formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", requests: [], seen: {},
 };
@@ -73,7 +75,13 @@ const S = {
 // the history of inputs; an entry also carries when it was made and, where the handler has them, world, frame, minMargin, residual
 // an entry that comes from a reading carries `last` (S.last as it was then) and `rec` (entries.js readingRecord: behaviour, rule, steps)
 function recOf(last) { if (!last) return null; const world = last.kind === "long" ? S.diagram?.name : (last.world || last.best?.route?.world); return readingRecord(last, { time: Date.now(), world }); }
-function pushHistory(entry) { const e = { time: Date.now(), ...entry }; if (e.last) e.rec = recOf(e.last); S.history.push(e); return e; }
+function pushHistory(entry) {
+  const e = { time: Date.now(), ...entry }; if (e.last) e.rec = recOf(e.last);
+  if (S.turn != null) e.msg = S.turn;                              // the person's message in the chat thread this entry answers (History links back to it)
+  S.history.push(e); S.pendingEntry = e; queueMicrotask(() => { if (S.pendingEntry === e) S.pendingEntry = null; }); return e;
+}
+// a turn of the chat: the person's message as given; the entries and the reply made in the same step belong to it
+function turn(text) { const id = S.chat.person(text); S.turn = id; queueMicrotask(() => { if (S.turn === id) S.turn = null; }); return id; }
 function loadSettings() { try { return Object.assign({ ...DEFAULTS }, JSON.parse(localStorage.getItem("vss-settings") || "{}")); } catch { return { ...DEFAULTS }; } }
 function saveSettings() { try { localStorage.setItem("vss-settings", JSON.stringify(S.settings)); } catch { /* private mode: settings for this visit only */ } }
 function applyTheme() { if (S.settings.theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = S.settings.theme; }
@@ -81,6 +89,7 @@ function applyTheme() { if (S.settings.theme === "auto") document.documentElemen
 // ------------------------------------------------------------------ start
 async function start() {
   applyTheme();
+  S.chat = createChat($("thread"), { max: 80, onDetails: (h) => showDetail(h, detailKinds(h)[0]) });
   S.view = createView($("canvas"), S.scene, { onChange: onManualChange, onSelect, onEditLabel });
   S.slots = createSlots($("canvas"), { textDoc: textDocOf, formula: (id) => S.scene.components.get(id)?.formula || null, label: (id) => S.scene.components.get(id)?.label || null,
     active: () => S.active, dictating: () => (S.mode === "dictation" ? S.active : null) });
@@ -162,8 +171,12 @@ function readVariants(alternatives, source) {
   return readRoutes({ routes: activeRoutes(), pipes: S.pipes, alternatives, mode: source === "speech" ? "speech" : "typed", corrector: S.settings.corrector, labels: labelsInScene() });
 }
 
-function handle(alternatives, source = "typed") {
+function handle(alternatives, source = "typed", { quiet = false } = {}) {
   const text = alternatives[0]?.text?.trim(); if (!text) return;
+  if (!quiet) {
+    if (S.mode === "command" && answersLastQuestion(alternatives)) return;   // "irina", "yes": the same as pressing that button of the editor's last question
+    S.pq = null; turn(text);
+  }
   if (S.mode === "dictation") return handleDictation(text, source);
   if (S.mode === "formula") return handleFormula(text);
   // command mode: the widget phrases first (spec 14.2, 16.4), then the readers
@@ -190,7 +203,7 @@ function handle(alternatives, source = "typed") {
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
   pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, last: S.last, routeLabel: best.route ? routeTag(best.route) : "", ...historyExtras(best.result, W.name) });
   recordGap({ result: best.result, route: best.route, tokens: best.tokens, info: best.info, decision: d, world: W.name });
-  refresh(); showAnswer(d);
+  refresh(); showAnswer(d, { decided: true });
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
 }
 
@@ -240,8 +253,8 @@ function handleLong(text, source, seg, info, choices = {}) {
   const he = pushHistory({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop, world: (longRoute(text).route?.world) || S.diagram?.name, last: S.last });
   refresh();
   const d = { action, line, questions };
-  showAnswer(d);
-  const host = $("answer");
+  showAnswer({ ...d, plain: true });
+  const host = answerHost();
   if (ex.waiting?.conflicts) for (const k of ex.waiting.conflicts) for (const keep of [k.a, k.b]) host.append(chip(`keep unit ${keep + 1}: ${circuit.units[keep].text}`, () => handleLong(text, source, seg, info, { ...choices, [k.key]: keep })));
   if (seg.ambiguous && seg.alternatives.length) host.append(chip("read it as the other segmentation", () => handleLong(text, source, { ...seg, segments: seg.alternatives[0], ambiguous: false, alternatives: [] }, info, choices)));
   host.append(chip("show the circuit", () => showDetail(he, "circuit")));
@@ -308,7 +321,7 @@ function startWriting(ref, reason) {
   S.last = { kind: "text", input: "", note: { text: `writing in ${nameOf(f.id)}`, as: f.rule, reason: reason || "start writing", kind: "command" } };
   updateMode(); refresh();
   showAnswer({ action: "execute", line: `Writing in ${nameOf(f.id)} (${f.rule}).${noReader} Say “stop writing” or press Escape to go back to commands.` });
-  $("answer").append(chip("rename", () => renameWidget(f.id)), chip("stop writing", () => stopWriting()));
+  answerHost().append(chip("rename", () => renameWidget(f.id)), chip("stop writing", () => stopWriting()));
 }
 function renameWidget(id) { S.allowLabel = id; S.view.editLabel(id); S.allowLabel = null; }
 function stopWriting(reason = "back to commands") {
@@ -326,8 +339,8 @@ function handleDictation(text, source) {
     S.dict.insert(doc, a.pieces, a.chip || null); commitText(id, "dictation");
     S.last = { kind: "text", input: text, note: { text, as: "written as text", reason: a.reason, world, kind: "content" } };
     refresh(); showAnswer({ action: "execute", line: `Written in ${nameOf(id)}.` });
-    if (a.chip) $("answer").append(chip("apply as a command", () => { const c = S.dict.applyChip(doc, a.chip); runTextCommand(id, doc, c, text); }));
-    $("answer").append(chip("stop writing", () => stopWriting()));
+    if (a.chip) answerHost().append(chip("apply as a command", () => { const c = S.dict.applyChip(doc, a.chip); runTextCommand(id, doc, c, text); }));
+    answerHost().append(chip("stop writing", () => stopWriting()));
     return;
   }
   if (a.type === "command") return runTextCommand(id, doc, a, text);
@@ -341,13 +354,13 @@ function runTextCommand(id, doc, a, text, opts = {}) {
   if (q) {
     S.slots.candidates(id, q.candidates || []); refresh();
     showAnswer({ action: "ask", line: q.text || q.kind });
-    (q.candidates || []).forEach((_, k) => $("answer").append(chip(`${k + 1}`, () => { S.slots.candidates(id, []); runTextCommand(id, doc, a, text, { choose: k }); })));
-    if (q.candidates?.length > 1) $("answer").append(chip("all", () => { S.slots.candidates(id, []); runTextCommand(id, doc, a, text, { choose: "all" }); }));
+    (q.candidates || []).forEach((_, k) => answerHost().append(chip(`${k + 1}`, () => { S.slots.candidates(id, []); runTextCommand(id, doc, a, text, { choose: k }); })));
+    if (q.candidates?.length > 1) answerHost().append(chip("all", () => { S.slots.candidates(id, []); runTextCommand(id, doc, a, text, { choose: "all" }); }));
     return;
   }
   if (p.destructive && !opts.confirmed) {
     refresh(); showAnswer({ action: "ask", line: `${p.explain || p.event}: ${typeof p.resolution === "string" ? p.resolution : JSON.stringify(p.resolution || "")}. Apply?` });
-    $("answer").append(chip("apply", () => runTextCommand(id, doc, a, text, { ...opts, confirmed: true })));
+    answerHost().append(chip("apply", () => runTextCommand(id, doc, a, text, { ...opts, confirmed: true })));
     return;
   }
   const r = executeText(doc, p, { confirmed: !!opts.confirmed });
@@ -390,7 +403,7 @@ function startFormula(id, fp = null) {
   S.formulaView = mountFormula(fx, { doc, parsers, reader: S.matheditor, onChange: (d, r) => onFormulaChange(id, d, r) });
   updateMode(); refresh();
   showAnswer({ action: "execute", line: `Formula widget open${S.matheditor ? "" : ` (${parsers.SOURCE}: no matheditor model installed)`}. Say or type the formula.` });
-  $("answer").append(chip("rename", () => renameWidget(id)), chip("end formula", () => leaveFormula()));
+  answerHost().append(chip("rename", () => renameWidget(id)), chip("end formula", () => leaveFormula()));
   if (fp && fp.rest) handleFormula(fp.rest);
 }
 function leaveFormula(say = true) {
@@ -414,9 +427,9 @@ function onFormulaChange(id, doc, r) {
   const shown = doc.tree.op === "hole" ? "empty" : latex; const kind = r.kind || (r.status === "ok" ? "formula" : null);
   S.last = { kind: "formula", input: "", note: { text: S.formulaInput || latex, as: kind === "command" ? `an edit of the formula, now ${shown}` : kind === "formula" ? (r.status === "ambiguous" ? "a formula with two readings" : `a formula: ${shown}`) : "not read", reason: `${r.status}: ${r.reason || ""}`, world: r.source || parsers.SOURCE, kind: kind === "command" ? "command" : "content", status: r.status === "ok" ? "ok" : r.status === "ambiguous" ? "abstain" : "no-sense" } };
   refresh();
-  showAnswer({ action: r.status === "ok" ? "execute" : r.status === "ambiguous" || r.status === "choose" ? "ask" : "refuse", line: `${r.status === "ambiguous" ? "Two readings: which one?" : r.reason || r.status} (${r.source || parsers.SOURCE})` });
-  const host = $("answer");
-  if (r.status === "ambiguous" && r.kind === "formula") r.readings.forEach((rd, k) => { const b = chip("", () => S.formulaView.choose(k)); b.classList.add("math-choice"); b.innerHTML = `<span class="n">${k + 1}</span>${toMathML(rd.tree, { display: "inline" })}`; b.setAttribute("aria-label", `reading ${k + 1}: ${toLatex(rd.tree)}`); host.append(b); });
+  showAnswer({ action: r.status === "ok" ? "execute" : r.status === "ambiguous" || r.status === "choose" ? "ask" : "refuse", line: r.status === "ambiguous" ? "Two readings: which one?" : r.reason || r.status });
+  const host = answerHost();
+  if (r.status === "ambiguous" && r.kind === "formula") r.readings.forEach((rd, k) => { const b = chip("", () => S.formulaView.choose(k), `reading ${k + 1}`); b.classList.add("math-choice"); b.innerHTML = `<span class="n">${k + 1}</span>${toMathML(rd.tree, { display: "inline" })}`; b.setAttribute("aria-label", `reading ${k + 1}: ${toLatex(rd.tree)}`); host.append(b); });
   host.append(chip("end formula", () => leaveFormula()));
 }
 
@@ -457,6 +470,7 @@ function applySketch({ rec, strokes, readings, context, chosen, stay }) {
   const res = readings.find((r) => r.id === chosen).res; const ap = applyToScene(S.scene, res);
   const sums = Object.fromEntries(readings.map((r) => [r.id, sceneSummary(r.res)]));
   const line = `Recognised ${sums[chosen].what}${res.deletions.components.length + (res.deletions.connectors?.length || 0) ? `; ${res.deletions.components.length + (res.deletions.connectors?.length || 0)} deletion(s)` : ""}. One undo takes it back.`;
+  turn(`Sketch: ${sums[chosen].what}`);
   S.last = { kind: "sketch", input: "(sketch)", rec, res, map: ap.map, line };
   const shapes = {}; for (const g of rec.groups) { const k = String(g.kind).replace(/_/g, " "); shapes[k] = (shapes[k] || 0) + 1; }
   pushHistory({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res), last: S.last,
@@ -465,10 +479,10 @@ function applySketch({ rec, strokes, readings, context, chosen, stay }) {
         ["Chosen", chosen === "vss" ? "what VSS read" : "what the classical algorithm made"]] } });
   refresh(); const first = [...ap.map.values()].find((x) => S.scene.components.has(x)); if (first) { reveal(first); S.slots.sync(); }
   showAnswer({ action: ap.applied ? "execute" : "refuse", line });
-  const host = $("answer");
+  const host = answerHost();
   for (const q of res.questions) {
     const id = ap.map.get(q.ref) || q.ref;
-    if (q.kind === "which-shape") for (const alt of q.candidates) host.append(chip(`${alt.kind.replace(/_/g, " ")} (${alt.score.toFixed(2)})`, () => setShape(id, alt.kind)));
+    if (q.kind === "which-shape") for (const alt of q.candidates) host.append(chip(alt.kind.replace(/_/g, " "), () => setShape(id, alt.kind)));
     else host.append(Object.assign(document.createElement("span"), { className: "line act-ask", textContent: q.text }));
   }
   if (!stay) host.append(chip("sketch more", () => S.sketch.open()));
@@ -506,8 +520,8 @@ function onManualChange(kind, detail) { pushHistory({ input: `(${kind}) ${detail
 function onSelect(ids) {
   if (S.mode !== "command" || ids.length !== 1) return;
   const c = S.scene.components.get(ids[0]); if (!c) return;
-  if (c.formula != null) { showAnswer({ action: "execute", line: `${nameOf(c.id)} is a formula.` }); $("answer").append(chip("edit this formula", () => startFormula(c.id))); }
-  else if (textCapable(c)) { showAnswer({ action: "execute", line: `${nameOf(c.id)} can hold text.` }); $("answer").append(chip(`write in ${nameOf(c.id)}`, () => { S.dict.start(null); startWriting({ name: c.label || null, head: c.label ? null : c.word }, "a tap on the widget"); })); }
+  if (c.formula != null) { showAnswer({ action: "execute", line: `${nameOf(c.id)} is a formula.` }); answerHost().append(chip("edit this formula", () => startFormula(c.id))); }
+  else if (textCapable(c)) { showAnswer({ action: "execute", line: `${nameOf(c.id)} can hold text.` }); answerHost().append(chip(`write in ${nameOf(c.id)}`, () => { S.dict.start(null); startWriting({ name: c.label || null, head: c.label ? null : c.word }, "a tap on the widget"); })); }
 }
 function onEditLabel(id) {
   const c = S.scene.components.get(id); if (!c || S.allowLabel === id) return true;
@@ -533,7 +547,7 @@ function refresh() {
   wTab.hidden = !(S.mode === "dictation" || S.mode === "formula" || L?.kind === "text" || L?.kind === "formula");
   tTab.hidden = !S.film?.timeline;
   if ((wTab.hidden && S.panelTab === "widget") || (tTab.hidden && S.panelTab === "timeline")) selectTab("diagram");
-  renderHistory($("tab-history"), S.history, { onPick: putInInput, onDetail: showDetail, onRequests: () => $("dlg-requests").showModal() });
+  renderHistory($("tab-history"), S.history, { onPick: putInInput, onDetail: showDetail, hasChat: (h) => h.msg != null && S.chat.has(h.msg), onChat: (h) => S.chat.reveal(h.msg), onRequests: () => $("dlg-requests").showModal() });
   updateBadges();
   updateMode();
 }
@@ -547,22 +561,52 @@ function renderTextTab() {
     outline: doc.toOutline(), hint: "Spoken punctuation and layout: comma, full stop, question mark, new line, new paragraph, bullet; “literally” writes the next word as it is. “Stop writing” or Escape ends." });
 }
 
-function showAnswer(d) {
-  const host = $("answer"); host.replaceChildren();
-  const line = document.createElement("span"); line.className = `line act-${d.action}`; line.textContent = d.line; host.append(line);
-  for (const q of d.questions || []) {
-    if (q.kind === "role" && q.candidates?.length) for (const c of q.candidates) host.append(chip(String(c).replace(/_/g, " "), () => rerunWith(q.role, c)));
-    if (q.kind === "undecided") for (const c of q.candidates) host.append(chip(String(c).replace(/_/g, " "), () => rerunWithout(q.candidates.find((x) => x !== c))));
-    if (q.kind === "unsupported") { host.append(chip("yes", () => { if (S.last) runText(q.words.reduce((t, w) => dropWord(t, w), S.last.input)); })); host.append(chip("no", () => { host.textContent = ""; })); }
-    if (q.kind === "presence") { host.append(chip("yes", () => { if (S.last) putInInput(S.last.input); })); host.append(chip("no", () => { host.textContent = ""; })); }
-    if (q.kind === "which" && q.candidates?.length) q.candidates.forEach((id, i) => host.append(chip(`${i + 1}: ${describeId(id)}`, () => { S.scene.selection = [id]; rerunLast(); })));
-    if (q.kind === "unknown-word") host.append(chip(`use "${q.words.join(" ")}" as a label`, () => runText(`${S.last.input} called ${q.words.join(" ")}`)));
-  }
-  for (const n of d.notes || []) if (n.kind === "correction") host.append(chip(`undo correction: ${n.revert.to} -> ${n.revert.from}`, () => runRaw(S.last.input, { corrector: "off" })));
-  if (S.lastGapId && d.action !== "execute" && S.settings.gaps_collect) host.append(chip("this should have worked", () => markGap(S.lastGapId)));
-  const pres = (d.notes || []).filter((n) => n.kind === "presence");
-  if (pres.length) { const m = document.createElement("span"); m.className = "note-muted"; m.textContent = pres.map((n) => n.text).join("; "); host.append(m); }
+// The editor's reply in the chat thread (D26): plain sentences (chattext.js); the choices of its questions are buttons inside the bubble, and the
+// next typed or spoken message that equals one of them is the same as pressing it. d.decided: d comes from decide() (a planner line to say as "Done: ...").
+function choicesOf(q) {
+  const yn = (yes, no) => [{ label: "yes", aliases: ["y", "yeah", "yes please"], run: yes }, { label: "no", aliases: ["n", "nope", "no thanks"], run: no }];
+  const cands = (q.candidates || []).map((c) => String(c).replace(/_/g, " "));
+  if (q.kind === "role" && cands.length) return cands.map((label, i) => ({ label, run: () => rerunWith(q.role, q.candidates[i]) }));
+  if (q.kind === "undecided") return cands.map((label, i) => ({ label, run: () => rerunWithout(q.candidates.find((x) => x !== q.candidates[i])) }));
+  if (q.kind === "unsupported") return yn(() => { if (S.last) runText(q.words.reduce((t, w) => dropWord(t, w), S.last.input)); }, dismiss);
+  if (q.kind === "which" && cands.length) return q.candidates.map((id, i) => ({ label: `${i + 1}: ${describeId(id)}`, aliases: [String(i + 1), describeId(id)], run: () => { S.scene.selection = [id]; rerunLast(); } }));
+  if (q.kind === "unknown-word") return [{ label: `use "${q.words.join(" ")}" as a label`, aliases: ["yes", "y"], run: () => runText(`${S.last.input} called ${q.words.join(" ")}`) }];
+  // presence, offer and any kind that offers candidates: yes = accept (the last input goes back to the input bar to be completed), no = dismiss
+  if (q.candidates?.length) return q.candidates.map((c, i) => {
+    const label = String(c).replace(/_/g, " "), yes = /^yes$/i.test(label), no = /^no$/i.test(label);
+    return { label, aliases: yes ? ["y", "yeah", "yes please"] : no ? ["n", "nope", "no thanks"] : [], run: yes ? acceptOffer : dismiss };
+  });
+  return [];
 }
+function acceptOffer() { if (S.last?.input) { putInInput(S.last.input); say("Add what you meant to the command and press Run."); } }
+function dismiss() { say("Okay."); }
+function say(text, action = "execute") { S.chat.editor({ text, action }); }
+// pressing a choice (or typing its words): the person's message, the choices settle, then the handler
+function choose(label, fn, bubble) {
+  S.pq = null; if (bubble != null) S.chat.settle(bubble); turn(label); fn();
+}
+function answersLastQuestion(alternatives) {
+  if (!S.pq) return false;
+  for (const a of alternatives) {
+    const i = matchChoice(S.pq.choices, a.text || "");
+    if (i >= 0) { const { id, choices } = S.pq; choose(a.text.trim(), choices[i].run, id); return true; }
+  }
+  return false;
+}
+function showAnswer(d, { decided = false } = {}) {
+  const r = plainReply(decided ? d : { ...d, plain: true });
+  const entry = S.pendingEntry; S.pendingEntry = null;
+  const choices = (d.questions || []).flatMap(choicesOf);
+  let id = null;
+  id = S.chat.editor({ text: r.text, extra: r.extra, action: d.action, entry,
+    choices: choices.map((c) => ({ label: c.label, run: () => choose(c.label, c.run, id) })) });
+  if (entry) entry.reply = id;
+  S.pq = choices.length ? { id, choices } : null;
+  const host = answerHost();
+  for (const n of d.notes || []) if (n.kind === "correction") host.append(chip("use what I typed", () => runRaw(S.last.input, { corrector: "off" })));
+  if (S.lastGapId && d.action === "refuse" && S.settings.gaps_collect) host.append(chip("this should have worked", () => markGap(S.lastGapId)));
+}
+const answerHost = () => S.chat.actions();
 // the gaps journal (src/gaps.js): every diagram reading is recorded locally (labels masked) when collection is on; a reading that was
 // not executed gets a chip "this should have worked", which marks it with an optional note; export and sending are explicit actions
 function recordGap(args) {
@@ -573,13 +617,14 @@ function markGap(id) {
   const note = prompt("What should have happened? (optional, a few words; names you typed are not stored)", "") ?? "";
   if (S.gaps.mark(id, note)) { showAnswer({ action: "execute", line: "Thanks. The reading is marked in the local journal (Settings: Help improve the readers)." }); }
 }
-const chip = (text, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = text; b.onclick = fn; return b; };
+// a small button inside the newest reply (an extra, not a question's choice): pressing it is the person saying it
+const chip = (text, fn, said = text) => { const b = document.createElement("button"); b.type = "button"; b.className = "choice"; b.textContent = text; b.onclick = () => { b.disabled = true; S.pq = null; turn(said); fn(); }; return b; };
 const describeId = (id) => { const c = S.scene.components.get(id); return c ? `${c.label ? `"${c.label}" ` : ""}${c.word}` : id; };
-function rerunLast() { if (S.last) handle([{ text: S.last.input }]); }
+function rerunLast() { if (S.last) handle([{ text: S.last.input }], "typed", { quiet: true }); }
 function rerunWith(role, value) { if (!S.last) return; runText(`${S.last.input} ${String(value).replace(/_/g, " ")}`); }
 function rerunWithout(word) { if (!S.last) return; runText(dropWord(S.last.input, word)); }      // an undecided pair: the word not chosen filled no role
-function runText(t) { $("input").value = ""; handle([{ text: t }]); }
-function runRaw(t, over) { const keep = S.settings.corrector; S.settings.corrector = over.corrector; handle([{ text: t }]); S.settings.corrector = keep; }
+function runText(t) { $("input").value = ""; handle([{ text: t }], "typed", { quiet: true }); }
+function runRaw(t, over) { const keep = S.settings.corrector; S.settings.corrector = over.corrector; handle([{ text: t }], "typed", { quiet: true }); S.settings.corrector = keep; }
 
 function updateMode() {
   const chipEl = $("mode-chip"); chipEl.className = "mode-chip"; const inp = $("input");
@@ -708,9 +753,9 @@ function makeSpeech() {
   const mic = $("btn-mic");
   S.speech = createSpeech({
     lang: S.settings.lang,
-    onInterim: (t) => { $("answer").replaceChildren(Object.assign(document.createElement("span"), { className: "interim", textContent: t })); },
-    onFinal: ({ alternatives }) => handle(alternatives, "speech"),
-    onState: (st) => { mic.classList.toggle("listening", st === "listening"); if (st !== "listening" && $("answer").querySelector(".interim")) $("answer").replaceChildren(); },
+    onInterim: (t) => S.chat.interim(t),
+    onFinal: ({ alternatives }) => { S.chat.clearInterim(); handle(alternatives, "speech"); },
+    onState: (st) => { mic.classList.toggle("listening", st === "listening"); if (st !== "listening") S.chat.clearInterim(); },
     onError: (e) => showAnswer({ action: "refuse", line: `Voice: ${e}` }),
   });
   const info = S.speech.info(); $("voice-info").textContent = info.note; mic.disabled = !info.available; mic.title = info.available ? "Hold to speak (or hold the space bar when the input is empty)" : info.note;
@@ -825,7 +870,7 @@ function loadTimeline(json, name) {
   S.film.show(true); S.film.player.play(0);
   pushHistory({ input: `(timeline) ${name}`, source: "file", used: "", status: `${r.timeline.units.length} units`, line: `${(r.timeline.end / 1000).toFixed(2)} s`, action: "film" });
   showAnswer({ action: bad.length ? "ask" : "execute", line: `Playing ${name}: ${r.timeline.units.length} units, ${(r.timeline.end / 1000).toFixed(2)} s${r.sceneFromFile ? ", on the diagram stored in the file" : ", on this diagram"}${bad.length ? `; ${bad.length} step${bad.length > 1 ? "s" : ""} not placed: ${bad[0].note}` : ""}.` });
-  $("answer").append(chip("show the timeline", () => openPanel("timeline")));
+  answerHost().append(chip("show the timeline", () => openPanel("timeline")));
   updateMode();
 }
 

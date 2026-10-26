@@ -61,7 +61,17 @@ async function session(browser, url, label, size) {
   await page.fill("#input", "add a database called orders in the top left ."); await page.press("#input", "Enter"); await page.waitForTimeout(300);
   check(`${tag} command: no reading strip above the input`, (await page.locator("#reading").count()) === 0);
   check(`${tag} command: History has the entry (text, status, behaviour)`, await page.evaluate(() => { const r = document.querySelector("#tab-history .hist-row"); return !!r && /database/.test(r.textContent) && !!r.querySelector(".chip"); }));
-  check(`${tag} command: an answer`, (await page.textContent("#answer")).trim().length > 0);
+  check(`${tag} chat: no answer line or chip area above the input`, (await page.locator("#answer").count()) === 0);
+  check(`${tag} chat: a person bubble (the text as typed) and an editor bubble appear`, await page.evaluate(() => {
+    const p = document.querySelector("#thread .msg.from-person .bubble"), e = document.querySelector("#thread .msg.from-editor .bubble");
+    return !!p && !!e && p.textContent.trim() === "add a database called orders in the top left ." && /^Done: /.test(e.textContent.trim()); }));
+  check(`${tag} chat: person on the left, editor on the right, newest at the bottom`, await page.evaluate(() => {
+    const t = document.getElementById("thread"), p = document.querySelector("#thread .from-person").getBoundingClientRect(), e = document.querySelector("#thread .from-editor").getBoundingClientRect(), r = t.getBoundingClientRect();
+    return p.left < e.left && Math.abs(p.left - r.left) < 12 && Math.abs(r.right - e.right) < 12 && t.scrollTop + t.clientHeight >= t.scrollHeight - 2 && parseFloat(getComputedStyle(document.querySelector("#thread .bubble")).fontSize) >= 16; }));
+  check(`${tag} chat: the editor bubble's details link opens that entry's detail popup`, await (async () => {
+    await page.click("#thread .from-editor .details-link"); await page.waitForTimeout(150);
+    const ok = (await page.locator("dialog.popup[open]").count()) === 1; if (ok) { await page.click("dialog.popup[open] .sheet-x"); await page.waitForTimeout(100); } return ok; })());
+  check(`${tag} chat: no horizontal overflow`, await page.evaluate(() => document.querySelector(".dock").getBoundingClientRect().right <= window.innerWidth + 1 && document.getElementById("thread").scrollWidth <= document.getElementById("thread").clientWidth + 1));
   await shot("command");
 
   // every main tab button that is shown (the phone-only ones only on a phone) opens a non-empty panel
@@ -71,6 +81,12 @@ async function session(browser, url, label, size) {
     await page.click(`#main-tabs [data-tab="${t}"]`); await page.waitForTimeout(150);
     check(`${tag} tab ${t}: panel not empty`, await page.evaluate((t) => { const e = document.getElementById("tab-" + t); return !!e && !e.hidden && e.textContent.trim().length > 0; }, t));
   }
+  // History links back to the chat message
+  await page.click('#main-tabs [data-tab="history"]'); await page.waitForTimeout(150);
+  check(`${tag} History entry links back to its chat message`, (await page.locator("#tab-history .hist-row .chat-link").count()) >= 1);
+  await page.click("#tab-history .hist-row .chat-link >> nth=0"); await page.waitForTimeout(200);
+  check(`${tag} the link flashes that message in the thread`, (await page.locator("#thread .msg.flash").count()) === 1);
+  await page.click('#main-tabs [data-tab="diagram"]'); await page.waitForTimeout(100);
   // History: the details of an entry open as popups (full width, X closes); Requests opens from the History header
   await page.click('#main-tabs [data-tab="history"]'); await page.waitForTimeout(150);
   for (const k of ["reading", "call", "plan", "sop", "log"]) {
@@ -101,7 +117,7 @@ async function session(browser, url, label, size) {
   await page.click("#btn-sketch"); await page.waitForTimeout(150);
   check(`${tag} sketch strip opens (not a tab)`, await page.isVisible("#sketch-strip") && (await page.locator('#main-tabs [data-tab="sketch"]').count()) === 0);
   await page.click("#btn-sketch-done"); await page.waitForTimeout(150);
-  check(`${tag} Done with nothing drawn: no preview, said so`, (await page.locator("dialog.sk-preview").count()) === 0 && /Nothing was drawn/.test(await page.textContent("#answer")));
+  check(`${tag} Done with nothing drawn: no preview, said so`, (await page.locator("dialog.sk-preview").count()) === 0 && /Nothing was drawn/.test(await page.textContent("#thread")));
 
   // the export sheet opens
   await page.click("#btn-export"); await page.waitForTimeout(150);
