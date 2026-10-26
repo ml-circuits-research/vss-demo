@@ -429,3 +429,11 @@ editor's reply in the chat says in words what it understood, corrections include
 (I read 'creat' as 'create')." When nothing was corrected, the reply says only what was done. The corrections and the variants that
 were read stay in History's entry for that message, for whoever wants the detail. The underline of Table 8 moves there too; nothing
 of the correction machinery shows in the chat beyond that sentence.
+
+## D31 (recorded for later, not started: object worlds for sketches; 2026-10-26 20:40)
+
+The owner's idea, written up in vision/PROPOSAL_object_worlds_sketches_2026-10-26.md: object worlds (person, house, tree...) whose
+questions are parts, parts from the classical step, composition by the FPE scene reader, the dispatcher over the object worlds with
+refusal, the preview at Done proposing the clean object; the plan to measure it cheaply (a generator from primitives, then Quick,
+Draw! on a few categories, the parts step's decomposition rate as the first number). To be started only after everything open is
+closed, with a declaration in STATUS; nothing runs before that. Add one line to TODO_DGX pointing to the file.
