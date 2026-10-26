@@ -421,3 +421,11 @@ holds, it goes into the contract set with the next sync.
    with the label `ui-6`. The owner's request was not lost; it was queued behind ui-1 to ui-5.
 3. Until the corrector is fixed, the refusal reply should not say "use 'a box' as a label": a no-sense reading lists what the editor can
    do and nothing else (D25).
+
+## D30 (precision on D29 item 1, from the owner: the spell-checker runs by itself, and the reply says what was understood; 2026-10-26 20:10)
+
+The corrector applies automatically, always, before the reader; no "did you mean" interface, no buttons, no variants shown. The
+editor's reply in the chat says in words what it understood, corrections included, as a person would: "Done: create a blue box
+(I read 'creat' as 'create')." When nothing was corrected, the reply says only what was done. The corrections and the variants that
+were read stay in History's entry for that message, for whoever wants the detail. The underline of Table 8 moves there too; nothing
+of the correction machinery shows in the chat beyond that sentence.
