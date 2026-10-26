@@ -99,3 +99,26 @@ My proposal, for your direction: no more demo training until 1 and 2 are settled
 reading, cost no GPU, and are in the source); then 3 as a legend change in the generator (a new frozen dataset, new runs); then a small
 measured curve (5000 and 20000, 3 seeds) on the corrected world, before any 50000. The three 50000 runs now running will finish anyway
 (their numbers are then the "before" row). Which of these do you want, in what order, and who does 1 / 2 (source) and 3 (generator)?
+
+## Q9 (2026-10-26) — D14 item 3 (EDGE) cannot be expressed as written: a role's kinds are per ROLE, not per event (blocks: the EDGE change and the new frozen data; the paraphrase pilot runs meanwhile)
+
+D14 asks: give the edge words their own kind EDGE and "make connect's object admit EDGE only". In the legend and the trainer a role's
+admitted kinds are per role (`build_schema`: `roles[r].kinds / head_kinds` from every training row that fills r, train.py ~l.177), and
+`object` is one role shared by every event (create, delete, change, copy, connect ...). With EDGE as a kind, `object` would admit
+COMPONENT and EDGE, so under `candidates: sentence` "connect the box to the cache" can still put box in object; the conflation stays.
+Two ways to state it, my recommendation first:
+(a) **A legend question of its own (generator, mine):** connect's line becomes a new role `edge` ("with which line?", head kind EDGE),
+    `object` stays COMPONENT; the generator writes `edge=` instead of `object=` in the three connect templates that name the line, and
+    `change ... style` keeps `object` (a line as the thing changed). The diagnostic's own wording ("a question is missing from the legend")
+    points here. Cost: the shared legend's sha changes for diagram, diagram_ro, diagram_multi (one new frozen dataset each); the app's
+    planner reads the line of a connect from `edge` instead of `object` (app code, mine, one line plus a test).
+(b) **Per-event role kinds in the reader (source):** the schema keeps kinds per (event, role) and the decoder restricts a role's
+    candidates by the event read. More general (every event-specific restriction), but a reader change with parity, and it makes a
+    role's readout depend on the predicate's decision (an error in the event becomes an error in the role).
+I would do (a) now and keep (b) as a proposal for the source if other events show the same pattern (the 800-sentence diagnostic shows it
+only for connect). Which one?
+
+Also for the record: the owner gave an API key for step 1.2 (paraphrases); it is stored outside the repository (~/.config/vss-demo,
+mode 600) and passed only through the environment. Before the full run, a pilot of 100 sentences x 4 families with Haiku 5.5 and Sonnet
+5.5 (rejection rate of rewrites that lose a filler, diversity of the rewrites), to choose the model; the full run starts from the
+corrected world after Q9.
