@@ -514,6 +514,7 @@ function showAnswer(d) {
   for (const q of d.questions || []) {
     if (q.kind === "role" && q.candidates?.length) for (const c of q.candidates) host.append(chip(String(c).replace(/_/g, " "), () => rerunWith(q.role, c)));
     if (q.kind === "undecided") for (const c of q.candidates) host.append(chip(String(c).replace(/_/g, " "), () => rerunWithout(q.candidates.find((x) => x !== c))));
+    if (q.kind === "unsupported") { host.append(chip("yes", () => { if (S.last) runText(q.words.reduce((t, w) => dropWord(t, w), S.last.input)); })); host.append(chip("no", () => { host.textContent = ""; })); }
     if (q.kind === "which" && q.candidates?.length) q.candidates.forEach((id, i) => host.append(chip(`${i + 1}: ${describeId(id)}`, () => { S.scene.selection = [id]; rerunLast(); })));
     if (q.kind === "unknown-word") host.append(chip(`use "${q.words.join(" ")}" as a label`, () => runText(`${S.last.input} called ${q.words.join(" ")}`)));
   }

@@ -1,7 +1,9 @@
 // dialog.js: from the reader's report and the plan to the editor's behaviour (spec 11, Table 8). Rules only; every outcome carries the
 // rule that produced it, shown in the explanation panel.
-//   decide({ result, plan, corrections, tau, legend }) -> { action: "execute" | "ask" | "refuse", line, questions, notes, rule }
+//   decide({ result, plan, corrections, tau, legend }) -> { action: "execute" | "ask" | "refuse", line, questions, notes, rule, queries }
 // result: vss.read() output; plan: planner.plan() output (may be null when the reading is not executable); corrections: the corrector's.
+// queries: the reading's query wires and signals (queries.js); every one is answered, asked or reported, none is silent (addendum 7).
+import { queriesOf } from "./queries.js";
 
 const ROLE_WORD = { color: "colour", size: "size", style: "line style", text: "label", relation: "position", landmark: "reference component",
   region: "place on the canvas", anchor: "edge", fraction: "part of the way", amount: "amount", unit: "unit", direction: "direction",
@@ -14,7 +16,11 @@ export function capabilities(legend) {
   return evs.length ? `I can: ${evs.join(", ")}.` : "";
 }
 
-export function decide({ result, plan = null, corrections = [], tau = 0.05, legend = null, alternatives = null } = {}) {
+export function decide(args = {}) {
+  const queries = queriesOf(args.result); const d = decideWith(args, queries); d.queries = queries; return d;
+}
+
+function decideWith({ result, plan = null, corrections = [], tau = 0.05, legend = null, alternatives = null } = {}, queries = []) {
   const notes = [];
   for (const c of corrections) notes.push({ kind: "correction", text: `read "${c.from}" as "${c.to}"`, revert: c });
   if (alternatives && alternatives.ranked && alternatives.ranked.length > 1) notes.push({ kind: "alternatives", text: alternatives.reason });
@@ -25,10 +31,18 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
     return { action: "refuse", line: `I did not understand that (${result.status}). ${capabilities(legend)}`.trim(), questions: qs, notes,
       rule: "Table 8: unknown-event or no-sense -> say what was not understood, list what the editor can do" };
   }
+  // a request whose question the legend does not have (a query of kind unsupported about the sentence): refuse, saying what was not
+  // supported; never read it as the nearest command of the world
+  const whole = queries.find((q) => q.kind === "unsupported" && q.about === "sentence");
+  if (whole) return { action: "refuse", line: `I can't do that${whole.evidence.length ? ` ("${whole.evidence.join(" ")}")` : ""}: it is not something this editor understands. ${capabilities(legend)}`.trim(),
+    questions: [], notes, rule: "addendum q-formalisation 7: a query of kind unsupported about the sentence -> refuse, say what is not supported" };
+  for (const q of queries) if (q.kind === "unplaced") notes.push({ kind: "unplaced", text: `"${q.about}" was not used` });
   // undecided by adjacency (addendum q-formalisation 10): two words of the sentence the state cannot separate for one role -> ask which
   // of the two, never the catalog's runner-up; the answer keeps the chosen word and drops the other (it filled no role)
-  const undecided = Object.entries(result.undecided || {}).filter(([, c]) => c && c.length === 2).map(([role, cands]) => ({ kind: "undecided", role, margin: 0, candidates: cands,
-    text: `which ${ROLE_WORD[role] || role}, ${cands[0]} or ${cands[1]}?` }));
+  const undecided = queries.filter((q) => q.kind === "undecided" && q.evidence.length === 2).map((q) => {
+    const role = q.role || q.about.split(".").pop(); const cands = q.evidence;
+    return { kind: "undecided", role, margin: 0, candidates: cands, text: `which ${ROLE_WORD[role] || role}, ${cands[0]} or ${cands[1]}?` };
+  });
   // a role under tau: ask about that role only, with the two best candidates when the reader gives them
   // one question per role: the role's lowest margin (identity, presence, attribute or determiner part)
   const byRole = new Map();
@@ -63,6 +77,14 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
   if (plan.questions && plan.questions.length) {
     return { action: "ask", line: plan.questions.map((q) => q.text).join(" "), questions: plan.questions, notes,
       rule: "Table 8: a description matches none or several components, or a required role is empty" };
+  }
+  // a phrase the legend has no question for, attached to an executable command: ask before doing the rest without it
+  const partial = queries.filter((q) => q.kind === "unsupported" && q.about !== "sentence");
+  if (partial.length) {
+    const words = partial.flatMap((q) => q.evidence);
+    return { action: "ask", line: `I can't handle "${words.join(" ")}". Do the rest without it?`, notes,
+      questions: [{ kind: "unsupported", words, candidates: ["yes", "no"], text: `do the rest without "${words.join(" ")}"?` }],
+      rule: "addendum q-formalisation 7: a query of kind unsupported inside a command -> ask before executing the rest" };
   }
   const roles = Object.entries(result.frame?.roles || {}).map(([k, v]) => `${ROLE_WORD[k] || k} ${fillerText(v)}`);
   const line = (plan.steps || []).map((s) => s.explain).filter(Boolean).join("; ") || `${result.frame?.event}${roles.length ? ": " + roles.join(", ") : ""}`;
