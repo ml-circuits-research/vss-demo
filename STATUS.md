@@ -294,3 +294,12 @@ threshold 0.093, text present mean 0.551 (p10 0.188, 1 under the threshold), tex
 their tails overlap; with D's data the absent tail is heavier (more bare labels in the landmark and target positions of the same
 sentences), the fitted threshold doubles, and 14 true texts fall under it: the 14 name errors of D2, which the offer rule now turns into
 the right question. questions.md Q17.
+
+RESULT of presence_without_placed (responses D28; source 0897252 synced 4c3c7ef; reader.js mirrored; the parity suite PASS with a
+test copy of reference_v2 with the key on, where the second pass takes no role; on a copy of D2's model with the key on, 120 of the
+800 sentences: frames, statuses and SOP text identical 115 / 115, the second pass takes a role in 7, one presence RATIO differs by
+1.8e-4 (source.attr = 230.018, a degenerate ratio with a near-zero top: relative 8e-7), so that run reports FAIL on the 1e-4 absolute
+criterion while every decision is identical). Measurement on D2's model, the same thresholds (the rule as the source defines it; the
+thresholds were not refitted, see Q18), 795 distinct sentences of the 800: heads-exact 0.942 -> 0.979 without asking anything; with the
+offers accepted 0.981 -> 0.981; offers 36 -> 3; roles taken in the second pass 33, all 33 right; name errors 14 -> 0. Expectation "the 14
+under-threshold texts present, nothing else down": met.

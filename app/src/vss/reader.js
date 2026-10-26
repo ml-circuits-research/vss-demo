@@ -539,7 +539,30 @@ export class Reader {
     const estimator = opts.estimator || this.cfg.depth_estimator || "gates", presence = opts.presence || this.cfg.presence_readout || "decided";
     this.filt = this.cfg.candidates === "sentence" ? new Set(tokens.concat(tokens.map((t) => t.toLowerCase()))) : null;   // the sentence-candidates decoder (R46)
     let f;
-    try { f = kept.length ? this.read(S, tokens, { estimator, presence, force: opts.force, forceDepth: opts.forceDepth }) : { shape: "unknown", roles: {}, speakers: [], margins: {}, neg: false, lemma: null }; }
+    try {
+      f = kept.length ? this.read(S, tokens, { estimator, presence, force: opts.force, forceDepth: opts.forceDepth }) : { shape: "unknown", roles: {}, speakers: [], margins: {}, neg: false, lemma: null };
+      if (kept.length && f.shape === "ok" && this.cfg.presence_without_placed) {
+        // vss-demo Q17 / D28 (infer.py): a second reading of the roles left absent, on the state WITHOUT the deposits of the words already
+        // placed in other roles (a label read as the landmark is no evidence of a text); the same thresholds
+        const placed0 = this.placedWords(f);
+        const ex = []; kept.forEach((i, j) => { if (placed0.has(tokens[i]) || placed0.has(this.lemma(tokens[i]))) ex.push(j); });
+        if (ex.length && ex.length < kept.length) {
+          const [, cidx] = this.encode(tokens), addr = this.rb.addresses(cidx), D = this.D, S2 = { re: Float64Array.from(S.re), im: Float64Array.from(S.im) };
+          for (const j of ex) {
+            const F = this.st.id(this.ident(tokens[kept[j]])); if (!F) continue; const a = addr[j];
+            for (let d = 0; d < D; d++) { S2.re[d] -= a.re[d] * F.re[d] - a.im[d] * F.im[d]; S2.im[d] -= a.re[d] * F.im[d] + a.im[d] * F.re[d]; }
+          }
+          const f2 = this.read(S2, tokens, { estimator, presence, force: [f.depth, f.neg] });
+          if (f2.shape === "ok") for (const [r, fl] of Object.entries(f2.roles)) {
+            if ((f.roles[r] === undefined || f.roles[r] === null) && fl !== null && fl !== undefined && !fillerWords(fl).some((w) => placed0.has(w))) {
+              f.roles[r] = fl; f.presence[r] = f2.presence[r]; (f.second_pass = f.second_pass || []).push(r);
+              for (const [k, v] of Object.entries(f2.margins)) if (k === r || k.startsWith(r + ".")) f.margins[k] = v;
+              if (f.presence_queries) delete f.presence_queries[r];
+            }
+          }
+        }
+      }
+    }
     finally { this.filt = null; }
     const placed = f.shape === "ok" ? this.placedWords(f) : new Set(); let unplaced = [...unknown];
     if (f.shape === "ok" && this.legend.reader.spans === "kind_run") {      // Q38 / R87 (infer.py): a multi-word filler is the run of its kind around the head

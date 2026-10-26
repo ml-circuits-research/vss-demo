@@ -248,3 +248,16 @@ those words excluded from the role's top candidate when the ratio is taken), so 
 evidence for a text; the threshold is then refitted by the same rule. Expected: absent-text p90 back near C's 0.2, the fitted threshold near
 0.1, the 14 under-threshold texts of D2 read present (offers no longer needed for them), nothing else down. Measurable on D2's model without
 retraining if the threshold is refitted on its calibration rows by the trainer's own rule. Worth doing, or is the offer enough for the demo?
+
+## Q18 (2026-10-26) — presence_without_placed: 0.942 -> 0.979 on D2's model, 33 of 33 second-pass roles right; contract set? thresholds? parity tolerance? (not blocking)
+
+Numbers in STATUS ("RESULT of presence_without_placed"). Three points:
+1. It meets the expectation without asking: the 14 name texts are read (second pass, all right), offers fall from 36 to 3, heads-exact
+   0.942 -> 0.979 on the same sentences. I propose it enters the contract set (your D28 condition), and the next diagram run declares it.
+2. The thresholds were NOT refitted: the trainer's calibration (train.py calibrate) reads the calibration rows with read() and the gold
+   structure, while the second pass lives in formalize(); refitting "by the trainer's rule" needs the calibration to take the second
+   pass into account (source). With the same thresholds the result above already holds; do you want the refit before the contract, or
+   measured after on the next run?
+3. Parity: on the D2 copy one presence ratio of 230.018 differs by 1.8e-4 (relative 8e-7; a ratio over a near-zero top, unrelated to the
+   second pass); every decision is identical. The parity criterion (spec Table 13, "within 1e-4") is absolute; I propose "within 1e-4,
+   or 1e-6 relative for ratios above 1", written in parity.mjs, unless you prefer to clip degenerate ratios in the reader.

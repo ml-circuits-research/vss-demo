@@ -73,7 +73,7 @@ def main():
                  "lemma": f.get("lemma"), "depth": f.get("depth", 0), "scope": f.get("scope")}
         S = info["S"]
         out.append(jsonable({"text": text, "tokens": info["tokens"], "kinds": [rd.kind(t) for t in info["tokens"]], "S_re": np.real(S).tolist(), "S_im": np.imag(S).tolist(),
-                             "frame": frame, "margins": f.get("margins", {}), "presence": f.get("presence", {}), "residual": info["residual"], "status": info["status"],
+                             "frame": frame, "second_pass": f.get("second_pass", []), "margins": f.get("margins", {}), "presence": f.get("presence", {}), "residual": info["residual"], "status": info["status"],
                              "sop": soplang.write(soplang.Doc(wires=wires))}))
     json.dump({"model": a.model, "dequantized_from": a.deq, "sentence_candidates": a.sc, "items": out}, open(a.out, "w"))
     print(f"make_golden: {len(out)} sentences -> {a.out} (dequantized from {a.deq or '-'}; sentence candidates {a.sc})")

@@ -41,6 +41,12 @@ if [ -f tool/worlds/reference/model_v2/config.json ]; then
     node app/tests/parity.mjs "$OUT/eventroles-8" "$OUT/golden-eventroles${sc:+-sc}.json" $sc
   done
   python3 training/parity/make_eventroles_model.py --check "$OUT/golden-eventroles.json"
+  # the second presence pass (Q17 / D28): the roles left absent read again without the deposits of the words already placed
+  python3 training/parity/make_pwp_model.py tool/worlds/reference/model_v2 "$OUT/pwp_model"
+  tool/bin/sop export-web --model "$OUT/pwp_model" --out "$OUT/pwp-8" | sed -n 1p
+  python3 training/parity/make_golden.py --model "$OUT/pwp_model" --world tool/worlds/reference --out "$OUT/golden-pwp.json" --dequantize-from "$OUT/pwp-8" >/dev/null
+  node app/tests/parity.mjs "$OUT/pwp-8" "$OUT/golden-pwp.json"
+  python3 training/parity/make_pwp_model.py --check "$OUT/golden-pwp.json"
 fi
 node app/tests/bench.mjs "$OUT/reference-8" "$OUT/golden-reference-8.json" || true
 echo "run_all.sh: PASS"
