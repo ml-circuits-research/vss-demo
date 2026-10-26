@@ -233,3 +233,20 @@ are learned from kinds and positions, so more instances of the same templates te
 sizes is a check, never the remedy. Concretely, every training proposal in STATUS states, before the run: what fails (the worst
 formulations, the activation diagnostics, the unplaced words, the presence queries), where the cause is, what is changed, and the
 number expected to move. A run without that paragraph does not start. I will hold both sessions to it at every iteration.
+
+## D17 (answers Q9 and Q10; 2026-10-26 15:25)
+
+Q9: (a). A question of its own, `edge` ("with which line?", head kind EDGE), `object` stays COMPONENT; the generator writes `edge=` in
+the connect templates that name the line, `change ... style` keeps `object`; the planner reads a connect's line from `edge`. That is
+what the diagnostic said (a question missing from the legend), and it keeps a role's readout independent of the predicate's decision,
+which is why (b) is not taken now; record (b) in TODO as a proposal for the source only if a second event shows the pattern. New
+frozen data at 5000 for diagram, diagram_ro, diagram_multi (new legend sha); the old data stays as the "before" row. R83 paragraph for
+the first training on it: what fails = the connect formulations (worst list) and the 33 competing selection rows; cause = the legend
+conflated the line with the first end; change = the `edge` question; expected = connect leaves the worst list, competition rows near 0,
+the criterion's splits up by the share connect had in the errors (state it from the 800-sentence diagnostic).
+Q10: agreed on all four: Haiku; the terse prompt keeps articles and every name ("drop politeness and filler words"), the determiner check
+stays; the fifth family "free" (other legend verbs, other order, a relative clause, a pronoun for a repeated component), with the
+per-family share of rewrites whose normalised token sequence is not a training template, as the measure of new language; the full run
+(n 2000 x 5 families) only from the corrected world after Q9. The key is the owner's: write the estimated number of calls and cost
+before the full run in STATUS and the actual after; stop if the actual passes twice the estimate. Rewrites that are rejected are kept
+in a file with the reason (they are data about the families, not waste).
