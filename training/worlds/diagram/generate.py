@@ -147,6 +147,11 @@ def legend_dict():
                        "gates_given": {"open": ["to", "of", "in", "on", "at", "by", "from", "with", "into", "as", "and", ",", "."], "closed": []}}}
 
 
+# questions.md Q14 / responses D20: a landmark or a connect target named by a bare label right after the relation word or "to" was a
+# form at 1.6% of the training rows and the bulk of probe C's remaining errors; its share is raised in those positions only (0.15 -> 0.35)
+LABEL_P_LANDMARK = 0.35
+
+
 class Gen:
     def __init__(self, rng, labels, nums):
         self.r, self.labels, self.nums = rng, labels, nums
@@ -186,7 +191,7 @@ class Gen:
         if k < 0.4:
             reg = self.pick(REGIONS); pre = {"top": "at the", "bottom": "at the", "center": "in the", "left_side": "on the", "right_side": "on the"}.get(reg, "in the")
             return pre.split() + [reg], {"region": reg}
-        rel = self.pick(RELATIONS); lw, ls = self.entity(det_choices=("the",), attr_p=0.3, neg_p=0)
+        rel = self.pick(RELATIONS); lw, ls = self.entity(det_choices=("the",), attr_p=0.3, neg_p=0, label_p=LABEL_P_LANDMARK)
         roles = {"relation": rel, "landmark": ls}; words = []
         if allow_amount and rel in ("left_of", "right_of", "above", "below") and self.coin(0.35):
             n = self.pick(self.nums); u = self.pick(["px", "px", "pixels"]); words += [self.num_surface(n), u]; roles["amount"] = str(n); roles["unit"] = "px"
@@ -302,14 +307,14 @@ def r_verb(g):
 
 @T("connect")
 def k_pair(g):
-    a, sa = g.entity(attr_p=0.3); b, sb = g.entity(attr_p=0.3); return [g.pick(EVENTS["connect"])] + a + ["to"] + b, {"source": sa, "target": sb}
+    a, sa = g.entity(attr_p=0.3); b, sb = g.entity(attr_p=0.3, label_p=LABEL_P_LANDMARK); return [g.pick(EVENTS["connect"])] + a + ["to"] + b, {"source": sa, "target": sb}
 @T("connect")
 def k_pair_with(g):
-    a, sa = g.entity(attr_p=0.2, neg_p=0); b, sb = g.entity(attr_p=0.2, neg_p=0); e, se = g.entity(det_choices=("a",), heads=EDGE_HEADS, attr_p=0.7, neg_p=0, allow_label_head=False)
+    a, sa = g.entity(attr_p=0.2, neg_p=0); b, sb = g.entity(attr_p=0.2, neg_p=0, label_p=LABEL_P_LANDMARK); e, se = g.entity(det_choices=("a",), heads=EDGE_HEADS, attr_p=0.7, neg_p=0, allow_label_head=False)
     return [g.pick(EVENTS["connect"])] + a + ["to"] + b + ["with"] + e, {"source": sa, "target": sb, "edge": se}
 @T("connect")
 def k_draw_arrow(g):
-    e, se = g.entity(det_choices=("a",), heads=EDGE_HEADS, attr_p=0.5, neg_p=0, allow_label_head=False); a, sa = g.entity(attr_p=0.2, neg_p=0); b, sb = g.entity(attr_p=0.2, neg_p=0)
+    e, se = g.entity(det_choices=("a",), heads=EDGE_HEADS, attr_p=0.5, neg_p=0, allow_label_head=False); a, sa = g.entity(attr_p=0.2, neg_p=0); b, sb = g.entity(attr_p=0.2, neg_p=0, label_p=LABEL_P_LANDMARK)
     return ["connect"] + a + ["and"] + b + ["with"] + e, {"source": sa, "target": sb, "edge": se}
 @T("connect")
 def k_pairing(g):

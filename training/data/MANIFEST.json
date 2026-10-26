@@ -112,6 +112,16 @@
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "171c3457d6420a719b5299318d95b36b9b56a079d81030b13d620fa670bcc03c"
  },
+ "diagram/n5000_req_label": {
+  "diagram/examples/eval_heldout_formulations.sop": "e967dbc5983a40bf38fccd21351c9cae13f8622c21402007a78c695ac59a11aa",
+  "diagram/examples/eval_new_identities.sop": "b5eb56ca90b13d2ff14a75a8663698da7dd8ae2e619ba03b83a94674c43b4724",
+  "diagram/examples/train.sop": "f5d29aafb1c383078df18c9687cdaedb4cb51e74b876c9ca87192cac91009431",
+  "diagram/kinds.tsv": "1db0b5975c88202b9eaf1ba605958cef5d51af978f6f987081278991e3333c12",
+  "diagram/legend.json": "d361fbea318b20d14d401d9e64aeb918628843cd366fcb1cbfe644915e48c6a9",
+  "diagram/raw/sentences.txt": "340abd3052df0485f1982a894e4895c8c632d7b379761c12e80f93cdbca39bdd",
+  "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
+  "diagram/world.json": "171c3457d6420a719b5299318d95b36b9b56a079d81030b13d620fa670bcc03c"
+ },
  "diagram_multi/n1000": {
   "diagram_multi/examples/eval_heldout_formulations.sop": "655f23847d01519d6e3913de469fdd5ad674b89468e555295ea4959d48419bfc",
   "diagram_multi/examples/eval_heldout_formulations_en.sop": "f5ecaad3d7edcc13a9561d6355a30bc17176b754a565a4dfda5f4011640ddac4",
@@ -196,6 +206,20 @@
   "diagram_multi/split_hints.json": "448c5ce7679dd804ce21fa6f287abef943abdd8138ad2cce6dd16e20c230ec98",
   "diagram_multi/world.json": "3d8db9672937f75562d3768d9f9d9ef87312b7d8a55fde5f4b72a1227d1d8a91"
  },
+ "diagram_multi/n5000_req_label": {
+  "diagram_multi/examples/eval_heldout_formulations.sop": "6382204b240ae487a95dd871fcdee62be92ec338bdc3a7a0405fa819076cc51e",
+  "diagram_multi/examples/eval_heldout_formulations_en.sop": "d73f011037d093e48676d3a64bb214550a78a28b00609e6bb813d1b1b3890568",
+  "diagram_multi/examples/eval_mixed.sop": "2128b37aadc70fe9208327c0f7b195f6ef9237a57d62efd7445e402c357d3eda",
+  "diagram_multi/examples/eval_new_identities.sop": "f72d455554814e08e7875ccce923915502e8c5b04d8d66ea0c9bdf36f608fb3b",
+  "diagram_multi/examples/eval_new_identities_en.sop": "7ec050bbb83c6d869aea723e50a86cfd262e66b303f8b8b4f3220bf6a6a7c33a",
+  "diagram_multi/examples/eval_parallel.jsonl": "7fd45503fcb0e04cf772c8788b4729806dfc939bd3b1ae3580648796cb31a92b",
+  "diagram_multi/examples/train.sop": "aafc8f385f1388add7d9685cbd9721a33d291ee01ddc7851cfbcac7fcdd25b43",
+  "diagram_multi/kinds.tsv": "37b250d84447d1de86c34c7156dcc939e3e7b7941e517e168502051885aa3fab",
+  "diagram_multi/legend.json": "d361fbea318b20d14d401d9e64aeb918628843cd366fcb1cbfe644915e48c6a9",
+  "diagram_multi/raw/sentences.txt": "4de47151eb829d6c165883a6a7244495bdf3bff3b00316a88221c577e0536e3d",
+  "diagram_multi/split_hints.json": "448c5ce7679dd804ce21fa6f287abef943abdd8138ad2cce6dd16e20c230ec98",
+  "diagram_multi/world.json": "3d8db9672937f75562d3768d9f9d9ef87312b7d8a55fde5f4b72a1227d1d8a91"
+ },
  "diagram_ro/n1000": {
   "diagram_ro/examples/eval_heldout_formulations.sop": "8a065760eb55826b073b583dea6fcada5fbb6bad5651e2220bc0722ae166e1da",
   "diagram_ro/examples/eval_mixed.sop": "508eb37e67de7e8280c6a8c583b6b6c4987fcc161595358ec3beb9aa2df48aa5",
@@ -265,6 +289,18 @@
   "diagram_ro/kinds.tsv": "37b250d84447d1de86c34c7156dcc939e3e7b7941e517e168502051885aa3fab",
   "diagram_ro/legend.json": "d361fbea318b20d14d401d9e64aeb918628843cd366fcb1cbfe644915e48c6a9",
   "diagram_ro/raw/sentences.txt": "dd75779010992bcb59ea2a0a0b7a8ae9b21116cc0f8326dd2c8864a37104ee2a",
+  "diagram_ro/split_hints.json": "37d9f7f5a07549a0996e63f319be93327693d927e3a5ed947eb7c17cd5e75e2c",
+  "diagram_ro/world.json": "8aa90412059261dc2d8868c431ddd034a7d92ef571f0e1729c14e35ad100098b"
+ },
+ "diagram_ro/n5000_req_label": {
+  "diagram_ro/examples/eval_heldout_formulations.sop": "5569d4f29345f075676f70d55fffce6cc8a317185d5d20d5e3867c1726c9e635",
+  "diagram_ro/examples/eval_mixed.sop": "9acd5a6ee370ec539658357724ebb50f9f37c58d68ff3d73aeabc8cdf06a10cd",
+  "diagram_ro/examples/eval_new_identities.sop": "0becf48d686d5b6fff408669da67c21735d0b59d0a2048fad4f1ee1ef559ec37",
+  "diagram_ro/examples/eval_parallel.jsonl": "ba4b9a6107d1f5efad0249392397a1c54a2bd0aa27c5e49be98cf066602692e2",
+  "diagram_ro/examples/train.sop": "ebcadf2b3b9facef08bc1ab925aff83c7d25ff5a6446636ae977659e35d8a8f1",
+  "diagram_ro/kinds.tsv": "37b250d84447d1de86c34c7156dcc939e3e7b7941e517e168502051885aa3fab",
+  "diagram_ro/legend.json": "d361fbea318b20d14d401d9e64aeb918628843cd366fcb1cbfe644915e48c6a9",
+  "diagram_ro/raw/sentences.txt": "8cbd3e1db7b27ee7a9c62288a0f0df5c88162a5921532293b80037896e21fa2b",
   "diagram_ro/split_hints.json": "37d9f7f5a07549a0996e63f319be93327693d927e3a5ed947eb7c17cd5e75e2c",
   "diagram_ro/world.json": "8aa90412059261dc2d8868c431ddd034a7d92ef571f0e1729c14e35ad100098b"
  },

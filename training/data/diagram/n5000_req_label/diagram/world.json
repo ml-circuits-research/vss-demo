@@ -1,0 +1,17 @@
+{
+ "name": "diagram",
+ "language": "en",
+ "description": "VSS Diagram Editor, Level 1 (vision/VSS_Diagram_Editor_Specification.md, sections 3-4)",
+ "created": "2026-10-26",
+ "version": 1,
+ "min_examples": 500,
+ "max_versions_per_run": 3,
+ "models": {
+  "pipeline": "claude-haiku-5-5",
+  "annotate": "claude-haiku-5-5",
+  "second_look": "claude-haiku-5-5",
+  "evolve": "claude-opus-5-5"
+ },
+ "second_look_escalate": 0.05,
+ "second_look_retrain": 0.05
+}

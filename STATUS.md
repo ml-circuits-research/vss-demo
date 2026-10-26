@@ -228,3 +228,14 @@ before = runs/*_eccbf84/5000): diagram_ro heldout formulations 0.524 -> 0.822, h
 identities 0.639 -> 0.868; diagram_multi heldout formulations 0.510 -> 0.810 (English 0.592 -> 0.863), heldout sentences 0.583 -> 0.815,
 mixed 0.574 -> 0.810, new identities 0.628 -> 0.853 (English 0.548 -> 0.832). Same direction as the English world, as expected; `vorder`
 not accepted in either. Table 13 not met. The Romanian preview model is not swapped into the build (the build would pass 50 MB).
+
+## Proposal (D16 rule), before the run: probe D, the form "relation / to + bare LABEL" (Q14 / D20), diagram, diagram_ro, diagram_multi
+
+What fails (probe C, English, 800 sentences): about 19 of the 45 remaining errors are a LABEL filler with no determiner right after the
+relation word or "to" ("put the document left_of paul", "join the textbox to broker"). Cause: the form is rare in the examples (a
+landmark label right after the relation word: 79 training rows, 1.6%; a target label after "to": 33, 0.7%). Change: the generator gives
+the landmark of the relation templates and the target of the connect templates a bare label head with p 0.35 instead of 0.15
+(LABEL_P_LANDMARK; same n 5000, same seed, same legend d361fbea...): data n5000_req_label, where those forms are 193 (3.9%) and 88 (1.8%).
+One change against C. Runs D: the three worlds, D 1024, 3 seeds, --activate auto, --candidate_sets catalog. Expected (English, 800
+sentences): the ~19 "REL / to + LABEL" errors near 0, heads-exact up from 0.942 by about 0.02, nothing else down; the order swaps (9)
+counted again. diagram_ro / diagram_multi: their trainer splits up or equal against their C rows, beside the English numbers.
