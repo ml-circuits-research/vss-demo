@@ -310,3 +310,24 @@ probe C's 28 MB), status dev, note PREVIEW. Parity on the export: frames, status
 presence ratio of Q18 (230.018, 1.8e-4) again. The Romanian reader stays the development model. ui-7 merged (the corrector, D29 / D30;
 typos.mjs 179 / 179); the agent found that "creat" was already corrected and the refusal came from the old model ("create a blue box" was
 no-sense on it), which this install fixes: "create a blue box" now reads create / object a blue box.
+
+## Close of 2026-10-26 (responses D33): the day's results and what is open
+
+Results of the day (each with its paragraph above):
+- Environment on the DGX; parity suite PASS end to end (12 runs + FPE) after the reader mirrors of D1, D5, D14, de11429, 7ce5c50, D19, D27,
+  D28; browser check reduced to a smoke test (220 / 220).
+- Diagram world, the method of D16 (diagnose, fix the cause, re-measure; no blind scaling): heads-exact on the same 800 sentences 0.720
+  (before) -> 0.721 (A: reader fixes) -> 0.723 (B: the edge question) -> 0.942 (C: per-event role sets) -> 0.949 (D2: the bare-label
+  form) -> 0.979 (D2 + presence_without_placed, decoder only) ; 0.981-0.983 with the offers accepted. diagram_ro / diagram_multi with
+  the same fixes: +0.25 to +0.30 on every trainer split (C). The paired acceptance test (D24) decides `vorder` consistently (rejected).
+- Sketch: FPE scene reader C1 MET (step 18); the JS FPE reader with parity; equal to the rules on the synthetic split; outline-aware
+  nearest best on the probe scenes (connectors 29 / 30 against 27 / 30 for the rules); FPE behind a setting; the preview at Done shows both.
+- Interface: ui-1 to ui-7 (popups, no reading strip, contrast, History as the record, sketch preview, the chat thread, the automatic
+  corrector); app/model's English reader is probe D2 (7.8 MB, PREVIEW).
+- Planted-questions world (300 sentences); paraphrase pipeline fixed and piloted (Haiku chosen), full run not started.
+Open (in tomorrow's order, D33): D29 / D30 follow-up on the published build (the corrector and the chat replies are merged as ui-6 /
+ui-7; the owner publishes them); the D27 / D28 re-read is done and waits for Q18 (contract set, threshold refit, parity tolerance for
+degenerate ratios); then the data runs on the corrected worlds (name requires text, D24; diagram_ro / diagram_multi through D2 and the
+second pass; the paraphrase full run after that, cost estimate first); the 50000 runs: stopped by D14, folders kept as "before"; FPE
+probe scenes and outline-aware nearest: recorded, default unchanged; textedit / animation / matheditor: not run since D14 (matheditor waits
+for E1-E4); object worlds for sketches (D31 / D32): recorded, not started.
