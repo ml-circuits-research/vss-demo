@@ -25,6 +25,9 @@ import { createFilm } from "./ui/film.js";
 import { createSketchMode } from "./ui/sketch.js";
 import { createScriptDialog } from "./ui/script.js";
 import { renderRows, renderLines } from "./ui/info.js";
+import { renderHistory, renderActions, renderAssistant, renderExamples } from "./ui/tabs.js";
+import { historyExtras, readingRecord } from "./ui/entries.js";
+import { availableExamples, hintExamples } from "./examples.js";
 import { formulaPhrase, textCapable, findTextWidget, textHeight, looksLikeScript } from "./widgets.js";
 // text widgets and dictation (spec 14)
 import { TextDoc } from "./text/doc.js";
@@ -59,9 +62,11 @@ const S = {
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
   gaps: null, lastGapId: null,
   mode: "command", active: null, texts: new Map(), formulas: new Map(), dict: null, textedit: null, textNorm: null, calibration: null,
-  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "frame",
+  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", readings: [], recorded: null, seen: {},
 };
 
+// the history of inputs; an entry also carries when it was made and, where the handler has them, world, frame, minMargin, residual
+function pushHistory(entry) { S.history.push({ time: Date.now(), ...entry }); }
 function loadSettings() { try { return Object.assign({ ...DEFAULTS }, JSON.parse(localStorage.getItem("vss-settings") || "{}")); } catch { return { ...DEFAULTS }; } }
 function saveSettings() { try { localStorage.setItem("vss-settings", JSON.stringify(S.settings)); } catch { /* private mode: settings for this visit only */ } }
 function applyTheme() { if (S.settings.theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = S.settings.theme; }
@@ -176,7 +181,7 @@ function handle(alternatives, source = "typed") {
   let ex = null;
   if (d.action === "execute") { ex = execute(S.scene, p); }
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
-  S.history.push({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop });
+  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, ...historyExtras(best.result, W.name) });
   recordGap({ result: best.result, route: best.route, tokens: best.tokens, info: best.info, decision: d, world: W.name });
   refresh(); showAnswer(d);
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
@@ -225,7 +230,7 @@ function handleLong(text, source, seg, info, choices = {}) {
   const units = circuit.units.filter((u) => u.role === "command").map((u) => ({ ...u, mark: byI.get(u.i)?.mark || null }));
   const lastRead = [...units].reverse().find((u) => u.reading);
   S.last = { kind: "long", input: text, seg, info, circuit, ex, units, line, best: lastRead ? { result: lastRead.reading, corrections: [], info } : null };
-  S.history.push({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop });
+  pushHistory({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop, world: (longRoute(text).route?.world) || S.diagram?.name });
   refresh();
   const d = { action, line, questions };
   showAnswer(d);
@@ -255,7 +260,7 @@ function tryAnimation(text, diagramBest) {
     if (res.kind === "error") d.action = "refuse";
   }
   S.last = { kind: "diagram", input: text, best, world: "animation", decision: { action: d.action, line, rule: `${it.rule}; ${reason}` } };
-  S.history.push({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line, action: d.action, sop: r.sop });
+  pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line, action: d.action, sop: r.sop, ...historyExtras(r, "animation") });
   refresh(); showAnswer({ action: d.action, line });
   return true;
 }
@@ -276,7 +281,7 @@ function commitText(id, op = "write") {
   const h = textHeight(doc, c.box.w, { minH: c.box.h }); if (h > c.box.h) ops.resize(S.scene, id, { ...c.box, h });
   if (S.scene.connectors.size) ops.route(S.scene);
   ops.commit(S.scene, tx); S.scene.lastTouched = [id]; S.texts.get(id).sig = JSON.stringify(json);
-  S.history.push({ input: `(${op} in ${c.label || c.id})`, source: "dictation", used: "", status: "", line: op, action: "text" });
+  pushHistory({ input: `(${op} in ${c.label || c.id})`, source: "dictation", used: "", status: "", line: op, action: "text" });
 }
 function ensureText(id) { const c = S.scene.components.get(id); if (c && c.text == null) { const doc = textDocOf(id); ops.transact(S.scene, () => ops.set(S.scene, [id], { text: { doc: doc.toJSON(), plain: "" } })); S.texts.get(id).sig = JSON.stringify(doc.toJSON()); } }
 const nameOf = (id) => { const c = S.scene.components.get(id); return c ? (c.label ? `"${c.label}"` : `the ${c.word}`) : id; };
@@ -359,7 +364,7 @@ function addWidget(kind) {
   const pos = place(S.scene, box, near ? { relation: "right_of" } : {}, near);
   let id; ops.transact(S.scene, () => { id = ops.create(S.scene, { word, kind: kind === "formula" ? "formula" : "note", label: null, ...(kind === "formula" ? { formula: { tree: hole(), latex: "", plain: "" } } : { text: { doc: new TextDoc().toJSON(), plain: "" } }) }, { ...box, x: pos.x, y: pos.y }); if (S.scene.connectors.size) ops.route(S.scene); });
   S.scene.lastTouched = [id]; S.scene.selection = [id]; S.view.render(); reveal(id);
-  S.history.push({ input: `(add a ${word})`, source: "button", used: "", status: "", line: `add a ${word}`, action: "manual" });
+  pushHistory({ input: `(add a ${word})`, source: "button", used: "", status: "", line: `add a ${word}`, action: "manual" });
   return id;
 }
 function startFormula(id, fp = null) {
@@ -372,7 +377,7 @@ function startFormula(id, fp = null) {
     hint: "Say or type a formula (“x squared plus one over two”) or an edit (“replace the exponent with n plus one”). “End formula” or Escape goes back to commands." });
   const fx = document.createElement("div"); host.append(fx);
   S.formulaView = mountFormula(fx, { doc, parsers, reader: S.matheditor, onChange: (d, r) => onFormulaChange(id, d, r) });
-  updateMode(); openPanel("widget", { onlyIfOpen: true }); refresh();
+  updateMode(); refresh();
   showAnswer({ action: "execute", line: `Formula widget open${S.matheditor ? "" : ` (${parsers.SOURCE}: no matheditor model installed)`}. Say or type the formula.` });
   $("answer").append(chip("rename", () => renameWidget(id)), chip("end formula", () => leaveFormula()));
   if (fp && fp.rest) handleFormula(fp.rest);
@@ -393,7 +398,7 @@ function onFormulaChange(id, doc, r) {
     const tx = ops.begin(S.scene); ops.set(S.scene, [id], { formula: { tree: doc.tree, latex, plain: latex } });
     const w = Math.max(c.box.w, Math.min(640, 60 + latex.length * 9)); if (w > c.box.w) ops.resize(S.scene, id, { ...c.box, w });
     if (S.scene.connectors.size) ops.route(S.scene); ops.commit(S.scene, tx); S.formulas.get(id).sig = sig;
-    S.history.push({ input: `(formula) ${latex}`, source: "formula", used: "", status: r.status, line: r.reason, action: "formula" });
+    pushHistory({ input: `(formula) ${latex}`, source: "formula", used: "", status: r.status, line: r.reason, action: "formula" });
   }
   const shown = doc.tree.op === "hole" ? "empty" : latex; const kind = r.kind || (r.status === "ok" ? "formula" : null);
   S.last = { kind: "formula", input: "", note: { text: S.formulaInput || latex, as: kind === "command" ? `an edit of the formula, now ${shown}` : kind === "formula" ? (r.status === "ambiguous" ? "a formula with two readings" : `a formula: ${shown}`) : "not read", reason: `${r.status}: ${r.reason || ""}`, world: r.source || parsers.SOURCE, kind: kind === "command" ? "command" : "content", status: r.status === "ok" ? "ok" : r.status === "ambiguous" ? "abstain" : "no-sense" } };
@@ -415,7 +420,7 @@ function onStrokes(strokes, { stay }) {
   const del = res.deletions.components.length + (res.deletions.connectors?.length || 0);
   const line = `Recognised ${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}. One undo takes it back.`;
   S.last = { kind: "sketch", input: "(sketch)", rec, res, map: ap.map, line };
-  S.history.push({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res) });
+  pushHistory({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res) });
   refresh(); const first = [...ap.map.values()].find((x) => S.scene.components.has(x)); if (first) { reveal(first); S.slots.sync(); }
   showAnswer({ action: ap.applied ? "execute" : "refuse", line });
   const host = $("answer");
@@ -444,7 +449,7 @@ function runScriptText(text) {
   const circuit = buildScript(read, { scene: S.scene, tau: S.diagram.tau });
   const run = runScript(S.scene, circuit, { blocking: "stop", conflicts: "in-order" });
   S.script = { text, read, circuit, run };
-  showScript(); S.history.push({ input: `(script) ${read.title || text.slice(0, 40)}`, source: "script", used: "", status: `${read.units.length} units`, line: "script", action: "script", sop: circuit.sop });
+  showScript(); pushHistory({ input: `(script) ${read.title || text.slice(0, 40)}`, source: "script", used: "", status: `${read.units.length} units`, line: "script", action: "script", sop: circuit.sop });
 }
 function showScript() {
   const { read, circuit, run } = S.script; const model = documentModel(read, circuit, run); const rep = authorReport(read, circuit, run);
@@ -455,7 +460,7 @@ function showScript() {
 }
 
 // ------------------------------------------------------------------ manual changes, selection
-function onManualChange(kind, detail) { S.history.push({ input: `(${kind}) ${detail?.op || ""}`, source: "pointer", used: "", status: "", line: detail?.op || detail?.text || "", action: "manual" }); if (kind === "blocked") showAnswer({ action: "refuse", line: detail.text }); refresh(); }
+function onManualChange(kind, detail) { pushHistory({ input: `(${kind}) ${detail?.op || ""}`, source: "pointer", used: "", status: "", line: detail?.op || detail?.text || "", action: "manual" }); if (kind === "blocked") showAnswer({ action: "refuse", line: detail.text }); refresh(); }
 function onSelect(ids) {
   if (S.mode !== "command" || ids.length !== 1) return;
   const c = S.scene.components.get(ids[0]); if (!c) return;
@@ -493,9 +498,18 @@ function refresh() {
   const wTab = document.querySelector('.tabs [data-tab="widget"]'), tTab = document.querySelector('.tabs [data-tab="timeline"]');
   wTab.hidden = !(S.mode === "dictation" || S.mode === "formula" || L?.kind === "text" || L?.kind === "formula");
   tTab.hidden = !S.film?.timeline;
-  if ((wTab.hidden && S.panelTab === "widget") || (tTab.hidden && S.panelTab === "timeline")) selectTab("frame");
+  if ((wTab.hidden && S.panelTab === "widget") || (tTab.hidden && S.panelTab === "timeline")) selectTab("diagram");
   const log = $("tab-log"); log.replaceChildren();
   for (const h of S.history.slice().reverse()) { const d = document.createElement("div"); d.className = "log-item"; const a = document.createElement("div"); a.className = "log-in"; a.textContent = h.input; const b = document.createElement("div"); b.className = "log-out"; b.textContent = `${h.action}${h.status ? ", " + h.status : ""}: ${h.line}`; d.append(a, b); log.append(d); }
+  if (S.last && S.last !== S.recorded) {
+    S.recorded = S.last;
+    const world = S.last.kind === "long" ? S.diagram?.name : (S.last.world || S.last.best?.route?.world);
+    const rec = readingRecord(S.last, { time: Date.now(), world }); if (rec) S.readings.push(rec);
+  }
+  renderHistory($("tab-history"), S.history, { onPick: putInInput });
+  renderActions($("tab-actions"), S.readings);
+  renderAssistant($("tab-assistant"), S.readings);
+  updateBadges();
   updateMode();
 }
 function widgetReaderLine() {
@@ -549,15 +563,45 @@ function updateMode() {
   else if (S.film?.showing) { chipEl.hidden = false; chipEl.classList.add("m-film"); chipEl.textContent = "film"; inp.placeholder = "add a red box called payments"; }
   else { chipEl.hidden = true; inp.placeholder = "add a red box called payments"; }
 }
-function openPanel(tab, { onlyIfOpen = false } = {}) {
-  const app = $("app"); if (!app.classList.contains("panel-open")) { if (onlyIfOpen) return; app.classList.add("panel-open"); $("btn-panel").setAttribute("aria-expanded", "true"); }
-  selectTab(tab);
-}
+// The main tabs (Diagram, History, Actions, Assistant, ...) replace the canvas only on a click; a command never switches the tab.
+// On a wide screen the live panel (Reading, Plan, Geometry) stays beside whatever tab is active; on a phone those three are tabs.
+const LIVE_TABS = ["frame", "plan", "geometry"];
+const COUNTED = { history: () => S.history.length, actions: () => S.readings.length, assistant: () => S.readings.length };
+const isWide = () => matchMedia("(min-width: 821px)").matches;
+function openPanel(tab) { selectTab(tab); }
 function selectTab(tab) {
+  const app = $("app");
+  if (LIVE_TABS.includes(tab) && isWide()) {                  // beside the active tab already: show the column and bring the section into view
+    if (!app.classList.contains("panel-open")) { app.classList.add("panel-open"); $("btn-panel").setAttribute("aria-expanded", "true"); }
+    document.querySelector(`.live-sec[data-sec="${tab}"]`)?.scrollIntoView({ block: "nearest" }); return;
+  }
   const btn = document.querySelector(`.tabs [data-tab="${tab}"]`); if (btn) btn.hidden = false;
   for (const u of document.querySelectorAll(".tabs button")) u.setAttribute("aria-selected", String(u.dataset.tab === tab));
-  for (const b of document.querySelectorAll(".tab-body")) b.hidden = b.id !== `tab-${tab}`;
-  S.panelTab = tab;
+  for (const b of document.querySelectorAll(".pane")) b.hidden = b.id !== `tab-${tab}`;
+  $("workspace").dataset.tab = tab; S.panelTab = tab;
+  if (COUNTED[tab]) S.seen[tab] = COUNTED[tab]();
+  if (!isWide()) { $("btn-panel").setAttribute("aria-expanded", String(LIVE_TABS.includes(tab))); }
+  updateBadges();
+}
+// a small count on a tab that is not shown and got new entries; cleared when the tab is opened
+function updateBadges() {
+  for (const [tab, count] of Object.entries(COUNTED)) {
+    const b = document.querySelector(`.tabs [data-tab="${tab}"] .badge`); if (!b) continue;
+    const n = S.panelTab === tab ? 0 : Math.max(0, count() - (S.seen[tab] || 0));
+    b.hidden = n === 0; b.textContent = String(n); b.setAttribute("aria-label", `${n} new`);
+    if (S.panelTab === tab) S.seen[tab] = count();
+  }
+}
+function putInInput(text) { const i = $("input"); i.value = text; i.focus(); i.setSelectionRange(text.length, text.length); }
+function setupExamples() {
+  const installed = (name) => S.worlds.has(name);
+  const ul = $("hint-examples"); ul.replaceChildren();
+  for (const e of hintExamples(installed)) { const li = document.createElement("li"); const b = document.createElement("button"); b.type = "button"; b.textContent = e.text; b.onclick = () => runText(e.text); li.append(b); ul.append(li); }
+  const dlg = $("dlg-examples");
+  $("btn-examples").onclick = () => {
+    renderExamples($("examples-body"), availableExamples(installed), { onPick: (t) => { dlg.close(); putInInput(t); } });
+    dlg.showModal();
+  };
 }
 
 // ------------------------------------------------------------------ badge, About, Settings
@@ -629,7 +673,7 @@ function setupUI() {
     const t = e.clipboardData?.getData("text") || ""; if (S.mode !== "command" || !looksLikeScript(t).script) return;
     e.preventDefault(); S.scriptUI.open(t);
   });
-  for (const b of $("hint-examples").querySelectorAll("button")) b.onclick = () => runText(b.textContent);
+  setupExamples();
   const afterUndo = () => { S.slots.reset(); refresh(); };
   $("btn-undo").onclick = () => { undo(S.scene); afterUndo(); }; $("btn-redo").onclick = () => { redo(S.scene); afterUndo(); };
   $("btn-fit").onclick = () => { S.view.fit(); S.slots.sync(); };
@@ -655,8 +699,13 @@ function setupUI() {
     if (S.film.showing) { S.film.player?.pause(); S.film.show(false); }
   });
   const app = $("app");
-  $("btn-panel").onclick = () => { const open = app.classList.toggle("panel-open"); $("btn-panel").setAttribute("aria-expanded", String(open)); };
-  if (matchMedia("(min-width: 821px)").matches) { app.classList.add("panel-open"); $("btn-panel").setAttribute("aria-expanded", "true"); }
+  // the button in the top bar: the live panel column on a wide screen; on a phone it goes to the Reading tab and back to the Diagram
+  $("btn-panel").onclick = () => {
+    if (isWide()) { const open = app.classList.toggle("panel-open"); $("btn-panel").setAttribute("aria-expanded", String(open)); }
+    else selectTab(LIVE_TABS.includes(S.panelTab) ? "diagram" : "frame");
+  };
+  if (isWide()) { app.classList.add("panel-open"); $("btn-panel").setAttribute("aria-expanded", "true"); }
+  matchMedia("(min-width: 821px)").addEventListener("change", () => { if (isWide() && LIVE_TABS.includes(S.panelTab)) selectTab("diagram"); });
   for (const t of document.querySelectorAll(".tabs button")) t.onclick = () => selectTab(t.dataset.tab);
   // settings
   const ds = $("dlg-settings");
@@ -708,7 +757,7 @@ function loadTimeline(json, name) {
   refresh();
   if (!r.timeline.units.length) { showAnswer({ action: "refuse", line: `${name}: no unit could be placed on the timeline${bad.length ? ` (${bad[0].note})` : ""}.` }); return; }
   S.film.show(true); S.film.player.play(0);
-  S.history.push({ input: `(timeline) ${name}`, source: "file", used: "", status: `${r.timeline.units.length} units`, line: `${(r.timeline.end / 1000).toFixed(2)} s`, action: "film" });
+  pushHistory({ input: `(timeline) ${name}`, source: "file", used: "", status: `${r.timeline.units.length} units`, line: `${(r.timeline.end / 1000).toFixed(2)} s`, action: "film" });
   showAnswer({ action: bad.length ? "ask" : "execute", line: `Playing ${name}: ${r.timeline.units.length} units, ${(r.timeline.end / 1000).toFixed(2)} s${r.sceneFromFile ? ", on the diagram stored in the file" : ", on this diagram"}${bad.length ? `; ${bad.length} step${bad.length > 1 ? "s" : ""} not placed: ${bad[0].note}` : ""}.` });
   $("answer").append(chip("show the timeline", () => openPanel("timeline")));
   updateMode();

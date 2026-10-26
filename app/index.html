@@ -26,16 +26,27 @@
     </nav>
   </header>
 
-  <main class="workspace">
+  <nav class="tabs main-tabs" id="main-tabs" role="tablist" aria-label="Views">
+    <button role="tab" aria-selected="true" data-tab="diagram">Diagram</button>
+    <button role="tab" aria-selected="false" data-tab="history">History<span class="badge" hidden></span></button>
+    <button role="tab" aria-selected="false" data-tab="actions">Actions<span class="badge" hidden></span></button>
+    <button role="tab" aria-selected="false" data-tab="assistant">Assistant<span class="badge" hidden></span></button>
+    <button role="tab" aria-selected="false" data-tab="widget" hidden>Widget</button>
+    <button role="tab" aria-selected="false" data-tab="timeline" hidden>Timeline</button>
+    <button role="tab" aria-selected="false" data-tab="frame" class="phone-only">Reading</button>
+    <button role="tab" aria-selected="false" data-tab="plan" class="phone-only">Plan</button>
+    <button role="tab" aria-selected="false" data-tab="geometry" class="phone-only">Geometry</button>
+    <button role="tab" aria-selected="false" data-tab="circuit">Circuit</button>
+    <button role="tab" aria-selected="false" data-tab="sop">SOP</button>
+    <button role="tab" aria-selected="false" data-tab="log">Log</button>
+  </nav>
+
+  <main class="workspace" id="workspace" data-tab="diagram">
     <section class="stage" id="stage" aria-label="Diagram">
       <svg id="canvas" class="canvas" role="img" aria-label="Diagram canvas"></svg>
       <div class="empty-hint" id="empty-hint">
         <p class="hint-lead">Say or type what to draw.</p>
-        <ul class="hint-examples" id="hint-examples">
-          <li><button type="button">add a database called orders in the top left</button></li>
-          <li><button type="button">put a yellow note below the database</button></li>
-          <li><button type="button">connect the note to the database with a dashed arrow</button></li>
-        </ul>
+        <ul class="hint-examples" id="hint-examples"></ul>
       </div>
       <div class="canvas-tools" role="toolbar" aria-label="Canvas">
         <button class="icon-btn" id="btn-undo" aria-label="Undo" title="Undo"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg></button>
@@ -64,26 +75,19 @@
       </div>
     </section>
 
-    <aside class="panel" id="panel" aria-label="What was understood">
-      <div class="panel-grip" id="panel-grip" aria-hidden="true"></div>
-      <div class="tabs" role="tablist">
-        <button role="tab" aria-selected="true" data-tab="frame">Reading</button>
-        <button role="tab" aria-selected="false" data-tab="plan">Plan</button>
-        <button role="tab" aria-selected="false" data-tab="geometry">Geometry</button>
-        <button role="tab" aria-selected="false" data-tab="circuit">Circuit</button>
-        <button role="tab" aria-selected="false" data-tab="widget" hidden>Widget</button>
-        <button role="tab" aria-selected="false" data-tab="timeline" hidden>Timeline</button>
-        <button role="tab" aria-selected="false" data-tab="sop">SOP</button>
-        <button role="tab" aria-selected="false" data-tab="log">Log</button>
-      </div>
-      <div class="tab-body" id="tab-frame" role="tabpanel"></div>
-      <div class="tab-body" id="tab-plan" role="tabpanel" hidden></div>
-      <div class="tab-body" id="tab-geometry" role="tabpanel" hidden></div>
-      <div class="tab-body" id="tab-circuit" role="tabpanel" hidden></div>
-      <div class="tab-body" id="tab-widget" role="tabpanel" hidden></div>
-      <div class="tab-body" id="tab-timeline" role="tabpanel" hidden></div>
-      <div class="tab-body" id="tab-sop" role="tabpanel" hidden></div>
-      <div class="tab-body" id="tab-log" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-history" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-actions" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-assistant" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-widget" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-timeline" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-circuit" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-sop" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-log" role="tabpanel" hidden></div>
+
+    <aside class="live" id="live" aria-label="What was understood">
+      <section class="live-sec" data-sec="frame"><h3>Reading</h3><div class="live-body tab-body" id="tab-frame"></div></section>
+      <section class="live-sec" data-sec="plan"><h3>Plan</h3><div class="live-body tab-body" id="tab-plan"></div></section>
+      <section class="live-sec" data-sec="geometry"><h3>Geometry</h3><div class="live-body tab-body" id="tab-geometry"></div></section>
     </aside>
   </main>
 
@@ -91,6 +95,7 @@
     <div class="reading" id="reading" aria-live="polite"></div>
     <div class="answer" id="answer" aria-live="polite"></div>
     <form class="input-row" id="input-form" autocomplete="off">
+      <button type="button" class="icon-btn clip" id="btn-examples" aria-label="Examples" title="Examples: sentences to try"><svg viewBox="0 0 24 24"><path d="m20 11.5-8.2 8.2a5 5 0 0 1-7.1-7.1l8.8-8.8a3.3 3.3 0 0 1 4.7 4.7l-8.8 8.8a1.7 1.7 0 0 1-2.4-2.4l8-8"/></svg></button>
       <button type="button" class="mic" id="btn-mic" aria-label="Hold to speak" title="Hold to speak (or hold the space bar when the input is empty)"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
       <input id="input" type="text" inputmode="text" enterkeyhint="send" spellcheck="false" autocapitalize="off" placeholder="add a red box called payments" aria-label="Command">
       <button type="submit" class="send" id="btn-send" aria-label="Run the command">Run</button>
@@ -168,6 +173,15 @@
     <div id="about-measured"></div>
     <h3>Licences</h3>
     <p class="muted" id="about-licences">Kiwi (BSD-3-Clause), Typo.js and its en_US dictionary (BSD-3-Clause and the dictionary's licence), double-metaphone (MIT).</p>
+    <menu><button value="close" class="primary">Close</button></menu>
+  </form>
+</dialog>
+
+<dialog id="dlg-examples" class="sheet">
+  <form method="dialog">
+    <h2>Examples</h2>
+    <p class="muted small">A click puts the sentence into the input bar; press Enter to run it. The last group is refused or asked about on purpose.</p>
+    <div id="examples-body"></div>
     <menu><button value="close" class="primary">Close</button></menu>
   </form>
 </dialog>
