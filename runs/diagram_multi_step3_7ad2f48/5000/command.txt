@@ -1,0 +1,2 @@
+sop train /tmp/diagram_multi_step3_6i2F/5000/diagram_multi --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --run_dir /home/salboaie/vss-demo/runs/diagram_multi_step3_7ad2f48/5000
+commit 7ad2f48

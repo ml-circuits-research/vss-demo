@@ -1,0 +1,22 @@
+unpacked diagram_ro/n1000 -> /tmp/diagram_ro_step3_nzA0/1000: 10 files, sha256 verified
+4/4 files OK against legend(s) diagram_ro sha256:1a43ffc61bd5…
+## size 1000: sop train /tmp/diagram_ro_step3_nzA0/1000/diagram_ro --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500  --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_ro_step3_7ad2f48/1000/splits.json before training: calibration_heldout_formulations 194, heldout_formulations 206, heldout_sentences 94, mixed 400, new_identities 400, train 906
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core ['object']), max depth 0, event negation True
+[activate] candidates ['vorder'] (149 training rows (16.4%) fill two roles with the same kind; in 140 of them neither word is cued, so only the order relative to the verb separates them); selection rows 279 (of which with same-kind competition 15); trials trained on 821 rows
+[train seed 0] end: RSS 2.20 GB | torch alloc 0.42 GB reserved 0.49 GB | MemAvailable 61.0 GB (65s)
+[export] numpy reader vs torch states: max relative difference 7.99e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.470 on 279 selection rows, 0.133 on the 15 with same-kind competition | calibration_heldout_formulations 0.485 train 0.435
+[train seed 0] end: RSS 2.47 GB | torch alloc 1.27 GB reserved 1.35 GB | MemAvailable 62.0 GB (26s)
+[export] numpy reader vs torch states: max relative difference 6.96e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.470 on 279 selection rows, 0.200 on the 15 with same-kind competition | calibration_heldout_formulations 0.459 train 0.494
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 13 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.60 GB | torch alloc 0.42 GB reserved 0.47 GB | MemAvailable 78.6 GB (20s)
+[export] numpy reader vs torch states: max relative difference 8.42e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.131 | experiment candidates 0.000 | residual 0.845
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.255 | experiment candidates 0.000 | residual 0.871
+[eval] seed 0 mixed: FULL catalog candidates 0.155 | experiment candidates 0.003 | residual 0.879
+[eval] seed 0 new_identities: FULL catalog candidates 0.217 | experiment candidates 0.000 | residual 0.827
+[eval] seed 0 train (sample): FULL catalog candidates 0.210 | residual 0.893
+[train seed 1] end: RSS 2.68 GB | torch alloc 0.42 GB reserved 0.49 GB | MemAvailable 56.0 GB (66s)
+[export] numpy reader vs torch states: max relative difference 7.92e-08 (float32 phases in the route book)

@@ -1,0 +1,15 @@
+unpacked diagram_multi/n5000 -> /tmp/diagram_multi_step3_6i2F/5000: 12 files, sha256 verified
+6/6 files OK against legend(s) diagram_multi sha256:1a43ffc61bd5…
+## size 5000: sop train /tmp/diagram_multi_step3_6i2F/5000/diagram_multi --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500  --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_multi_step3_7ad2f48/5000/splits.json before training: calibration_heldout_formulations 194, calibration_heldout_formulations_en 222, heldout_formulations 206, heldout_formulations_en 178, heldout_sentences 476, mixed 400, new_identities 400, new_identities_en 400, train 4524
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core ['object']), max depth 0, event negation True
+[activate] candidates ['vorder'] (793 training rows (17.5%) fill two roles with the same kind; in 618 of them neither word is cued, so only the order relative to the verb separates them); selection rows 861 (of which with same-kind competition 95); trials trained on 4079 rows
+[train seed 0] end: RSS 2.30 GB | torch alloc 0.47 GB reserved 0.57 GB | MemAvailable 66.4 GB (184s)
+[export] numpy reader vs torch states: max relative difference 9.04e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.472 on 861 selection rows, 0.305 on the 95 with same-kind competition | calibration_heldout_formulations 0.443 calibration_heldout_formulations_en 0.518 train 0.461
+[train seed 0] end: RSS 2.60 GB | torch alloc 1.32 GB reserved 1.41 GB | MemAvailable 76.7 GB (162s)
+[export] numpy reader vs torch states: max relative difference 8.55e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.498 on 861 selection rows, 0.358 on the 95 with same-kind competition | calibration_heldout_formulations 0.469 calibration_heldout_formulations_en 0.559 train 0.481
+[activate] accepted ['vorder']: codes ['path', 'chainL', 'bigram', 'vorder']; diagnostics: 61 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.57 GB | torch alloc 1.33 GB reserved 1.39 GB | MemAvailable 86.8 GB (174s)
+[export] numpy reader vs torch states: max relative difference 7.98e-08 (float32 phases in the route book)

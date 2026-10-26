@@ -14,3 +14,5 @@ tool/worlds_p0/
 tool/worlds_wikisql/
 training/parity/out/
 app/tests/out/
+runs/**/*.pt
+runs/**/seed*/model/

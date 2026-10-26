@@ -1,0 +1,53 @@
+[splits] written to /home/salboaie/vss-demo/runs/animation_step3_6df62b0/5000/splits.json before training: calibration_heldout_formulations 207, heldout_formulations 193, heldout_sentences 505, new_identities 400, train 4495
+[schema] roles ['object', 'color', 'relation', 'landmark', 'region', 'direction', 'distance', 'angle', 'traveller', 'source', 'via', 'target', 'path', 'start', 'tempo', 'ref', 'offset', 'trigger', 'duration', 'unit', 'per', 'speed', 'easing', 'repeat'] (core ['object']), max depth 0, event negation True
+[activate] candidates ['vorder'] (2520 training rows (56.1%) fill two roles with the same kind; in 1648 of them neither word is cued, so only the order relative to the verb separates them); selection rows 682 (of which with same-kind competition 285); trials trained on 4020 rows
+[guard] cuda allocator capped at 18% of 120 GB; watchdog: exit if MemAvailable < 16.0 GB or after 12.0 h
+[train] seed 0: 4020 training rows x 1 epoch(s) -> 4020 steps' sentences; D=1024; kinds 54; vocab 394; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'into', 'as', 'and', ',', '.']
+[trace] text: then pulse the cloud over 2.5 s slow
+[trace] tokens/kinds: then/TEMPO pulse/VERB the/the cloud/COMPONENT over/over 2.5/NUM s/UNIT slow/SPEED
+[trace] gold frame: {"event": "pulse", "lemma": "pulse", "neg": false, "roles": {"duration": ["word", "2.5"], "object": ["entity", "cloud", null, null], "speed": ["word", "slow"], "tempo": ["word", "then"], "unit": ["word", "s"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 107.34 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 1.16 GB | torch alloc 0.14 GB reserved 0.18 GB | MemAvailable 70.2 GB
+[train seed 0] step 500 sent 4000/4020 loss -0.710 (394s) | RSS 2.23 GB | torch alloc 0.41 GB reserved 1.21 GB | MemAvailable 67.1 GB
+[train seed 0] end: RSS 2.23 GB | torch alloc 0.41 GB reserved 0.49 GB | MemAvailable 67.6 GB (394s)
+[export] numpy reader vs torch states: max relative difference 7.09e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.541 on 682 selection rows, 0.484 on the 285 with same-kind competition | calibration_heldout_formulations 0.556 train 0.535
+[train] seed 0: 4020 training rows x 1 epoch(s) -> 4020 steps' sentences; D=1024; kinds 54; vocab 394; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'into', 'as', 'and', ',', '.']
+[train] verb-order route (reader.codes / --codes): verb kinds ['VERB']; cue kinds ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'into', 'as', 'and', ',', '.']
+[trace] text: then pulse the cloud over 2.5 s slow
+[trace] tokens/kinds: then/TEMPO pulse/VERB the/the cloud/COMPONENT over/over 2.5/NUM s/UNIT slow/SPEED
+[trace] gold frame: {"event": "pulse", "lemma": "pulse", "neg": false, "roles": {"duration": ["word", "2.5"], "object": ["entity", "cloud", null, null], "speed": ["word", "slow"], "tempo": ["word", "then"], "unit": ["word", "s"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 107.34 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.54 GB | torch alloc 0.38 GB reserved 0.57 GB | MemAvailable 69.8 GB
+[train seed 0] step 500 sent 4000/4020 loss -0.759 (227s) | RSS 2.59 GB | torch alloc 1.12 GB reserved 1.92 GB | MemAvailable 77.6 GB
+[train seed 0] end: RSS 2.59 GB | torch alloc 1.12 GB reserved 1.23 GB | MemAvailable 78.3 GB (228s)
+[export] numpy reader vs torch states: max relative difference 6.52e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.545 on 682 selection rows, 0.502 on the 285 with same-kind competition | calibration_heldout_formulations 0.541 train 0.547
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 147 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train] seed 0: 4495 training rows x 1 epoch(s) -> 4495 steps' sentences; D=1024; kinds 54; vocab 394; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'into', 'as', 'and', ',', '.']
+[trace] text: then pulse the cloud over 2.5 s slow
+[trace] tokens/kinds: then/TEMPO pulse/VERB the/the cloud/COMPONENT over/over 2.5/NUM s/UNIT slow/SPEED
+[trace] gold frame: {"event": "pulse", "lemma": "pulse", "neg": false, "roles": {"duration": ["word", "2.5"], "object": ["entity", "cloud", null, null], "speed": ["word", "slow"], "tempo": ["word", "then"], "unit": ["word", "s"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 107.34 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.55 GB | torch alloc 0.21 GB reserved 1.24 GB | MemAvailable 86.4 GB
+[train seed 0] step 500 sent 4000/4495 loss -0.718 (192s) | RSS 2.55 GB | torch alloc 0.41 GB reserved 1.25 GB | MemAvailable 86.4 GB
+[train seed 0] end: RSS 2.55 GB | torch alloc 0.41 GB reserved 0.45 GB | MemAvailable 87.6 GB (208s)
+[export] numpy reader vs torch states: max relative difference 7.06e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.534 | experiment candidates 0.280 | residual 0.488
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.558 | experiment candidates 0.297 | residual 0.490
+[eval] seed 0 new_identities: FULL catalog candidates 0.485 | experiment candidates 0.158 | residual 0.445
+[eval] seed 0 train (sample): FULL catalog candidates 0.607 | residual 0.467
+[mem] after seed 0: RSS 2.78 GB | torch alloc 0.06 GB reserved 0.46 GB | MemAvailable 85.0 GB
+[train] seed 1: 4495 training rows x 1 epoch(s) -> 4495 steps' sentences; D=1024; kinds 54; vocab 394; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'into', 'as', 'and', ',', '.']
+[trace] text: then pulse the cloud over 2.5 s slow
+[trace] tokens/kinds: then/TEMPO pulse/VERB the/the cloud/COMPONENT over/over 2.5/NUM s/UNIT slow/SPEED
+[trace] gold frame: {"event": "pulse", "lemma": "pulse", "neg": false, "roles": {"duration": ["word", "2.5"], "object": ["entity", "cloud", null, null], "speed": ["word", "slow"], "tempo": ["word", "then"], "unit": ["word", "s"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 106.84 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 1] start: RSS 2.97 GB | torch alloc 0.21 GB reserved 0.46 GB | MemAvailable 84.8 GB
+[train seed 1] step 500 sent 4000/4495 loss -0.714 (155s) | RSS 2.97 GB | torch alloc 0.41 GB reserved 1.21 GB | MemAvailable 84.3 GB
+[train seed 1] end: RSS 2.97 GB | torch alloc 0.41 GB reserved 0.45 GB | MemAvailable 85.1 GB (173s)
+[export] numpy reader vs torch states: max relative difference 7.38e-08 (float32 phases in the route book)

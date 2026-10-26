@@ -66,3 +66,11 @@ paperclip next to the microphone; tabs by default with the diagram editor as one
 sentence, status, behaviour, rule) and a "Requests" tab (D9 / D10: how a request is read, not an agent). Kept from section 11 (D10):
 the live side panel (frame with margins, plan, geometry) stays visible next to any tab on desktop, and the canvas of the active purpose
 stays visible while the person types (history / actions replace it only on a click). Not started: the owner made it a side task.
+
+SUPERSEDED (CPU oversubscription), kept: `runs/{diagram,animation}_step3_6df62b0/`, `runs/textedit_6df62b0/`,
+`runs/{diagram_ro,diagram_multi}_step3_7ad2f48/`. Stopped at 12:37 before any size finished: ten `sop train` processes without a thread
+limit (24-43 threads each) gave a load of about 132 on 20 cores with the GPU at 0%; a seed's training took 24-400 s but the numpy-reader
+evaluation crawled (diagram n1000 at seed 2 of 5 after 1 h 54). Their activation decisions (in their train.log) are kept as a record, not
+as results. Restarted at the current commit with `OMP_NUM_THREADS=MKL_NUM_THREADS=OPENBLAS_NUM_THREADS=2` per process (10 processes x 2
+threads = the 20 cores), all five worlds through `training/gpu_step3.sh` (every size's model copied; `--keep_seed_models` for diagram_ro
+and diagram_multi) and textedit through its own script; every size now runs on one code version (tool/sop at a9fa51d).

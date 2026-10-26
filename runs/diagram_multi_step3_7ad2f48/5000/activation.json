@@ -1,0 +1,118 @@
+{
+ "rule": "a candidate route is on iff its need signal fires and, on selection rows its trials did not train on, it loses no split by more than tol and wins the rows its need signal marked (or all rows) by more than tol; tol = max(eps=0.01, one row of the split)",
+ "profile": {
+  "n_train_rows": 4524,
+  "order_dependent": {
+   "n": 618,
+   "share": 0.13660477453580902
+  },
+  "same_kind_pairs": {
+   "n": 793,
+   "share": 0.1752873563218391
+  },
+  "rigid_order": {
+   "per_core_role": {
+    "object": 0.26964933494558646
+   },
+   "min": 0.26964933494558646
+  },
+  "depth": {
+   "n": 0,
+   "share": 0.0,
+   "level_openers_declared": false
+  },
+  "cues_declared": [
+   ",",
+   ".",
+   "and",
+   "as",
+   "at",
+   "by",
+   "from",
+   "in",
+   "into",
+   "of",
+   "on",
+   "to",
+   "with"
+  ],
+  "unknown_share": 0.0,
+  "kinds_source": "lexicon",
+  "verb_tokens_per_row": 1.0
+ },
+ "need_signals": {
+  "vorder": {
+   "fires": true,
+   "reason": "793 training rows (17.5%) fill two roles with the same kind; in 618 of them neither word is cued, so only the order relative to the verb separates them"
+  },
+  "pos": {
+   "fires": false,
+   "reason": "the most frequent absolute position of a core role's head covers only 27% of the rows: the order is not rigid"
+  }
+ },
+ "declared_codes": [
+  "path",
+  "chainL",
+  "bigram"
+ ],
+ "candidates": [
+  "vorder"
+ ],
+ "trials": {
+  "path+chainL+bigram+vorder": {
+   "FULL": 0.49825783972125437,
+   "FULL_marked": 0.35789473684210527,
+   "n": 861,
+   "n_marked": 95,
+   "by_split": {
+    "calibration_heldout_formulations": 0.4690721649484536,
+    "calibration_heldout_formulations_en": 0.5585585585585585,
+    "train": 0.48089887640449436
+   },
+   "n_split": {
+    "calibration_heldout_formulations": 194,
+    "calibration_heldout_formulations_en": 222,
+    "train": 445
+   },
+   "residual_mean": 0.518768739313568,
+   "loses": [],
+   "wins_marked_rows": true,
+   "wins_all": true,
+   "accepted": true
+  },
+  "path+chainL+bigram": {
+   "FULL": 0.4715447154471545,
+   "FULL_marked": 0.30526315789473685,
+   "n": 861,
+   "n_marked": 95,
+   "by_split": {
+    "calibration_heldout_formulations": 0.44329896907216493,
+    "calibration_heldout_formulations_en": 0.5180180180180181,
+    "train": 0.4606741573033708
+   },
+   "n_split": {
+    "calibration_heldout_formulations": 194,
+    "calibration_heldout_formulations_en": 222,
+    "train": 445
+   },
+   "residual_mean": 0.5852518349024521
+  }
+ },
+ "accepted": [
+  "vorder"
+ ],
+ "codes": [
+  "path",
+  "chainL",
+  "bigram",
+  "vorder"
+ ],
+ "diagnostics": [
+  {
+   "signal": "competition",
+   "value": 61,
+   "message": "61 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split"
+  }
+ ],
+ "note": "the declared codes ['path', 'chainL', 'bigram'] are replaced by the selected ['path', 'chainL', 'bigram', 'vorder'] (--activate auto)"
+}

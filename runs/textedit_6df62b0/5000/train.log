@@ -1,0 +1,26 @@
+[splits] written to /home/salboaie/vss-demo/runs/textedit_6df62b0/5000/splits.json before training: calibration_heldout_formulations 219, heldout_formulations 181, heldout_sentences 478, new_identities 400, train 4522
+[schema] roles ['unit', 'ordinal', 'match', 'format', 'value', 'position', 'new_text', 'widget'] (core []), max depth 0, event negation False
+[activate] candidates ['vorder'] (491 training rows (10.9%) fill two roles with the same kind; in 129 of them neither word is cued, so only the order relative to the verb separates them); selection rows 714 (of which with same-kind competition 59); trials trained on 4027 rows
+[guard] cuda allocator capped at 18% of 120 GB; watchdog: exit if MemAvailable < 16.0 GB or after 12.0 h
+[train] seed 0: 4027 training rows x 1 epoch(s) -> 4027 steps' sentences; D=1024; kinds 36; vocab 321; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'with', 'into', 'as', 'from', 'by', 'for', 'and', ',', '.']
+[trace] text: okay so correct tomorrow to budget
+[trace] tokens/kinds: okay/FILLER so/FILLER correct/VERB tomorrow/MATCH to/to budget/MATCH
+[trace] gold frame: {"event": "replace", "lemma": "correct", "neg": false, "roles": {"match": ["word", "tomorrow"], "new_text": ["word", "budget"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.39 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 1.03 GB | torch alloc 0.10 GB reserved 0.14 GB | MemAvailable 85.5 GB
+[train seed 0] step 500 sent 4000/4027 loss -0.845 (82s) | RSS 2.10 GB | torch alloc 0.25 GB reserved 0.49 GB | MemAvailable 84.2 GB
+[train seed 0] end: RSS 2.10 GB | torch alloc 0.25 GB reserved 0.31 GB | MemAvailable 84.4 GB (83s)
+[export] numpy reader vs torch states: max relative difference 7.32e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.913 on 714 selection rows, 0.932 on the 59 with same-kind competition | calibration_heldout_formulations 0.945 train 0.899
+[train] seed 0: 4027 training rows x 1 epoch(s) -> 4027 steps' sentences; D=1024; kinds 36; vocab 321; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'with', 'into', 'as', 'from', 'by', 'for', 'and', ',', '.']
+[train] verb-order route (reader.codes / --codes): verb kinds ['VERB']; cue kinds ['to', 'of', 'in', 'on', 'at', 'with', 'into', 'as', 'from', 'by', 'for', 'and', ',', '.']
+[trace] text: okay so correct tomorrow to budget
+[trace] tokens/kinds: okay/FILLER so/FILLER correct/VERB tomorrow/MATCH to/to budget/MATCH
+[trace] gold frame: {"event": "replace", "lemma": "correct", "neg": false, "roles": {"match": ["word", "tomorrow"], "new_text": ["word", "budget"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.39 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.29 GB | torch alloc 0.24 GB reserved 0.36 GB | MemAvailable 84.8 GB
+[train seed 0] step 500 sent 4000/4027 loss -0.881 (112s) | RSS 2.31 GB | torch alloc 0.57 GB reserved 0.80 GB | MemAvailable 84.3 GB
+[train seed 0] end: RSS 2.31 GB | torch alloc 0.57 GB reserved 0.61 GB | MemAvailable 84.5 GB (112s)
+[export] numpy reader vs torch states: max relative difference 7.14e-08 (float32 phases in the route book)
