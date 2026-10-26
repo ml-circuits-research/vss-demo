@@ -18,6 +18,10 @@ DEFAULT_MODELS = {"pipeline": "claude-haiku-5-5", "annotate": "claude-haiku-5-5"
 class LLMUnavailable(Exception): pass
 
 
+# usage of the most recent llm_call (input / output tokens); read by callers that report cost, ignored by all others
+last_usage = {"input_tokens": 0, "output_tokens": 0}
+
+
 def world_json(world_dir):
     p = os.path.join(world_dir, "world.json")
     return json.load(open(p)) if os.path.exists(p) else {}
@@ -47,6 +51,8 @@ def llm_call(role, prompt, world_dir, max_tokens=16000, system=None):
         raise LLMUnavailable(f"API unavailable: authentication failed ({e})")
     if resp.stop_reason == "refusal":
         raise LLMUnavailable(f"model {model} declined the request (stop_reason refusal)")
+    u = getattr(resp, "usage", None)
+    last_usage["input_tokens"] = getattr(u, "input_tokens", 0) or 0; last_usage["output_tokens"] = getattr(u, "output_tokens", 0) or 0
     return "".join(b.text for b in resp.content if b.type == "text")
 
 
