@@ -30,7 +30,8 @@ export function queriesOf(result) {
       out.push({ about: `$top.${role}`, role, kind: "undecided", evidence: cands, resolve: ["person"], scope: "local", source: "signal" });
   // `_presence_query.<role>=<margin>`: a role read as absent whose presence is near its threshold (D14); kind undecided, presence true
   for (const [role, margin] of Object.entries(result.presenceQueries || {}))
-    out.push({ about: `$top.${role}`, role, kind: "undecided", presence: true, margin, evidence: [], resolve: ["person"], scope: "local", source: "signal" });
+    out.push({ about: `$top.${role}`, role, kind: "undecided", presence: true, margin, evidence: result.offers?.[role] ? [result.offers[role]] : [],
+      offer: result.offers?.[role] || null, resolve: ["person"], scope: "local", source: "signal" });   // offer: the word the reader proposes for the role (D27)
   if (result.status === "no-sense" || result.status === "unknown-event") {
     if (!out.some((q) => q.about === "sentence"))
       out.push({ about: "sentence", kind: "unknown", evidence: (result.unplaced || []).filter((t) => !PUNCT.test(t)), resolve: ["person"],

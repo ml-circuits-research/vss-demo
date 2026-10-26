@@ -59,7 +59,14 @@ function decideWith({ result, plan = null, corrections = [], tau = 0.05, legend 
   }
   // presence queries (`_presence_query.<role>`, D14): the same rule, from the reader's own signal; the question is returned with "execute"
   const presenceQs = [];
-  for (const q of queries) if (q.presence && !present[q.role]) {
+  // an OFFER (D27): the reader proposes an unplaced word for an empty role of the event ("is 'irina' the new name?"): ask before executing,
+  // since the command without that role is not the command the person gave; yes applies the word to the role, no keeps the default
+  const offers = queries.filter((q) => q.presence && q.offer && !present[q.role]);
+  if (offers.length && result.status !== "no-sense" && result.status !== "unknown-event") {
+    const qs = offers.map((q) => ({ kind: "offer", role: q.role, word: q.offer, text: `is "${q.offer}" the ${ROLE_WORD[q.role] || q.role}?`, candidates: ["yes", "no"] }));
+    return { action: "ask", line: qs.map((q) => q.text).join(" "), questions: qs, notes, rule: "responses D27: an unplaced word offered to the one empty role that admits it -> ask before executing" };
+  }
+  for (const q of queries) if (q.presence && !q.offer && !present[q.role]) {
     const what = ROLE_WORD[q.role] || q.role;
     notes.push({ kind: "presence", role: q.role, text: `a ${what} may have been meant; none was used` });
     presenceQs.push({ kind: "presence", role: q.role, text: `did you mean to give a ${what}?`, candidates: ["yes", "no"] });

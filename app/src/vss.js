@@ -31,7 +31,7 @@ export class VSS {
     const fr = { speakers: decoded.speakers, neg: decoded.neg, event: decoded.event, roles: decoded.roles, shape: frame.shape, lemma: decoded.lemma ?? null, depth: decoded.depth ?? 0, scope: decoded.scope ?? null };
     return { sop, wires, frame: fr, shape: frame.shape, margins: decoded.margins || {}, presence: decoded.presence || {}, status: info.status, residual: info.residual,
              unplaced: info.unplaced.map((i) => info.tokens[i]), tokens: info.tokens, state: info.S, missingStars: [...this.stars.missing], candidates: decoded.runner_up || {},
-             undecided: undecidedOf(wires[0]), presenceQueries: presenceQueriesOf(wires[0]),
+             undecided: undecidedOf(wires[0]), presenceQueries: presenceQueriesOf(wires[0]), offers: offersOf(wires[0]),
              timings: { chart_ms: info.ms_chart, total_ms: performance.now() - t0 } };
   }
 }
@@ -48,6 +48,14 @@ function undecidedOf(top) {
 function presenceQueriesOf(top) {
   const out = {};
   for (const l of top?.lines || []) if (l.key.startsWith("_presence_query.")) out[l.key.slice("_presence_query.".length)] = Number(l.text);
+  return out;
+}
+
+/** the words offered to empty roles (`_offer.<role>=<word>`, responses D27): an unplaced word that exactly one empty role of the decided
+ *  event admits, asked for as a presence query -> { role: word } */
+function offersOf(top) {
+  const out = {};
+  for (const l of top?.lines || []) if (l.key.startsWith("_offer.")) out[l.key.slice("_offer.".length)] = String(l.text);
   return out;
 }
 

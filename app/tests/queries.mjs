@@ -45,4 +45,10 @@ check("unsupported phrase in a command: ask before the rest", d2.action === "ask
 check("answer yes drops the phrase", ["45", "degrees"].reduce((t, w) => dropWord(t, w), "move the box 45 degrees") === "move the box", "");
 const d3 = decide({ result: R({ unplaced: ["quickly"] }), plan: okPlan });
 check("unplaced word: executed with a note", d3.action === "execute" && d3.notes.some((n) => n.kind === "unplaced" && /quickly/.test(n.text)), JSON.stringify(d3));
+// an offer (D27): the reader proposes an unplaced word for the empty role of the event -> ask, with yes / no
+const off = R({ frame: { event: "name", roles: { object: ["entity", "client", null, "the"] } }, presenceQueries: { text: 0.01 }, offers: { text: "irina" }, unplaced: [] });
+const qo = queriesOf(off);
+check("offer: a presence query carrying the word", qo.some((q) => q.presence && q.offer === "irina" && q.evidence[0] === "irina"), JSON.stringify(qo));
+const dof = decide({ result: off, plan: okPlan });
+check("offer: asked before executing, yes / no", dof.action === "ask" && dof.questions[0].kind === "offer" && dof.questions[0].word === "irina" && /irina/.test(dof.line) && dof.questions[0].candidates.join() === "yes,no", JSON.stringify(dof));
 console.log(`queries: ${pass} checks passed, ${fail} failed`); if (fail) { console.log(bad.join("\n")); process.exit(1); }
