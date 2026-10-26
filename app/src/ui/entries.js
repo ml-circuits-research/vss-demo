@@ -1,6 +1,7 @@
 // entries.js (ui): the rows of the History, Actions and Assistant tabs, as plain data built from what main.js already holds
 // (S.history entries, S.last). Pure functions, no DOM and no decisions: every word on screen comes from the reader's frame, the dialog's
 // decision or the planner's plan. Tested in node (app/tests/entries.mjs).
+import { queriesOf } from "../queries.js";
 
 const fillerText = (f) => !f ? "" : f[0] === "entity" ? [f[2] ? (f[2][0] === "negword" ? "not " : "") + f[2][1] : null, f[1]].filter(Boolean).join(" ").replace(/_/g, " ") : (f[0] === "negword" ? "not " : "") + String(f[1]);
 
@@ -85,4 +86,18 @@ export function assistantLines(rec) {
   const outcome = rec.behaviour === "asked" ? `asked: ${(rec.questions || []).join(" ")}` : rec.behaviour === "refused" ? `refused: ${rec.line}`
     : rec.behaviour === "defaulted" ? "executed, with a default for a role that was not given" : rec.behaviour || "none";
   return [{ time: rec.time, input: rec.input, intent: intentOf(rec.world, rec.frame), call: callText(rec.frame), outcome, queries: rec.queries || [] }];
+}
+
+const num = (v) => (typeof v === "number" ? v.toFixed(3) : "n/a");
+/** the Requests tab's data from worlds.js dispatch(): {rows, chosen, refusal, call, queries}. One row per world that read the request
+ *  (status, residual, lowest margin of the roles filled); chosen = the dispatch's best reading (status ok or abstain), else a refusal line
+ *  that names every world's residual. Rows keep dispatch's order (the chosen world first). */
+export function requestView(disp, text = "") {
+  const rows = (disp?.readings || []).map((r) => ({ world: r.world, status: r.result.status, residual: r.result.residual ?? null, minMargin: minMargin(r.result) }));
+  const best = disp?.best || null;
+  const refusal = best ? null : rows.length
+    ? `No world explains this request (${rows.map((r) => `${r.world}: ${r.status}, residual ${num(r.residual)}`).join("; ")}). It is refused, not guessed.`
+    : "No reader is installed: nothing can read this request.";
+  return { input: text, rows, chosen: best ? { world: best.world, result: best.result } : null, refusal,
+    call: best ? callText(best.result.frame) : "", queries: best ? queriesOf(best.result) : [] };
 }

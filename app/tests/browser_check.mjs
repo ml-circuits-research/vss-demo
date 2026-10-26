@@ -102,6 +102,23 @@ async function session(browser, url, label, size) {
   check(`${tag} the paperclip fills the input and focuses it`, (await page.inputValue("#input")) === exText && await page.evaluate(() => document.activeElement?.id === "input") && !(await page.evaluate(() => document.getElementById("dlg-examples").open)), exText);
   check(`${tag} the paperclip does not run the example`, (await comps()) === nComp && (await page.locator("#tab-history .hist-row").count()) === nHist && (await tabOf()) === "diagram");
   await page.fill("#input", "");
+  // the Requests tab: its own input, Run and paperclip; every installed world reads; never switched to by itself
+  check(`${tag} requests: the tab exists, labelled Requests`, /^Requests/.test((await page.textContent('.tabs [data-tab="requests"]')).trim()));
+  await panel("requests");
+  check(`${tag} requests: header and placeholder note`, /not an agent/.test(await page.textContent("#tab-requests")) && /Placeholder worlds/.test(await page.textContent("#tab-requests")) && /SNIPS/.test(await page.textContent("#tab-requests")));
+  const nHist2 = await page.locator("#tab-history .hist-row").count(); const comps2 = await comps();
+  await page.click("#req-examples"); await page.waitForTimeout(150);
+  const reqSheet = await page.textContent("#dlg-examples");
+  const reqEx = await page.textContent("#dlg-examples button.ex >> nth=0"); await page.click("#dlg-examples button.ex >> nth=0"); await page.waitForTimeout(150);
+  check(`${tag} requests: the paperclip fills its own input, does not run, leaves the chat input alone`, (await page.inputValue("#req-input")) === reqEx && /Diagram world/.test(reqSheet) && (await page.locator("#req-out .req-worlds").count()) === 0 && (await page.inputValue("#input")) === "" && !(await page.evaluate(() => document.getElementById("dlg-examples").open)), reqEx);
+  await page.click("#req-run"); await page.waitForTimeout(300);
+  const reqOut = await page.textContent("#req-out");
+  check(`${tag} requests: one row per installed world, with status, residual and margin`, (await page.locator("#req-out .req-worlds tr").count()) >= 3 && /diagram_ro/.test(reqOut) && /Residual/.test(reqOut) && /Min margin/.test(reqOut), reqOut.slice(0, 300));
+  check(`${tag} requests: chosen world or a refusal, and the call text`, (/Chosen world: \w+/.test(reqOut) && /Would call:/.test(reqOut) && /\w+\(.*\)/.test(await page.textContent("#req-out .req-call"))) || /No world explains/.test(reqOut), reqOut.slice(0, 300));
+  check(`${tag} requests: running changes nothing in the editor`, (await comps()) === comps2 && (await page.locator("#tab-history .hist-row").count()) === nHist2 && (await tabOf()) === "requests");
+  await page.fill("#req-input", "what is the weather in Paris tomorrow"); await page.press("#req-input", "Enter"); await page.waitForTimeout(300);
+  check(`${tag} requests: a second request replaces the result`, /weather in Paris/.test(await page.textContent("#req-out")) && (await page.locator("#req-out .req-worlds").count()) === 1, (await page.textContent("#req-out")).slice(0, 300));
+  await closePanel();
   // a sentence the editor must not execute
   const before0 = await comps(); const ra = await run("rotate the box 45 degrees");
   check(`${tag} a planted sentence is refused or asked, never executed`, (await comps()) === before0 && /not|can't|understand|which/i.test(ra), ra);

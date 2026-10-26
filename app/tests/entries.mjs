@@ -53,4 +53,13 @@ check("examples: not-understood group", EXAMPLES.some((e) => e.group === "Not un
 check("examples: every entry complete", EXAMPLES.every((e) => e.group && e.text && e.note && "world" in e));
 check("examples: the three hint sentences", hintExamples(() => true).map((e) => e.text).join("|") === "add a database called orders in the top left|put a yellow note below the database|connect the note to the database with a dashed arrow");
 
-console.log(`entries: ${pass} checks passed, ${fail} failed`); if (fail) { console.log(bad.join("\n")); process.exit(1); }
+// the Requests tab's data (requestView) and its examples
+import { requestView } from "../src/ui/entries.js";
+import { REQUEST_EXAMPLES } from "../src/examples.js";
+const rq = (status, residual, ev) => ({ status, residual, margins: { object: 0.2, structure: 0.3 }, frame: ev ? { event: ev, roles: { object: ["entity", "box", null, "a"] } } : { roles: {} }, unplaced: [], undecided: {}, wires: [] });
+const rv = requestView({ best: { world: "w1", result: rq("ok", 0.1, "create") }, readings: [{ world: "w1", result: rq("ok", 0.1, "create") }, { world: "w2", result: rq("no-sense", 0.9, null) }] }, "add a box");
+check("requestView: rows, chosen, call", rv.rows.length === 2 && rv.chosen.world === "w1" && rv.refusal === null && rv.call === 'create(object="box")' && rv.rows[0].minMargin === 0.2, JSON.stringify(rv.rows));
+const rf = requestView({ best: null, readings: [{ world: "w1", result: rq("no-sense", 0.9, null) }, { world: "w2", result: rq("unknown-event", 0.8, null) }] }, "weather");
+check("requestView: refusal names the residuals", rf.chosen === null && /w1: no-sense, residual 0.900/.test(rf.refusal) && /w2: unknown-event, residual 0.800/.test(rf.refusal) && rf.call === "", rf.refusal);
+check("request examples carry a group and a world or null", REQUEST_EXAMPLES.every((e) => e.group && e.text && "world" in e), "");
+console.log(`entries:${pass} checks passed, ${fail} failed`); if (fail) { console.log(bad.join("\n")); process.exit(1); }

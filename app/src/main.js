@@ -4,7 +4,7 @@
 // film (19, src/animate). No decision is taken here: each stage is its own module with its stated rules; this file passes data between
 // them, keeps the history and says on screen which reader (or which fallback) answered.
 import { createAssets } from "./assets.js";
-import { loadWorlds, lexiconOf, loadDictionaries, routesFor, purposeOf, languageOf, languageName } from "./worlds.js";
+import { loadWorlds, dispatch, lexiconOf, loadDictionaries, routesFor, purposeOf, languageOf, languageName } from "./worlds.js";
 import { createTranslator } from "./translate.js";
 import { readRoutes } from "./routes.js";
 import { createGaps, entryFromReading } from "./gaps.js";
@@ -25,11 +25,11 @@ import { createFilm } from "./ui/film.js";
 import { createSketchMode } from "./ui/sketch.js";
 import { createScriptDialog } from "./ui/script.js";
 import { renderRows, renderLines } from "./ui/info.js";
-import { renderHistory, renderActions, renderAssistant, renderExamples } from "./ui/tabs.js";
-import { historyExtras, readingRecord } from "./ui/entries.js";
+import { renderHistory, renderActions, renderAssistant, renderExamples, renderRequestResult } from "./ui/tabs.js";
+import { historyExtras, readingRecord, requestView } from "./ui/entries.js";
 import { buildSketchRows, keysForSceneIds, sceneIdsForKeys } from "./ui/sketchrows.js";
 import { createSketchTab } from "./ui/sketchtab.js";
-import { availableExamples, hintExamples } from "./examples.js";
+import { availableExamples, hintExamples, REQUEST_EXAMPLES } from "./examples.js";
 import { formulaPhrase, textCapable, findTextWidget, textHeight, looksLikeScript } from "./widgets.js";
 // text widgets and dictation (spec 14)
 import { TextDoc } from "./text/doc.js";
@@ -64,7 +64,7 @@ const S = {
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
   gaps: null, lastGapId: null,
   mode: "command", active: null, texts: new Map(), formulas: new Map(), dict: null, textedit: null, textNorm: null, calibration: null,
-  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", readings: [], recorded: null, seen: {}, sketchRead: null, sketchShown: null, nSketch: 0, sketchTab: null,
+  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", readings: [], requests: [], recorded: null, seen: {}, sketchRead: null, sketchShown: null, nSketch: 0, sketchTab: null,
 };
 
 // the history of inputs; an entry also carries when it was made and, where the handler has them, world, frame, minMargin, residual
@@ -579,7 +579,7 @@ function updateMode() {
 // The main tabs (Diagram, History, Actions, Assistant, ...) replace the canvas only on a click; a command never switches the tab.
 // On a wide screen the live panel (Reading, Plan, Geometry) stays beside whatever tab is active; on a phone those three are tabs.
 const LIVE_TABS = ["frame", "plan", "geometry"];
-const COUNTED = { history: () => S.history.length, actions: () => S.readings.length, assistant: () => S.readings.length, sketchread: () => S.nSketch };
+const COUNTED = { history: () => S.history.length, actions: () => S.readings.length, assistant: () => S.readings.length, sketchread: () => S.nSketch, requests: () => S.requests.length };
 const isWide = () => matchMedia("(min-width: 821px)").matches;
 function openPanel(tab) { selectTab(tab); }
 function selectTab(tab) {
@@ -604,6 +604,31 @@ function updateBadges() {
     b.hidden = n === 0; b.textContent = String(n); b.setAttribute("aria-label", `${n} new`);
     if (S.panelTab === tab) S.seen[tab] = count();
   }
+}
+// The Requests tab (D9, D10 item 3): every installed world reads the sentence (worlds.js dispatch, the app's rule for several worlds), each
+// through its own normalizer; nothing is executed, no call is made, the tab is never switched to by itself.
+function readRequest(text) {
+  const norm = (name) => S.pipes.get(name)?.normalize || (name === "animation" ? S.animNorm : name === "textedit" ? S.textNorm : null) || S.normalize;
+  const through = new Map([...S.worlds].map(([name, w]) => [name, { ...w, vss: { read: (t, o) => w.vss.read(norm(name) ? norm(name)(t).tokens.join(" ") : t, o) } }]));
+  return requestView(dispatch(through, text), text);
+}
+function runRequest(text) {
+  text = String(text || "").trim(); if (!text) return;
+  S.requests.push({ time: Date.now(), view: readRequest(text) });
+  renderRequests(); updateBadges();
+}
+function renderRequests() {
+  const last = S.requests[S.requests.length - 1];
+  renderRequestResult($("req-out"), last?.view || null, { legendOf: (n) => S.worlds.get(n)?.legend || null, tauOf: (n) => S.worlds.get(n)?.tau ?? 0.05 });
+}
+function setupRequests() {
+  const installed = (name) => S.worlds.has(name); const dlg = $("dlg-examples");
+  $("req-form").addEventListener("submit", (e) => { e.preventDefault(); runRequest($("req-input").value); });
+  $("req-examples").onclick = () => {
+    renderExamples($("examples-body"), availableExamples(installed, REQUEST_EXAMPLES), { onPick: (t) => { dlg.close(); const i = $("req-input"); i.value = t; i.focus(); i.setSelectionRange(t.length, t.length); } });
+    dlg.showModal();
+  };
+  renderRequests();
 }
 function putInInput(text) { const i = $("input"); i.value = text; i.focus(); i.setSelectionRange(text.length, text.length); }
 function setupExamples() {
@@ -686,7 +711,7 @@ function setupUI() {
     const t = e.clipboardData?.getData("text") || ""; if (S.mode !== "command" || !looksLikeScript(t).script) return;
     e.preventDefault(); S.scriptUI.open(t);
   });
-  setupExamples();
+  setupExamples(); setupRequests();
   const afterUndo = () => { S.slots.reset(); refresh(); };
   $("btn-undo").onclick = () => { undo(S.scene); afterUndo(); }; $("btn-redo").onclick = () => { redo(S.scene); afterUndo(); };
   $("btn-fit").onclick = () => { S.view.fit(); S.slots.sync(); };

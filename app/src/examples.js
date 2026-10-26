@@ -41,3 +41,17 @@ export function availableExamples(installed, list = EXAMPLES) {
 
 /** the sentences of the empty-canvas hint */
 export const hintExamples = (installed, list = EXAMPLES) => list.filter((e) => e.hint && (!e.world || installed(e.world)));
+
+// The Requests tab's own examples (a few requests per installed world; the tab has its own paperclip). Same fields as EXAMPLES. These are
+// the editor's own worlds as placeholders; the SNIPS request worlds replace them when they are exported (responses D9, D10).
+export const REQUEST_EXAMPLES = [
+  { group: "Diagram world", text: "add a database called orders in the top left", note: "a request the diagram world reads", world: "diagram" },
+  { group: "Diagram world", text: "put a yellow note below the database", note: "a placement relative to another shape", world: "diagram" },
+  { group: "Diagram world", text: "make the database blue", note: "a property change", world: "diagram" },
+  { group: "Text editing world", text: "bold the last sentence", note: "a formatting request", world: "textedit" },
+  { group: "Formula world", text: "replace x with y", note: "an edit of a formula", world: "matheditor" },
+  { group: "Animation world", text: "the red box moves to the right in two seconds", note: "a unit of the timeline", world: "animation" },
+  { group: "Animation world", text: "play", note: "a command to the film", world: "animation" },
+  { group: "Romanian diagram world", text: "pune o noti\u021b\u0103 galben\u0103 sub baza de date", note: "read by the Romanian world", world: "diagram_ro" },
+  { group: "Outside every world", text: "what is the weather in Paris tomorrow", note: "no world should explain it: a refusal with the residuals", world: null },
+];

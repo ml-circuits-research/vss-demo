@@ -31,6 +31,7 @@
     <button role="tab" aria-selected="false" data-tab="history">History<span class="badge" hidden></span></button>
     <button role="tab" aria-selected="false" data-tab="actions">Actions<span class="badge" hidden></span></button>
     <button role="tab" aria-selected="false" data-tab="assistant">Assistant<span class="badge" hidden></span></button>
+    <button role="tab" aria-selected="false" data-tab="requests">Requests<span class="badge" hidden></span></button>
     <button role="tab" aria-selected="false" data-tab="sketchread" hidden>Sketch: how it is read<span class="badge" hidden></span></button>
     <button role="tab" aria-selected="false" data-tab="widget" hidden>Widget</button>
     <button role="tab" aria-selected="false" data-tab="timeline" hidden>Timeline</button>
@@ -79,6 +80,16 @@
     <div class="pane tab-body" id="tab-history" role="tabpanel" hidden></div>
     <div class="pane tab-body" id="tab-actions" role="tabpanel" hidden></div>
     <div class="pane tab-body" id="tab-assistant" role="tabpanel" hidden></div>
+    <div class="pane tab-body" id="tab-requests" role="tabpanel" hidden>
+      <p class="tab-lead">Shows how a request is read and which call it would make; not an agent.</p>
+      <p class="tab-lead muted">Placeholder worlds: the editor's own worlds. The SNIPS request worlds (weather, music, ...) replace them when they are exported.</p>
+      <form class="req-form" id="req-form" autocomplete="off">
+        <button type="button" class="icon-btn clip" id="req-examples" aria-label="Request examples" title="Examples: requests to try"><svg viewBox="0 0 24 24"><path d="m20 11.5-8.2 8.2a5 5 0 0 1-7.1-7.1l8.8-8.8a3.3 3.3 0 0 1 4.7 4.7l-8.8 8.8a1.7 1.7 0 0 1-2.4-2.4l8-8"/></svg></button>
+        <input id="req-input" type="text" spellcheck="false" autocapitalize="off" placeholder="a request, for example: add a database called orders" aria-label="Request">
+        <button type="submit" class="send" id="req-run" aria-label="Read the request">Run</button>
+      </form>
+      <div id="req-out"></div>
+    </div>
     <div class="pane tab-body" id="tab-sketchread" role="tabpanel" hidden></div>
     <div class="pane tab-body" id="tab-widget" role="tabpanel" hidden></div>
     <div class="pane tab-body" id="tab-timeline" role="tabpanel" hidden></div>

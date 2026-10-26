@@ -1,6 +1,7 @@
 // tabs.js (ui): the renderers of the History, Actions and Assistant tabs and of the examples sheet. DOM only; the rows come from
 // entries.js (plain data) and the example list from examples.js. No decisions.
 import { historyRow, assistantLines } from "./entries.js";
+import { renderFrame } from "./panel.js";
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const MAX_ROWS = 200;
@@ -84,4 +85,29 @@ export function renderExamples(host, groups, { onPick } = {}) {
     host.append(ul);
   }
   if (!groups.length) host.append(el("p", "muted", "No example is available for the installed models."));
+}
+
+/** Requests: the result of one request, from entries.js requestView(): a row per world, the chosen world (or the refusal), the frame with
+ *  its margins, the queries and the call that would be made. legendOf(world) -> legend, tauOf(world) -> tau. */
+export function renderRequestResult(host, view, { legendOf = () => null, tauOf = () => 0.05 } = {}) {
+  host.replaceChildren();
+  if (!view) { host.append(el("p", "muted", "No request yet.")); return; }
+  host.append(el("div", "asst-input", `“${view.input}”`));
+  const tbl = el("table", "req-worlds");
+  const head = el("tr"); for (const h of ["World", "Status", "Residual", "Min margin"]) head.append(el("th", null, h)); tbl.append(head);
+  for (const r of view.rows) {
+    const tr = el("tr", view.chosen && view.chosen.world === r.world ? "req-chosen" : null);
+    tr.append(el("td", null, r.world), el("td", null, r.status), el("td", null, r.residual == null ? "n/a" : r.residual.toFixed(3)), el("td", null, r.minMargin == null ? "n/a" : r.minMargin.toFixed(3)));
+    tbl.append(tr);
+  }
+  host.append(tbl);
+  if (!view.chosen) { host.append(el("p", "req-refusal act-refuse", view.refusal)); return; }
+  host.append(el("p", "req-choice", `Chosen world: ${view.chosen.world}`));
+  const fr = el("div", "req-frame"); renderFrame(fr, { result: view.chosen.result, legend: legendOf(view.chosen.world), tau: tauOf(view.chosen.world) }); host.append(fr);
+  if (view.queries.length) {
+    const ul = el("ul", "req-queries muted");
+    for (const q of view.queries) ul.append(el("li", null, `${q.kind}${q.presence ? " (presence)" : ""}: ${q.about}${q.evidence.length ? ` [${q.evidence.join(", ")}]` : ""}`));
+    host.append(el("h4", null, "Queries"), ul);
+  }
+  host.append(el("h4", null, "Would call:"), el("code", "asst-call req-call", view.call || "(no call)"));
 }
