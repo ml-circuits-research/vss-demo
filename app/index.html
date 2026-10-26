@@ -34,18 +34,10 @@
   <nav class="tabs main-tabs" id="main-tabs" role="tablist" aria-label="Views">
     <button role="tab" aria-selected="true" data-tab="diagram">Diagram</button>
     <button role="tab" aria-selected="false" data-tab="history">History<span class="badge" hidden></span></button>
-    <button role="tab" aria-selected="false" data-tab="actions">Actions<span class="badge" hidden></span></button>
-    <button role="tab" aria-selected="false" data-tab="assistant">Assistant<span class="badge" hidden></span></button>
-    <button role="tab" aria-selected="false" data-tab="requests">Requests<span class="badge" hidden></span></button>
-    <button role="tab" aria-selected="false" data-tab="sketchread" hidden>Sketch: how it is read<span class="badge" hidden></span></button>
     <button role="tab" aria-selected="false" data-tab="widget" hidden>Widget</button>
     <button role="tab" aria-selected="false" data-tab="timeline" hidden>Timeline</button>
-    <button role="tab" aria-selected="false" data-tab="frame" class="phone-only">Reading</button>
     <button role="tab" aria-selected="false" data-tab="plan" class="phone-only">Plan</button>
     <button role="tab" aria-selected="false" data-tab="geometry" class="phone-only">Geometry</button>
-    <button role="tab" aria-selected="false" data-tab="circuit">Circuit</button>
-    <button role="tab" aria-selected="false" data-tab="sop">SOP</button>
-    <button role="tab" aria-selected="false" data-tab="log">Log</button>
   </nav>
 
   <main class="workspace" id="workspace" data-tab="diagram">
@@ -83,24 +75,8 @@
     </section>
 
     <div class="pane tab-body" id="tab-history" role="tabpanel" hidden></div>
-    <div class="pane tab-body" id="tab-actions" role="tabpanel" hidden></div>
-    <div class="pane tab-body" id="tab-assistant" role="tabpanel" hidden></div>
-    <div class="pane tab-body" id="tab-requests" role="tabpanel" hidden>
-      <p class="tab-lead">Shows how a request is read and which call it would make; not an agent.</p>
-      <p class="tab-lead muted">Placeholder worlds: the editor's own worlds. The SNIPS request worlds (weather, music, ...) replace them when they are exported.</p>
-      <form class="req-form" id="req-form" autocomplete="off">
-        <button type="button" class="icon-btn clip" id="req-examples" aria-label="Request examples" title="Examples: requests to try"><svg viewBox="0 0 24 24"><path d="m20 11.5-8.2 8.2a5 5 0 0 1-7.1-7.1l8.8-8.8a3.3 3.3 0 0 1 4.7 4.7l-8.8 8.8a1.7 1.7 0 0 1-2.4-2.4l8-8"/></svg></button>
-        <input id="req-input" type="text" spellcheck="false" autocapitalize="off" placeholder="a request, for example: add a database called orders" aria-label="Request">
-        <button type="submit" class="send" id="req-run" aria-label="Read the request">Run</button>
-      </form>
-      <div id="req-out"></div>
-    </div>
-    <div class="pane tab-body" id="tab-sketchread" role="tabpanel" hidden></div>
     <div class="pane tab-body" id="tab-widget" role="tabpanel" hidden></div>
     <div class="pane tab-body" id="tab-timeline" role="tabpanel" hidden></div>
-    <div class="pane tab-body" id="tab-circuit" role="tabpanel" hidden></div>
-    <div class="pane tab-body" id="tab-sop" role="tabpanel" hidden></div>
-    <div class="pane tab-body" id="tab-log" role="tabpanel" hidden></div>
 
     <aside class="live" id="live" aria-label="What was understood">
       <section class="live-sec" data-sec="frame"><h3>Reading</h3><div class="live-body tab-body" id="tab-frame"></div></section>
@@ -251,6 +227,22 @@
     </menu></section>
     </div>
     <menu class="sheet-foot"><button value="close" class="primary">Close</button></menu>
+  </form>
+</dialog>
+
+<dialog id="dlg-requests" class="sheet">
+  <form method="dialog" class="sheet-form">
+    <header class="sheet-head"><h2>Requests</h2><button value="close" class="sheet-x" aria-label="Close" title="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sheet-body">
+      <p class="tab-lead">Shows how a request is read and which call it would make; not an agent. Every installed world reads the request; nothing is executed.</p>
+      <p class="tab-lead muted">Placeholder worlds: the editor's own worlds. The SNIPS request worlds (weather, music, ...) replace them when they are exported.</p>
+      <div class="req-form" id="req-form" role="group" aria-label="Request">
+        <button type="button" class="icon-btn clip" id="req-examples" aria-label="Request examples" title="Examples: requests to try"><svg viewBox="0 0 24 24"><path d="m20 11.5-8.2 8.2a5 5 0 0 1-7.1-7.1l8.8-8.8a3.3 3.3 0 0 1 4.7 4.7l-8.8 8.8a1.7 1.7 0 0 1-2.4-2.4l8-8"/></svg></button>
+        <input id="req-input" type="text" spellcheck="false" autocapitalize="off" placeholder="a request, for example: add a database called orders" aria-label="Request">
+        <button type="button" class="send" id="req-run" aria-label="Read the request">Run</button>
+      </div>
+      <div id="req-out"></div>
+    </div>
   </form>
 </dialog>
 

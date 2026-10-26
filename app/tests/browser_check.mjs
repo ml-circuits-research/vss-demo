@@ -66,11 +66,27 @@ async function session(browser, url, label, size) {
 
   // every main tab button that is shown (the phone-only ones only on a phone) opens a non-empty panel
   const tabs = await page.locator("#main-tabs [data-tab]:visible").evaluateAll((bs) => bs.map((b) => b.dataset.tab));
-  check(`${tag} main tabs exist`, ["diagram", "history", "actions", "assistant", "requests", "circuit", "sop", "log"].every((t) => tabs.includes(t)), tabs.join());
+  check(`${tag} main tabs: the diagram and History (and on a phone Plan, Geometry); the detail tabs are gone`, ["diagram", "history"].every((t) => tabs.includes(t)) && !["actions", "assistant", "requests", "sketchread", "circuit", "sop", "log", "frame"].some((t) => tabs.includes(t)) && (size === "phone" ? tabs.includes("plan") && tabs.includes("geometry") : !tabs.includes("plan")), tabs.join());
   for (const t of tabs.filter((t) => t !== "diagram")) {
     await page.click(`#main-tabs [data-tab="${t}"]`); await page.waitForTimeout(150);
     check(`${tag} tab ${t}: panel not empty`, await page.evaluate((t) => { const e = document.getElementById("tab-" + t); return !!e && !e.hidden && e.textContent.trim().length > 0; }, t));
   }
+  // History: the details of an entry open as popups (full width, X closes); Requests opens from the History header
+  await page.click('#main-tabs [data-tab="history"]'); await page.waitForTimeout(150);
+  for (const k of ["reading", "call", "plan", "sop", "log"]) {
+    const btn = page.locator(`#tab-history .hist-row [data-detail="${k}"]`).first();
+    check(`${tag} History entry has the detail button ${k}`, (await btn.count()) === 1);
+    await btn.click(); await page.waitForTimeout(150);
+    const w = await page.evaluate(() => { const d = document.querySelector("dialog.popup[open]"); return d ? d.getBoundingClientRect().width : -1; });
+    check(`${tag} detail ${k}: a popup uses the width`, w >= page.viewportSize().width * 0.9, String(w));
+    await page.click("dialog.popup[open] .sheet-x"); await page.waitForTimeout(100);
+    check(`${tag} detail ${k}: the X closes it`, (await page.locator("dialog.popup").count()) === 0);
+  }
+  await page.click("#btn-requests"); await page.waitForTimeout(150);
+  check(`${tag} Requests popup opens from History`, await page.evaluate(() => document.getElementById("dlg-requests").open));
+  await page.fill("#req-input", "add a database called orders"); await page.click("#req-run"); await page.waitForTimeout(200);
+  check(`${tag} Requests: a request is read by the worlds`, (await page.textContent("#req-out")).trim().length > 10);
+  await page.click("#dlg-requests .sheet-x"); await page.waitForTimeout(100);
   await page.click('#main-tabs [data-tab="diagram"]'); await page.waitForTimeout(150);
 
   // the examples paperclip: the sheet opens, a click fills the input and does not run it

@@ -6,7 +6,7 @@ export const BUILD_STATUS = {
   headline: "Preview build, not final. The reader is a probe model; several parts are still being measured or built.",
   works: [
     "Editing by mouse and touch: shapes, connectors, layout, routing, undo / redo, text and formula widgets, animation player.",
-    "Tabs: Diagram, History, Actions (the rule behind each behaviour), Assistant (the call a reading would make), Requests (every world reads a request), Sketch: how it is read.",
+    "Tabs: the diagram and History, the single record: for each input what it meant and what the editor did with it, the rule, and buttons that open every detail (reading with margins, the call, the plan, the SOP wires, the circuit, the sketch readings) as a popup. Requests (every world reads a request) opens from History.",
     "The dialog: 'which one, a or b?' for undecided words, 'did you mean to give a ...?' for a role near its threshold, 'do the rest without it?' for a phrase the editor does not understand.",
     "Examples: the paperclip next to the microphone (a click fills the input, it does not run it).",
   ],
@@ -15,7 +15,7 @@ export const BUILD_STATUS = {
     "Romanian diagram reader: the older development model (D 512); the Romanian route through the dictionary uses the English probe model.",
     "Text, formula and animation commands: no trained reader installed yet (widgets work; dictation writes text).",
     "Sketch: shapes by the classical recogniser ($P), the scene by rules; the VSS scene reader is available in Settings (measured equal to the rules on the synthetic split).",
-    "Requests tab: reads with the editor's own worlds; the request worlds (weather, music, ...) come later.",
+    "Requests (a popup opened from History): reads with the editor's own worlds; the request worlds (weather, music, ...) come later.",
   ],
   next: [
     "The rare form \"relation + bare label\" in the examples, then a new probe and its diagnostic; the Romanian and mixed worlds with the same fixes.",

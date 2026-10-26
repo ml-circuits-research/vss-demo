@@ -1,20 +1,26 @@
-// tabs.js (ui): the renderers of the History, Actions and Assistant tabs and of the examples sheet. DOM only; the rows come from
-// entries.js (plain data) and the example list from examples.js. No decisions.
-import { historyRow, assistantLines } from "./entries.js";
+// tabs.js (ui): the renderers of the History tab, the examples sheet and the Requests popup. DOM only; the rows come from entries.js (plain data)
+// and the example list from examples.js. No decisions.
+import { historyRow, meaningOf, detailKinds } from "./entries.js";
 import { renderFrame } from "./panel.js";
-import { renderReading } from "./reading.js";
+import { DETAIL_TITLES } from "./details.js";
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const MAX_ROWS = 200;
 
-/** History: one row per input, newest first. onPick(input) puts the input back into the chat input (it does not run it). */
-export function renderHistory(host, history, { onPick } = {}) {
+/** History, the single record (D21 item 5): one entry per input, newest first. For each: when and how it was given, the text, what it meant
+ *  (intent and call, or what was drawn), what the editor did (executed / asked / refused) with the rule, and buttons that open every technical
+ *  detail as a popup. onPick(input) puts the input back into the chat input (it does not run it); onDetail(entry, kind) opens a detail;
+ *  onRequests() opens the Requests popup. */
+export function renderHistory(host, history, { onPick, onDetail, onRequests } = {}) {
   host.replaceChildren();
-  host.append(el("p", "tab-lead muted", "Every input, newest first: what was typed or said, what was read, and how sure the reader was. A click puts a typed or spoken input back into the input bar; it does not run it."));
+  const head = el("div", "hist-head");
+  head.append(el("p", "tab-lead", "Every input, newest first: what was typed, said or drawn, what it meant, and what the editor did with it. A click on a typed or spoken input puts it back into the input bar; it does not run it."));
+  const rb = el("button", "hist-requests", "Requests"); rb.type = "button"; rb.id = "btn-requests"; rb.title = "Type a request and see how every world reads it (nothing is executed)"; rb.onclick = () => onRequests && onRequests();
+  head.append(rb); host.append(head);
   if (!history.length) { host.append(el("p", "muted", "Nothing yet.")); return; }
   const list = el("ol", "hist-list");
   for (const h of history.slice().reverse().slice(0, MAX_ROWS)) {
-    const r = historyRow(h);
+    const r = historyRow(h), m = meaningOf(h);
     const li = el("li", `hist-row act-${r.action}`); li.dataset.source = h.source || "";
     const top = el("div", "hist-top");
     const ic = el("span", "src-icon", r.icon); ic.title = r.sourceLabel; ic.setAttribute("aria-label", r.sourceLabel);
@@ -24,60 +30,21 @@ export function renderHistory(host, history, { onPick } = {}) {
     top.append(text);
     if (r.status) top.append(el("span", `chip st-${r.status.replace(/\s.*/, "")}`, r.status));
     li.append(top);
-    const meta = el("div", "hist-meta muted");
-    const bits = [];
-    if (r.read) bits.push(`read as: ${r.read}`);
-    if (r.world) bits.push(`world ${r.world}`);
-    if (r.event) bits.push(r.event);
-    if (r.minMargin != null) bits.push(`min margin ${r.minMargin.toFixed(3)}`);
-    if (r.residual != null) bits.push(`residual ${r.residual.toFixed(3)}`);
-    meta.textContent = bits.join(" · "); if (bits.length) li.append(meta);
-    if (r.outcome && r.outcome !== r.event) {
-      const out = el("div", "hist-outcome"); if (r.behaviour) out.append(el("span", `chip beh beh-${r.behaviour}`, r.behaviour), " ");
-      out.append(r.outcome); li.append(out);
+    if (r.read) li.append(el("div", "hist-line muted", `read as: ${r.read}`));
+    if (m.meant) { const d = el("div", "hist-line"); d.append(el("span", "hist-label", "Meant"), el("code", "hist-meant", m.meant)); li.append(d); }
+    if (m.did) {
+      const d = el("div", "hist-line"); d.append(el("span", "hist-label", m.kind === "sketch" ? "Drew" : "Did"));
+      if (r.behaviour) d.append(el("span", `chip beh beh-${r.behaviour}`, r.behaviour), " ");
+      d.append(m.did); li.append(d);
     }
-    if (r.rule) li.append(el("div", "act-rule", `Rule: ${r.rule}`));
-    const best = h.last?.best;
-    if (best?.result) {   // what the reader made of each word (the reading strip of earlier builds)
-      const d = el("details", "hist-reading"); d.append(el("summary", null, "How the words were read"));
-      const box = el("div"); renderReading(box, { result: best.result, corrections: best.corrections || [], labels: best.info?.labels || {}, world: h.routeLabel || h.world || "diagram" }); d.append(box); li.append(d);
-    }
-    list.append(li);
-  }
-  host.append(list);
-}
-
-/** Actions: Table 8, one line per reading: sentence, status, the behaviour, the rule that decided it, the plan's steps, the queries */
-export function renderActions(host, records) {
-  host.replaceChildren();
-  host.append(el("p", "tab-lead muted", "Table 8 of the specification, one line per reading: what the editor did with it and the rule that decided it."));
-  if (!records.length) { host.append(el("p", "muted", "No reading yet.")); return; }
-  const list = el("ol", "act-list");
-  for (const r of records.slice().reverse().slice(0, MAX_ROWS)) {
-    const li = el("li", `act-row beh-${r.behaviour}`);
-    const top = el("div", "act-top");
-    top.append(el("span", "act-sentence", r.input), el("span", `chip st-${String(r.status).replace(/\s.*/, "")}`, r.status), el("span", `chip beh beh-${r.behaviour}`, r.behaviour));
-    li.append(top, el("div", "act-rule", `Rule: ${r.rule}`));
-    if (r.steps.length) { const ol = el("ol", "steps"); for (const s of r.steps) ol.append(el("li", null, s)); li.append(ol); }
-    if (r.queries.length) li.append(el("div", "act-queries muted", `Queries: ${r.queries.map((q) => `${q.kind} (${q.about})`).join("; ")}`));
-    list.append(li);
-  }
-  host.append(list);
-}
-
-/** Assistant: per reading the intent, the call as text and the outcome; a header that says what the tab is not */
-export function renderAssistant(host, records) {
-  host.replaceChildren();
-  host.append(el("p", "tab-lead", "Shows how a request is read and which call it would make; not an agent."));
-  const lines = records.slice().reverse().slice(0, MAX_ROWS).flatMap((r) => assistantLines(r));
-  if (!lines.length) { host.append(el("p", "muted", "No request yet.")); return; }
-  const list = el("ol", "asst-list");
-  for (const l of lines) {
-    const li = el("li", "asst-row");
-    li.append(el("div", "asst-input", `“${l.input}”`), el("div", "asst-intent", l.intent || "no intent read"));
-    li.append(el("code", "asst-call", l.call || "(no call)"));
-    li.append(el("div", "asst-outcome", `Editor: ${l.outcome}`));
-    if (l.queries.length) li.append(el("div", "asst-queries muted", `Asked about: ${l.queries.map((q) => `${q.kind} ${q.about}`).join("; ")}`));
+    if (m.steps.length && m.kind === "long") { const ol = el("ol", "steps hist-steps"); for (const s of m.steps) ol.append(el("li", null, s)); li.append(ol); }
+    if (h.sketch?.summary) for (const [label, text] of h.sketch.summary) { const d = el("div", "hist-line"); d.append(el("span", "hist-label", label), text); li.append(d); }
+    if (m.rule) li.append(el("div", "act-rule", `Rule: ${m.rule}`));
+    const nums = []; if (r.minMargin != null) nums.push(`min margin ${r.minMargin.toFixed(3)}`); if (r.residual != null) nums.push(`residual ${r.residual.toFixed(3)}`);
+    if (nums.length) li.append(el("div", "hist-line muted small", nums.join(" · ")));
+    const det = el("div", "hist-details");
+    for (const k of detailKinds(h)) { const b = el("button", "detail-btn", DETAIL_TITLES[k]); b.type = "button"; b.dataset.detail = k; b.onclick = () => onDetail && onDetail(h, k); det.append(b); }
+    li.append(det);
     list.append(li);
   }
   host.append(list);
