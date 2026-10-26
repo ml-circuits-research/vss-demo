@@ -16,7 +16,7 @@ on:
         required: false
         default: ""
       latest:
-        description: "Also make this build the site's index.html (the latest build)"
+        description: "Mark this build as the latest (the one the site's index.html opens)"
         type: boolean
         default: true
 permissions:
@@ -58,7 +58,6 @@ jobs:
           cd public
           mkdir -p builds
           cp ../app/dist/vss-editor.html "builds/${{ steps.name.outputs.name }}"
-          if [ "${{ inputs.latest }}" = "true" ]; then cp ../app/dist/vss-editor.html index.html; fi
           touch .nojekyll
           python3 - <<'PY'
           import json, os, glob, datetime
