@@ -17,7 +17,7 @@ const CSS = `.vss-anim{font:14px system-ui,sans-serif;color:#1f2a3a;display:flex
 .vss-anim .bars{position:relative;border-top:1px solid #e3e8ee}.vss-anim .row{display:flex;align-items:center;gap:6px;min-height:26px}
 .vss-anim .row .id{width:3.5em;flex:none;color:#5c6b7a}.vss-anim .row .track{position:relative;flex:1;height:16px;background:#f2f5f8;border-radius:4px}
 .vss-anim .row .bar{position:absolute;top:0;height:16px;background:#7fa7d9;border-radius:4px;min-width:3px;cursor:pointer}
-.vss-anim .row details{flex:0 1 45%;font-size:12px;color:#44515e}.vss-anim .playhead{position:absolute;top:0;bottom:0;width:2px;background:#e0533d;pointer-events:none}
+.vss-anim .row details{flex:0 1 45%;font-size:13.5px;color:var(--muted,#44515e)}.vss-anim .playhead{position:absolute;top:0;bottom:0;width:2px;background:#e0533d;pointer-events:none}
 @media (max-width:640px){.vss-anim .row details{flex-basis:100%}.vss-anim .row{flex-wrap:wrap}}`;
 
 const el = (doc, tag, attrs = {}, text = null) => { const e = doc.createElement(tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; return e; };
