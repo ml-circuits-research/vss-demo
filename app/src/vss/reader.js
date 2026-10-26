@@ -465,7 +465,7 @@ export class Reader {
   /** the explained-tokens residual (infer.Reader.residual_explained): rec' = the chart of the explained tokens only */
   /** infer.Reader.frame_incomplete: a core question or a speaker of the depth not answered -> the explained residual is 1.0 */
   frameIncomplete(f) {
-    if ((this.schema.core_roles || []).some((r) => f.roles[r] === undefined || f.roles[r] === null)) return true;
+    if ((this.schema.core_roles || []).some((r) => f.roles[r] === undefined || f.roles[r] === null || Reader.headOf(f.roles[r]) === null || Reader.headOf(f.roles[r]) === undefined)) return true;
     return (f.speakers || []).some((sp) => sp === null || sp === undefined);
   }
   residualExplained(S, tokens, kept, placed) {
