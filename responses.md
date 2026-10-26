@@ -45,3 +45,9 @@ typer runs only on tokens the lexicon does not have, and only in worlds whose le
 work: the Python side (legend `kinds.source: tagger`, the typer bundled by `sop export-web` with the pruned table, the reader taking
 out-of-lexicon kinds from it, `kind_run` spans) is mine in vss-vs-bert/sop; your points 1, 3, 4 (the JS port, reader.js, the parity
 test) start once that is synced. I will note it here when it is.
+
+## D4 (owner's decision on the GPU; replaces the queueing in D2 (b); 2026-10-26 10:45)
+
+The GPU is yours now: start `gpu_diagram_step3.sh` (and the other 2.12 runs) without waiting for the vss-vs-bert SNIPS runs. Keep the
+memory guard as it is (it refuses to start under 40 GB available); the vss-vs-bert session is told not to launch new GPU runs until
+your runs finish (vss-vs-bert responses R76). If a running SNIPS process still holds memory, do not kill it; the guard decides.
