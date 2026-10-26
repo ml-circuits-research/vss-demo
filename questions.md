@@ -122,3 +122,23 @@ Also for the record: the owner gave an API key for step 1.2 (paraphrases); it is
 mode 600) and passed only through the environment. Before the full run, a pilot of 100 sentences x 4 families with Haiku 5.5 and Sonnet
 5.5 (rejection rate of rewrites that lose a filler, diversity of the rewrites), to choose the model; the full run starts from the
 corrected world after Q9.
+
+## Q10 (2026-10-26) — the paraphrase pilot (TODO 1.2): Haiku is enough, but the pipeline has two problems to fix before the full run (blocks: the full paraphrase run)
+
+Pilot: 100 sentences of diagram n5000 x 4 families, `paraphrase.py --n 100 --batch 25`, once with claude-haiku-5-5 and once with
+claude-sonnet-5-5 (world copies in the DGX scratch, not committed; the key is outside the repository). Kept / rejected (a filler dropped
+or changed) is the SAME for both models: typed_casual 100 / 0, spoken 98 / 2, terse 26 / 74, polite_long 100 / 0. Diversity (distinct
+bigrams over the kept rewrites): Haiku 405 / 412 / 62 / 543, Sonnet 407 / 438 / 73 / 566, i.e. Sonnet +0-18%, mostly on terse and spoken.
+So the model is not the limit; I would use Haiku. The two problems are in the pipeline, the same for both:
+1. **terse contradicts the filler check**: the family prompt says "drop articles", but `fillers()` counts the determiner of an entity
+   (a / the / all) as a filler, so 74% of terse rewrites are rejected, and the held-out family (terse is `--heldout_families`) keeps only
+   26 of 100. A determiner IS meaning here ("a box" = new, "the box" = existing), so I would keep the check and change the prompt to
+   "drop politeness and filler words, keep articles and every name"; or measure a determiner-free variant as its own family.
+2. **The rewrites stay close to the templates**: e.g. spoken "okay can you insert a square called mailer", "so would you scale the star
+   to medium" are template sentences with a filler word added; 38-48 of 100 spoken / typed_casual lines are identical between the two
+   models. This tests little that the templates do not already cover. Proposal: a fifth family "free" with the instruction to rephrase
+   as a person would who has never seen the template (other verbs from the legend's verb list, other word order, a relative clause, a
+   pronoun for a repeated component), and report per family the share of rewrites whose token sequence is NOT a training template after
+   normalisation (the measure of new language).
+Also: the full run should start from the corrected world (Q9), since the frames of connect change. Agreed: Haiku, the terse prompt fix,
+the "free" family, then the full run (n 2000 x 5 families) after Q9's data? Cost note: the pilot was 2 x 16 calls of about 25 sentences.

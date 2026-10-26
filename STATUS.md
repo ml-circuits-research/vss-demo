@@ -118,3 +118,9 @@ runs wait for the direction asked in Q8.
 50000 stopped at 15:0x by D14: no blind scaling) are kept as the measurement of the reader and legend BEFORE the fixes of Q8 / D14 (presence
 queries, filler-only content kinds, sentence verbs as predicate candidates, the EDGE kind). The 800-sentence diagnostic of Q8 is their
 reading. Next: the reader.js mirror of b467e4b and parity; EDGE in the generator and a new frozen dataset; a curve at 5000 / 20000, 3 seeds.
+
+Paraphrase pilot (TODO 1.2, owner's key, 2026-10-26): 100 diagram sentences x 4 families with Haiku 5.5 and with Sonnet 5.5: identical
+kept / rejected counts (terse 26 / 74 rejected for both: its "drop articles" prompt conflicts with the determiner filler check), Sonnet's
+rewrites 0-18% more diverse; rewrites close to the templates. Choice and the pipeline fixes proposed in questions.md Q10; full run waits.
+Also merged: the presence-query dialog and the Requests tab shell (a Sonnet agent; dialog 19, queries 17, entries 31 checks; browser
+check 244/244); end to end on the reference_v2 smoke model, `_presence_query.recipient=0.029` reaches the reading as presenceQueries.
