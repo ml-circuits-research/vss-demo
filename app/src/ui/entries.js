@@ -49,6 +49,7 @@ export function historyRow(h) {
     status: h.status || "", action: h.action || "",
     event: h.frame?.event ? `${h.frame.event}${filled.length ? ": " + filled.map(([r, f]) => `${r} ${fillerText(f)}`).join(", ") : ""}` : (h.line || ""),
     minMargin: h.minMargin ?? null, residual: h.residual ?? null, rereadable: h.source === "typed" || h.source === "speech",
+    behaviour: h.rec?.behaviour || "", rule: h.rec?.rule || "", outcome: h.line || "", steps: h.rec?.steps || [],
   };
 }
 
@@ -100,4 +101,30 @@ export function requestView(disp, text = "") {
     : "No reader is installed: nothing can read this request.";
   return { input: text, rows, chosen: best ? { world: best.world, result: best.result } : null, refusal,
     call: best ? callText(best.result.frame) : "", queries: best ? queriesOf(best.result) : [] };
+}
+
+/** what an input meant, for the History entry: {kind: "reading" | "long" | "sketch" | "other", meant, did, rule, steps}. `meant` is the intent with its call (a
+ *  reading), the number of commands (a paragraph) or nothing (a sketch, other inputs); `did` is what the editor did, said as the dialog said it. */
+export function meaningOf(h) {
+  const rec = h.rec;
+  if (h.sketch) return { kind: "sketch", meant: "", did: h.line || "", rule: "", steps: [] };
+  if (rec?.kind === "long") return { kind: "long", meant: `${rec.units.length} command${rec.units.length === 1 ? "" : "s"} in one input`, did: h.line || "", rule: rec.rule, steps: rec.steps };
+  if (rec) {
+    const call = callText(rec.frame);
+    return { kind: "reading", meant: call ? `${rec.world || "diagram"}.${call}` : `nothing it could read (${rec.status || "no status"})`, did: h.line || "", rule: rec.rule, steps: rec.steps };
+  }
+  return { kind: "other", meant: "", did: h.line || "", rule: "", steps: [] };
+}
+
+/** the detail popups an entry opens: reading (words, frame, margins), call, plan, sop, circuit, sketch, log (always) */
+export function detailKinds(h) {
+  const out = [], L = h.last || null;
+  if (L?.best?.result) out.push("reading");
+  if (h.rec && (h.rec.frame || h.rec.units?.length)) out.push("call");
+  if (L?.plan?.steps?.length || L?.ex || h.rec?.steps?.length) out.push("plan");
+  if (h.sop) out.push("sop");
+  if (L?.circuit) out.push("circuit");
+  if (h.sketch) out.push("sketch");
+  out.push("log");
+  return out;
 }

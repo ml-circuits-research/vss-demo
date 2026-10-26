@@ -1,6 +1,6 @@
 // entries.mjs: the DOM-free parts of the tabs (src/ui/entries.js) and the examples file (src/examples.js).
 // Usage: node app/tests/entries.mjs
-import { callText, intentOf, minMargin, historyExtras, historyRow, behaviourOf, readingRecord, assistantLines, formatTime, sourceIcon } from "../src/ui/entries.js";
+import { callText, intentOf, minMargin, historyExtras, historyRow, behaviourOf, readingRecord, assistantLines, formatTime, sourceIcon, meaningOf, detailKinds } from "../src/ui/entries.js";
 import { EXAMPLES, availableExamples, hintExamples } from "../src/examples.js";
 let pass = 0, fail = 0; const bad = [];
 const check = (n, c, d = "") => { if (c) pass++; else { fail++; bad.push(`${n}: ${d}`); } };
@@ -32,6 +32,18 @@ const last = { kind: "diagram", input: "add a red box called payments", best: { 
   decision: { action: "execute", rule: "Table 8: status ok, every margin above tau", line: "create a red box", notes: [], queries: [{ kind: "unplaced", about: "please" }], questions: [] } };
 const rec = readingRecord(last, { time: 5 });
 check("record", rec.behaviour === "executed" && rec.rule.startsWith("Table 8") && rec.steps[0] === "create a red box" && rec.queries[0].kind === "unplaced" && rec.world === "diagram" && rec.status === "ok", JSON.stringify(rec));
+{ // the History entry: what it meant, what was done, which details open
+  const h = { input: last.input, source: "typed", line: "create a red box", action: "execute", sop: "@w1 create", last, rec, frame };
+  const m = meaningOf(h);
+  check("meaning: a reading", m.kind === "reading" && m.meant === 'diagram.create(object="red box", text="payments", region="top_left")' && m.did === "create a red box" && m.rule.startsWith("Table 8"), JSON.stringify(m));
+  check("details: reading, call, plan, sop, log", detailKinds(h).join() === "reading,call,plan,sop,log", detailKinds(h).join());
+  const nothing = meaningOf({ input: "x", rec: { kind: "diagram", status: "no-sense", frame: null, world: "diagram", rule: "r", steps: [] }, line: "I can't do that" });
+  check("meaning: nothing read", /^nothing it could read \(no-sense\)/.test(nothing.meant));
+  check("meaning: a sketch and a manual entry", meaningOf({ input: "(sketch)", sketch: {}, line: "Recognised 2 boxes" }).kind === "sketch" && meaningOf({ input: "(move)", line: "move" }).kind === "other");
+  check("details: a sketch has its readings, a manual entry only the log", detailKinds({ input: "(sketch)", sketch: {} }).join() === "sketch,log" && detailKinds({ input: "(move)" }).join() === "log");
+  const longRec = { kind: "long", units: [{}, {}], rule: "Section 15", steps: ["unit 1: a (executed)", "unit 2: b (executed)"] };
+  check("meaning: a paragraph", meaningOf({ input: "p", rec: longRec, line: "Read 2 units" }).meant === "2 commands in one input");
+}
 const al = assistantLines(rec);
 check("assistant line", al.length === 1 && al[0].intent === "diagram.create" && al[0].call.startsWith("create(object=") && al[0].outcome === "executed", JSON.stringify(al));
 const asked = readingRecord({ ...last, decision: { action: "ask", rule: "Table 8: a margin under tau = 0.05", line: "which colour?", questions: [{ text: "which colour, red or orange?" }], notes: [] } });

@@ -18,18 +18,19 @@ import { createScene } from "./editor/scene.js";
 import * as ops from "./editor/ops.js";
 import { place } from "./editor/geometry.js";
 import { plan as makePlan, execute, undo, redo } from "./editor/planner.js";
-import { renderReading, renderNote, renderUnits } from "./ui/reading.js";
-import { renderFrame, renderPlan, renderGeometry, renderSOP, renderSketch, renderUnitsPlan, renderWidgetInfo } from "./ui/panel.js";
+import { renderFrame, renderPlan, renderGeometry, renderSketch, renderUnitsPlan, renderWidgetInfo } from "./ui/panel.js";
 import { exportSVG, exportPNG, exportJSON, importJSON, createView } from "./ui/canvas.js";
 import { createSlots } from "./ui/widgets.js";
 import { createFilm } from "./ui/film.js";
 import { createSketchMode } from "./ui/sketch.js";
 import { createScriptDialog } from "./ui/script.js";
+import { openPopup, wireDialogs } from "./ui/popup.js";
+import { renderBuildStatus } from "./ui/buildview.js";
 import { renderRows, renderLines } from "./ui/info.js";
-import { renderHistory, renderActions, renderAssistant, renderExamples, renderRequestResult } from "./ui/tabs.js";
+import { renderHistory, renderExamples, renderRequestResult } from "./ui/tabs.js";
+import { renderDetail, DETAIL_TITLES } from "./ui/details.js";
+import { renderSketchReadings } from "./ui/sketchview.js";
 import { historyExtras, readingRecord, requestView } from "./ui/entries.js";
-import { buildSketchRows, keysForSceneIds, sceneIdsForKeys } from "./ui/sketchrows.js";
-import { createSketchTab } from "./ui/sketchtab.js";
 import { availableExamples, hintExamples, REQUEST_EXAMPLES } from "./examples.js";
 import { formulaPhrase, textCapable, findTextWidget, textHeight, looksLikeScript } from "./widgets.js";
 // text widgets and dictation (spec 14)
@@ -66,11 +67,13 @@ const S = {
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
   gaps: null, lastGapId: null,
   mode: "command", active: null, texts: new Map(), formulas: new Map(), dict: null, textedit: null, textNorm: null, calibration: null,
-  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", readings: [], requests: [], recorded: null, seen: {}, sketchRead: null, sketchShown: null, nSketch: 0, sketchTab: null,
+  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", requests: [], seen: {},
 };
 
 // the history of inputs; an entry also carries when it was made and, where the handler has them, world, frame, minMargin, residual
-function pushHistory(entry) { S.history.push({ time: Date.now(), ...entry }); }
+// an entry that comes from a reading carries `last` (S.last as it was then) and `rec` (entries.js readingRecord: behaviour, rule, steps)
+function recOf(last) { if (!last) return null; const world = last.kind === "long" ? S.diagram?.name : (last.world || last.best?.route?.world); return readingRecord(last, { time: Date.now(), world }); }
+function pushHistory(entry) { const e = { time: Date.now(), ...entry }; if (e.last) e.rec = recOf(e.last); S.history.push(e); return e; }
 function loadSettings() { try { return Object.assign({ ...DEFAULTS }, JSON.parse(localStorage.getItem("vss-settings") || "{}")); } catch { return { ...DEFAULTS }; } }
 function saveSettings() { try { localStorage.setItem("vss-settings", JSON.stringify(S.settings)); } catch { /* private mode: settings for this visit only */ } }
 function applyTheme() { if (S.settings.theme === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.dataset.theme = S.settings.theme; }
@@ -185,7 +188,7 @@ function handle(alternatives, source = "typed") {
   let ex = null;
   if (d.action === "execute") { ex = execute(S.scene, p); }
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
-  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, ...historyExtras(best.result, W.name) });
+  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, last: S.last, routeLabel: best.route ? routeTag(best.route) : "", ...historyExtras(best.result, W.name) });
   recordGap({ result: best.result, route: best.route, tokens: best.tokens, info: best.info, decision: d, world: W.name });
   refresh(); showAnswer(d);
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
@@ -200,7 +203,7 @@ function fillRoutes() {
   for (const r of S.routes) add(r.id, r.label);
   sel.value = S.settings.route_diagram && [...sel.options].some((o) => o.value === S.settings.route_diagram) ? S.settings.route_diagram : "auto";
   const lines = S.routes.map((r) => { const w = S.worlds.get(r.world); return `${r.label}: ${r.kind === "dictionary" ? `${r.dictionary.translator.size} dictionary entries, words replaced before the ${w.name} reader (no training; word order stays as typed)` : `${w.status === "demo" ? "demo" : "development"} model, D ${w.vss.model.config.D}`}`; });
-  lines.push("Every reader writes the same English circuits (one legend); the Reading strip says which one answered.");
+  lines.push("Every reader writes the same English circuits (one legend); each History entry says which one answered.");
   renderLines($("route-info"), lines);
 }
 const routeTag = (r) => (r.kind === "dictionary" ? `${languageName(r.language)} via dictionary` : `${languageName(r.language)} reader`);
@@ -234,14 +237,14 @@ function handleLong(text, source, seg, info, choices = {}) {
   const units = circuit.units.filter((u) => u.role === "command").map((u) => ({ ...u, mark: byI.get(u.i)?.mark || null }));
   const lastRead = [...units].reverse().find((u) => u.reading);
   S.last = { kind: "long", input: text, seg, info, circuit, ex, units, line, best: lastRead ? { result: lastRead.reading, corrections: [], info } : null };
-  pushHistory({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop, world: (longRoute(text).route?.world) || S.diagram?.name });
+  const he = pushHistory({ input: text, source, used: text, status: `${n} units`, line, action, sop: circuit.sop, world: (longRoute(text).route?.world) || S.diagram?.name, last: S.last });
   refresh();
   const d = { action, line, questions };
   showAnswer(d);
   const host = $("answer");
   if (ex.waiting?.conflicts) for (const k of ex.waiting.conflicts) for (const keep of [k.a, k.b]) host.append(chip(`keep unit ${keep + 1}: ${circuit.units[keep].text}`, () => handleLong(text, source, seg, info, { ...choices, [k.key]: keep })));
   if (seg.ambiguous && seg.alternatives.length) host.append(chip("read it as the other segmentation", () => handleLong(text, source, { ...seg, segments: seg.alternatives[0], ambiguous: false, alternatives: [] }, info, choices)));
-  host.append(chip("show the circuit", () => openPanel("circuit")));
+  host.append(chip("show the circuit", () => showDetail(he, "circuit")));
   if (S.settings.speakback && done && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(line));
 }
 
@@ -254,7 +257,11 @@ function tryAnimation(text, diagramBest) {
   const reason = `dispatch by fit: animation ${r.status}, residual ${(r.residual ?? 0).toFixed(3)}; diagram ${diagramBest.result.status}, residual ${(diagramBest.result.residual ?? 0).toFixed(3)}`;
   const d = decide({ result: r, plan: { steps: [{ op: "animate", explain: "" }], questions: [], blocked: [] }, tau: S.animation.tau, legend: S.animation.legend });
   const best = { result: r, corrections: [], info: n.info };
-  if (d.action !== "execute") { S.last = { kind: "diagram", input: text, best, decision: { ...d, rule: `${d.rule}; ${reason}` } }; refresh(); showAnswer(d); return true; }
+  if (d.action !== "execute") {
+    S.last = { kind: "diagram", input: text, best, world: "animation", decision: { ...d, rule: `${d.rule}; ${reason}` } };
+    pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line: d.line, action: d.action, sop: r.sop, last: S.last, ...historyExtras(r, "animation") });
+    refresh(); showAnswer(d); return true;
+  }
   const tl = S.film.timeline || createTimeline(S.scene); const it = animationIntent(r.frame, n.tokens); let line;
   if (it.intent === "question") { const ans = answerFilm(tl, r.frame, n.info, n.tokens); line = ans.text; if (ans.t != null && S.film.player) { S.film.show(true); S.film.player.seek(ans.t); } }
   else {
@@ -264,7 +271,7 @@ function tryAnimation(text, diagramBest) {
     if (res.kind === "error") d.action = "refuse";
   }
   S.last = { kind: "diagram", input: text, best, world: "animation", decision: { action: d.action, line, rule: `${it.rule}; ${reason}` } };
-  pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line, action: d.action, sop: r.sop, ...historyExtras(r, "animation") });
+  pushHistory({ input: text, source: "typed", used: n.tokens.join(" "), status: r.status, line, action: d.action, sop: r.sop, last: S.last, ...historyExtras(r, "animation") });
   refresh(); showAnswer({ action: d.action, line });
   return true;
 }
@@ -414,18 +421,48 @@ function onFormulaChange(id, doc, r) {
 }
 
 // ------------------------------------------------------------------ sketch (spec 17)
-function onStrokes(strokes, { stay }) {
-  if (!strokes.length) { if (!stay) showAnswer({ action: "execute", line: "Nothing was drawn." }); return; }
-  const v = S.scene.view; const z = v.zoom || 1;
-  const toScene = strokes.map((s) => ({ ...s, points: s.points.map((p) => ({ ...p, x: (p.x - (v.x || 0)) / z, y: (p.y - (v.y || 0)) / z })) }));
-  const rec = recognise(toScene); const res = S.settings.sketch_reader === "fpe" ? sceneFpe(rec, { scene: S.scene }) : scenePass(rec, { scene: S.scene }); const ap = applyToScene(S.scene, res);
+// The strokes of a sketch (Done, or Clean up in the pad): both scene readings are computed on the same strokes and the same scene and shown side by
+// side in a preview (D23); the one the person chooses is applied to the canvas as one undo entry. Nothing is applied before the choice.
+const sceneSummary = (res) => {
   const counts = {}; for (const c of res.components) counts[c.word] = (counts[c.word] || 0) + 1; for (const k of res.connectors) counts[k.kind] = (counts[k.kind] || 0) + 1;
   const what = Object.entries(counts).map(([w, n]) => `${n} ${w}${n > 1 ? (w.endsWith("x") ? "es" : "s") : ""}`).join(", ") || "nothing I can build";
   const del = res.deletions.components.length + (res.deletions.connectors?.length || 0);
-  const line = `Recognised ${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}. One undo takes it back.`;
+  const q = res.questions.length;
+  return { what, text: `${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}${q ? `; ${q} question${q > 1 ? "s" : ""}` : ""}` };
+};
+const sceneContext = () => [...S.scene.components.values()].map((c) => ({ ref: c.id, box: { ...c.box }, shape: c.shape || ({ decision: "diamond", data: "cylinder" }[c.kind]) || (c.word === "ellipse" || c.word === "circle" ? "ellipse" : "rectangle"), orient: c.orient }));
+function sketchReadings(rec) {
+  const vss = sceneFpe(rec, { scene: S.scene }), classical = scenePass(rec, { scene: S.scene });   // the VSS reader is computed for the comparison whichever the setting says
+  const vssDeclined = /FPE declined/.test(vss.active || "");
+  return [
+    { id: "vss", title: "What VSS read", sub: vssDeclined ? `${vss.active}: the rules read this one` : "the VSS scene reader: containment and connector ends read from positions as addresses", res: vss },
+    { id: "classical", title: "What the classical algorithm would make", sub: "the rule-based scene pass: boxes and outlines", res: classical },
+  ];
+}
+function onStrokes(strokes, { stay, accept, discard } = {}) {
+  if (!strokes.length) { if (accept) accept(); if (!stay) showAnswer({ action: "execute", line: "Nothing was drawn." }); return; }
+  const v = S.scene.view; const z = v.zoom || 1;
+  const toScene = strokes.map((s) => ({ ...s, points: s.points.map((p) => ({ ...p, x: (p.x - (v.x || 0)) / z, y: (p.y - (v.y || 0)) / z })) }));
+  const rec = recognise(toScene); const readings = sketchReadings(rec); const context = sceneContext();
+  const lookup = (ref) => context.find((c) => c.ref === ref) || null;
+  const preselect = S.settings.sketch_reader === "fpe" ? "vss" : "classical";
+  let chosen = false;
+  openPopup({ title: "Preview: how the sketch was read", className: "sk-preview",
+    render: (body, popup) => renderSketchReadings(body, { strokes: toScene, rec, readings, preselect, lookup, context, low: PASS_OPTIONS.ambiguousMargin,
+      onUse: (id) => { chosen = true; popup.close(); if (accept) accept(); applySketch({ rec, strokes: toScene, readings, context, chosen: id, stay }); },
+      onCancel: () => { chosen = true; popup.close(); if (discard) discard(); showAnswer({ action: "execute", line: "Sketch discarded; nothing was added." }); } }),
+    onClose: () => { if (!chosen) showAnswer({ action: "execute", line: "Preview closed; the strokes are still on the pad. Press Done again to choose." }); } });
+}
+function applySketch({ rec, strokes, readings, context, chosen, stay }) {
+  const res = readings.find((r) => r.id === chosen).res; const ap = applyToScene(S.scene, res);
+  const sums = Object.fromEntries(readings.map((r) => [r.id, sceneSummary(r.res)]));
+  const line = `Recognised ${sums[chosen].what}${res.deletions.components.length + (res.deletions.connectors?.length || 0) ? `; ${res.deletions.components.length + (res.deletions.connectors?.length || 0)} deletion(s)` : ""}. One undo takes it back.`;
   S.last = { kind: "sketch", input: "(sketch)", rec, res, map: ap.map, line };
-  S.sketchRead = { rec, res, map: ap.map }; S.nSketch++;
-  pushHistory({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res) });
+  const shapes = {}; for (const g of rec.groups) { const k = String(g.kind).replace(/_/g, " "); shapes[k] = (shapes[k] || 0) + 1; }
+  pushHistory({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res), last: S.last,
+    sketch: { rec, strokes, readings, context, chosen, map: ap.map, active: res.active,
+      summary: [["Shapes (classical recogniser)", Object.entries(shapes).map(([k, n]) => `${n} ${k}`).join(", ") || "no ink"], ["VSS reader", sums.vss.text], ["Classical algorithm", sums.classical.text],
+        ["Chosen", chosen === "vss" ? "what VSS read" : "what the classical algorithm made"]] } });
   refresh(); const first = [...ap.map.values()].find((x) => S.scene.components.has(x)); if (first) { reveal(first); S.slots.sync(); }
   showAnswer({ action: ap.applied ? "execute" : "refuse", line });
   const host = $("answer");
@@ -454,7 +491,7 @@ function runScriptText(text) {
   const circuit = buildScript(read, { scene: S.scene, tau: S.diagram.tau });
   const run = runScript(S.scene, circuit, { blocking: "stop", conflicts: "in-order" });
   S.script = { text, read, circuit, run };
-  showScript(); pushHistory({ input: `(script) ${read.title || text.slice(0, 40)}`, source: "script", used: "", status: `${read.units.length} units`, line: "script", action: "script", sop: circuit.sop });
+  const he = pushHistory({ input: `(script) ${read.title || text.slice(0, 40)}`, source: "script", used: "", status: `${read.units.length} units`, line: "script", action: "script", sop: circuit.sop }); showScript(); he.last = S.last; he.rec = recOf(S.last); refresh();
 }
 function showScript() {
   const { read, circuit, run } = S.script; const model = documentModel(read, circuit, run); const rep = authorReport(read, circuit, run);
@@ -467,7 +504,6 @@ function showScript() {
 // ------------------------------------------------------------------ manual changes, selection
 function onManualChange(kind, detail) { pushHistory({ input: `(${kind}) ${detail?.op || ""}`, source: "pointer", used: "", status: "", line: detail?.op || detail?.text || "", action: "manual" }); if (kind === "blocked") showAnswer({ action: "refuse", line: detail.text }); refresh(); }
 function onSelect(ids) {
-  if (S.sketchRead && S.sketchTab) S.sketchTab.highlight(keysForSceneIds(ids, S.sketchRead.map));   // a component picked on the canvas lights its rows in the Sketch tab
   if (S.mode !== "command" || ids.length !== 1) return;
   const c = S.scene.components.get(ids[0]); if (!c) return;
   if (c.formula != null) { showAnswer({ action: "execute", line: `${nameOf(c.id)} is a formula.` }); $("answer").append(chip("edit this formula", () => startFormula(c.id))); }
@@ -486,43 +522,18 @@ function refresh() {
   S.slots.sync();
   $("empty-hint").hidden = S.scene.components.size > 0 || !!S.last || S.sketch?.isOpen;
   const L = S.last; const best = L?.best;
-  if (L?.note) renderNote($("reading"), L.note);
-  else if (L?.kind === "long" && L.units?.length) renderUnits($("reading"), L.units);
-  else if (L?.kind === "sketch") renderNote($("reading"), { text: L.rec.groups.map((g) => String(g.kind).replace(/_/g, " ")).join(", ") || "no ink", as: "drawn on the sketch pad", reason: L.res.active, world: "sketch", kind: "command" });
-  else renderReading($("reading"), { result: best?.result, corrections: best?.corrections || [], labels: best?.info?.labels || {}, world: best?.route ? routeTag(best.route) : (L?.world || "diagram") });
   renderFrame($("tab-frame"), { result: best?.result, legend: (L?.world === "animation" ? S.animation : S.diagram)?.legend, tau: S.diagram?.tau ?? 0.05 });
   if (L?.kind === "sketch") renderSketch($("tab-plan"), { rec: L.rec, res: L.res, low: PASS_OPTIONS.ambiguousMargin });
   else if (L?.kind === "long") renderUnitsPlan($("tab-plan"), { results: L.ex?.results, circuit: L.circuit, line: L.line });
   else renderPlan($("tab-plan"), { plan: L?.plan, decision: L?.decision, execution: L?.execution });
   renderGeometry($("tab-geometry"), { plan: L?.plan });
-  renderSOP($("tab-sop"), { result: best?.result, circuit: L?.circuit || (L?.kind === "sketch" ? { sop: toCircuit(L.res) } : null) });
-  const circ = $("tab-circuit"); circ.replaceChildren();
-  if (L?.circuit) renderCircuit(circ, L.circuit, { onSelectUnit: (i) => { const r = L.ex?.results?.find((x) => x.unit === i); if (r?.ids?.length) { S.scene.selection = r.ids.filter((id) => S.scene.components.has(id)); S.view.render(); } } });
-  else circ.append(Object.assign(document.createElement("p"), { className: "muted", textContent: "A paragraph of several commands shows here as a circuit of linked readings." }));
   if (S.mode === "dictation") renderTextTab();
   else if (S.mode !== "formula") renderWidgetInfo($("tab-widget"), { title: "No widget open", kind: "text and formula", reader: widgetReaderLine(), hint: "Add a text box or a formula with the canvas buttons, or say “add a note called Summary” then “start writing in Summary”, or “start a formula”." });
   const wTab = document.querySelector('.tabs [data-tab="widget"]'), tTab = document.querySelector('.tabs [data-tab="timeline"]');
   wTab.hidden = !(S.mode === "dictation" || S.mode === "formula" || L?.kind === "text" || L?.kind === "formula");
   tTab.hidden = !S.film?.timeline;
   if ((wTab.hidden && S.panelTab === "widget") || (tTab.hidden && S.panelTab === "timeline")) selectTab("diagram");
-  // the Sketch: how it is read tab: shown once a sketch has been read, never switched to by itself
-  const skTab = document.querySelector('.tabs [data-tab="sketchread"]');
-  if (S.sketchRead && S.sketchShown !== S.sketchRead) {
-    S.sketchShown = S.sketchRead;
-    if (!S.sketchTab) S.sketchTab = createSketchTab($("tab-sketchread"), { onPick: (keys) => { const ids = sceneIdsForKeys(keys, S.sketchRead.map).filter((id) => S.scene.components.has(id)); S.scene.selection = ids; S.view.render(); } });
-    S.sketchTab.show(buildSketchRows({ rec: S.sketchRead.rec, res: S.sketchRead.res, map: S.sketchRead.map, low: PASS_OPTIONS.ambiguousMargin }));
-  }
-  skTab.hidden = !S.sketchRead;
-  const log = $("tab-log"); log.replaceChildren();
-  for (const h of S.history.slice().reverse()) { const d = document.createElement("div"); d.className = "log-item"; const a = document.createElement("div"); a.className = "log-in"; a.textContent = h.input; const b = document.createElement("div"); b.className = "log-out"; b.textContent = `${h.action}${h.status ? ", " + h.status : ""}: ${h.line}`; d.append(a, b); log.append(d); }
-  if (S.last && S.last !== S.recorded) {
-    S.recorded = S.last;
-    const world = S.last.kind === "long" ? S.diagram?.name : (S.last.world || S.last.best?.route?.world);
-    const rec = readingRecord(S.last, { time: Date.now(), world }); if (rec) S.readings.push(rec);
-  }
-  renderHistory($("tab-history"), S.history, { onPick: putInInput });
-  renderActions($("tab-actions"), S.readings);
-  renderAssistant($("tab-assistant"), S.readings);
+  renderHistory($("tab-history"), S.history, { onPick: putInInput, onDetail: showDetail, onRequests: () => $("dlg-requests").showModal() });
   updateBadges();
   updateMode();
 }
@@ -581,7 +592,8 @@ function updateMode() {
 // The main tabs (Diagram, History, Actions, Assistant, ...) replace the canvas only on a click; a command never switches the tab.
 // On a wide screen the live panel (Reading, Plan, Geometry) stays beside whatever tab is active; on a phone those three are tabs.
 const LIVE_TABS = ["frame", "plan", "geometry"];
-const COUNTED = { history: () => S.history.length, actions: () => S.readings.length, assistant: () => S.readings.length, sketchread: () => S.nSketch, requests: () => S.requests.length };
+const PHONE_LIVE = ["plan", "geometry"];             // on a phone the live panel's Plan and Geometry are tabs; the frame is a detail of a History entry
+const COUNTED = { history: () => S.history.length };
 const isWide = () => matchMedia("(min-width: 821px)").matches;
 function openPanel(tab) { selectTab(tab); }
 function selectTab(tab) {
@@ -617,7 +629,12 @@ function readRequest(text) {
 function runRequest(text) {
   text = String(text || "").trim(); if (!text) return;
   S.requests.push({ time: Date.now(), view: readRequest(text) });
-  renderRequests(); updateBadges();
+  renderRequests();
+}
+// a detail of a History entry (the reading with margins, the call, the plan, the SOP wires, the circuit, the sketch readings, the log line) as a popup
+const legendOfWorld = (w) => (w === "animation" ? S.animation : S.worlds.get(w) || S.diagram)?.legend || null;
+function showDetail(h, kind) {
+  openPopup({ title: `${DETAIL_TITLES[kind]}`, className: `detail detail-${kind}`, render: (body) => renderDetail(body, kind, h, { legendOf: legendOfWorld, tauOf: (w) => S.worlds.get(w)?.tau ?? S.diagram?.tau ?? 0.05 }) });
 }
 function renderRequests() {
   const last = S.requests[S.requests.length - 1];
@@ -625,7 +642,8 @@ function renderRequests() {
 }
 function setupRequests() {
   const installed = (name) => S.worlds.has(name); const dlg = $("dlg-examples");
-  $("req-form").addEventListener("submit", (e) => { e.preventDefault(); runRequest($("req-input").value); });
+  $("req-run").onclick = () => runRequest($("req-input").value);
+  $("req-input").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); runRequest($("req-input").value); } });
   $("req-examples").onclick = () => {
     renderExamples($("examples-body"), availableExamples(installed, REQUEST_EXAMPLES), { onPick: (t) => { dlg.close(); const i = $("req-input"); i.value = t; i.focus(); i.setSelectionRange(t.length, t.length); } });
     dlg.showModal();
@@ -666,7 +684,7 @@ function showModelBadge(errors) {
     { name: "Segmenter and circuit", status: `rule-based cuts with the reader's ${S.segReader?.gates ? "gates" : "kinds (the model exposes no gates)"}; links by the stated rules (spec 15.5: the learned versions are not active)` },
     { name: "Text widgets", status: S.textedit ? `dictation with the textedit reader${S.calibration ? `, command threshold ${S.calibration.threshold}` : ", no calibrated threshold"}` : "dictation without a textedit reader: content only", dev: !S.textedit },
     { name: "Formula widgets", status: S.matheditor ? "matheditor reader, reference parser as fallback" : `${parsers.SOURCE} (no matheditor model); MathML rendering`, dev: !S.matheditor },
-    { name: "Sketch", status: "own $P recogniser and the rule-based geometry pass (spec 17.3: the scene reader is not active)" },
+    { name: "Sketch", status: "own $P recogniser; Done previews two readings of the scene, the VSS scene reader and the rule-based pass, and you choose (spec 17.2, 17.3)" },
     { name: "Scripts", status: "sections, checkpoints and the document view; references over distance by the rule" },
     { name: "Animation", status: S.animation ? "animation reader, timeline solver, player, invariants, export" : "no animation model: play and export a JSON timeline file; the solver, player, invariants and export are active", dev: !S.animation },
     { name: "Voice", status: sp ? sp.note : "not started" },
@@ -690,9 +708,9 @@ function makeSpeech() {
   const mic = $("btn-mic");
   S.speech = createSpeech({
     lang: S.settings.lang,
-    onInterim: (t) => { const r = $("reading"); r.replaceChildren(Object.assign(document.createElement("p"), { className: "interim", textContent: t })); },
+    onInterim: (t) => { $("answer").replaceChildren(Object.assign(document.createElement("span"), { className: "interim", textContent: t })); },
     onFinal: ({ alternatives }) => handle(alternatives, "speech"),
-    onState: (st) => mic.classList.toggle("listening", st === "listening"),
+    onState: (st) => { mic.classList.toggle("listening", st === "listening"); if (st !== "listening" && $("answer").querySelector(".interim")) $("answer").replaceChildren(); },
     onError: (e) => showAnswer({ action: "refuse", line: `Voice: ${e}` }),
   });
   const info = S.speech.info(); $("voice-info").textContent = info.note; mic.disabled = !info.available; mic.title = info.available ? "Hold to speak (or hold the space bar when the input is empty)" : info.note;
@@ -708,6 +726,7 @@ function setupSpeech() {
 }
 
 function setupUI() {
+  wireDialogs();
   $("input-form").addEventListener("submit", (e) => { e.preventDefault(); const t = $("input").value; $("input").value = ""; handle([{ text: t }]); });
   $("input").addEventListener("paste", (e) => {
     const t = e.clipboardData?.getData("text") || ""; if (S.mode !== "command" || !looksLikeScript(t).script) return;
@@ -742,7 +761,7 @@ function setupUI() {
   // the button in the top bar: the live panel column on a wide screen; on a phone it goes to the Reading tab and back to the Diagram
   $("btn-panel").onclick = () => {
     if (isWide()) { const open = app.classList.toggle("panel-open"); $("btn-panel").setAttribute("aria-expanded", String(open)); }
-    else selectTab(LIVE_TABS.includes(S.panelTab) ? "diagram" : "frame");
+    else selectTab(PHONE_LIVE.includes(S.panelTab) ? "diagram" : "plan");
   };
   if (isWide()) { app.classList.add("panel-open"); $("btn-panel").setAttribute("aria-expanded", "true"); }
   matchMedia("(min-width: 821px)").addEventListener("change", () => { if (isWide() && LIVE_TABS.includes(S.panelTab)) selectTab("diagram"); });
@@ -765,15 +784,10 @@ function setupUI() {
   $("gaps-clear").onclick = () => { S.gaps.clear(); gapsSummary(); };
   $("btn-about").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); };
   // the state of this build (buildstatus.js): a banner on a preview build, and the full list in About
-  { const B = BUILD_STATUS, host = $("about-build"); host.replaceChildren(); host.className = "build-list";
-    const p = document.createElement("p"); p.textContent = `${B.headline} (${B.date})`; host.append(p);
-    for (const [title, items] of [["What works", B.works], ["Temporary in this build", B.temporary], ["What is next", B.next]]) {
-      const h = document.createElement("h4"); h.textContent = title; const ul = document.createElement("ul");
-      for (const t of items) { const li = document.createElement("li"); li.textContent = t; ul.append(li); } host.append(h, ul);
-    }
+  { const B = BUILD_STATUS; renderBuildStatus($("about-build"), B); renderBuildStatus($("build-body"), B);
     let hidden = false; try { hidden = sessionStorage.getItem("vss-build-banner") === B.date; } catch {}
     $("build-banner").hidden = B.kind !== "preview" || hidden; $("build-banner-text").textContent = B.headline;
-    $("build-banner-more").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); $("about-build").scrollIntoView(); };
+    $("build-banner-more").onclick = () => $("dlg-build").showModal();
     $("build-banner-close").onclick = () => { $("build-banner").hidden = true; try { sessionStorage.setItem("vss-build-banner", B.date); } catch {} };
   }
   // export
