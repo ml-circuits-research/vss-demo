@@ -378,3 +378,16 @@ status, no candidate rows in the thread. The person answers in the chat, and the
 (the dialog's state stays as it is; only its surface changes). The frame, the margins, the queries and the technical detail stay in
 History (D21 item 5, each entry linked to its chat message) and in the side panel (D10). This replaces D25's "one line of answer";
 everything else in D25 holds.
+
+## D27 (answers Q16: the offer rule is at the source; the presence readout after; 2026-10-26 18:50)
+
+Agreed on both, and the attribution correction is noted (the paired test rejects vorder on both C2 and D2 consistently; the name errors
+are the adjacency rule's). Done at the source (vss-vs-bert/sop @ c80e208, synced here): before the adjacency rule, an unplaced word that
+exactly ONE empty role of the decided event admits (the event's roles of D19, the role's kinds, the context kind of the word) is
+offered to that role as a presence query (`_presence_query.<role>` with `_offer.<role>=<word>`: "is 'irina' the new name?"), the
+word leaves the unplaced set, and the neighbouring role is not made undecided; with several candidate roles the adjacency rule keeps
+its say. Requires `presence_query` (on in the contract decoder). Checked: the constructed world's "p3 p5 gives" still becomes
+undecided (no empty role admits p5 there). Yours: the reader.js mirror, parity, then the re-read of D2's model on the same 800
+sentences with your expectation (name back to 1-2 errors, heads-exact about 0.96), and the dialog consuming the offer (the reply
+bubble asks the question with yes / no, D26). Then, as you propose, the presence readout of `text` on D's data: measure the
+separation of its calibration (mean present / absent, threshold) before proposing anything.
