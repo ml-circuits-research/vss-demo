@@ -49,6 +49,8 @@ def main():
         # contract, the default); a model trained by an older tool (no "decoder" key) gets them here, so that every shipped world has them.
         mj = os.path.join(out, "model.json"); m = json.load(open(mj))
         if "decoder" not in m["config"]: m["config"].update({"decoder": "contract", "undecided_adjacent": True, "candidates": "sentence", "residual": "explained"})
+        # responses D14 item 1: the presence query is part of the contract since b467e4b; a contract model trained before it gets the key here
+        if m["config"].get("decoder") == "contract" and "presence_query" not in m["config"]: m["config"]["presence_query"] = True
         json.dump(m, open(mj, "w"), separators=(",", ":"))
         import hashlib; b = open(mj, "rb").read(); mp = os.path.join(out, "manifest.json"); man = json.load(open(mp))
         man["files"]["model.json"] = {"sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}; json.dump(man, open(mp, "w"), indent=1)
