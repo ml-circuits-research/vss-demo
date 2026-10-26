@@ -265,3 +265,11 @@ beyond 2 sqrt(wins + losses), no split losing beyond that noise. Runs: C2 = diag
 seeds, --activate auto, --candidate_sets catalog; nothing else changed. Expected: C2 and D2 take the same decision on vorder, with the
 win / loss counts in activation.json; if vorder is on in D2, the name errors of the 800-sentence diagnostic back to about 3 and the
 bare-label errors listed again (D24 item 2).
+
+RESULT of C2 / D2 (the paired acceptance test, D24): both REJECT `vorder` now (C2: marked wins 2 / losses 0 against noise 2.8, all
+8 / 11; D2: marked 3 / 0 against 3.5, all 7 / 11), so the decision no longer flips. CORRECTION of the paragraph "RESULT of probe D" and of
+questions.md Q15: the rise of the name errors in D was NOT caused by `vorder` being off: C2 (C's data, no vorder) reads C's 800 sentences
+at 0.945 with name errors 1. On the SAME 800 sentences: C2 0.945, D2 0.949: the form fix gains place 12 -> 7, move 6 -> 3, create 7 -> 2
+and loses name 1 -> 14. Mechanism (D2): `text` is read as absent (presence under its threshold), the label is left unplaced next to the
+object's filler, and the adjacency rule declares the OBJECT undecided ("client|irina", 11 of 14), although the empty `text` of the same
+event admits that word; the other 3 are "rename X to frontend" with text under threshold and the label unplaced. questions.md Q16.

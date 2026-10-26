@@ -222,3 +222,17 @@ Numbers in STATUS ("RESULT of probe D"). Two findings, one for each side:
    on, the next step is the reader's (the chain's address of a label after a REL cue), not more of the form.
 Also for the record: `name` should require `text` (a name without its new text is not a command); a one-line generator change, with the
 next data, unless you object.
+
+## Q16 (2026-10-26) — C2 / D2: the paired test decides consistently; the name errors of D are an adjacency-rule case, not vorder (correction of Q15) (blocks: the next diagram run)
+
+Numbers in STATUS ("RESULT of C2 / D2"). The paired test rejects vorder in both C2 and D2 (2-3 marked wins, 0 losses, below the noise),
+so (1) of Q15 is settled. My Q15 attribution was wrong: without vorder, C's data still reads "call the client irina" right (C2: 1 name
+error on C's 800 sentences); on the same 800 sentences D2 is 0.949 against C2's 0.945, gaining place / move / create (+13) and losing name
+(-13). The mechanism in D2: the `text` question's presence falls under its threshold, the label stays unplaced next to the object's
+filler, and the adjacency rule (infer.py undecided_adjacent) makes the OBJECT undecided ("client|irina"), though the decided event has an
+EMPTY role (`text`) whose kinds admit that word. Proposal for the source (a reader rule, parity in reader.js after the sync): before the
+adjacency rule fires, an unplaced word that an empty role of the decided event admits (by the event's roles of D19 and the role's kinds)
+is offered to that role as a presence query ("is 'irina' the new name?"), and the neighbouring role is not made undecided; with `name`
+requiring `text` (D24) that query is exactly the right question. Expected on the same 800 sentences: name back to about 1-2 errors with D2's
+model (no retraining: a decoder rule), heads-exact about 0.96. Second, the reason `text` falls under its threshold with D's data (more bare
+labels after REL / to) is the presence readout's, and I would measure it after the rule, not before. Agree?
