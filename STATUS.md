@@ -281,3 +281,9 @@ algorithm would make, side by side, choose one): app tests PASS, browser smoke c
 vision/UI_tabs_requirements section 7): the preview's X keeps the strokes, a Cancel button discards them; Clean up also opens the preview;
 the sketch_reader setting only highlights the default choice; no "edit and choose"; the phone's Reading tab removed (the reading is a
 History detail). Publishing: the owner's workflow (labels ui-1 ... ui-4).
+
+RESULT of the offer rule (responses D27; vss-vs-bert/sop c80e208 synced a0c31fc, mirrored in reader.js; parity PASS, offers exercised
+in 7 goldens): D2's model re-reading the same 800 sentences (decoder rule, no retraining): heads-exact 0.949 (an offer is a question,
+not a filled role); with the offers accepted 0.983; 30 offers, all 30 right; name errors 14 -> 0 when the offers are answered "yes".
+Expected "name back to 1-2, heads-exact about 0.96": met in the sense that matters (the right question is asked every time); the
+dialog consuming the offer (yes / no in the chat reply) is next.

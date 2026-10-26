@@ -386,6 +386,7 @@ export class Reader {
       if (r in mg) ev.set(`_margin.${r}`, fmt(mg[r]));
       if ((r + ".presence") in mg) ev.set(`_presence_margin.${r}`, fmt(mg[r + ".presence"]));
       if (f.presence_queries && r in f.presence_queries) ev.set(`_presence_query.${r}`, fmt(f.presence_queries[r]));   // absent, near threshold: "is there a <r>?"
+      if (f.offers && r in f.offers) ev.set(`_offer.${r}`, f.offers[r]);          // the unplaced word offered to this empty role (D27)
     }
     if ("event" in mg) ev.set("_margin.event", fmt(mg.event));
     if ("scope" in mg) ev.set("_margin.scope", fmt(mg.scope));
@@ -554,6 +555,21 @@ export class Reader {
     }
     for (const i of kept) { const t = tokens[i], k = this.kind(t); if (this.contentKinds.has(k) && !placed.has(t) && !placed.has(this.lemma(t))) unplaced.push(i); }
     unplaced = [...new Set(unplaced)].sort((a, b) => a - b);
+    // vss-demo Q16 / D27 (infer.py): an unplaced word that exactly one EMPTY role of the decided event admits is offered to that role as a
+    // presence query ("is 'irina' the new name?") before the adjacency rule can make its neighbour undecided
+    if (f.shape === "ok" && this.cfg.presence_query && unplaced.length) {
+      const taken = f.event ? this.legend.eventRoles[f.event] : undefined;
+      const empty = this.schema.role_order.filter((r) => (f.roles[r] === undefined || f.roles[r] === null) && (taken === undefined || taken.includes(r)));
+      for (const i of [...unplaced]) {
+        const k = this.kind(tokens[i]);
+        const fits = empty.filter((r) => { const rs = this.schema.roles[r] || {}; return new Set((rs.head_kinds && rs.head_kinds.length ? rs.head_kinds : rs.kinds) || []).has(k); });
+        if (fits.length === 1 && !(f.offers && fits[0] in f.offers)) {
+          const r = fits[0]; (f.offers = f.offers || {})[r] = tokens[i];
+          const m = (r + ".presence") in f.margins ? f.margins[r + ".presence"] : 0.0; delete f.margins[r + ".presence"]; (f.presence_queries = f.presence_queries || {})[r] = m;
+          unplaced = unplaced.filter((j) => j !== i);
+        }
+      }
+    }
     const undecided = f.shape === "ok" && this.cfg.undecided_adjacent ? this.undecidedAdjacent(f, tokens, unplaced) : {};
     for (const [r, [, b]] of Object.entries(undecided)) { f.margins[r] = 0.0; unplaced = unplaced.filter((i) => tokens[i] !== b); }
     let status = "ok";
