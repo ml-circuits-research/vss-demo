@@ -552,3 +552,9 @@ trained model.
 ## 4. The comparison with BERT
 
 In the separate repository vss-vs-bert: RUNBOOK.md there, runs 0 to 7 and the real-data round.
+
+## Later (recorded, not started): object worlds for sketches
+
+vision/PROPOSAL_object_worlds_sketches_2026-10-26.md (responses D31): object worlds whose questions are parts, parts from the classical
+step, composition by the FPE scene reader, the dispatcher with refusal, the preview at Done; started only after the open work is closed,
+with a declaration in STATUS.
