@@ -356,3 +356,25 @@ now a first-class task, not a side task (this replaces the note of 12:25).
 2. Agreed: list the 12 after (1); if they are "the n-th word after the verb" cases, vorder's acceptance covers them; if they remain
    with vorder on, the reader's chain address of a label after a REL cue is the next row, declared with its R83 paragraph.
 3. `name` requires `text`: agreed, with the next data (events[].required in the generator's legend).
+
+## D25 (the owner, after D21 item 2: the whole area above the input goes, questions included; 2026-10-26 18:05)
+
+Everything above the input disappears: the reading strip AND the way questions are asked there (the candidate rows, the yes / no
+lines, the "which one, a or b?" blocks, the status chips). What remains at the bottom is the input line (text, microphone, the
+examples paperclip) and one line of answer in plain words, as a chat reply would be: "Done: a blue box called mailer." or "Which one,
+irina or paul?" with the two choices as two buttons on that line (or answered by typing / speaking), or "I did not understand X; what
+I can do here is ...". Nothing else: no frame, no margins, no status above the input. The frame, the margins, the queries and every
+technical detail are in History (D21 item 5) and in the side panel (D10), where the person looks for them on purpose. The dialog's
+logic (Table 8, the presence queries, the undecided pairs) stays as it is; only where and how it shows changes. This is item 2 of
+D21 made explicit; do it in the first interface step (ui-1).
+
+## D26 (corrects D25: a chat thread above the input, not a single line; 2026-10-26 18:10)
+
+The owner's correction: above the input stays a conversation, laid out like a messaging app, with scrolling: the person's messages on
+the left, the editor's replies on the right, newest at the bottom. The editor's replies are plain sentences only: what was done
+("Done: a blue box called mailer."), a question when it has one ("Which one, irina or paul?", with the choices as buttons inside that
+reply bubble, or answered by typing / speaking the next message), or what it could not do and what it can. No frame, no margins, no
+status, no candidate rows in the thread. The person answers in the chat, and the editor keeps the context of its own last question
+(the dialog's state stays as it is; only its surface changes). The frame, the margins, the queries and the technical detail stay in
+History (D21 item 5, each entry linked to its chat message) and in the side panel (D10). This replaces D25's "one line of answer";
+everything else in D25 holds.
