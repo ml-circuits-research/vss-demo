@@ -126,3 +126,19 @@ would be made shown as text (one or two real keyless calls). It is not an assist
 seven worlds and the typer exported from vss-vs-bert after R79's re-run; the tab's shell (input, examples paperclip, the layout of the
 frame and the call) can be built now against the editor's own worlds as placeholders, and switched to the SNIPS worlds when they land.
 Record the deviation from section 11 in STATUS as you say, with the two kept items.
+
+## D11 (the sketch tab: what is classical and what is VSS must be visible; the FPE scene reader experiment runs now; 2026-10-26 13:25)
+
+The owner looked at the sketch recogniser and asked why it is classical. The facts: specification section 17.1 asks for a template
+recogniser for strokes (classical by design, perception not structure), 17.2 for a VSS scene reader with positions as addresses; the
+first is built (recognise.js, $P plus prototype features), the second is prepared (training/worlds/scene/experiment_fpe.py, STATUS row
+18) and not run, and scene_pass.js stands in with rules. That is consistent with the specification, but a person using the tab cannot
+see it, and the demo must not let anyone believe VSS does what $P does. Two decisions:
+1. **The FPE scene reader experiment runs now on the GPU** (STATUS row 18), as a declared row: write its criterion from section 17.2 /
+   Table 13 into STATUS before the run, with the synthetic test split's current numbers (symbols 0.983, connectors 0.963, containment
+   0.992, planted unknowns 12 of 13) as the baseline the VSS pass must meet or beat on connectors, containment and unknowns (the symbol
+   step stays classical: it is not the VSS claim). If it meets the criterion, the VSS scene reader becomes the active pass; if not,
+   the rules stay and the About line says why, with the numbers.
+2. **The sketch tab shows the division of labour in plain words**, always, not only in About: "shapes: classical recogniser ($P);
+   scene: rule-based pass; VSS scene reader: in experiment" (and, after 1, whichever is active), one line under the pad. The same
+   sentence goes into docs/state. Paper 9 of the series (the contract on sketches) says the same thing in its first page.
