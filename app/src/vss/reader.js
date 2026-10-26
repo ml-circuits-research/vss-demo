@@ -481,7 +481,7 @@ export class Reader {
     const nS = cnorm(S), nr = cnorm(rec);
     if (nS < 1e-9 || nr < 1e-9) return 1.0;
     const Sn = cscale(S, 1 / nS), rn = cscale(rec, 1 / nr), a = Math.max(0, cdotRe(rn, Sn));
-    return cnorm(cadd(Sn, cscale(rn, a), -1));
+    const r = cnorm(cadd(Sn, cscale(rn, a), -1)); return r < 1e-4 ? 0 : r;      // numerical tolerance, declared (Q32)
   }
   /** the adjacency rule (infer.Reader.undecided_adjacent): an unplaced identity next to a role's filler whose kinds admit it -> that role is undecided */
   undecidedAdjacent(f, tokens, unplaced) {
@@ -508,6 +508,9 @@ export class Reader {
     try { f = kept.length ? this.read(S, tokens, { estimator, presence, force: opts.force, forceDepth: opts.forceDepth }) : { shape: "unknown", roles: {}, speakers: [], margins: {}, neg: false, lemma: null }; }
     finally { this.filt = null; }
     const placed = f.shape === "ok" ? this.placedWords(f) : new Set(); let unplaced = [...unknown];
+    if (placed.size && (f.lemma === null || f.lemma === undefined) && f.event) {      // no predicate role: the event's FIRST verb only (Q32)
+      const ev = tokens.find((t) => this.legend.eventOfLemma(this.lemma(t)) === f.event); if (ev !== undefined) placed.add(ev);
+    }
     for (const i of kept) { const t = tokens[i], k = this.kind(t); if (this.contentKinds.has(k) && !placed.has(t) && !placed.has(this.lemma(t))) unplaced.push(i); }
     unplaced = [...new Set(unplaced)].sort((a, b) => a - b);
     const undecided = f.shape === "ok" && this.cfg.undecided_adjacent ? this.undecidedAdjacent(f, tokens, unplaced) : {};
