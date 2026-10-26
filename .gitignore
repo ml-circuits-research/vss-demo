@@ -18,3 +18,4 @@ runs/**/*.pt
 runs/**/seed*/model/
 runs/**/model_*/
 runs/**/splits.json
+app/dist/vss-editor.html

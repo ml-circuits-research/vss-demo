@@ -72,8 +72,8 @@ Kept from spec section 11 (D10, both are conditions, not suggestions):
   `app/src/vss/*` (the reader's mirror, under parity tests), `app/src/dialog.js`, `app/src/queries.js` (the DGX session's; ask in
   questions.md if something there is needed), `tool/`, `training/`, `experiment/`, `app/model/`.
 - No build step for development, no run-time dependency; vendored libraries only as ARCHITECTURE.md says. English on screen and on disk.
-- `app/dist/vss-editor.html` and `app/precache.json` are build outputs: never merge them by hand; after a rebase, rebuild with
-  `node app/build/build.mjs` and commit the result.
+- `app/dist/vss-editor.html` is a build output and is not tracked (responses D15); `app/precache.json` is: never merge it by hand;
+  after a rebase, rebuild with `node app/build/build.mjs` and commit precache.json.
 - Tests: `bash app/tests/run_all.sh` PASS; `app/tests/browser_check.mjs` PASS (currently 124/124; it needs Playwright: `npm i
   playwright@1.49.1` in a scratch folder and `NODE_PATH=<that>/node_modules node app/tests/browser_check.mjs`). Its `panel(tab)`
   helper clicks `#btn-panel` on a phone and then `.tabs [data-tab="<tab>"]`: keep these selectors working or update the helper in the

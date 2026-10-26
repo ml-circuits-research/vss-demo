@@ -114,3 +114,9 @@ its reading), Actions (the behaviour and the rule of Table 8 for each reading), 
 make, as text; not an agent), and the Widget, Timeline, Circuit, SOP and Log tabs. On desktop the live panel (reading with margins, plan,
 geometry) is a side column next to every tab; on a phone these are tabs. The paperclip left of the microphone offers examples
 (app/src/examples.js); a click puts one into the input without running it.
+
+## The one-file build (not in git)
+
+`app/dist/vss-editor.html` (about 15 MB, the self-contained build with the models inside) is not tracked (responses D15): build it on
+demand with `(cd app/build && npm ci) && node app/build/build.mjs`, or take it from a tagged release where it is attached as an asset.
+`app/precache.json` and `app/model/*` stay tracked.
