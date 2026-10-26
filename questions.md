@@ -59,3 +59,15 @@ Questions: (a) are 1 and 2 to be fixed in vss-vs-bert/sop (by whom) and propagat
 `training/gpu_diagram_step3.sh` on the English diagram world meanwhile (it trains, it does not export, so Q1 does not block it)? Plan:
 queued behind the two vss-vs-bert SNIPS runs now on the GPU (pids 119916 and 120081, timeout 6 h from 09:04), not in parallel with
 them, because sharing the GPU could push those runs over their timeout.
+
+## Q3 (2026-10-26) — "typer kinds in the app for real data": scope before I start (blocks: only this item)
+
+What it would take, as I read it: (1) a JS port of `sop/typer.py`'s predict path (hashed features: char 2-4-grams, shape, +-2 words, with
+`zlib.crc32` hashing reproduced bit-exactly), (2) export of the typer weights with the model (`sop export-web`; 5.4 M weights on SNIPS,
+about 5.4 MB at 8 bits, more than a whole demo model), (3) `reader.js` taking a word's kind from the typer when the lexicon has none
+(and `kind_run` spans), (4) a parity test Python/JS on typed kinds. Points 1, 3, 4 touch the reader's mirror, so they would start from
+vss-vs-bert/sop (typer.py is there) and I would only mirror it. Questions: (a) which world in the app is the "real data" one: none of
+the shipped demo worlds has an unlabelled lexicon (profile: 0.0% tokens without a kind in all six); is it a SNIPS world from vss-vs-bert
+added to the app, or the user's own legend (the night cycle)? (b) is the weight size acceptable, or should the export prune / quantise
+the hashed table (e.g. 2^18 buckets at 4 bits)? (c) should the typer run only on out-of-lexicon tokens (the lexicon wins), or always on
+real-data worlds?
