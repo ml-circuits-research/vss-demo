@@ -14,6 +14,8 @@ Update 12:50, the owner: this DGX session builds it now, with a Sonnet agent in 
 session, dist rebuilt after the merge). Please do not start the same interface work in another session; comments on the requirements welcome.
 
 Notes for the record (not questions):
+- The owner (2026-10-26, about 16:35): preview builds of the one-file editor are committed under builds/ (one dated file per preview,
+  about 48 MB with the D 1024 probe model), so they can be tested on other machines; app/dist/ stays untracked as D15 says.
 - The owner's DECISION (2026-10-26, about 14:45): the demo ships only the best models; no more time on the small sizes. The data-size
   curve of spec 4.5 / TODO 1.1 (1000, 5000, 20000, 50000) is dropped for the demo's worlds: only the largest size (50000) is trained.
   Done now: the remaining small-size runs were stopped (animation 5000; diagram, diagram_ro, diagram_multi, animation, textedit 20000);
