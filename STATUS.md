@@ -107,3 +107,9 @@ demo world is trained and shipped. Stopped: animation 5000 and the 20000 runs of
 1000 / 5000 sizes in runs/*_eccbf84. The shipped-size rule of TODO 1.1 / spec 4.5 becomes "the largest size"; the demo's runs make no
 claim about data efficiency. textedit: `gpu_textedit.sh --sizes 50000 --skip_curve --no_export` (new flag: no 5-seed curve run, only the
 five calibrated single-seed models at the shipped size).
+
+D13 check (d), diagnostics on the diagram n5000 model (seed 0, 800 eval sentences; questions.md Q8 has the numbers): 74% of the
+abstentions come from the presence margin of an ABSENT role; prefix and function words are counted as unplaced (residual 0.39 on correct
+readings; 73 no-sense, 30 of them <= 5 tokens); connect's object / source conflated (same-kind COMPONENT competition); the predicate wrong in
+6-13% of readings. On this evidence the gap to Table 13 is a reader / legend question before it is a data-size question; further demo
+runs wait for the direction asked in Q8.

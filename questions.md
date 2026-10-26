@@ -62,3 +62,40 @@ that would answer the question is missing for most worlds).
 Questions: (a) keep 50000 for the diagram worlds and animation (the curve is not flat), or measure 20000 properly first? (b) textedit: ship
 20000 (or 5000) instead of 50000? (c) which eval column is the shipped decoder's? (d) is the gap to 0.98 expected to close with data, or
 is it a decoder / route question to look at before spending GPU on larger sizes?
+
+## Q8 (2026-10-26, after D13's check (d); the owner: "we may need better data or a better reader, not to train blindly") — the gap is mostly not data: four observations, which direction? (blocks: textedit / animation 20000 and every further demo run)
+
+Evidence: the trained diagram n5000 model (runs/diagram_step3_eccbf84, seed 0 = /tmp/diagram_step3_83IC/5000/diagram/model, contract
+decoder, routes path+chainL+bigram) reading the 800 sentences of eval_heldout_formulations + eval_new_identities (`sop formalize
+--json`, 4.7 s), and metrics.json of the finished 1000 / 5000 runs. Numbers of one seed of a run in progress: diagnostics, not results.
+
+1. **Status: 611 of 800 readings abstain, and 450 of those (74%) abstain only because an ABSENT role's presence margin is the smallest
+   margin.** The sentence's `_margin` is the minimum over every margin, including `_presence_margin.<role>` of the roles read as absent
+   (e.g. "i want you to create a box": frame right, create / object = a box, but `_presence_margin.text=0.013` < tau 0.05 -> abstain).
+   138 abstain on the identity of a filled role, 2 on the presence of a present role. FULL (frame right, whatever the status) is 0.66-0.71
+   on the three splits while only 15% of readings are `ok`; so coverage at tau is the real casualty. The app's dialog already defaults an
+   absent role near its threshold (Table 8), but the reader's status and every coverage / confident-wrong number count it as an abstention.
+   Question: should an absent role's presence margin enter the sentence margin (source: infer.py status rule), or be reported as a
+   presence query only?
+2. **Prefix and function words are "unplaced"**: the most frequent unplaced words are you 401, i 202, please 162, need 111, want 91, would
+   77, called 68, okay 66, so 66, lets 63, could 61, can 61, now 49, named 49. They are in the legend with their own kinds (generate.py
+   FUNCTION_WORDS), yet the reader treats those kinds as content kinds, so the explained residual counts them as unexplained (0.39 on a
+   correct reading) and short sentences become `no-sense` (73 of 800; 30 with <= 5 tokens: "please shrink theta", "i want you to erase
+   routing", "okay so clone indexer": prefix words + a new label > half the tokens). This is the legend's / reader's definition of content
+   kinds, not training data. Question: is the fix a legend declaration (e.g. `reader.filler_kinds` / non-content kinds for the prefix
+   family) or the reader's rule for which kinds are content?
+3. **Same-kind competition in connect**: "please connect the box to the cache" is read object = box, target = cache (gold: source = box,
+   target = cache; object is the line). The worst formulations of every seed are dominated by connect ("please connect the COMPONENT to
+   the COMPONENT", "would you connect the COMPONENT and the COMPONENT"), and the activation diagnostic says 33 selection rows with
+   same-kind competition stay misread with every route (D2's profile: (COMPONENT: object, source, target) 1496 rows). Question: does the
+   legend conflate two questions here (the line being drawn vs the first end), i.e. should connect's object be a different kind (EDGE) or
+   a separate event, as the diagnostic suggests ("a question is missing from the legend or the world should be split")?
+4. **The predicate itself is wrong in 6-13% of readings** (calibration "predicate" acc 0.93 / 0.87 / 0.94 on heldout sentences /
+   formulations / new identities at n5000), in a world where the event is a lookup of the verb (EVENTS table). And the bare "create a box"
+   reads no-sense. Question: is this expected of the reader (the verb is read from the state, not looked up), or a sign of a decoder issue
+   to look at first?
+
+My proposal, for your direction: no more demo training until 1 and 2 are settled (they change the status and the residual of every
+reading, cost no GPU, and are in the source); then 3 as a legend change in the generator (a new frozen dataset, new runs); then a small
+measured curve (5000 and 20000, 3 seeds) on the corrected world, before any 50000. The three 50000 runs now running will finish anyway
+(their numbers are then the "before" row). Which of these do you want, in what order, and who does 1 / 2 (source) and 3 (generator)?
