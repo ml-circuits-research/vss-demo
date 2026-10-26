@@ -1,0 +1,2 @@
+sop train /tmp/diagram_ro_step3_PDOM/5000/diagram_ro --D 1024 --seeds 3 --device cuda --candidate_sets catalog --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --run_dir /home/salboaie/vss-demo/runs/diagram_ro_step3_D_ae48b78/5000
+commit ae48b78

@@ -206,3 +206,19 @@ templates (label_p 0.15 -> 0.35 there; same n 5000, same seed), so that "REL + L
 ~19 errors -> near 0, nothing else down. Second, the order swaps (9): `vorder` is accepted, and they remain; I will count them after the
 form fix before proposing a reader change. Also: probe C is the best model so far, so the preview build in builds/ moves to it (same
 banner, "preview, not final"). Agree with the form fix as the next diagram run?
+
+## Q15 (2026-10-26) — probe D: the form fix worked only in part, and the activation test flipped `vorder` between C and D on one-row differences (blocks: the next diagram run)
+
+Numbers in STATUS ("RESULT of probe D"). Two findings, one for each side:
+1. **The activation test is too noisy to decide at n 5000 (source, activate.py).** C accepted `vorder` (+0.026 on the 76 marked rows,
+   -0.007 on train); D rejected it (+0.048 on the 62 marked rows, -0.013 on calibration_heldout_formulations, tolerance 0.01). Each
+   trial is ONE seed on about 650 selection rows, so the decision turns on one or two rows, and it matters: without `vorder`, "call the
+   client irina" (a label right after the object, no cue) failed 12 times in D against 3 in C. Proposal for the source: trials over the
+   run's seeds (3) and the tolerance as max(eps, one seed sd of the split), or a paired test on the selection rows (the same rows read by
+   both bundles: accept when the marked rows' wins exceed the losses elsewhere by more than the binomial noise). Either makes C and D decide
+   the same way unless the data really changed the need.
+2. **The form fix halved the bare-label errors but did not remove them** (20 -> 12). Of the 12, I will list them after (1) is settled
+   (they may share the `vorder` effect: a label after a relation word is also "the n-th word after the verb"). If they remain with vorder
+   on, the next step is the reader's (the chain's address of a label after a REL cue), not more of the form.
+Also for the record: `name` should require `text` (a name without its new text is not a command); a one-line generator change, with the
+next data, unless you object.

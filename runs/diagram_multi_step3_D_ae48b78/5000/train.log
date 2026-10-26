@@ -1,0 +1,84 @@
+[splits] written to /home/salboaie/vss-demo/runs/diagram_multi_step3_D_ae48b78/5000/splits.json before training: calibration_heldout_formulations 195, calibration_heldout_formulations_en 230, heldout_formulations 205, heldout_formulations_en 170, heldout_sentences 483, mixed 400, new_identities 400, new_identities_en 400, train 4517
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'edge', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (646 training rows (14.3%) fill two roles with the same kind; in 460 of them neither word is cued, so only the order relative to the verb separates them); selection rows 861 (of which with same-kind competition 77); trials trained on 4081 rows
+[guard] cuda allocator capped at 18% of 120 GB; watchdog: exit if MemAvailable < 16.0 GB or after 12.0 h
+[train] seed 0: 4081 training rows x 1 epoch(s) -> 4081 steps' sentences; D=1024; kinds 60; vocab 1286; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: vreau sa deplasati paul spre left_edge
+[trace] tokens/kinds: vreau/FILLER sa/to deplasati/VERB paul/LABEL spre/spre left_edge/ANCHOR
+[trace] gold frame: {"event": "move", "lemma": "shift", "neg": false, "roles": {"anchor": ["word", "left_edge"], "object": ["entity", "paul", null, null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.24 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 1.23 GB | torch alloc 0.17 GB reserved 0.22 GB | MemAvailable 110.6 GB
+[train seed 0] step 500 sent 4000/4081 loss -0.708 (90s) | RSS 2.30 GB | torch alloc 0.48 GB reserved 0.78 GB | MemAvailable 106.4 GB
+[train seed 0] end: RSS 2.30 GB | torch alloc 0.48 GB reserved 0.61 GB | MemAvailable 106.9 GB (92s)
+[export] numpy reader vs torch states: max relative difference 8.09e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.855 on 861 selection rows, 0.597 on the 77 with same-kind competition | calibration_heldout_formulations 0.892 calibration_heldout_formulations_en 0.861 train 0.835
+[train] seed 0: 4081 training rows x 1 epoch(s) -> 4081 steps' sentences; D=1024; kinds 60; vocab 1286; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[train] verb-order route (reader.codes / --codes): verb kinds ['VERB']; cue kinds ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: vreau sa deplasati paul spre left_edge
+[trace] tokens/kinds: vreau/FILLER sa/to deplasati/VERB paul/LABEL spre/spre left_edge/ANCHOR
+[trace] gold frame: {"event": "move", "lemma": "shift", "neg": false, "roles": {"anchor": ["word", "left_edge"], "object": ["entity", "paul", null, null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.24 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.60 GB | torch alloc 0.45 GB reserved 0.69 GB | MemAvailable 103.7 GB
+[train seed 0] step 500 sent 4000/4081 loss -0.750 (119s) | RSS 2.62 GB | torch alloc 1.36 GB reserved 1.86 GB | MemAvailable 102.7 GB
+[train seed 0] end: RSS 2.62 GB | torch alloc 1.36 GB reserved 1.45 GB | MemAvailable 103.1 GB (121s)
+[export] numpy reader vs torch states: max relative difference 6.84e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.835 on 861 selection rows, 0.649 on the 77 with same-kind competition | calibration_heldout_formulations 0.841 calibration_heldout_formulations_en 0.830 train 0.835
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 31 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train] seed 0: 4517 training rows x 1 epoch(s) -> 4517 steps' sentences; D=1024; kinds 60; vocab 1286; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: vreau sa deplasati paul spre left_edge
+[trace] tokens/kinds: vreau/FILLER sa/to deplasati/VERB paul/LABEL spre/spre left_edge/ANCHOR
+[trace] gold frame: {"event": "move", "lemma": "shift", "neg": false, "roles": {"anchor": ["word", "left_edge"], "object": ["entity", "paul", null, null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.24 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.58 GB | torch alloc 0.24 GB reserved 1.45 GB | MemAvailable 103.8 GB
+[train seed 0] step 500 sent 4000/4517 loss -0.715 (75s) | RSS 2.58 GB | torch alloc 0.49 GB reserved 1.47 GB | MemAvailable 104.6 GB
+[train seed 0] end: RSS 2.58 GB | torch alloc 0.49 GB reserved 0.55 GB | MemAvailable 105.1 GB (83s)
+[export] numpy reader vs torch states: max relative difference 7.79e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.800 | residual 0.080
+[eval] seed 0 heldout_formulations_en: FULL catalog candidates 0.853 | residual 0.038
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.828 | residual 0.069
+[eval] seed 0 mixed: FULL catalog candidates 0.820 | residual 0.085
+[eval] seed 0 new_identities: FULL catalog candidates 0.870 | residual 0.062
+[eval] seed 0 new_identities_en: FULL catalog candidates 0.853 | residual 0.064
+[eval] seed 0 train (sample): FULL catalog candidates 0.847 | residual 0.066
+[mem] after seed 0: RSS 2.61 GB | torch alloc 0.06 GB reserved 0.55 GB | MemAvailable 105.8 GB
+[train] seed 1: 4517 training rows x 1 epoch(s) -> 4517 steps' sentences; D=1024; kinds 60; vocab 1286; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: vreau sa deplasati paul spre left_edge
+[trace] tokens/kinds: vreau/FILLER sa/to deplasati/VERB paul/LABEL spre/spre left_edge/ANCHOR
+[trace] gold frame: {"event": "move", "lemma": "shift", "neg": false, "roles": {"anchor": ["word", "left_edge"], "object": ["entity", "paul", null, null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.51 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 1] start: RSS 2.77 GB | torch alloc 0.24 GB reserved 0.55 GB | MemAvailable 105.6 GB
+[train seed 1] step 500 sent 4000/4517 loss -0.714 (79s) | RSS 2.77 GB | torch alloc 0.49 GB reserved 0.82 GB | MemAvailable 105.1 GB
+[train seed 1] end: RSS 2.77 GB | torch alloc 0.49 GB reserved 0.59 GB | MemAvailable 105.3 GB (90s)
+[export] numpy reader vs torch states: max relative difference 7.55e-08 (float32 phases in the route book)
+[eval] seed 1 heldout_formulations: FULL catalog candidates 0.810 | residual 0.062
+[eval] seed 1 heldout_formulations_en: FULL catalog candidates 0.841 | residual 0.029
+[eval] seed 1 heldout_sentences: FULL catalog candidates 0.828 | residual 0.069
+[eval] seed 1 mixed: FULL catalog candidates 0.820 | residual 0.087
+[eval] seed 1 new_identities: FULL catalog candidates 0.845 | residual 0.076
+[eval] seed 1 new_identities_en: FULL catalog candidates 0.820 | residual 0.080
+[eval] seed 1 train (sample): FULL catalog candidates 0.850 | residual 0.067
+[mem] after seed 1: RSS 2.78 GB | torch alloc 0.06 GB reserved 0.59 GB | MemAvailable 108.3 GB
+[train] seed 2: 4517 training rows x 1 epoch(s) -> 4517 steps' sentences; D=1024; kinds 60; vocab 1286; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: vreau sa deplasati paul spre left_edge
+[trace] tokens/kinds: vreau/FILLER sa/to deplasati/VERB paul/LABEL spre/spre left_edge/ANCHOR
+[trace] gold frame: {"event": "move", "lemma": "shift", "neg": false, "roles": {"anchor": ["word", "left_edge"], "object": ["entity", "paul", null, null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 71.04 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 2] start: RSS 2.86 GB | torch alloc 0.24 GB reserved 0.59 GB | MemAvailable 108.2 GB
+[train seed 2] step 500 sent 4000/4517 loss -0.709 (59s) | RSS 2.86 GB | torch alloc 0.49 GB reserved 0.86 GB | MemAvailable 108.2 GB
+[train seed 2] end: RSS 2.86 GB | torch alloc 0.49 GB reserved 0.55 GB | MemAvailable 108.4 GB (63s)
+[export] numpy reader vs torch states: max relative difference 7.78e-08 (float32 phases in the route book)
+[eval] seed 2 heldout_formulations: FULL catalog candidates 0.790 | residual 0.075
+[eval] seed 2 heldout_formulations_en: FULL catalog candidates 0.853 | residual 0.032
+[eval] seed 2 heldout_sentences: FULL catalog candidates 0.857 | residual 0.060
+[eval] seed 2 mixed: FULL catalog candidates 0.840 | residual 0.080
+[eval] seed 2 new_identities: FULL catalog candidates 0.840 | residual 0.082
+[eval] seed 2 new_identities_en: FULL catalog candidates 0.815 | residual 0.082
+[eval] seed 2 train (sample): FULL catalog candidates 0.830 | residual 0.070
+[mem] after seed 2: RSS 2.86 GB | torch alloc 0.06 GB reserved 0.55 GB | MemAvailable 111.9 GB
+[done] model written to /tmp/diagram_multi_step3_jFg6/5000/diagram_multi/model; REPORT.md and metrics.json there; run log /home/salboaie/vss-demo/runs/diagram_multi_step3_D_ae48b78/5000/train.log
+checklist: [x] addresses from the world [x] shared identities [x] chance printed [x] seen/unseen axes separated [x] margin [x] >=3 seeds [x] trivial control (lexical order baseline) [x] calibration (18) [x] memory logged (21) [x] thresholds on calibration rows (25) [x] given vs learned stated (20)

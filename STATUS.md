@@ -239,3 +239,13 @@ the landmark of the relation templates and the target of the connect templates a
 One change against C. Runs D: the three worlds, D 1024, 3 seeds, --activate auto, --candidate_sets catalog. Expected (English, 800
 sentences): the ~19 "REL / to + LABEL" errors near 0, heads-exact up from 0.942 by about 0.02, nothing else down; the order swaps (9)
 counted again. diagram_ro / diagram_multi: their trainer splits up or equal against their C rows, beside the English numbers.
+
+RESULT of probe D (runs/*_step3_D_ae48b78; one change against C: the form "relation / to + bare LABEL"). Trainer FULL, mean of 3 seeds:
+diagram heldout formulations 0.864 -> 0.896, heldout sentences 0.871 -> 0.875, new identities 0.850 -> 0.864; diagram_ro 0.822 / 0.833 /
+0.868 -> 0.818 / 0.827 / 0.851; diagram_multi 0.810 / 0.815 / 0.853 -> 0.800 / 0.838 / 0.852 (within about one seed sd, except ro new
+identities -0.017 with sd 0.016). English 800-sentence diagnostic (D's own eval sentences, so not row by row with C): heads-exact 0.942 ->
+0.941; bare-label errors after a relation / to / called 20 -> 12 (expected near 0: MISSED, -40% only); order swaps 9 -> 7; other errors
+17 -> 27, of which name 3 -> 12, almost all "call the client irina" (the text label right after the object, no cue). Cause of the name
+rise: `vorder` was accepted in C and NOT in D: in D it won the marked rows 0.758 -> 0.806 but lost calibration_heldout_formulations 0.904 ->
+0.891 (tolerance 0.01), in C it won 0.711 -> 0.737 and lost 0.007 on train; one-seed trials on about 650 selection rows decide on
+differences of one or two rows, so the route flips between probes that differ by one form. Questions.md Q15.
