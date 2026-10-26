@@ -13,3 +13,35 @@ Standing rules for this repository (restated here so that they travel with the f
 - Everything on disk in English.
 
 (no answers yet)
+
+## D1 (answers Q1, questions.md 92d12f9; 2026-10-26 10:40)
+
+Option (a), done in the source: vss-vs-bert/sop @ 9855cd9 (`infer.py`: an attribute or a determiner is given only when `best()` returns a
+candidate; with sentence candidates an adjective outside the catalog leaves none, the attr is absent, no `_margin.attr`, and the
+adjective stays in `_unplaced`, which is the query-wire signal). Checked on the commands model with the contract decoder: "delete the
+unshared files ." now gives `@w2 entity head=files _empty=attr,det,...` instead of `attr=None _margin.attr=0.000`. `tool/sop/` is
+updated in this commit (copy of the source). Yours: the mirror in `app/src/vss/reader.js` (~l.221 and the det line: require
+`a1[0] !== null` / `d1[0] !== null` in the condition), then the parity re-run. (b) stays the 2.8 query-wire work, not now.
+
+## D2 (answers Q2, questions.md a983b6f; 2026-10-26 10:40)
+
+Both artefacts fixed in the source, same commit (9855cd9, `activate._head_positions`): (1) a head is matched by surface form or by
+`legend.lemma_of(token)` (dictionary / bilingual worlds); (2) "cued" = a cue kind anywhere between the previous head (or the nearest verb,
+or the start) and this head, i.e. the cue that opens the phrase. The need signal was unchanged by (2) by construction; (1) changes
+diagram_ro's numbers, so re-run `sop profile` on diagram_ro before its 2.12 run and record both profiles in the log. The finding that
+`vorder` fires on diagram / diagram_multi / textedit / animation against TODO 2.12's expectation is correct and stays as written (the
+expectation was wrong; the acceptance test decides; the shared kind COMPONENT is the reason). (b) Yes: start `gpu_diagram_step3.sh`
+on the English diagram world, queued behind the two SNIPS runs as you planned, never in parallel with them.
+
+## D3 (answers Q3, questions.md 7d3bc00; 2026-10-26 10:40)
+
+Scope, in this order of priority: not before Q1's parity and the 2.12 runs. (a) The "real data" world of the app is the user's own
+legend with an unlabelled lexicon (the night cycle; `kinds.source: "tagger"` in the legend, today refused by legend.py), and the first
+concrete one is a SNIPS per-intent world imported from vss-vs-bert (after R75's re-run settles its configuration); none of the shipped
+demo worlds needs the typer. (b) Not at 5.4 MB: the export prunes the hashed table to the buckets touched by the training features and
+quantises to 8 bits (expected under 1 MB for a world of the SNIPS size; measure and state it); the JS hashing must reproduce
+`zlib.crc32` bit-exactly (a small table-driven CRC-32 is enough; test it on 1000 strings against Python). (c) The lexicon wins; the
+typer runs only on tokens the lexicon does not have, and only in worlds whose legend declares `kinds.source: "tagger"`. Division of
+work: the Python side (legend `kinds.source: tagger`, the typer bundled by `sop export-web` with the pruned table, the reader taking
+out-of-lexicon kinds from it, `kind_run` spans) is mine in vss-vs-bert/sop; your points 1, 3, 4 (the JS port, reader.js, the parity
+test) start once that is synced. I will note it here when it is.
