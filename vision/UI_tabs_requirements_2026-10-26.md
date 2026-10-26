@@ -96,7 +96,7 @@ These change sections 2 and 3 above; where they differ, this section governs. Bu
    it scrolls vertically only when it still does not fit; it has a header with an X that stays visible while the body scrolls. One module
    (`app/src/ui/popup.js`) and one set of CSS rules (`.sheet`, `.sheet-head`, `.sheet-body`, `.sheet-grid`).
 2. (ui-2, D21.2) **No reading strip** above the input. Its content is in History: each entry shows the text given and what was interpreted
-   (frame, status, what was executed or asked). The answer line and chips above the input ("which one, a or b?", yes / no) stay.
+   (frame, status, what was executed or asked). (Superseded by item 7: the answer line becomes a chat thread.)
 3. (ui-3, D21.3) **Contrast and size** raised one step across the app, in the light and the dark theme.
 4. (ui-5, D21.5) **Main tabs** are the canvas of the purpose (Diagram, Widget and Timeline when relevant) and History. Sketch, Requests,
    Assistant, Circuit, SOP, Log and Reading are details, not tabs. History is the single record: one entry per input with what it meant
@@ -109,4 +109,13 @@ These change sections 2 and 3 above; where they differ, this section governs. Bu
    (who reads what) in its header; a click on an element shows its candidates, margins and questions; a "Use this" button under each applies
    that reading to the canvas (the classical one is what Done applied before); Cancel discards. The choice and both readings are recorded in
    the sketch's History entry. No tab for the sketch readings and none for the sketch pad.
-6. (D23) Direction: a clean and good demo; nothing is added to the interface without a line in responses.md.
+7. (ui-6, D25 + D26, the owner, 2026-10-26; D26 replaces the "answer line and chips" of item 2 and D25's single line) **Chat thread above the
+   input.** Above the input stays a conversation laid out like a messaging app, scrolling, newest at the bottom: the person's messages on the left
+   (what was typed, said or sketched, or the choice pressed), the editor's replies on the right. A reply is plain sentences only: what was done
+   ("Done: a blue box called mailer."), a question when it has one ("Which one, irina or paul?" with the choices as buttons inside that bubble,
+   or answered by typing or speaking the next message: the editor keeps the context of its last question, so a message that equals a choice, or
+   yes / no, is the same as pressing it), or what it could not do and what it can. No frame, no margins, no status chips and no candidate rows
+   in the thread. The frame, the margins, the queries and every technical detail stay in History (each editor bubble has a small "details" link
+   to its History entry's detail popup; each History entry links back, scrolling the thread to its message) and in the side panel (D10). The
+   dialog's logic is unchanged; only its surface changes. Implementation: `app/src/ui/chat.js` (DOM), `app/src/ui/chattext.js` (the words, no DOM).
+8. (D23) Direction: a clean and good demo; nothing is added to the interface without a line in responses.md.

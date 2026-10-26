@@ -11,7 +11,7 @@ const MAX_ROWS = 200;
  *  (intent and call, or what was drawn), what the editor did (executed / asked / refused) with the rule, and buttons that open every technical
  *  detail as a popup. onPick(input) puts the input back into the chat input (it does not run it); onDetail(entry, kind) opens a detail;
  *  onRequests() opens the Requests popup. */
-export function renderHistory(host, history, { onPick, onDetail, onRequests } = {}) {
+export function renderHistory(host, history, { onPick, onDetail, onRequests, hasChat, onChat } = {}) {
   host.replaceChildren();
   const head = el("div", "hist-head");
   head.append(el("p", "tab-lead", "Every input, newest first: what was typed, said or drawn, what it meant, and what the editor did with it. A click on a typed or spoken input puts it back into the input bar; it does not run it."));
@@ -28,6 +28,7 @@ export function renderHistory(host, history, { onPick, onDetail, onRequests } = 
     const text = r.rereadable ? el("button", "hist-input link-btn", r.input) : el("span", "hist-input", r.input);
     if (r.rereadable) { text.type = "button"; text.title = "Put this input back into the input bar"; text.onclick = () => onPick && onPick(r.input); }
     top.append(text);
+    if (hasChat && hasChat(h)) { const cb = el("button", "chat-link link-btn", "in the chat"); cb.type = "button"; cb.title = "Scroll the chat to this message"; cb.onclick = () => { if (!(onChat && onChat(h))) { cb.disabled = true; cb.title = "This message is no longer in the chat"; } }; top.append(cb); }
     if (r.status) top.append(el("span", `chip st-${r.status.replace(/\s.*/, "")}`, r.status));
     li.append(top);
     if (r.read) li.append(el("div", "hist-line muted", `read as: ${r.read}`));

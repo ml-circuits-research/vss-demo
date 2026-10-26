@@ -1,5 +1,5 @@
 {
- "id": "cf67d2708f46",
+ "id": "be80e0f4c61c",
  "files": [
   "./",
   "index.html",
@@ -66,6 +66,8 @@
   "src/translate.js",
   "src/ui/buildview.js",
   "src/ui/canvas.js",
+  "src/ui/chat.js",
+  "src/ui/chattext.js",
   "src/ui/details.js",
   "src/ui/entries.js",
   "src/ui/film.js",
