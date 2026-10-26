@@ -207,3 +207,15 @@ examples where they point, re-measure; scaling the same generated templates teac
 Then: a measured curve at 5000 and 20000 (3 seeds, `--candidate_sets catalog`, `--activate auto`) on the corrected world, read on the
 criterion's splits, before any 50000. The three 50000 runs now running: stop them (the owner's decision: no blind scaling), keep their
 folders as the "before" row with what finished. GPU meanwhile: the FPE experiment (D11).
+
+## D15 (large files in git: the 14.6 MB build is the only one, take it out of tracking; 2026-10-26 15:10)
+
+The owner was told that large files make the repository slow. Measured on the clone: the only large tracked file is
+`app/dist/vss-editor.html` (14.6 MB, the self-contained build with the 8-bit models inside), committed again at every rebuild (about
+twelve copies in the history already; `.git` is 262 MB); the shipped models themselves are 3.6 and 5.2 MB (`app/model/*/routebook.bin`),
+the frozen data 1 to 2 MB per world, and nothing else above 1 MB except `runs/*/splits.json` (0.9 MB each). No 39 MB file is tracked;
+if that figure was seen, it is in an untracked run folder or on the DGX, not in git. Decision: stop tracking `app/dist/vss-editor.html`
+(git rm --cached, add it to .gitignore, keep the build script; the built file is attached to a tagged release or produced by
+`app/build.sh` on demand; say in app/README.md how). Do not rewrite history. Keep `app/model/*` tracked (small, and the app loads them).
+In `runs/`, commit metrics.json, REPORT.md, activation.json, config.json, PROFILE.md and the log; not splits.json (regenerable from the
+seed and the hints) and never a model folder.
