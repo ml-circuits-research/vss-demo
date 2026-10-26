@@ -26,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the source (this repository)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ inputs.ref || github.ref }}
       - name: Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
       - name: Build the one-file editor
@@ -47,7 +47,7 @@ jobs:
           echo "name=$NAME" >> "$GITHUB_OUTPUT"; echo "sha=$SHA" >> "$GITHUB_OUTPUT"; echo "date=$DATE" >> "$GITHUB_OUTPUT"
           echo "build $NAME"
       - name: Check out the public repository (deploy key)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ml-circuits-research/vss-public-demo
           ssh-key: ${{ secrets.PUBLIC_DEMO_DEPLOY_KEY }}
