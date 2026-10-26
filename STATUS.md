@@ -17,7 +17,7 @@ below comes from a trained demo model: none exists yet (the installed model is a
 | 8 | layouts and router | BUILT | app/tests/layout.mjs, engine.mjs | 100/100 on 23 diagrams (0 overlaps, 0 crossings); 71/71 |
 | 9 | typed corrector, form level | BUILT | app/tests/correct_test.mjs, dialog.mjs | smoke: classic typed 0.970, form level typed 0.795; speech 0.600 / 0.615 (classic stays default) |
 | 10 | voice: Web Speech API, speech corrector, alternatives | BUILT (on-device engine and recorded set PLANNED) | app/src/speech.js | |
-| 11 | interface, panels, dialog | BUILT | app/tests/browser_check.mjs | 116/116 in Chromium, file:// and hosted, desktop and phone |
+| 11 | interface, panels, dialog | BUILT | app/tests/browser_check.mjs | 124/124 in Chromium (Playwright 1.49.1, DGX, f748ddc), file:// and hosted, desktop and phone; the dialog asks undecided pairs (dialog.mjs 15/15) |
 | 12 | text widgets, dictation, textedit world | BUILT; training PLANNED (DGX) | app/tests/text_targets.mjs, dictation.mjs | 413/413, 51/51 |
 | 13 | segmenter, circuit, paragraphs | BUILT; reader rows PLANNED | app/tests/segment.mjs | 47/47 with fake readers |
 | 14 | Level 2 decoder extensions | PLANNED (DGX) | training/TODO_DGX.md | |
