@@ -3,7 +3,7 @@
 //   queriesOf(result) -> [{ about, kind, evidence, resolve, scope, source }]
 //     source "wire":   a `query` wire of the reading (type query; about, kind, evidence, resolve, scope);
 //     source "signal": today's reader signals, which the addendum makes three kinds of the same wire:
-//                      `_undecided.<role>=a|b` -> undecided, an unplaced word -> unplaced, status no-sense / unknown-event -> unknown.
+//                      `_undecided.<role>=a|b` -> undecided, `_presence_query.<role>=m` -> undecided with presence: true, an unplaced word -> unplaced, status no-sense / unknown-event -> unknown.
 //   resolveChain(q, ctx) -> { by, answer, tried } : the first resolver of q.resolve that answers; `person` always answers with a question.
 //   linkLine(role, by) -> "_link.<role>=query:<by>" : how a resolved query is written on the consuming wire (never a bare value).
 
@@ -28,6 +28,9 @@ export function queriesOf(result) {
   for (const [role, cands] of Object.entries(result.undecided || {}))
     if (!out.some((q) => q.kind === "undecided" && q.about.endsWith(`.${role}`)))
       out.push({ about: `$top.${role}`, role, kind: "undecided", evidence: cands, resolve: ["person"], scope: "local", source: "signal" });
+  // `_presence_query.<role>=<margin>`: a role read as absent whose presence is near its threshold (D14); kind undecided, presence true
+  for (const [role, margin] of Object.entries(result.presenceQueries || {}))
+    out.push({ about: `$top.${role}`, role, kind: "undecided", presence: true, margin, evidence: [], resolve: ["person"], scope: "local", source: "signal" });
   if (result.status === "no-sense" || result.status === "unknown-event") {
     if (!out.some((q) => q.about === "sentence"))
       out.push({ about: "sentence", kind: "unknown", evidence: (result.unplaced || []).filter((t) => !PUNCT.test(t)), resolve: ["person"],

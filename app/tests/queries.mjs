@@ -24,6 +24,12 @@ const w2 = qw("w4", { about: "45,degrees", kind: "unsupported", evidence: "45,de
 const s4 = queriesOf(R({ wires: [w2], unplaced: ["45", "degrees"] }));
 check("unplaced words covered by a wire query are not repeated", s4.length === 1, JSON.stringify(s4));
 check("unknown kind in a wire -> unknown", queriesOf(R({ wires: [qw("w1", { about: "x", kind: "guess" })] }))[0].kind === "unknown", "");
+// presence queries (D14): `_presence_query.<role>` -> an undecided query with presence: true
+const pqs = queriesOf(R({ presenceQueries: { color: 0.02 } }));
+check("presence query mapped", pqs.length === 1 && pqs[0].about === "$top.color" && pqs[0].role === "color" && pqs[0].kind === "undecided" && pqs[0].presence === true && pqs[0].evidence.length === 0 && pqs[0].resolve.join() === "person" && pqs[0].scope === "local" && pqs[0].source === "signal", JSON.stringify(pqs));
+check("presence query beside an adjacency one", queriesOf(R({ undecided: { object: ["box", "cache"] }, presenceQueries: { color: 0.02 } })).length === 2, "");
+const dp = decide({ result: R({ presenceQueries: { color: 0.02 } }), plan: okPlan });
+check("dialog: presence query keeps execute", dp.action === "execute" && dp.questions[0]?.kind === "presence" && dp.queries.some((q) => q.presence), JSON.stringify(dp));
 // resolution chain
 const c1 = resolveChain({ resolve: ["circuit", "scene", "person"] }, { circuit: () => null, scene: () => ["c3"] });
 check("chain: first resolver that answers", c1.by === "scene" && c1.answer[0] === "c3" && c1.tried.join() === "circuit: no answer", JSON.stringify(c1));

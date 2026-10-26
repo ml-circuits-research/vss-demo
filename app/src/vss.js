@@ -31,7 +31,7 @@ export class VSS {
     const fr = { speakers: decoded.speakers, neg: decoded.neg, event: decoded.event, roles: decoded.roles, shape: frame.shape, lemma: decoded.lemma ?? null, depth: decoded.depth ?? 0, scope: decoded.scope ?? null };
     return { sop, wires, frame: fr, shape: frame.shape, margins: decoded.margins || {}, presence: decoded.presence || {}, status: info.status, residual: info.residual,
              unplaced: info.unplaced.map((i) => info.tokens[i]), tokens: info.tokens, state: info.S, missingStars: [...this.stars.missing], candidates: decoded.runner_up || {},
-             undecided: undecidedOf(wires[0]),
+             undecided: undecidedOf(wires[0]), presenceQueries: presenceQueriesOf(wires[0]),
              timings: { chart_ms: info.ms_chart, total_ms: performance.now() - t0 } };
   }
 }
@@ -40,6 +40,14 @@ export class VSS {
 function undecidedOf(top) {
   const out = {};
   for (const l of top?.lines || []) if (l.key.startsWith("_undecided.")) out[l.key.slice("_undecided.".length)] = String(l.text).split("|");
+  return out;
+}
+
+/** the presence queries of the top wire (`_presence_query.<role>=<margin>`, responses D14): a role read as absent whose presence margin
+ *  is under tau -> { role: margin }; the reader no longer lowers the frame's margin for it */
+function presenceQueriesOf(top) {
+  const out = {};
+  for (const l of top?.lines || []) if (l.key.startsWith("_presence_query.")) out[l.key.slice("_presence_query.".length)] = Number(l.text);
   return out;
 }
 

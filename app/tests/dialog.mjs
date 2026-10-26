@@ -14,6 +14,13 @@ const pr = decide({ result: R({ frame: { event: "create", roles: { object: ["ent
 check("ask presence of a role read as present", pr.action === "ask" && /did you mean/.test(pr.line), pr.line);
 const pa = decide({ result: R({ margins: { object: 0.3, "color.presence": 0.01 } }), plan: okPlan });
 check("absent role near threshold: default and a note", pa.action === "execute" && pa.notes.some((n) => n.kind === "presence" && n.role === "color"), JSON.stringify(pa));
+const PQ = { presenceQueries: { color: 0.02 }, margins: { object: 0.3, structure: 0.2 } };
+const pq = decide({ result: R(PQ), plan: okPlan });
+check("presence query: executes with the default and says so", pq.action === "execute" && pq.notes.some((n) => n.kind === "presence" && n.role === "color" && /colour may have been meant; none was used/.test(n.text)), JSON.stringify(pq));
+check("presence query: a question of kind presence with yes / no", pq.questions.length === 1 && pq.questions[0].kind === "presence" && pq.questions[0].role === "color" && pq.questions[0].text === "did you mean to give a colour?" && pq.questions[0].candidates.join() === "yes,no", JSON.stringify(pq.questions));
+const pq2 = decide({ result: R({ status: "abstain", ...PQ, margins: { object: 0.3, color: 0.01 }, candidates: { color: ["red", "orange"] } }), plan: okPlan });
+check("presence query does not hide another role's question", pq2.action === "ask" && pq2.questions.some((q) => q.role === "color" && q.kind === "role"), JSON.stringify(pq2));
+check("no presence query: no question", decide({ result: R(), plan: okPlan }).questions.length === 0, "");
 const ud = decide({ result: R({ status: "abstain", frame: { event: "connect", roles: { source: ["entity", "p3", null, null], target: ["entity", "p2", null, null] } }, margins: { source: 0, target: 0.4 }, candidates: { source: ["p3", "db"] }, undecided: { source: ["p3", "p5"] } }), plan: okPlan });
 check("undecided pair asked, not the runner-up", ud.action === "ask" && ud.questions.length === 1 && ud.questions[0].kind === "undecided" && /p3 or p5/.test(ud.line) && /adjacent/.test(ud.rule), JSON.stringify(ud));
 const ud2 = decide({ result: R({ status: "abstain", margins: { object: 0, color: 0.01 }, candidates: { color: ["red", "orange"] }, undecided: { object: ["box", "cache"] } }), plan: okPlan });

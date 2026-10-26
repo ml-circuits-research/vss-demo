@@ -39,7 +39,7 @@ function decideWith({ result, plan = null, corrections = [], tau = 0.05, legend 
   for (const q of queries) if (q.kind === "unplaced") notes.push({ kind: "unplaced", text: `"${q.about}" was not used` });
   // undecided by adjacency (addendum q-formalisation 10): two words of the sentence the state cannot separate for one role -> ask which
   // of the two, never the catalog's runner-up; the answer keeps the chosen word and drops the other (it filled no role)
-  const undecided = queries.filter((q) => q.kind === "undecided" && q.evidence.length === 2).map((q) => {
+  const undecided = queries.filter((q) => q.kind === "undecided" && !q.presence && q.evidence.length === 2).map((q) => {
     const role = q.role || q.about.split(".").pop(); const cands = q.evidence;
     return { kind: "undecided", role, margin: 0, candidates: cands, text: `which ${ROLE_WORD[role] || role}, ${cands[0]} or ${cands[1]}?` };
   });
@@ -56,6 +56,13 @@ function decideWith({ result, plan = null, corrections = [], tau = 0.05, legend 
   const present = result.frame?.roles || {};
   for (const [role, [k]] of [...byRole]) {
     if (!present[role] && k.endsWith(".presence")) { byRole.delete(role); notes.push({ kind: "presence", role, text: `a ${ROLE_WORD[role] || role} may have been meant; none was used` }); }
+  }
+  // presence queries (`_presence_query.<role>`, D14): the same rule, from the reader's own signal; the question is returned with "execute"
+  const presenceQs = [];
+  for (const q of queries) if (q.presence && !present[q.role]) {
+    const what = ROLE_WORD[q.role] || q.role;
+    notes.push({ kind: "presence", role: q.role, text: `a ${what} may have been meant; none was used` });
+    presenceQs.push({ kind: "presence", role: q.role, text: `did you mean to give a ${what}?`, candidates: ["yes", "no"] });
   }
   const low = [...byRole.values()];
   if (undecided.length || low.length) {
@@ -89,7 +96,8 @@ function decideWith({ result, plan = null, corrections = [], tau = 0.05, legend 
   const roles = Object.entries(result.frame?.roles || {}).map(([k, v]) => `${ROLE_WORD[k] || k} ${fillerText(v)}`);
   const line = (plan.steps || []).map((s) => s.explain).filter(Boolean).join("; ") || `${result.frame?.event}${roles.length ? ": " + roles.join(", ") : ""}`;
   if (plan.blocked && plan.blocked.length) notes.push({ kind: "blocked", text: plan.blocked.map((b) => b.text).join("; ") });
-  return { action: "execute", line, questions: [], notes, rule: "Table 8: status ok, every margin above tau" };
+  return { action: "execute", line, questions: presenceQs, notes,
+    rule: presenceQs.length ? "Table 8: a required role empty -> use the declared default and say so (presence query)" : "Table 8: status ok, every margin above tau" };
 }
 
 // Animation readings (spec 19, src/animate/README.md): whether a reading of the animation world is a question about the film, a film
