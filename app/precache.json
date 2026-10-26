@@ -1,5 +1,5 @@
 {
- "id": "f4af03a7ddbd",
+ "id": "c1f5148e08ad",
  "files": [
   "./",
   "index.html",
@@ -16,6 +16,7 @@
   "src/animate/timeline.js",
   "src/animate/view.js",
   "src/assets.js",
+  "src/buildstatus.js",
   "src/correct.js",
   "src/dialog.js",
   "src/editor/export.js",

@@ -13,6 +13,7 @@ import { createCorrector } from "./correct.js";
 import { createFormIndex } from "./form.js";
 import { createSpeech, chooseClearest } from "./speech.js";
 import { decide, animationIntent, dropWord } from "./dialog.js";
+import { BUILD_STATUS } from "./buildstatus.js";
 import { createScene } from "./editor/scene.js";
 import * as ops from "./editor/ops.js";
 import { place } from "./editor/geometry.js";
@@ -647,7 +648,7 @@ function setupExamples() {
 function showModelBadge(errors) {
   const b = $("model-badge"); const d = S.diagram;
   if (!d) { b.hidden = false; b.textContent = "no reader model"; b.classList.add("dev"); }
-  else { b.hidden = false; b.textContent = d.status === "demo" ? `reader D ${d.vss.model.config.D}` : "development model"; b.classList.toggle("dev", d.status !== "demo"); b.title = d.note || ""; }
+  else { b.hidden = false; b.textContent = d.status === "demo" ? `reader D ${d.vss.model.config.D}` : /^PREVIEW/.test(d.note || "") ? "preview model, not final" : "development model"; b.classList.toggle("dev", d.status !== "demo"); b.title = d.note || ""; }
   const KNOWN = ["diagram", "textedit", "matheditor", "animation", "scene"];
   const rows = [];
   for (const name of KNOWN.concat([...S.worlds.keys()].filter((k) => !KNOWN.includes(k)))) {
@@ -763,6 +764,18 @@ function setupUI() {
   };
   $("gaps-clear").onclick = () => { S.gaps.clear(); gapsSummary(); };
   $("btn-about").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); };
+  // the state of this build (buildstatus.js): a banner on a preview build, and the full list in About
+  { const B = BUILD_STATUS, host = $("about-build"); host.replaceChildren(); host.className = "build-list";
+    const p = document.createElement("p"); p.textContent = `${B.headline} (${B.date})`; host.append(p);
+    for (const [title, items] of [["What works", B.works], ["Temporary in this build", B.temporary], ["What is next", B.next]]) {
+      const h = document.createElement("h4"); h.textContent = title; const ul = document.createElement("ul");
+      for (const t of items) { const li = document.createElement("li"); li.textContent = t; ul.append(li); } host.append(h, ul);
+    }
+    let hidden = false; try { hidden = sessionStorage.getItem("vss-build-banner") === B.date; } catch {}
+    $("build-banner").hidden = B.kind !== "preview" || hidden; $("build-banner-text").textContent = B.headline;
+    $("build-banner-more").onclick = () => { showModelBadge(S.loadErrors || []); $("dlg-about").showModal(); $("about-build").scrollIntoView(); };
+    $("build-banner-close").onclick = () => { $("build-banner").hidden = true; try { sessionStorage.setItem("vss-build-banner", B.date); } catch {} };
+  }
   // export
   const dx = $("dlg-export");
   $("btn-export").onclick = () => {

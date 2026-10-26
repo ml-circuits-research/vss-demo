@@ -15,6 +15,11 @@
 <body>
 <div class="app" id="app">
   <header class="topbar">
+    <div class="build-banner" id="build-banner" hidden role="status">
+      <span id="build-banner-text" class="wide-only"></span><span class="narrow-only">Preview build, not final.</span>
+      <button type="button" class="link-btn" id="build-banner-more"><span class="wide-only">What works, what is temporary, what is next</span><span class="narrow-only">Details</span></button>
+      <button type="button" class="icon-btn" id="build-banner-close" aria-label="Hide this notice" title="Hide"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
     <div class="brand"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="8" height="6" rx="1.5"/><rect x="13.5" y="14" width="8" height="6" rx="1.5"/><path d="M6.5 10v4.5a2 2 0 0 0 2 2h5"/></svg><span>Diagram editor</span></div>
     <span class="model-badge" id="model-badge" hidden></span>
     <span class="mode-chip" id="mode-chip" hidden></span>
@@ -180,6 +185,8 @@
   <form method="dialog">
     <h2>About this demo</h2>
     <p>Every command is read in your browser by a VSS reader: a small model that turns a sentence into a frame of roles (what to do, to what, where), with a margin for every decision. Nothing is sent to a server, apart from the browser's own speech recognition when you use the microphone (see Settings).</p>
+    <h3>State of this build</h3>
+    <div id="about-build"></div>
     <h3>Worlds and their models</h3>
     <div id="about-models"></div>
     <h3>Modules</h3>
