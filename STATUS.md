@@ -134,3 +134,22 @@ with it: the experiment reads scenes whose element positions are GIVEN (syntheti
 the recogniser's output from strokes; the comparison is of the relation step only, not of the whole sketch pipeline. The swap-in itself
 (an FPE scene reader in the browser behind scene_pass.js's interface, with its own parity check, TODO 2.4.1) is the next, separate step;
 until it ships, the sketch line keeps "VSS scene reader: in experiment" (questions.md Q11).
+
+## Training proposal (responses D16 rule), written before the run: the diagram probe at 5000 after Q8 / D14 / D17
+
+What fails (the "before" row: runs/diagram_step3_eccbf84/5000, seed 0, read on the 800 sentences of eval_heldout_formulations +
+eval_new_identities, Q8): heads-exact frames 561 / 779 = 0.720; 611 of 800 readings abstain, 450 of them only on an ABSENT role's
+presence margin; unplaced function words (you 401, i 202, please 162, ...), 73 no-sense (30 of them <= 5 tokens); the predicate wrong in
+6-13% of readings; connect is 24.8% of all frame errors (54 of 89 connect frames wrong, accuracy 0.393), read object = the first end.
+Where the causes are and what is changed: (1) the reader's status rule, content kinds and predicate candidates (source b467e4b and
+de11429, mirrored 3a49def / 50549bd); (2) the legend conflated the line with the first end of connect (the `edge` question, Q9 / D17,
+data n5000_edge, legend sha256:0fcc8760...). Two runs, one change each, so that the two causes are measured apart, D 1024, 3 seeds,
+`--activate auto`, `--candidate_sets catalog`:
+  A = the old frozen data (n5000), the new reader: measures change (1);
+  B = n5000_edge, the new reader: measures (1) + (2); B - A is the edge question.
+Numbers expected to move (read on the criterion's splits, heldout_sentences / new_identities, and heldout_formulations beside them, and
+on the same 800-sentence diagnostic): A: abstentions on absent roles 450 -> 0 (they become presence queries), unplaced function words
+-> 0, no-sense < 2% of the 800, predicate accuracy >= 0.99 where one legend verb occurs, heads-exact >= 0.720 (no fall). B - A: connect
+accuracy from about 0.39 to >= 0.8 on the 800, connect leaves the worst-formulation lists, heads-exact up by about 0.05 (connect's 24.8% of
+the errors, at least half removed); same-kind competition rows in training 762 -> 691 (sop profile); the 388 order-dependent rows are
+not connect rows and are not expected to move. If a number does not move as stated, the next step is a diagnostic, not a larger size.
