@@ -21,7 +21,26 @@ New: the object worlds, their generator, the dispatcher over them on stroke grou
 (1) the classical step knows six closed kinds and lines; free-hand drawings (a head with ears, a horse) do not decompose into them
 cleanly, and the parts step is not the VSS claim; (2) there is no part-annotated data of such sketches.
 
-## The plan to measure it cheaply
+## Step 0, added the same evening at the owner's request: the shapes themselves read by VSS
+
+The owner is not satisfied with how the classical step recognises circles, squares and the other shapes, and asks the natural
+question: why not VSS for the shapes too? A stroke group is resampled into short segments (the strokes.js resampling already does
+this); each segment is a token whose KIND is its direction (binned, relative to the group's first segment, so that rotation is a shift
+of bins) and whose ADDRESS is its position in the group's unit box (positions as addresses, FPE, and the drawing order as the chain the
+routes follow). A SHAPE WORLD then asks one closed-value question, "what shape is this?" (the symbols rectangle, rounded rectangle,
+ellipse, diamond, cylinder, triangle, line, arrow, scribble), read by cleanup like the intent role, with a margin, and `unknown` when
+no symbol fits (the refusal: an unknown blob). The arrow head and the closure of a shape are then questions of the same world
+("is there a head, and at which end?"). Training data: the synthetic stroke generator (tune split), as for the classical step; the test
+split's numbers (symbols 0.983, connectors 0.963, unknowns 12 of 13) are the baseline to beat, read on the SAME strokes; the criteria
+of specification 17 apply unchanged. This comes BEFORE the object worlds (an object is a composition of shapes, so the shape world is
+its first layer) and after the open rows; its declaration needs the R83 / D16 paragraph like everything else. What it changes if it
+holds: the sketch pipeline becomes VSS end to end (segments, shapes, scene, objects), and the "classical, not VSS" line disappears
+from the sketch tab. Risk to state before the run: $P is invariant to scale, position and (by non-uniform scaling) aspect; the shape
+world gets scale and position from the unit box and rotation from the relative bins, and aspect must be left to the identities (a
+tall rectangle and a wide one are one symbol); if the shape world stays under the classical step on the test split, the classical step
+stays, and the comparison is reported.
+
+## The plan to measure it cheaply (the object worlds)
 
 1. A generator of objects from primitives with variation (as the sentence generators): positions, sizes, missing parts, extra strokes;
    training and test splits; criteria written before any run (class accuracy, refusal of unknown classes, part positions).

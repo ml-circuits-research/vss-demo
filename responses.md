@@ -437,3 +437,12 @@ questions are parts, parts from the classical step, composition by the FPE scene
 refusal, the preview at Done proposing the clean object; the plan to measure it cheaply (a generator from primitives, then Quick,
 Draw! on a few categories, the parts step's decomposition rate as the first number). To be started only after everything open is
 closed, with a declaration in STATUS; nothing runs before that. Add one line to TODO_DGX pointing to the file.
+
+## D32 (recorded for later, with D31: the shapes read by VSS from segments; 2026-10-26 20:50)
+
+Added as step 0 of vision/PROPOSAL_object_worlds_sketches_2026-10-26.md, at the owner's request: a shape world that reads a stroke
+group from its resampled segments (kind = binned direction relative to the first segment, address = position in the unit box by
+FPE, the drawing order as the chain), one closed-value question "what shape is this?" with a margin and `unknown`, the head and the
+closure as questions of the same world; trained on the synthetic tune split, measured on the same test strokes against the classical
+step's numbers under the criteria of specification 17. Before the object worlds, after the open rows, with a declaration. If it holds,
+the sketch pipeline is VSS end to end and the "classical, not VSS" line goes.
