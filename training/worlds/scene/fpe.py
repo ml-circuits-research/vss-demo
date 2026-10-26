@@ -112,8 +112,10 @@ class Algebra:
     def kind(self, k): return self.v(f"sym:{k}")
 
 
-def encode_scene(scene, fpe, alg):
-    """S = sum_k E_k (x) A(c_k)                                   element centres
+def encode_scene(scene, fpe, alg, corners="containers"):
+    """corners: "containers" (the experiment's scene) or "all" (every element also carries its two corner addresses; used by the
+    outline-aware readout, nearest_outline below; two more terms per element)
+    S = sum_k E_k (x) A(c_k)                                   element centres
          + sum_k E_k (x) R_kind (x) K_kind                       element kinds
          + sum_c E_c (x) (R_tl (x) A(tl_c) + R_br (x) A(br_c))   container corners
          + sum_j E_j (x) (R_tail (x) A(tail_j) + R_tip (x) A(tip_j))  connector ends"""
@@ -121,7 +123,7 @@ def encode_scene(scene, fpe, alg):
     for e in scene["elements"]:
         x, y, w, h = e["box"]; E = alg.el(e["id"])
         S = S + E * fpe.addr(x + w / 2, y + h / 2) + E * alg.role("kind") * alg.kind(e["kind"])
-        if e.get("container"):
+        if e.get("container") or corners == "all":
             S = S + E * (alg.role("tl") * fpe.addr(x, y) + alg.role("br") * fpe.addr(x + w, y + h))
     for c in scene["connectors"]:
         E = alg.el(c["id"])
@@ -129,5 +131,22 @@ def encode_scene(scene, fpe, alg):
     return S
 
 
-def n_terms(scene):
-    return 2 * len(scene["elements"]) + 2 * sum(1 for e in scene["elements"] if e.get("container")) + 2 * len(scene["connectors"])
+def n_terms(scene, corners="containers"):
+    nc = len(scene["elements"]) if corners == "all" else sum(1 for e in scene["elements"] if e.get("container"))
+    return 2 * len(scene["elements"]) + 2 * nc + 2 * len(scene["connectors"])
+
+
+# ---------------------------------------------------------------- the outline-aware nearest (a PROPOSAL, responses D19 / Q13; not the default anywhere)
+def box_outline_distance(p, tl, br):
+    """distance in px from the point p to the OUTLINE of the box with corners tl, br: outside, the distance to the box; inside, to the nearest edge"""
+    dx = max(tl[0] - p[0], 0.0, p[0] - br[0]); dy = max(tl[1] - p[1], 0.0, p[1] - br[1])
+    if dx > 0 or dy > 0: return math.hypot(dx, dy)
+    return min(p[0] - tl[0], br[0] - p[0], p[1] - tl[1], br[1] - p[1])
+
+
+def nearest_outline(tip, boxes):
+    """tip: the decoded end (x, y); boxes: {id: (tl, br)} the decoded corner addresses of each candidate element (the scene must be encoded with
+    corners="all"). The element whose box outline is nearest wins (the centre-based readout compares the decoded centres instead).
+    -> (id, margin, distance, ranked): margin = second distance minus best distance in px (a tie is broken by id), ranked = [(distance, id)]"""
+    r = sorted((box_outline_distance(tip, tl, br), k) for k, (tl, br) in boxes.items())
+    return r[0][1], (r[1][0] - r[0][0] if len(r) > 1 else 0.0), r[0][0], r

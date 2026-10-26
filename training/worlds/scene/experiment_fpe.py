@@ -39,7 +39,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 import generate as G  # noqa: E402
-from fpe import FPE, Algebra, encode_scene, n_terms  # noqa: E402
+from fpe import FPE, Algebra, encode_scene, n_terms, nearest_outline  # noqa: E402
 
 RELS = ["left_of", "above", "inside", "nearest"]
 CRIT = 0.97
@@ -52,13 +52,15 @@ def rss_mb():
 class Reader:
     """the readout of one (fpe, algebra) pair; half-plane templates built once"""
 
-    def __init__(self, fpe, alg, readout="decoded"):
-        self.f, self.a, self.readout = fpe, alg, readout
+    def __init__(self, fpe, alg, readout="decoded", nearest="centre"):
+        """nearest: "centre" (the experiment's readout, the default) or "outline" (the proposal: every element's corners are encoded and the
+        decoded end is compared with each element's box edges, fpe.nearest_outline)"""
+        self.f, self.a, self.readout, self.nearest = fpe, alg, readout, nearest
         self.Hx = (fpe.halfplane(0, +1, G.W, G.H), fpe.halfplane(0, -1, G.W, G.H))
         self.Hy = (fpe.halfplane(1, +1, G.H, G.W), fpe.halfplane(1, -1, G.H, G.W))
 
     def scene(self, s):
-        self.S = encode_scene(s, self.f, self.a); self.cache = {}; self.s = s
+        self.S = encode_scene(s, self.f, self.a, "all" if self.nearest == "outline" else "containers"); self.cache = {}; self.s = s
         return self
 
     def q(self, eid, role=None):
@@ -84,6 +86,10 @@ class Reader:
             s = [f.side(qtl, A, xp.conj(self.Hx[0]), xp.conj(self.Hx[1])), f.side(qtl, A, xp.conj(self.Hy[0]), xp.conj(self.Hy[1])),
                  f.side(qbr, A, self.Hx[0], self.Hx[1]), f.side(qbr, A, self.Hy[0], self.Hy[1])]
             m = min(s); return m > 0, abs(m), m
+        if q["rel"] == "nearest" and self.nearest == "outline":
+            els = [e["id"] for e in self.s["elements"] if not e.get("container")]
+            k, margin, d, _ = nearest_outline(self.pos(q["j"], "tip"), {e: (self.pos(e, "tl"), self.pos(e, "br")) for e in els})
+            return k, margin, -d
         if q["rel"] == "nearest":
             T = f.addr(*self.pos(q["j"], "tip"))
             els = [e["id"] for e in self.s["elements"] if not e.get("container")]

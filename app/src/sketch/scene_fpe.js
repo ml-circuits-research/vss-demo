@@ -21,12 +21,12 @@ const NAME = (D) => `VSS scene reader (FPE, D ${D})`;
 export const DECLINED = (n, cap) => `rule-based pass (FPE declined: ${n} elements > ${cap} measured)`;
 
 /** the relation reader of scene_pass.js for one D (1024 or 4096) and seed; keeps the FPE, the algebra and the half-plane templates between calls */
-export function createFpeReader({ D = 1024, seed = 0, kernel = null, L = null } = {}) {
+export function createFpeReader({ D = 1024, seed = 0, kernel = null, L = null, nearest = "centre" } = {}) {
   const st = FPE_SETTINGS[D]; if (!st) throw new Error(`no measured setting for D ${D}`);
   const fpe = new FPE(D, seed, L ?? st.L, kernel ?? st.kernel), alg = new Algebra(D, seed), readers = new Map(), cap = FPE_CAPACITY[D];
-  const readerFor = (W, H) => { const k = `${W}x${H}`; if (!readers.has(k)) readers.set(k, new Reader(fpe, alg, W, H)); return readers.get(k); };
+  const readerFor = (W, H) => { const k = `${W}x${H}`; if (!readers.has(k)) readers.set(k, new Reader(fpe, alg, W, H, { nearest })); return readers.get(k); };
   return {
-    D, seed, capacity: cap, kernel: fpe.kernel, L: fpe.L,
+    D, seed, capacity: cap, kernel: fpe.kernel, L: fpe.L, nearest,
     read({ items, conns }, _options) {
       if (items.length > cap) return { declined: true, why: `${items.length} components > ${cap} measured at D ${D}`, active: DECLINED(items.length, cap) };
       // the canvas: translated so that everything lies in the positive quarter (the encoding is shift-invariant), at least the experiment's 1200 x 800
@@ -70,8 +70,8 @@ export function createFpeReader({ D = 1024, seed = 0, kernel = null, L = null } 
 }
 
 /** the VSS scene pass: scenePass with the FPE relation reader (D 1024 by default; declines above its measured capacity) */
-export function sceneFpe(rec, { scene = null, options = {}, D = 1024, seed = 0, reader = null } = {}) {
-  return scenePass(rec, { scene, options, reader: reader || cachedReader(D, seed) });
+export function sceneFpe(rec, { scene = null, options = {}, D = 1024, seed = 0, reader = null, nearest = "centre" } = {}) {
+  return scenePass(rec, { scene, options, reader: reader || cachedReader(D, seed, nearest) });
 }
 const cache = new Map();
-function cachedReader(D, seed) { const k = `${D}:${seed}`; if (!cache.has(k)) cache.set(k, createFpeReader({ D, seed })); return cache.get(k); }
+function cachedReader(D, seed, nearest) { const k = `${D}:${seed}:${nearest}`; if (!cache.has(k)) cache.set(k, createFpeReader({ D, seed, nearest })); return cache.get(k); }
