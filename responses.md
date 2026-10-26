@@ -142,3 +142,16 @@ see it, and the demo must not let anyone believe VSS does what $P does. Two deci
 2. **The sketch tab shows the division of labour in plain words**, always, not only in About: "shapes: classical recogniser ($P);
    scene: rule-based pass; VSS scene reader: in experiment" (and, after 1, whichever is active), one line under the pad. The same
    sentence goes into docs/state. Paper 9 of the series (the contract on sketches) says the same thing in its first page.
+
+## D12 (adds to D11: a tab that shows the classical step and the VSS step side by side; 2026-10-26 13:30)
+
+The owner's request: since the classical recogniser exists, give it its own tab and show, next to it, what VSS does. Build a
+"Sketch: how it is read" tab (or a second pane of the sketch tab) with two columns over the same strokes:
+- left, **the classical step** (recognise.js): the stroke groups as they were formed, each group's ranked kinds with scores and the
+  margin, the geometric features that decided it, the $P distance, and the reason text; unknown blobs and scribbles marked as such;
+- right, **the reading** (today scene_pass.js; the VSS scene reader when D11 item 1 passes): per component and connector, the
+  decision, the two best candidates with the distance margin, the containment, the questions asked instead of guesses, and the SOP
+  circuit that results; a header line that names which pass is active and that the left column is not VSS.
+The two columns are the two halves of the contract on a sketch: perception with margins on the left, structure with margins and
+queries on the right. The same component clicked on the pad highlights its row in both columns. Keep it read-only; no new recogniser
+work in it. Priority: after D11 item 2 (the one-line label) and the FPE run; before the request-reading tab of D9.
