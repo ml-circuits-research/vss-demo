@@ -203,6 +203,7 @@ menu button.primary { background: var(--accent); color: var(--accent-ink); borde
 .sketch-strip { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 4; display: flex; align-items: center; gap: 8px; background: var(--paper);
   border: 1px solid var(--line); border-radius: var(--r-m); padding: 6px 8px 6px 12px; max-width: calc(100% - 24px); box-shadow: 0 4px 16px rgb(0 0 0 / .08); }
 .sketch-strip .muted { font-size: 13px; }
+.sketch-strip .sketch-who { font-size: 12px; opacity: .85; }
 .sketch-strip button.primary, .answer button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .canvas.under-sketch { pointer-events: none; }
 
