@@ -17,7 +17,7 @@ below comes from a trained demo model: none exists yet (the installed model is a
 | 8 | layouts and router | BUILT | app/tests/layout.mjs, engine.mjs | 100/100 on 23 diagrams (0 overlaps, 0 crossings); 71/71 |
 | 9 | typed corrector, form level | BUILT | app/tests/correct_test.mjs, dialog.mjs | smoke: classic typed 0.970, form level typed 0.795; speech 0.600 / 0.615 (classic stays default) |
 | 10 | voice: Web Speech API, speech corrector, alternatives | BUILT (on-device engine and recorded set PLANNED) | app/src/speech.js | |
-| 11 | interface, panels, dialog | BUILT | app/tests/browser_check.mjs | 124/124 in Chromium (Playwright 1.49.1, DGX, f748ddc), file:// and hosted, desktop and phone; the dialog asks undecided pairs (dialog.mjs 15/15) |
+| 11 | interface, panels, dialog | BUILT | app/tests/browser_check.mjs, entries.mjs | tabs interface (vision/UI_tabs_requirements_2026-10-26.md): browser check 180/180 in Chromium (Playwright 1.49.1, DGX, da0bda6), file:// and hosted, desktop and phone; entries.mjs 28/28; dialog asks undecided pairs (dialog.mjs 15/15) and consumes queries (queries.mjs 14/14) |
 | 12 | text widgets, dictation, textedit world | BUILT; training PLANNED (DGX) | app/tests/text_targets.mjs, dictation.mjs | 413/413, 51/51 |
 | 13 | segmenter, circuit, paragraphs | BUILT; reader rows PLANNED | app/tests/segment.mjs | 47/47 with fake readers |
 | 14 | Level 2 decoder extensions | PLANNED (DGX) | training/TODO_DGX.md | |
@@ -65,7 +65,11 @@ Interface (questions Q6, responses D10; the owner's decision, deviation from spe
 paperclip next to the microphone; tabs by default with the diagram editor as one tab, a history tab, an understood-actions tab (Table 8:
 sentence, status, behaviour, rule) and a "Requests" tab (D9 / D10: how a request is read, not an agent). Kept from section 11 (D10):
 the live side panel (frame with margins, plan, geometry) stays visible next to any tab on desktop, and the canvas of the active purpose
-stays visible while the person types (history / actions replace it only on a click). Not started: the owner made it a side task.
+stays visible while the person types (history / actions replace it only on a click). BUILT (c253065..da0bda6, a Sonnet agent of the DGX
+session in its own worktree, merged by fast-forward): main tabs Diagram / History / Actions / Assistant / Widget / Timeline / Circuit /
+SOP / Log, the live panel as a side column on desktop (tabs on a phone), count badges, the examples paperclip (app/src/examples.js), call
+text in the Assistant tab (app/src/ui/entries.js). Decided by the agent and kept: example entries filtered per entry by world, the
+automatic switch to the Widget tab on writing removed (D10 condition 2), a click on the empty-canvas hint still runs it.
 
 SUPERSEDED (CPU oversubscription), kept: `runs/{diagram,animation}_step3_6df62b0/`, `runs/textedit_6df62b0/`,
 `runs/{diagram_ro,diagram_multi}_step3_7ad2f48/`. Stopped at 12:37 before any size finished: ten `sop train` processes without a thread

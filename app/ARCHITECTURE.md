@@ -53,7 +53,8 @@ app/src/formula/                formula widgets, tree, LaTeX, MathML, edits (spe
 app/src/sketch/                 sketch pad, stroke recogniser, scene pass (spec 17)
 app/src/script/                 long scripts: sections, checkpoints, document view (spec 18)
 app/src/animate/                temporal frames, timeline solver, player, export, invariants (spec 19)
-app/src/ui/                     panels (frame / plan / geometry / SOP / circuit), input bar, settings, about, responsive layout
+app/src/ui/                     panels (frame / plan / geometry / SOP / circuit), the main tabs (tabs.js; pure rows in entries.js), input bar, settings, about, responsive layout
+app/src/examples.js             the examples of the paperclip and of the empty-canvas hint, one entry per sentence with the world it needs
 app/model/<world>/              exported models (sop export-web) + normalize.json
 app/vendor/                     third-party code with licences
 app/build/build.mjs             the single-file build

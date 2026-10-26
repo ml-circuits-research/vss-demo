@@ -106,3 +106,11 @@ diagram model is a development model: wrong readings are expected there, the che
 Typed commands never leave the device. Voice uses the browser's speech recognition: in Chrome and Edge the audio may be sent to the
 browser maker's service unless on-device recognition is available; the Settings panel says which applies. An on-device engine is a
 planned step (spec 13.1).
+
+## Layout (2026-10-26)
+
+The screen is a set of tabs over one chat input (vision/UI_tabs_requirements_2026-10-26.md): Diagram (the canvas), History (every input with
+its reading), Actions (the behaviour and the rule of Table 8 for each reading), Assistant (the recognised intent and the call it would
+make, as text; not an agent), and the Widget, Timeline, Circuit, SOP and Log tabs. On desktop the live panel (reading with margins, plan,
+geometry) is a side column next to every tab; on a phone these are tabs. The paperclip left of the microphone offers examples
+(app/src/examples.js); a click puts one into the input without running it.
