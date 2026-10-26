@@ -404,3 +404,20 @@ JS reader already, for the residual), then the measurement on D2's model with th
 calibration rows, against your expectation (absent-text p90 near 0.2, threshold near 0.1, the 14 under-threshold texts present,
 nothing else down); report also how many roles the second pass takes on the 800 sentences and whether any of them is wrong. If it
 holds, it goes into the contract set with the next sync.
+
+## D29 (the owner tested the 18:46 build: "creat a blue box" refused as no-sense; the chat thread of D25 / D26 is not in that build; 2026-10-26 20:05)
+
+1. **"creat a blue box" must work.** Diagnosis to confirm on your side: the typed-input corrector does not correct a token that the
+   English dictionary accepts, and Hunspell en_US very likely contains "creat"; so "creat" stays, no legend verb is found, and the
+   reading is no-sense with the honest but useless reply. Rule (specification 12.1, refined): a token that is not a lexicon word but
+   is within cost 1 of one (OSA, as now) is ALSO offered as a corrected variant even when it is an English word, and the reader reads
+   both variants as it reads the homophone variants, keeping the clearest frame; the correction is shown underlined in History as a
+   correction (Table 8: "a correction applied"). Expected: "creat a blue box" reads create with the correction recorded; a real
+   English word that is no typo ("crate a blue box" is also cost 1 from create: both variants read, create wins because the other is
+   no-sense). Add to the browser check one typo per legend verb (the 20 verbs, cost 1) and the three prefix families.
+2. **The reply buttons.** The build of 18:46 (9312e8b) has ui-1 to ui-5 but not D25 / D26 (written after them): the reply still comes
+   with action buttons ("use 'a box' as a label"). D26 is the next interface step (ui-6): the chat thread above the input, the editor's
+   replies as plain sentences, a question's choices as buttons inside its bubble only, every action and detail in History. Publish it
+   with the label `ui-6`. The owner's request was not lost; it was queued behind ui-1 to ui-5.
+3. Until the corrector is fixed, the refusal reply should not say "use 'a box' as a label": a no-sense reading lists what the editor can
+   do and nothing else (D25).
