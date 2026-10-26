@@ -1,6 +1,6 @@
 // dialog.mjs: the rules of Table 8 (spec 11), the clearest-reading rule (12.3 / 13.3) and the form level's basic behaviour, on hand-made
 // reader results. Usage: node app/tests/dialog.mjs
-import { decide } from "../src/dialog.js";
+import { decide, dropWord } from "../src/dialog.js";
 import { chooseClearest } from "../src/speech.js";
 import { createFormIndex } from "../src/form.js";
 let pass = 0, fail = 0; const bad = [];
@@ -14,6 +14,11 @@ const pr = decide({ result: R({ frame: { event: "create", roles: { object: ["ent
 check("ask presence of a role read as present", pr.action === "ask" && /did you mean/.test(pr.line), pr.line);
 const pa = decide({ result: R({ margins: { object: 0.3, "color.presence": 0.01 } }), plan: okPlan });
 check("absent role near threshold: default and a note", pa.action === "execute" && pa.notes.some((n) => n.kind === "presence" && n.role === "color"), JSON.stringify(pa));
+const ud = decide({ result: R({ status: "abstain", frame: { event: "connect", roles: { source: ["entity", "p3", null, null], target: ["entity", "p2", null, null] } }, margins: { source: 0, target: 0.4 }, candidates: { source: ["p3", "db"] }, undecided: { source: ["p3", "p5"] } }), plan: okPlan });
+check("undecided pair asked, not the runner-up", ud.action === "ask" && ud.questions.length === 1 && ud.questions[0].kind === "undecided" && /p3 or p5/.test(ud.line) && /adjacent/.test(ud.rule), JSON.stringify(ud));
+const ud2 = decide({ result: R({ status: "abstain", margins: { object: 0, color: 0.01 }, candidates: { color: ["red", "orange"] }, undecided: { object: ["box", "cache"] } }), plan: okPlan });
+check("undecided first, other roles still asked", ud2.questions.map((q) => q.kind + ":" + q.role).join(",") === "undecided:object,role:color", JSON.stringify(ud2.questions));
+check("dropWord", dropWord("connect p3 p5 to p2", "p5") === "connect p3 to p2" && dropWord("Link Billing payments to db.", "billing") === "Link payments to db." && dropWord("add reports db now", "reports_db") === "add now" && dropWord("add a box", "cache") === "add a box" && dropWord("add p55 p5", "p5") === "add p55", "");
 const ns = decide({ result: R({ status: "no-sense", unplaced: ["frobnicate"] }), legend: { events: [{ id: "create" }] } });
 check("refuse no-sense", ns.action === "refuse" && ns.questions[0].kind === "unknown-word" && /I can: create/.test(ns.line), ns.line);
 const amb = decide({ result: R(), plan: { ...okPlan, steps: [], questions: [{ kind: "which", text: "which circle?", candidates: ["c1", "c2"] }] } });

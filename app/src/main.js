@@ -12,7 +12,7 @@ import { createNormalizer } from "./normalize.js";
 import { createCorrector } from "./correct.js";
 import { createFormIndex } from "./form.js";
 import { createSpeech, chooseClearest } from "./speech.js";
-import { decide, animationIntent } from "./dialog.js";
+import { decide, animationIntent, dropWord } from "./dialog.js";
 import { createScene } from "./editor/scene.js";
 import * as ops from "./editor/ops.js";
 import { place } from "./editor/geometry.js";
@@ -513,6 +513,7 @@ function showAnswer(d) {
   const line = document.createElement("span"); line.className = `line act-${d.action}`; line.textContent = d.line; host.append(line);
   for (const q of d.questions || []) {
     if (q.kind === "role" && q.candidates?.length) for (const c of q.candidates) host.append(chip(String(c).replace(/_/g, " "), () => rerunWith(q.role, c)));
+    if (q.kind === "undecided") for (const c of q.candidates) host.append(chip(String(c).replace(/_/g, " "), () => rerunWithout(q.candidates.find((x) => x !== c))));
     if (q.kind === "which" && q.candidates?.length) q.candidates.forEach((id, i) => host.append(chip(`${i + 1}: ${describeId(id)}`, () => { S.scene.selection = [id]; rerunLast(); })));
     if (q.kind === "unknown-word") host.append(chip(`use "${q.words.join(" ")}" as a label`, () => runText(`${S.last.input} called ${q.words.join(" ")}`)));
   }
@@ -535,6 +536,7 @@ const chip = (text, fn) => { const b = document.createElement("button"); b.type 
 const describeId = (id) => { const c = S.scene.components.get(id); return c ? `${c.label ? `"${c.label}" ` : ""}${c.word}` : id; };
 function rerunLast() { if (S.last) handle([{ text: S.last.input }]); }
 function rerunWith(role, value) { if (!S.last) return; runText(`${S.last.input} ${String(value).replace(/_/g, " ")}`); }
+function rerunWithout(word) { if (!S.last) return; runText(dropWord(S.last.input, word)); }      // an undecided pair: the word not chosen filled no role
 function runText(t) { $("input").value = ""; handle([{ text: t }]); }
 function runRaw(t, over) { const keep = S.settings.corrector; S.settings.corrector = over.corrector; handle([{ text: t }]); S.settings.corrector = keep; }
 

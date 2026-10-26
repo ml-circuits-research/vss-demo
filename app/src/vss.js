@@ -24,15 +24,23 @@ export class VSS {
     this.rb = new Routebook(Object.assign({ D: model.config.D }, routebook.header), routebook.arrays);
     this.reader = new Reader(model, this.rb, this.stars, opts);
   }
-  /** one sentence -> {sop, wires, frame, margins, presence, status, residual, unplaced, tokens, state, timings} */
+  /** one sentence -> {sop, wires, frame, margins, presence, status, residual, unplaced, undecided, tokens, state, timings} */
   read(text, opts = {}) {
     const t0 = performance.now(), { wires, frame, decoded, info } = this.reader.formalize(text, opts.sentence ?? 0, idgen("w", opts.start || 1), opts);
     const sop = write(opts.directives || [["world", this.model.world || "?"], ["legend", this.model.legend_sha256]], wires);
     const fr = { speakers: decoded.speakers, neg: decoded.neg, event: decoded.event, roles: decoded.roles, shape: frame.shape, lemma: decoded.lemma ?? null, depth: decoded.depth ?? 0, scope: decoded.scope ?? null };
     return { sop, wires, frame: fr, shape: frame.shape, margins: decoded.margins || {}, presence: decoded.presence || {}, status: info.status, residual: info.residual,
              unplaced: info.unplaced.map((i) => info.tokens[i]), tokens: info.tokens, state: info.S, missingStars: [...this.stars.missing], candidates: decoded.runner_up || {},
+             undecided: undecidedOf(wires[0]),
              timings: { chart_ms: info.ms_chart, total_ms: performance.now() - t0 } };
   }
+}
+
+/** the adjacency rule's queries of the top wire (`_undecided.<role>=a|b`, addendum q-formalisation 10) -> { role: [a, b] } */
+function undecidedOf(top) {
+  const out = {};
+  for (const l of top?.lines || []) if (l.key.startsWith("_undecided.")) out[l.key.slice("_undecided.".length)] = String(l.text).split("|");
+  return out;
 }
 
 /** load a model folder (URL in the browser, or a readFile function in node) */

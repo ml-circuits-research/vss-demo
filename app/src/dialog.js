@@ -25,12 +25,17 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
     return { action: "refuse", line: `I did not understand that (${result.status}). ${capabilities(legend)}`.trim(), questions: qs, notes,
       rule: "Table 8: unknown-event or no-sense -> say what was not understood, list what the editor can do" };
   }
+  // undecided by adjacency (addendum q-formalisation 10): two words of the sentence the state cannot separate for one role -> ask which
+  // of the two, never the catalog's runner-up; the answer keeps the chosen word and drops the other (it filled no role)
+  const undecided = Object.entries(result.undecided || {}).filter(([, c]) => c && c.length === 2).map(([role, cands]) => ({ kind: "undecided", role, margin: 0, candidates: cands,
+    text: `which ${ROLE_WORD[role] || role}, ${cands[0]} or ${cands[1]}?` }));
   // a role under tau: ask about that role only, with the two best candidates when the reader gives them
   // one question per role: the role's lowest margin (identity, presence, attribute or determiner part)
   const byRole = new Map();
   for (const [k, v] of Object.entries(result.margins || {})) {
     if (typeof v !== "number" || v >= tau || k === "structure") continue;
-    const role = k.split(".")[0]; if (!byRole.has(role) || v < byRole.get(role)[1]) byRole.set(role, [k, v]);
+    const role = k.split(".")[0]; if (undecided.some((q) => q.role === role)) continue;
+    if (!byRole.has(role) || v < byRole.get(role)[1]) byRole.set(role, [k, v]);
   }
   // a role read as ABSENT whose presence is near its threshold is not asked: the declared default applies and the answer says so
   // (Table 8, "a required role empty: use the declared default and say so"); a question is asked only about what the reading contains
@@ -39,15 +44,16 @@ export function decide({ result, plan = null, corrections = [], tau = 0.05, lege
     if (!present[role] && k.endsWith(".presence")) { byRole.delete(role); notes.push({ kind: "presence", role, text: `a ${ROLE_WORD[role] || role} may have been meant; none was used` }); }
   }
   const low = [...byRole.values()];
-  if (low.length) {
-    const qs = low.map(([k, v]) => {
+  if (undecided.length || low.length) {
+    const qs = undecided.concat(low.map(([k, v]) => {
       const [role, part] = k.split(".");
       const cands = result.candidates?.[role]?.slice(0, 2) || [];
       const what = ROLE_WORD[role] || role;
       return { kind: "role", role, margin: v, candidates: cands,
         text: cands.length === 2 ? `which ${what}, ${cands[0]} or ${cands[1]}?` : part === "presence" ? `did you mean to give a ${what}?` : `which ${what}?` };
-    });
-    return { action: "ask", line: qs.map((q) => q.text).join(" "), questions: qs, notes, rule: `Table 8: a margin under tau = ${tau}` };
+    }));
+    return { action: "ask", line: qs.map((q) => q.text).join(" "), questions: qs, notes,
+      rule: undecided.length ? "addendum q-formalisation 10: two adjacent words undecided for a role -> ask which" : `Table 8: a margin under tau = ${tau}` };
   }
   if (!plan) return { action: "refuse", line: "this reading has no action in the editor", questions: [], notes, rule: "no action schema" };
   if (plan.blocked && plan.blocked.length && !plan.steps.length) {
@@ -76,4 +82,16 @@ export function animationIntent(frame, tokens = []) {
   const w = tokens.find((t) => CORRECTION_WORDS.includes(t));
   if (w) return { intent: "correction", rule: `the correction word "${w}"` };
   return { intent: "unit", rule: "a new unit of the timeline" };
+}
+
+// The answer to an undecided pair: the input without the word not chosen (its first whole-word occurrence, case-insensitive; a token
+// joined by "_" by the normalizer is also matched with spaces). The input is returned unchanged when the word is not found.
+export function dropWord(input, word) {
+  if (!word) return input;
+  const esc = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  for (const w of [word, word.replace(/_/g, " ")]) {
+    const re = new RegExp(`(^|\\s)${esc(w)}(?=\\s|[.,;:!?]|$)`, "i");
+    if (re.test(input)) return input.replace(re, "$1").replace(/\s{2,}/g, " ").trim();
+  }
+  return input;
 }
