@@ -92,43 +92,52 @@ function report(name, m, scenes, split) {
 let errors = 0;
 try {
   const data = JSON.parse(readFileSync(new URL("./data/sketch_synth.json", import.meta.url)));
-  for (const split of process.argv.includes("--tune") ? ["tune", "test"] : ["test"]) {
-    const scenes = data.splits[split].slice(0, LIMIT), mR = newM(), mF = newM(), missR = [], missF = [], diffs = [], declined = [];
-    const tally = { both: 0, fpeOnly: 0, rulesOnly: 0, neither: 0 }; let items = 0; const ends = { fpe: 0, differs: 0, fallback: 0, minMargin: Infinity };
+  for (const split of process.argv.includes("--tune") ? ["tune", "test", "probe"] : ["test", "probe"]) {
+    const scenes = data.splits[split].slice(0, LIMIT), mR = newM(), mF = newM(), mO = newM(), missR = [], missF = [], missO = [], diffs = [], declined = [];
+    const tally = { both: 0, fpeOnly: 0, rulesOnly: 0, neither: 0 }, tallyO = { both: 0, fpeOnly: 0, rulesOnly: 0, neither: 0 }; let items = 0;
+    const endStats = () => ({ fpe: 0, differs: 0, fallback: 0, minMargin: Infinity }); const ends = endStats(), endsO = endStats();
+    const countEnds = (res, st) => { for (const k of res.connectors) for (const e of k.fpe ? [k.fpe.source, k.fpe.target] : []) { if (e.fallback) st.fallback++; else { st.fpe++; if (!e.agrees) st.differs++; st.minMargin = Math.min(st.minMargin, e.margin); } } };
     for (const sc of scenes) {
       const rec = recognise(sc.strokes.map((s, i) => fromDeltas(s.p, i)));
       let t0 = performance.now(); const resR = scenePass(rec); mR.ms += performance.now() - t0;
       t0 = performance.now(); const resF = sceneFpe(rec, { D }); mF.ms += performance.now() - t0;
+      t0 = performance.now(); const resO = sceneFpe(rec, { D, nearest: "outline" }); mO.ms += performance.now() - t0;
       if (!/^VSS/.test(resF.active)) declined.push(`${sc.id}: ${resF.active}`);
-      for (const k of resF.connectors) for (const e of k.fpe ? [k.fpe.source, k.fpe.target] : []) { if (e.fallback) ends.fallback++; else { ends.fpe++; if (!e.agrees) ends.differs++; ends.minMargin = Math.min(ends.minMargin, e.margin); } }
-      const R = score(sc, rec, resR, mR, missR), F = score(sc, rec, resF, mF, missF);
-      const G = sc.gold, goldEl = new Map(G.elements.map((e) => [e.id, e]));
+      countEnds(resF, ends); countEnds(resO, endsO);
+      const R = score(sc, rec, resR, mR, missR), F = score(sc, rec, resF, mF, missF), O = score(sc, rec, resO, mO, missO);
+      const G = sc.gold, goldEl = new Map(G.elements.map((e) => [e.id, e])), T = (t, a, b) => { t[a.ok && b.ok ? "both" : b.ok ? "fpeOnly" : a.ok ? "rulesOnly" : "neither"]++; };
       for (const [gid, r] of R.par) {
-        const f = F.par.get(gid), e = goldEl.get(gid); items++; tally[r.ok && f.ok ? "both" : f.ok ? "fpeOnly" : r.ok ? "rulesOnly" : "neither"]++;
-        if (r.got !== f.got) diffs.push(`${sc.id} parent of ${gid} (${e.kind}${e.container ? ", container" : ""}): rules ${r.got}, FPE ${f.got}, gold ${e.parent}`);
+        const f = F.par.get(gid), o = O.par.get(gid), e = goldEl.get(gid); items++; T(tally, r, f); T(tallyO, r, o);
+        if (r.got !== f.got || r.got !== o.got) diffs.push(`${sc.id} parent of ${gid} (${e.kind}${e.container ? ", container" : ""}): rules ${r.got}, FPE ${f.got}, FPE outline ${o.got}, gold ${e.parent}`);
       }
       for (const k of G.connectors) {
-        const r = R.conn.get(k.id), f = F.conn.get(k.id); items++; tally[r.ok && f.ok ? "both" : f.ok ? "fpeOnly" : r.ok ? "rulesOnly" : "neither"]++;
-        if (r.got !== f.got) {
-          const x = f.c && f.c.fpe ? f.c.fpe : null, end = (z) => (!z ? "-" : z.fallback ? "outline rule" : `margin ${z.margin.toFixed(3)}`);
-          diffs.push(`${sc.id} connector ${k.id} (${k.kind}): rules ${r.got}, FPE ${f.got}, gold ${k.source}->${k.target}${x ? ` [FPE ends: tail ${end(x.source)}, tip ${end(x.target)}]` : ""}`);
+        const r = R.conn.get(k.id), f = F.conn.get(k.id), o = O.conn.get(k.id); items++; T(tally, r, f); T(tallyO, r, o);
+        if (r.got !== f.got || r.got !== o.got) {
+          const end = (z) => (!z ? "-" : z.fallback ? "outline rule" : `margin ${z.margin.toFixed(3)}`), ex = (x) => (x && x.fpe ? ` (tail ${end(x.fpe.source)}, tip ${end(x.fpe.target)})` : "");
+          diffs.push(`${sc.id} connector ${k.id} (${k.kind}): rules ${r.got}, FPE ${f.got}${ex(f.c)}, FPE outline ${o.got}${ex(o.c)}, gold ${k.source}->${k.target}`);
         }
       }
     }
-    const label = split === "test" ? "MEASURED (synthetic, test split; the criteria apply here)" : "tuning split (the recogniser's thresholds were set on it; not a result)";
-    console.log(`sketch end-to-end [${split}] ${label}: ${scenes.length} scenes; recogniser -> scene_pass (rules) against recogniser -> scene_fpe (FPE, D ${D}, declines above ${D === 1024 ? 16 : 64} components)`);
-    report("rules", mR, scenes, split); report(`FPE D ${D}`, mF, scenes, split);
-    console.log(`  connector ends read by the scene reader: ${ends.fpe} (${ends.differs} where the nearest address is not the nearest outline), ${ends.fallback} fell back to the outline rule (out of tolerance or on a container); smallest margin ${ends.minMargin.toFixed(3)}`);
+    const label = split === "test" ? "MEASURED (synthetic, test split; the criteria apply here)" : split === "probe" ? "PROBE split (20 constructed scenes: large shapes with small ones near their outlines; never mixed into tune or test; reported, no criterion)" : "tuning split (the recogniser's thresholds were set on it; not a result)";
+    console.log(`sketch end-to-end [${split}] ${label}: ${scenes.length} scenes; recogniser -> scene_pass (rules) against recogniser -> scene_fpe (FPE, D ${D}, declines above ${D === 1024 ? 16 : 64} components): nearest by centre (today) and by box outline (proposal)`);
+    report("rules", mR, scenes, split); report(`FPE D ${D}, centre nearest`, mF, scenes, split); report(`FPE D ${D}, outline-aware nearest`, mO, scenes, split);
+    const endsLine = (n, st) => `  connector ends read by the scene reader, ${n}: ${st.fpe} (${st.differs} where the chosen element is not the nearest outline), ${st.fallback} fell back to the outline rule (out of tolerance or on a container); smallest margin ${st.minMargin.toFixed(3)}${n === "outline-aware" ? " (px)" : ""}`;
+    console.log(endsLine("centre", ends)); console.log(endsLine("outline-aware", endsO));
     console.log(`  FPE declined (rules read): ${declined.length} scene(s)${declined.length ? ": " + declined.join("; ") : ""}`);
-    console.log(`  per decision (parents and connectors, ${items}): both right ${tally.both}, FPE only right ${tally.fpeOnly}, rules only right ${tally.rulesOnly}, both wrong ${tally.neither}`);
-    console.log(`  disagreements between the two passes (${diffs.length}):`);
+    console.log(`  per decision (parents and connectors, ${items}), rules against FPE centre: both right ${tally.both}, FPE only right ${tally.fpeOnly}, rules only right ${tally.rulesOnly}, both wrong ${tally.neither}`);
+    console.log(`  per decision (${items}), rules against FPE outline-aware: both right ${tallyO.both}, FPE only right ${tallyO.fpeOnly}, rules only right ${tallyO.rulesOnly}, both wrong ${tallyO.neither}`);
+    console.log(`  disagreements among the three passes (${diffs.length}; one line each: scene, element, what each said, the gold):`);
     for (const d of diffs) console.log(`    ${d}`);
     if (!diffs.length) console.log("    none");
-    const onlyF = missF.filter((x) => !missR.includes(x)), onlyR = missR.filter((x) => !missF.includes(x)), both = missF.filter((x) => missR.includes(x));
-    console.log(`  misses against the gold: rules ${missR.length}, FPE ${missF.length} (those both get wrong come from the recogniser's boxes or groups)`);
-    console.log(`    common to both (${both.length}):`); for (const x of both) console.log(`      ${x}`);
-    console.log(`    rules only (${onlyR.length}):`); for (const x of onlyR) console.log(`      ${x}`);
-    console.log(`    FPE only (${onlyF.length}):`); for (const x of onlyF) console.log(`      ${x}`);
+    const sub = (a, b) => a.filter((x) => !b.includes(x));
+    console.log(`  misses against the gold: rules ${missR.length}, FPE centre ${missF.length}, FPE outline-aware ${missO.length} (those all get wrong come from the recogniser's boxes or groups)`);
+    const all3 = missR.filter((x) => missF.includes(x) && missO.includes(x));
+    console.log(`    common to all three (${all3.length}):`); for (const x of all3) console.log(`      ${x}`);
+    for (const [n, a, b, c] of [["rules only", missR, missF, missO], ["FPE centre only", missF, missR, missO], ["FPE outline-aware only", missO, missR, missF]]) {
+      const x = sub(sub(a, b), c); console.log(`    ${n} (${x.length}):`); for (const y of x) console.log(`      ${y}`);
+    }
+    const pairs = [["rules and FPE centre, not outline-aware", missR, missF, missO], ["rules and FPE outline-aware, not centre", missR, missO, missF], ["FPE centre and outline-aware, not rules", missF, missO, missR]];
+    for (const [n, a, b, c] of pairs) { const x = sub(a.filter((y) => b.includes(y)), c); if (x.length) { console.log(`    wrong for ${n} (${x.length}):`); for (const y of x) console.log(`      ${y}`); } }
   }
 } catch (e) { errors++; console.log(`sketch_fpe: ERROR: ${e.stack}`); }
 // ------------------------------------------------------------------ part 2: scenarios (hand-built recogniser output; a failed scenario is an error)

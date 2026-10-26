@@ -44,10 +44,10 @@ def portable_fpe(D, seed, L, kernel):
     return f
 
 
-def case(name, D, seed, L, kernel, scenes, W=1200, H=800):
+def case(name, D, seed, L, kernel, scenes, W=1200, H=800, nearest="centre"):
     G.W, G.H = W, H                                   # the reader reads the canvas size from generate.py's module constants
-    alg = PortableAlgebra(D, seed); f = portable_fpe(D, seed, L, kernel); reader = X.Reader(f, alg)
-    out = {"name": name, "D": D, "seed": seed, "L": L, "kernel": kernel, "W": W, "H": H, "scenes": []}
+    alg = PortableAlgebra(D, seed); f = portable_fpe(D, seed, L, kernel); reader = X.Reader(f, alg, nearest=nearest)
+    out = {"name": name, "D": D, "seed": seed, "L": L, "kernel": kernel, "W": W, "H": H, "nearest": nearest, "scenes": []}
     for s, qs in scenes:
         reader.scene(s)
         res = []
@@ -89,6 +89,9 @@ def main():
         for c in t["connectors"]: c["tail"] = [c["tail"][0] + 250.0, c["tail"][1] + 90.0]; c["tip"] = [c["tip"][0] + 250.0, c["tip"][1] + 90.0]
         shifted.append((t, G.queries(t, np.random.default_rng([0, 97]), 25)))
     cases.append(case("gaussian48-D1024-canvas1500x900", 1024, 0, 48, "gaussian", shifted, 1500, 900))
+    # the outline-aware nearest (fpe.py nearest_outline, a proposal): every element carries its corners; a dev set, a sinc case, the larger canvas
+    cases += [case("gaussian48-D1024-outline", 1024, 0, 48, "gaussian", scenes, nearest="outline"), case("sinc96-D1024-outline", 1024, 0, 96, "sinc", scenes[:3], nearest="outline"),
+              case("gaussian48-D1024-canvas1500x900-outline", 1024, 0, 48, "gaussian", shifted, 1500, 900, nearest="outline")]
     os.makedirs(os.path.dirname(a.out), exist_ok=True); json.dump({"cases": cases}, open(a.out, "w"))
     nq = sum(len(sc["results"]) for c in cases for sc in c["scenes"])
     print(f"wrote {a.out}: {len(cases)} cases, {sum(len(c['scenes']) for c in cases)} scenes, {nq} relation decisions, {os.path.getsize(a.out) / 1e6:.2f} MB")

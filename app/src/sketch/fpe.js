@@ -115,12 +115,12 @@ export class Algebra {
 }
 
 /** the superposition of a scene {elements: [{id, kind, box: [x, y, w, h], container?}], connectors: [{id, tail: [x, y], tip: [x, y]}]} */
-export function encodeScene(scene, fpe, alg) {
+export function encodeScene(scene, fpe, alg, corners = "containers") {
   const S = cvec(fpe.D);
   for (const e of scene.elements) {
     const [x, y, w, h] = e.box, E = alg.el(e.id);
     addTo(S, cmul(E, fpe.addr(x + w / 2, y + h / 2))); addTo(S, cmul(cmul(E, alg.role("kind")), alg.kind(e.kind)));
-    if (e.container) addTo(S, cmul(E, addTo(cmul(alg.role("tl"), fpe.addr(x, y)), cmul(alg.role("br"), fpe.addr(x + w, y + h)))));
+    if (e.container || corners === "all") addTo(S, cmul(E, addTo(cmul(alg.role("tl"), fpe.addr(x, y)), cmul(alg.role("br"), fpe.addr(x + w, y + h)))));
   }
   for (const c of scene.connectors || []) {
     const E = alg.el(c.id);
@@ -128,16 +128,31 @@ export function encodeScene(scene, fpe, alg) {
   }
   return S;
 }
-export const nTerms = (scene) => 2 * scene.elements.length + 2 * scene.elements.filter((e) => e.container).length + 2 * (scene.connectors || []).length;
+export const nTerms = (scene, corners = "containers") => 2 * scene.elements.length + 2 * (corners === "all" ? scene.elements.length : scene.elements.filter((e) => e.container).length) + 2 * (scene.connectors || []).length;
 
-/** the readout of one (fpe, algebra) pair on a canvas of W x H px; the half-plane templates are built once */
+/** distance in px from the point p to the OUTLINE of the box with corners tl, br: outside, to the box; inside, to the nearest edge (fpe.py box_outline_distance) */
+export function boxOutlineDistance(p, tl, br) {
+  const dx = Math.max(tl[0] - p[0], 0, p[0] - br[0]), dy = Math.max(tl[1] - p[1], 0, p[1] - br[1]);
+  if (dx > 0 || dy > 0) return Math.hypot(dx, dy);
+  return Math.min(p[0] - tl[0], br[0] - p[0], p[1] - tl[1], br[1] - p[1]);
+}
+/** the outline-aware nearest (fpe.py nearest_outline; a PROPOSAL, not the default): boxes {id: [tl, br]} -> {id, margin (second minus best distance, px), dist, ranked: [{dist, id}]} */
+export function nearestOutline(tip, boxes) {
+  const r = Object.entries(boxes).map(([id, [tl, br]]) => ({ dist: boxOutlineDistance(tip, tl, br), id })).sort((p, q) => p.dist - q.dist || (p.id < q.id ? -1 : 1));
+  return { id: r[0].id, margin: r[1] ? r[1].dist - r[0].dist : 0, dist: r[0].dist, ranked: r };
+}
+
+/** the readout of one (fpe, algebra) pair on a canvas of W x H px; the half-plane templates are built once.
+ *  options.nearest: "centre" (the default: the decoded end against the decoded centres) or "outline" (the proposal: every element also carries
+ *  its corner addresses and the decoded end is compared with each element's box edges; fpe.py experiment_fpe.Reader(nearest="outline")) */
 export class Reader {
-  constructor(fpe, alg, W = W0, H = H0) {
-    this.f = fpe; this.a = alg; this.W = W; this.H = H;
+  constructor(fpe, alg, W = W0, H = H0, { nearest = "centre" } = {}) {
+    if (nearest !== "centre" && nearest !== "outline") throw new Error(`unknown nearest readout ${nearest}`);
+    this.f = fpe; this.a = alg; this.W = W; this.H = H; this.nearestMode = nearest;
     this.Hx = [fpe.halfplane(0, +1, W, H), fpe.halfplane(0, -1, W, H)]; this.Hy = [fpe.halfplane(1, +1, H, W), fpe.halfplane(1, -1, H, W)];
     this.hc = { x: this.Hx.map(conj), y: this.Hy.map(conj) };
   }
-  scene(s) { this.S = encodeScene(s, this.f, this.a); this.cache = new Map(); this.s = s; return this; }
+  scene(s) { this.S = encodeScene(s, this.f, this.a, this.nearestMode === "outline" ? "all" : "containers"); this.cache = new Map(); this.s = s; return this; }
   q(id, role) { let v = this.a.el(id); if (role) v = cmul(v, this.a.role(role)); return cmul(this.S, conj(v)); }
   /** the decoded position of an element (role null: its centre) or of one of its roles (tl, br, tail, tip), cached per scene */
   pos(id, role = null) {
@@ -156,6 +171,10 @@ export class Reader {
   }
   /** the candidate (ids) whose decoded centre is most similar to the decoded end (role "tip" or "tail") of connector j: {id, margin, sim, ranked} */
   nearest(j, ids, role = "tip") {
+    if (this.nearestMode === "outline") {
+      const boxes = {}; for (const e of ids) boxes[e] = [this.pos(e, "tl"), this.pos(e, "br")];
+      const n = nearestOutline(this.pos(j, role), boxes); return { id: n.id, margin: n.margin, sim: -n.dist, dist: n.dist, ranked: n.ranked };
+    }
     const T = this.addrOf(j, role), r = ids.map((e) => ({ sim: this.f.sim(T, this.addrOf(e)), id: e })).sort((p, q) => q.sim - p.sim || (p.id < q.id ? 1 : -1));
     return { id: r[0].id, margin: r[0].sim - (r[1] ? r[1].sim : 0), sim: r[0].sim, ranked: r };
   }
