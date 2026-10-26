@@ -92,6 +92,16 @@
   "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
   "diagram/world.json": "3f724005007fbf64ba99bcfbe7efb84e328180ba94608d209fda803a3cfc5337"
  },
+ "diagram/n5000_edge": {
+  "diagram/examples/eval_heldout_formulations.sop": "a74cdd3eacfa9638008ea48e168e3b35da9a3c71125d295332d55e4fdf6904c1",
+  "diagram/examples/eval_new_identities.sop": "17c5bff58b88efa958c904a429580e6174eef951a7f6868a71e3df9b219f012f",
+  "diagram/examples/train.sop": "660e8168e58646a69a537283f8e37ef00a0c5291549e95bc6e9ffd0fcda82bb7",
+  "diagram/kinds.tsv": "1db0b5975c88202b9eaf1ba605958cef5d51af978f6f987081278991e3333c12",
+  "diagram/legend.json": "0fcc87608bb4fb2f864069550b637274d2b411a4f5b3f26e8a1d560b455f292f",
+  "diagram/raw/sentences.txt": "ce8755f1c2bd56f4b30e242832360de4fae633965c5f557a02f031b552c9270a",
+  "diagram/split_hints.json": "fc648396f480168463afb3a622c650cfeb8882630ed30e18bfa7550f9e22ff20",
+  "diagram/world.json": "171c3457d6420a719b5299318d95b36b9b56a079d81030b13d620fa670bcc03c"
+ },
  "diagram_multi/n1000": {
   "diagram_multi/examples/eval_heldout_formulations.sop": "655f23847d01519d6e3913de469fdd5ad674b89468e555295ea4959d48419bfc",
   "diagram_multi/examples/eval_heldout_formulations_en.sop": "f5ecaad3d7edcc13a9561d6355a30bc17176b754a565a4dfda5f4011640ddac4",
@@ -148,6 +158,20 @@
   "diagram_multi/split_hints.json": "448c5ce7679dd804ce21fa6f287abef943abdd8138ad2cce6dd16e20c230ec98",
   "diagram_multi/world.json": "a30e3afcb27b6b2f4703a7e53983288804e31fa16348275f249e4c6a7f1f6cb2"
  },
+ "diagram_multi/n5000_edge": {
+  "diagram_multi/examples/eval_heldout_formulations.sop": "03e2054f113a70b19b82eb7009d3ee5c96a3f1e79845bfe0335bb5ce72acf872",
+  "diagram_multi/examples/eval_heldout_formulations_en.sop": "34d36675e2b65df7edffca06cc824174401771a9f72b21ef27c199daa83ba4be",
+  "diagram_multi/examples/eval_mixed.sop": "7cdf6d5a5b18ef204ca13bbd7802a2a63ecb3956c65bef9c46a9af91845a3bf3",
+  "diagram_multi/examples/eval_new_identities.sop": "8b4d51d7debda433b54db443e2cb954a868f90e69fdfc03761bcbb27780923b7",
+  "diagram_multi/examples/eval_new_identities_en.sop": "b2a1c5ab8a55f6b1e36b82bcdf860a9e4c61ef3680299e119288e8f5f740a668",
+  "diagram_multi/examples/eval_parallel.jsonl": "f6fd08899d57a1bd0f89bf4eca8d0616863301129c9a998c51c3a2417c151333",
+  "diagram_multi/examples/train.sop": "4265493c544d9786cd6077418e3c92dca81182bb3b346a047b62651a5aacde48",
+  "diagram_multi/kinds.tsv": "37b250d84447d1de86c34c7156dcc939e3e7b7941e517e168502051885aa3fab",
+  "diagram_multi/legend.json": "0fcc87608bb4fb2f864069550b637274d2b411a4f5b3f26e8a1d560b455f292f",
+  "diagram_multi/raw/sentences.txt": "d3fc1da3c3bb7053dd33579062608e534f4438a701cd4dd574d550714c24418b",
+  "diagram_multi/split_hints.json": "448c5ce7679dd804ce21fa6f287abef943abdd8138ad2cce6dd16e20c230ec98",
+  "diagram_multi/world.json": "3d8db9672937f75562d3768d9f9d9ef87312b7d8a55fde5f4b72a1227d1d8a91"
+ },
  "diagram_ro/n1000": {
   "diagram_ro/examples/eval_heldout_formulations.sop": "8a065760eb55826b073b583dea6fcada5fbb6bad5651e2220bc0722ae166e1da",
   "diagram_ro/examples/eval_mixed.sop": "508eb37e67de7e8280c6a8c583b6b6c4987fcc161595358ec3beb9aa2df48aa5",
@@ -195,6 +219,18 @@
   "diagram_ro/raw/sentences.txt": "b69c2e0976db4be69bf7e1ef1710685ffe3321117cb907c8fc14686afe97f8af",
   "diagram_ro/split_hints.json": "37d9f7f5a07549a0996e63f319be93327693d927e3a5ed947eb7c17cd5e75e2c",
   "diagram_ro/world.json": "d3442aad988e6be365270b6e65b598d69503918e9fffaf816740521062b27dc5"
+ },
+ "diagram_ro/n5000_edge": {
+  "diagram_ro/examples/eval_heldout_formulations.sop": "0ca86381036f3e358e46a869fdaca93f1cd906d0e6862a7c01e39da97b3dbf91",
+  "diagram_ro/examples/eval_mixed.sop": "aeee8e4d6a022d3b5ec6b9abf42e6dab73d1a7d70af87dc9c3adab17e4c37fb5",
+  "diagram_ro/examples/eval_new_identities.sop": "a8cea58e8624b32c696f9a7690e505a98700d898ffb95d2d3a79dc45dbd13526",
+  "diagram_ro/examples/eval_parallel.jsonl": "82cb51d3ecf80b8bcf0e2453782bceb0b1b600a8a2df5aae7a98fb03aa8a7b6d",
+  "diagram_ro/examples/train.sop": "a2d91948a20138330dcc3f4c9a94849f2f8761aee5b423b589c927785f827ab0",
+  "diagram_ro/kinds.tsv": "37b250d84447d1de86c34c7156dcc939e3e7b7941e517e168502051885aa3fab",
+  "diagram_ro/legend.json": "0fcc87608bb4fb2f864069550b637274d2b411a4f5b3f26e8a1d560b455f292f",
+  "diagram_ro/raw/sentences.txt": "dd75779010992bcb59ea2a0a0b7a8ae9b21116cc0f8326dd2c8864a37104ee2a",
+  "diagram_ro/split_hints.json": "37d9f7f5a07549a0996e63f319be93327693d927e3a5ed947eb7c17cd5e75e2c",
+  "diagram_ro/world.json": "8aa90412059261dc2d8868c431ddd034a7d92ef571f0e1729c14e35ad100098b"
  },
  "matheditor/n20000": {
   "matheditor/examples/eval_ambiguous.sop": "290f1bed3e34a47bd6451afbe24e067c9a6412686d785a1fe44d70d4be6fa716",

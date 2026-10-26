@@ -9,17 +9,20 @@ declare -A SIZES=( [diagram]="1000 5000 20000 50000" [diagram_ro]="1000 5000 200
 declare -A GEN=( [diagram_ro]="training/worlds/diagram_ro/generate.py" [diagram_multi]="training/worlds/diagram_ro/generate.py" )
 declare -A ARGS=( [diagram_multi]="--languages ro,en,mix" )
 declare -A COV=( [diagram_ro]="training/worlds/diagram_ro/COVERAGE.md" [diagram_multi]="training/worlds/diagram_ro/COVERAGE_multi.md" )
+# SUFFIX=_edge SIZES_ONLY=5000 writes n5000_edge next to the frozen n5000 (which stays untouched, as the "before" row); the worlds' COVERAGE.md
+# is then kept as the generator wrote it, not restored. PYTHON overrides the interpreter.
+SUFFIX="${SUFFIX:-}"; SIZES_ONLY="${SIZES_ONLY:-}"; PY="${PYTHON:-python3}"
 WORLDS="${*:-diagram diagram_ro diagram_multi textedit matheditor animation}"
 for w in $WORLDS; do
   gen="${GEN[$w]:-training/worlds/$w/generate.py}"; args="${ARGS[$w]:-}"; cov="${COV[$w]:-training/worlds/$w/COVERAGE.md}"
   [ -f "$cov" ] && cp "$cov" "/tmp/.cov_$w"
-  for n in ${SIZES[$w]}; do
-    d="training/data/$w/n$n"; rm -rf "$d"; mkdir -p "$d"
-    python3 "$gen" --out "$d/$w" --n "$n" --n_eval 400 --seed 0 $args | tail -1
+  for n in ${SIZES_ONLY:-${SIZES[$w]}}; do
+    d="training/data/$w/n$n$SUFFIX"; rm -rf "$d"; mkdir -p "$d"
+    "$PY" "$gen" --out "$d/$w" --n "$n" --n_eval 400 --seed 0 $args | tail -1
     rm -rf "$d/$w"/{model,runs,versions,requests,audit,status.json}
     find "$d/$w" -type f \( -name "*.sop" -o -name "*.txt" -o -name "*.jsonl" \) -exec gzip -9n {} \;
     [ -f "$cov" ] && cp "$cov" "$d/COVERAGE.md"
   done
-  [ -f "/tmp/.cov_$w" ] && cp "/tmp/.cov_$w" "$cov"
+  [ -z "$SUFFIX" ] && [ -f "/tmp/.cov_$w" ] && cp "/tmp/.cov_$w" "$cov"
 done
-python3 training/data/unpack.py --write-manifest
+"$PY" training/data/unpack.py --write-manifest

@@ -132,7 +132,7 @@
 {"surface": "poți să faci decizia minusculă subțire .", "tokens": ["poti", "sa", "faci", "decizia", "minuscula", "subtire", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "fă step-ul gros .", "tokens": ["fa", "step-ul", "gros", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "am nevoie să faceți săgeata întreruptă", "tokens": ["am", "nevoie", "sa", "faceti", "sageata", "intrerupta"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "fă the cutie întrerupt", "tokens": ["fa", "the", "cutie", "intrerupt"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "fă the muchie întrerupt", "tokens": ["fa", "the", "muchie", "intrerupt"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "schimbă culoarea pasului în maro .", "tokens": ["schimba", "culoarea", "pasului", "in", "maro", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "vă rog să nu schimbați culoarea componentei în turcoaz", "tokens": ["va", "rog", "sa", "nu", "schimbati", "culoarea", "componentei", "in", "turcoaz"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "ați putea să setați culoarea serviciului la alb", "tokens": ["ati", "putea", "sa", "setati", "culoarea", "serviciului", "la", "alb"], "info": {"labels": {}, "numbers": {}}}
@@ -178,14 +178,14 @@
 {"surface": "uniți fișierul cu sfârșitul cu o săgeată uriașă .", "tokens": ["uniti", "fisierul", "cu", "sfarsitul", "cu", "o", "sageata", "uriasa", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "te rog să conectezi chestia la serviciul maro cu o linie neagră .", "tokens": ["te", "rog", "sa", "conectezi", "chestia", "la", "serviciul", "maro", "cu", "o", "linie", "neagra", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "ai putea să atașezi baza de date la începutul cu o săgeată mare", "tokens": ["ai", "putea", "sa", "atasezi", "baza_de_date", "la", "inceputul", "cu", "o", "sageata", "mare"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "puteți să legați obiectul întrerupt de coada cu un conector .", "tokens": ["puteti", "sa", "legati", "obiectul", "intrerupt", "de", "coada", "cu", "un", "conector", "."], "info": {"labels": {}, "numbers": {}}}
-{"surface": "unește chestia cu elipsa cu un line minuscul te rog .", "tokens": ["uneste", "chestia", "cu", "elipsa", "cu", "un", "line", "minuscul", "te", "rog", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să legați obiectul întrerupt de coada cu o muchie .", "tokens": ["puteti", "sa", "legati", "obiectul", "intrerupt", "de", "coada", "cu", "o", "muchie", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "unește chestia cu elipsa cu un arrow minuscul te rog .", "tokens": ["uneste", "chestia", "cu", "elipsa", "cu", "un", "arrow", "minuscul", "te", "rog", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "leagă circle mare cu cloud-ul cu o săgeată roșie", "tokens": ["leaga", "circle", "mare", "cu", "cloud-ul", "cu", "o", "sageata", "rosie"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "atașează the elipsă to the dreptunghi with a linie", "tokens": ["ataseaza", "the", "elipsa", "to", "the", "dreptunghi", "with", "a", "linie"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "nu conectați chestia și elementul cu o săgeată .", "tokens": ["nu", "conectati", "chestia", "si", "elementul", "cu", "o", "sageata", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "vă rog niciodată să nu conectați elementul și reports_db cu o linie", "tokens": ["va", "rog", "niciodata", "sa", "nu", "conectati", "elementul", "si", "reports_db", "cu", "o", "linie"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "ați putea să conectați rombul și steaua cu o linie", "tokens": ["ati", "putea", "sa", "conectati", "rombul", "si", "steaua", "cu", "o", "linie"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "puteți să conectați cutia medie și componenta galbenă cu un conector .", "tokens": ["puteti", "sa", "conectati", "cutia", "medie", "si", "componenta", "galbena", "cu", "un", "conector", "."], "info": {"labels": {}, "numbers": {}}}
+{"surface": "ați putea să conectați rombul și steaua cu o săgeată", "tokens": ["ati", "putea", "sa", "conectati", "rombul", "si", "steaua", "cu", "o", "sageata"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "puteți să conectați cutia medie și componenta galbenă cu o muchie .", "tokens": ["puteti", "sa", "conectati", "cutia", "medie", "si", "componenta", "galbena", "cu", "o", "muchie", "."], "info": {"labels": {}, "numbers": {}}}
 {"surface": "deci conectați title și ellipse huge cu un line", "tokens": ["deci", "conectati", "title", "si", "ellipse", "huge", "cu", "un", "line"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "hai să conectăm steaua și process cu o linie", "tokens": ["hai", "sa", "conectam", "steaua", "si", "process", "cu", "o", "linie"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "conectează orders and the sfârșit with an săgeată", "tokens": ["conecteaza", "orders", "and", "the", "sfarsit", "with", "an", "sageata"], "info": {"labels": {}, "numbers": {}}}
@@ -435,7 +435,7 @@
 {"surface": "make ledger thin", "tokens": ["make", "ledger", "thin"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "make the large task dashed", "tokens": ["make", "the", "large", "task", "dashed"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "make the decision dashed", "tokens": ["make", "the", "decision", "dashed"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "make the decision solid", "tokens": ["make", "the", "decision", "solid"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "make the task solid", "tokens": ["make", "the", "task", "solid"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "make logger thin", "tokens": ["make", "logger", "thin"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "make review solid", "tokens": ["make", "review", "solid"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "make the connector dashed", "tokens": ["make", "the", "connector", "dashed"], "info": {"labels": {}, "numbers": {}}}
@@ -488,19 +488,19 @@
 {"surface": "connect the gateway to the teal caption", "tokens": ["connect", "the", "gateway", "to", "the", "teal", "caption"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "link the actor to the thin service", "tokens": ["link", "the", "actor", "to", "the", "thin", "service"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "join the yellow textbox to the caption with a small connector", "tokens": ["join", "the", "yellow", "textbox", "to", "the", "caption", "with", "a", "small", "connector"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "connect the teal file to the large hexagon with a solid connector", "tokens": ["connect", "the", "teal", "file", "to", "the", "large", "hexagon", "with", "a", "solid", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the teal file to the large hexagon with a solid edge", "tokens": ["connect", "the", "teal", "file", "to", "the", "large", "hexagon", "with", "a", "solid", "edge"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "attach paul to reports_db with a blue line", "tokens": ["attach", "paul", "to", "reports_db", "with", "a", "blue", "line"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "link the user to billing with a huge line", "tokens": ["link", "the", "user", "to", "billing", "with", "a", "huge", "line"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "attach the box to the process with a connector", "tokens": ["attach", "the", "box", "to", "the", "process", "with", "a", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach the box to the process with an edge", "tokens": ["attach", "the", "box", "to", "the", "process", "with", "an", "edge"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "attach the cloud to the huge textbox with a yellow line", "tokens": ["attach", "the", "cloud", "to", "the", "huge", "textbox", "with", "a", "yellow", "line"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "link the task to the large database with a pink connector", "tokens": ["link", "the", "task", "to", "the", "large", "database", "with", "a", "pink", "connector"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "attach approval to sara with a line", "tokens": ["attach", "approval", "to", "sara", "with", "a", "line"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "link the task to the large database with a pink edge", "tokens": ["link", "the", "task", "to", "the", "large", "database", "with", "a", "pink", "edge"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "attach approval to sara with an arrow", "tokens": ["attach", "approval", "to", "sara", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "connect the large report and the item with an arrow", "tokens": ["connect", "the", "large", "report", "and", "the", "item", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "connect the hexagon and the api with a line", "tokens": ["connect", "the", "hexagon", "and", "the", "api", "with", "a", "line"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "connect the dotted element and auth with an arrow", "tokens": ["connect", "the", "dotted", "element", "and", "auth", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the hexagon and the api with an arrow", "tokens": ["connect", "the", "hexagon", "and", "the", "api", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the dotted element and auth with a connector", "tokens": ["connect", "the", "dotted", "element", "and", "auth", "with", "a", "connector"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "connect the cloud and the comment with a line", "tokens": ["connect", "the", "cloud", "and", "the", "comment", "with", "a", "line"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "connect the file and the queue with an orange line", "tokens": ["connect", "the", "file", "and", "the", "queue", "with", "an", "orange", "line"], "info": {"labels": {}, "numbers": {}}}
-{"surface": "connect the actor and the component with a connector", "tokens": ["connect", "the", "actor", "and", "the", "component", "with", "a", "connector"], "info": {"labels": {}, "numbers": {}}}
+{"surface": "connect the actor and the component with an edge", "tokens": ["connect", "the", "actor", "and", "the", "component", "with", "an", "edge"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "connect the actor and the orange star with a teal line", "tokens": ["connect", "the", "actor", "and", "the", "orange", "star", "with", "a", "teal", "line"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "connect the end and the api with an arrow", "tokens": ["connect", "the", "end", "and", "the", "api", "with", "an", "arrow"], "info": {"labels": {}, "numbers": {}}}
 {"surface": "attach the circles one after the other", "tokens": ["attach", "the", "circles", "in_chain"], "info": {"labels": {}, "numbers": {}}}

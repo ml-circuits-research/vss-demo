@@ -1,33 +1,33 @@
-# Coverage of the diagram_multi world, Level 1 (generate.py --languages ro,en,mix --mix 0.0 seed 0, 50000 training sentences)
+# Coverage of the diagram_multi world, Level 1 (generate.py --languages ro,en,mix --mix 0.0 seed 0, 5000 training sentences)
 
-Legend sha256:e3e44ee9f7e82ca74ab101ed8b3dc66b9645799139b319c5bd25b30fb78324cf (the English diagram world's, byte-identical). Templates 40 (every English template has a Romanian realiser), prefixes 11, combinations 440, held out 46. Lexicon 1250 entries (821 with a lemma). Dictionary translate_en.json 11002 keys (312 with alternatives).
+Legend sha256:0fcc87608bb4fb2f864069550b637274d2b411a4f5b3f26e8a1d560b455f292f (the English diagram world's, byte-identical). Templates 40 (every English template has a Romanian realiser), prefixes 11, combinations 440, held out 46. Lexicon 1262 entries (831 with a lemma). Dictionary translate_en.json 11186 keys (313 with alternatives).
 
-Training sentences by language: en 20000, mix 10000, ro 20000.
+Training sentences by language: en 2000, mix 1000, ro 2000.
 
 Sentences per event and role (training file):
 
-| event | n | object | color | size | style | text | relation | landmark | region | anchor | fraction | amount | unit | direction | axis | layout | pairing | source | target | quantity | PROHIBITION |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| create | 8944 | 8944 |  |  |  | 3277 | 2745 | 2745 | 1813 |  |  | 440 | 440 |  |  |  |  |  |  | 1235 |  |
-| place | 2822 | 2822 |  |  |  |  | 1677 | 1677 | 1145 |  |  | 406 | 406 |  |  |  |  |  |  |  |  |
-| delete | 2596 | 2596 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 127 |
-| move | 6478 | 6478 |  |  |  |  | 1085 | 1085 | 643 | 3083 | 1421 | 1077 | 1077 | 1667 |  |  |  |  |  |  | 330 |
-| change | 4584 | 4584 | 1910 | 1973 | 701 |  |  |  |  |  |  | 913 | 913 |  |  |  |  |  |  |  | 231 |
-| resize | 2602 | 2602 |  | 1149 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 190 |
-| connect | 5711 | 2492 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1488 | 5711 | 4223 |  | 310 |
-| name | 2985 | 2985 |  |  |  | 2985 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 171 |
-| copy | 1410 | 1410 |  |  |  |  | 481 | 481 | 326 |  |  | 123 | 123 |  |  |  |  |  |  |  | 79 |
-| group | 2374 | 2374 |  |  |  | 1250 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 107 |
-| ungroup | 797 | 797 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| arrange | 2562 | 2562 |  |  |  |  |  |  |  |  |  |  |  |  |  | 2562 |  |  |  |  |  |
-| align | 1477 | 1477 |  |  |  |  |  |  |  |  |  |  |  | 745 | 732 |  |  |  |  |  |  |
-| distribute | 1576 | 1576 |  |  |  |  |  |  |  |  |  | 732 | 732 |  | 844 |  |  |  |  |  |  |
-| front | 728 | 728 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| back | 817 | 817 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| zoom | 562 |  |  |  |  |  |  |  |  |  |  |  |  | 562 |  |  |  |  |  |  |  |
-| undo | 354 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| redo | 291 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| clear | 330 | 330 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| event | n | object | color | size | style | text | relation | landmark | region | anchor | fraction | amount | unit | direction | axis | layout | pairing | source | target | edge | quantity | PROHIBITION |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| create | 928 | 928 |  |  |  | 339 | 272 | 272 | 191 |  |  | 44 | 44 |  |  |  |  |  |  |  | 129 |  |
+| place | 272 | 272 |  |  |  |  | 178 | 178 | 94 |  |  | 43 | 43 |  |  |  |  |  |  |  |  |  |
+| delete | 253 | 253 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 13 |
+| move | 602 | 602 |  |  |  |  | 87 | 87 | 62 | 291 | 125 | 108 | 108 | 162 |  |  |  |  |  |  |  | 31 |
+| change | 480 | 480 | 181 | 229 | 70 |  |  |  |  |  |  | 120 | 120 |  |  |  |  |  |  |  |  | 33 |
+| resize | 274 | 274 |  | 127 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 18 |
+| connect | 587 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 151 | 587 | 436 | 276 |  | 32 |
+| name | 267 | 267 |  |  |  | 267 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 10 |
+| copy | 155 | 155 |  |  |  |  | 60 | 60 | 27 |  |  | 18 | 18 |  |  |  |  |  |  |  |  | 7 |
+| group | 232 | 232 |  |  |  | 124 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 6 |
+| ungroup | 86 | 86 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| arrange | 244 | 244 |  |  |  |  |  |  |  |  |  |  |  |  |  | 244 |  |  |  |  |  |  |
+| align | 160 | 160 |  |  |  |  |  |  |  |  |  |  |  | 83 | 77 |  |  |  |  |  |  |  |
+| distribute | 158 | 158 |  |  |  |  |  |  |  |  |  | 69 | 69 |  | 89 |  |  |  |  |  |  |  |
+| front | 73 | 73 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| back | 87 | 87 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| zoom | 56 |  |  |  |  |  |  |  |  |  |  |  |  | 56 |  |  |  |  |  |  |  |  |
+| undo | 36 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| redo | 25 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| clear | 25 | 25 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
 Evaluation files: eval_new_identities.sop 400; eval_heldout_formulations.sop 400; eval_mixed.sop 400; eval_new_identities_en.sop 400; eval_heldout_formulations_en.sop 400; eval_parallel.jsonl 400 frames.
 Parallel set, gold frames of the English and the Romanian realisation identical (det an = a): 400/400.
