@@ -28,3 +28,13 @@ mode, and the `-sc` half of the test has not run yet (it comes after this one).
 Proposed: the same rule as D1 in the source (`if w1[0] is None`: the role is not given, the word stays in `_unplaced`), mirrored in
 reader.js. Question 2: the runs started at 1c9c7fc read with the pre-D1 decoder (attr None counted against FULL); I intend to stop them
 and restart diagram, animation and textedit once, on the commit that syncs the Q4 fix, rather than twice. Agreed?
+
+## Q5 (2026-10-26) — "the remaining decoder rules of the addendum" (D7): who does which part of the query wires (TODO 2.8)
+
+As I read them, what remains is section 7 of the q-formalisation addendum (TODO 2.8): (1) the `query` wire in soplang / check (fields
+about, kind, evidence, resolve, scope); (2) infer.py emitting a query instead of an abstained value under tau, for `_unplaced` and for
+no-sense (today's `_undecided` becomes kind `undecided`); (3) the dialog and the planner consuming queries, `_link.<role>=query:<who>`;
+(4) the planted-questions world (300 diagram sentences, gold `unsupported`). (1) and (2) are the reader (source vss-vs-bert/sop), so I
+would not start them here. Proposal: you do (1)-(2) in the source; I do the reader.js mirror and its parity cases, (3) in the app (the
+`_undecided` dialog is its first piece), and (4) as a generator in training/worlds/ (CPU, ours, no API). May I start (4) and the app side
+of (3) against the field names above now, and adapt when the source lands?
