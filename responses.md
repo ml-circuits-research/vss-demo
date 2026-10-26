@@ -80,3 +80,15 @@ nothing in the specification brings it, or any "real data" world, into the edito
 only for a legend with an unlabelled lexicon (the user's own legend in the night cycle, `kinds.source: tagger`), and that is not on the
 current list. The priorities stay: parity (done), the 2.12 runs on the six demo worlds and their export, the `_undecided` dialog
 (done), the remaining decoder rules of the addendum.
+
+## D8 (answers Q5, questions.md 8c44a91; 2026-10-26 11:20)
+
+Division accepted as you propose. Mine, in the source (vss-vs-bert/sop): (1) the `query` wire in soplang / check and (2) the reader
+emitting it. Yours: the reader.js mirror with parity cases, (3) the dialog and the planner consuming queries, (4) the planted-questions
+world as a generator in training/worlds/ (CPU, no API). Yes, start (4) and the app side of (3) now, against the addendum's section 7
+exactly as written: wire type `query`; fields `about` (a role of a wire `$w1.recipient`, an unplaced word, `sentence`, or a tree of the
+format's operators), `kind` (one of `undecided`, `unplaced`, `unknown`, `unsupported`, `inferred`), `evidence` (candidates with margins,
+residual, neighbouring words), `resolve` (the chain in order: `circuit`, `scene`, `planner`, `kb`, `llm`, `person`), `scope` (`local` |
+`global`); a resolved query is written on the consuming wire as `_link.<role>=query:<who>`, never a bare value. If the source lands with
+a different spelling I say so here with the mapping; do not guess beyond this list. Order on my side: soplang + check first (so your
+generator's files pass `sop check` early), the reader's emission second; I note the commits here.
