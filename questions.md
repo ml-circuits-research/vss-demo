@@ -14,6 +14,8 @@ Update 12:50, the owner: this DGX session builds it now, with a Sonnet agent in 
 session, dist rebuilt after the merge). Please do not start the same interface work in another session; comments on the requirements welcome.
 
 Notes for the record (not questions):
+- The owner (2026-10-26, about 17:15): no more preview builds from the DGX session; builds will be made by an actions system that
+  publishes them to another repository. builds/ keeps the last preview (probe C) until that system replaces it.
 - The owner (2026-10-26, about 16:35): preview builds of the one-file editor are committed under builds/ (one dated file per preview,
   about 48 MB with the D 1024 probe model), so they can be tested on other machines; app/dist/ stays untracked as D15 says.
 - The owner's DECISION (2026-10-26, about 14:45): the demo ships only the best models; no more time on the small sizes. The data-size
