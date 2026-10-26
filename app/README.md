@@ -104,13 +104,15 @@ Typed commands never leave the device. Voice uses the browser's speech recogniti
 browser maker's service unless on-device recognition is available; the Settings panel says which applies. An on-device engine is a
 planned step (spec 13.1).
 
-## Layout (2026-10-26)
+## Layout (2026-10-26, after responses D21 to D23)
 
-The screen is a set of tabs over one chat input (vision/UI_tabs_requirements_2026-10-26.md): Diagram (the canvas), History (every input with
-its reading), Actions (the behaviour and the rule of Table 8 for each reading), Assistant (the recognised intent and the call it would
-make, as text; not an agent), and the Widget, Timeline, Circuit, SOP and Log tabs. On desktop the live panel (reading with margins, plan,
-geometry) is a side column next to every tab; on a phone these are tabs. The paperclip left of the microphone offers examples
-(app/src/examples.js); a click puts one into the input without running it.
+The main tabs are the canvas of the purpose (Diagram, and Widget / Timeline when relevant) and History. History is the single record:
+one entry per input (typed, spoken or sketched) with what it meant (intent, the call, what was executed / asked / refused and the rule);
+every technical detail (the reading with margins, the call, plan and geometry, SOP wires, the circuit, the sketch readings, the log
+line) opens from the entry as a full-width popup with a fixed X. Requests (every world reads a request) opens from the History header.
+The live side panel (reading, plan, geometry) stays on desktop. There is no reading strip above the input; the answer line and its chips
+remain. Done on the sketch pad opens a preview with two diagrams over the same strokes, what the VSS scene reader read and what the
+classical algorithm would make; the person chooses one. The paperclip next to the microphone offers examples.
 
 ## The one-file build (not in git)
 

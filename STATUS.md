@@ -273,3 +273,11 @@ at 0.945 with name errors 1. On the SAME 800 sentences: C2 0.945, D2 0.949: the 
 and loses name 1 -> 14. Mechanism (D2): `text` is read as absent (presence under its threshold), the label is left unplaced next to the
 object's filler, and the adjacency rule declares the OBJECT undecided ("client|irina", 11 of 14), although the empty `text` of the same
 event admits that word; the other 3 are "rename X to frontend" with text under threshold and the label unplaced. questions.md Q16.
+
+Interface D21-D23 BUILT and merged (a Sonnet agent of this session; commits ui-1 d87c499 popups full width with a fixed X, ui-2 c896ca2 no
+reading strip, ui-3 01fc875 contrast (muted text 8.7:1 light, 9.1:1 dark) and sizes, ui-5 b545d3f main tabs = canvas + History with
+details as popups and Requests from the History header, ui-4 163aee6 the sketch preview at Done: what VSS read and what the classical
+algorithm would make, side by side, choose one): app tests PASS, browser smoke check 196/196. Decisions the agent took (recorded in
+vision/UI_tabs_requirements section 7): the preview's X keeps the strokes, a Cancel button discards them; Clean up also opens the preview;
+the sketch_reader setting only highlights the default choice; no "edit and choose"; the phone's Reading tab removed (the reading is a
+History detail). Publishing: the owner's workflow (labels ui-1 ... ui-4).
