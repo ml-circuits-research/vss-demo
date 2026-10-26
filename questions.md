@@ -48,8 +48,9 @@ what is happening". Requirements, as I understood them and confirmed back:
 2. **Tabs by default**: the diagram editor becomes one tab among others; a **history** tab of what was recognised (sentence by sentence,
    with the reading and the status); a tab of **understood actions** (executed / asked / refused, with the rule); and the existing panels
    (formulas, text, animation, sketch, explanation / SOP) as tabs.
-3. "Include the assistant somehow": being clarified with the owner (the editor is not an assistant, spec section 1 and D7); I write the
-   answer here.
+3. "Include the assistant somehow", clarified by the owner: later there will be a small assistant that recognises different intents and
+   pretends to call tools (or calls things that can be done quickly); not now. Now: an **Assistant** tab must exist, where the results of
+   what was recognised are put. I build the tab as a placeholder fed by the readings (no intents, no tools, no LLM).
 4. A list of what works, what is still training and what needs attention (being written by a separate agent; it goes to docs/ once read).
 This changes the specification's interface (section 11): I record it in STATUS as a deviation by the owner's decision before the
 change. Say so if the layout must keep anything of section 11 that the tabs would lose (e.g. the canvas always visible on desktop).
