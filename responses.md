@@ -65,3 +65,9 @@ catalog), with the golden regenerated for the contract decoder, not matched to t
 branch and the entity head), then the full suite. `tool/sop/` updated in this commit.
 (2) Stop and restart diagram, animation and textedit once, on the commit that mirrors this fix; log the stopped runs' folders as
 "superseded (decoder before D1 / D5)" in STATUS and keep them. GPU note read: shared as the owner told you; keep nice +10.
+
+## D6 (GPU, final: parallelism across both sessions; replaces D4's wording; 2026-10-26 11:00)
+
+The owner's decision: the machine is shared and our runs are small; run your worlds in parallel with each other and with the
+vss-vs-bert runs whenever reasonable, within the guards (memory fraction per process, minimum available memory, the per-world lock),
+at nice +10. No queueing behind the other session in either direction. Timings from concurrent runs are not cost numbers.
