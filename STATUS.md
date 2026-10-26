@@ -162,3 +162,24 @@ them. Change: the FPE relations (a JS reader of training/worlds/scene/fpe.py, pa
 on the recogniser's boxes, same split. Expected: containment >= 0.992 and connector attachment >= 0.963 (the rules' numbers), and the
 connector miss unchanged if it comes from the recogniser; the two readers' disagreements listed one by one. Above 16 elements (the
 measured capacity at D 1024) the FPE reader declines and the rules read. The About line and the sketch line change only if the row passes.
+
+RESULT of the diagram probe (proposal above; runs/diagram_step3_{A,B}_c6df5b1, 3 seeds; diagnostic on the 800 sentences, seed 0):
+
+| | before (eccbf84) | A: new reader | B: new reader + edge | expected |
+|---|---|---|---|---|
+| no-sense of 800 | 73 | 7 | 5 | < 2% (met) |
+| predicate wrong | 6-13% | 7 (0.9%) | 5 (0.6%) | <= 1% (met) |
+| unplaced function words | you 401, i 202, ... | 0 | 0 | 0 (met) |
+| abstain / ok | 611 / 116 | 313 / 480 | 211 / 584 | absent-role abstentions -> presence queries (met: 571 / 466 readings carry one) |
+| connect heads-exact | 0.39 | 0.404 | 0.764 | B >= 0.8 (missed, close) |
+| heads-exact, all | 0.720 | 0.721 | 0.723 | A no fall (met); B +0.05 (MISSED: +0.002) |
+| trainer FULL heldout formulations (mean of 3) | 0.694 (5 seeds) | 0.714 | 0.640 | |
+
+Why B missed: create fell from 0.789 to 0.700 (+17 errors), almost all with the create's `object` not given ("i want you to sketch a
+customer" read with no object, status ok, residual 0.75). Cause found: neither A nor B has a core role (`[schema] ... (core [])`): the
+object rate is 0.917 in A and 0.861 in B (connect rows without the line now have no object; zoom / undo / redo never do), under the 0.95
+of build_schema, and since a9fa51d (vss-vs-bert 7ce5c50, the structure anchor) the trainer no longer takes the most frequent role as core;
+so a frame without its object is never incomplete. CORRECTION of the paragraph "Code of the running 2.12 runs" above: a9fa51d was said
+to change nothing for these worlds because they had core roles; that was read from logs written by the older code. It removed the
+diagram worlds' only core role. Also: B accepted the `vorder` route and A did not, so B - A is the edge question plus that route.
+Next: questions.md Q12 (per-event required roles); no further diagram run before its answer.

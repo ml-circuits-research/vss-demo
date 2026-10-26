@@ -1,0 +1,35 @@
+# diagram step 3, commit c6df5b1, 2026-10-26T15:26:53+01:00; worlds in /tmp/diagram_step3_5qvx; runs in /home/salboaie/vss-demo/runs/diagram_step3_A_c6df5b1; sizes 5000; jobs 1
+unpacked diagram/n5000 -> /tmp/diagram_step3_5qvx/5000: 8 files, sha256 verified
+3/3 files OK against legend(s) diagram sha256:1a43ffc61bd5…
+## size 5000: sop train /tmp/diagram_step3_5qvx/5000/diagram --D 1024 --seeds 3 --device cuda --candidate_sets catalog --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_step3_A_c6df5b1/5000/splits.json before training: calibration_heldout_formulations 222, heldout_formulations 178, heldout_sentences 471, new_identities 400, train 4529
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (762 training rows (16.8%) fill two roles with the same kind; in 388 of them neither word is cued, so only the order relative to the verb separates them); selection rows 646 (of which with same-kind competition 73); trials trained on 4105 rows
+[train seed 0] end: RSS 2.19 GB | torch alloc 0.36 GB reserved 0.39 GB | MemAvailable 109.2 GB (63s)
+[export] numpy reader vs torch states: max relative difference 6.68e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.748 on 646 selection rows, 0.548 on the 73 with same-kind competition | calibration_heldout_formulations 0.698 train 0.774
+[train seed 0] end: RSS 2.46 GB | torch alloc 0.95 GB reserved 1.04 GB | MemAvailable 106.9 GB (79s)
+[export] numpy reader vs torch states: max relative difference 5.89e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.755 on 646 selection rows, 0.548 on the 73 with same-kind competition | calibration_heldout_formulations 0.716 train 0.776
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 33 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.43 GB | torch alloc 0.37 GB reserved 0.41 GB | MemAvailable 104.3 GB (68s)
+[export] numpy reader vs torch states: max relative difference 6.41e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.663 | residual 0.117
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.713 | residual 0.111
+[eval] seed 0 new_identities: FULL catalog candidates 0.675 | residual 0.124
+[eval] seed 0 train (sample): FULL catalog candidates 0.760 | residual 0.104
+[train seed 1] end: RSS 2.58 GB | torch alloc 0.37 GB reserved 0.41 GB | MemAvailable 107.5 GB (60s)
+[export] numpy reader vs torch states: max relative difference 6.48e-08 (float32 phases in the route book)
+[eval] seed 1 heldout_formulations: FULL catalog candidates 0.781 | residual 0.065
+[eval] seed 1 heldout_sentences: FULL catalog candidates 0.760 | residual 0.075
+[eval] seed 1 new_identities: FULL catalog candidates 0.723 | residual 0.093
+[eval] seed 1 train (sample): FULL catalog candidates 0.793 | residual 0.069
+[train seed 2] end: RSS 2.62 GB | torch alloc 0.37 GB reserved 0.41 GB | MemAvailable 105.9 GB (38s)
+[export] numpy reader vs torch states: max relative difference 6.30e-08 (float32 phases in the route book)
+[eval] seed 2 heldout_formulations: FULL catalog candidates 0.697 | residual 0.127
+[eval] seed 2 heldout_sentences: FULL catalog candidates 0.707 | residual 0.122
+[eval] seed 2 new_identities: FULL catalog candidates 0.623 | residual 0.149
+[eval] seed 2 train (sample): FULL catalog candidates 0.777 | residual 0.110
+[done] model written to /tmp/diagram_step3_5qvx/5000/diagram/model; REPORT.md and metrics.json there; run log /home/salboaie/vss-demo/runs/diagram_step3_A_c6df5b1/5000/train.log
+[size 5000 done 2026-10-26T15:34:18+01:00]
+done: commit /home/salboaie/vss-demo/runs/diagram_step3_A_c6df5b1 (git add runs/diagram_step3_c6df5b1); then step 5 (export and parity) on runs/diagram_step3_c6df5b1/model_<shipped size>

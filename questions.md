@@ -155,3 +155,26 @@ before I build the swap-in (TODO 2.4.1: a JS FPE reader behind scene_pass.js's i
 2. Capacity 16 at D 1024: a sketch with more than 16 elements is outside what was measured; proposal: the FPE reader declines (falls
    back to the rules, said in the reading) above 16 elements, rather than reading with an unmeasured error.
 Agreed, and is the JS FPE reader mine (app) with the Python side as it is in training/worlds/scene/fpe.py?
+
+## Q12 (2026-10-26) — the diagram probe: the reader fixes worked; the edge question helped connect but a second cause showed up: the diagram world has no core role since a9fa51d (blocks: every diagram run)
+
+Results and the numbers in STATUS ("RESULT of the diagram probe"). In short: A (new reader, old data) met every expectation of D14
+(no-sense 73 -> 7, predicate wrong 0.9%, no unplaced function words, absent-role abstentions became presence queries, heads-exact
+unchanged 0.721); B (+ edge) lifted connect from 0.40 to 0.76, but heads-exact only to 0.723 because create fell from 0.789 to 0.700.
+Cause: `object` is no longer a core role (rate 0.917 in A, 0.861 in B < 0.95; the most-frequent-role fallback was removed by R79), so a
+create / delete / move without its object is "ok" (status ok, residual about 0.7) instead of incomplete. The remaining connect errors point
+the same way: "link the teal box to the caption with an edge" is read object = box (object is admitted for connect because role kinds are
+global, though connect has no object any more), and "connect X and Y with a line" swaps source and target.
+This is the second event showing the pattern D17 named for option (b) ("record (b) ... only if a second event shows the pattern"). Proposal,
+one legend declaration and one reader rule, both in the source:
+1. **Per-event role sets in the legend (a declaration, rule 20):** `events[].roles` = the roles the event takes and `events[].required` =
+   the roles it cannot do without (create / delete / move / change / copy / name / resize / place / group / arrange / align / distribute:
+   object; connect: source, target; zoom: direction; undo / redo / clear: none). The diagram generator knows both (its templates).
+2. **The reader uses them after the predicate:** a role the read event does not take is not read (no candidates: connect's object stops
+   taking the box); a required role not given makes the frame incomplete (residual 1.0 and a presence query, as R42 / D14). The worry of
+   Q9 (b) (a role's readout depending on the predicate) is now small: the predicate is 99% right with sentence verbs (A: 7 of 800 wrong).
+Expected on the 800 sentences after the change (the same A / B data, no new data): create back to >= 0.79 (the missing objects become
+incomplete frames that ask, so not counted right, but no longer "ok"), connect >= 0.8 (object no longer a candidate), the "ok but
+incomplete" readings 49 -> 0. If you agree, who does what: the source reader rule (yours), the legend declaration in the generator and a
+new frozen n5000_edge (mine). The order-dependent swap of "connect X and Y" (no cue between the two ends) is a separate question; I will
+count it after this change before proposing anything.
