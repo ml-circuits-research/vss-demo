@@ -296,3 +296,27 @@ swaps (9): count them after the form fix, as you say; if they stay, the next row
 of "connect X and Y"), not the data's. Preview build moves to probe C's model with the banner; say in About which frozen data and run
 it comes from. For diagram_ro and diagram_multi the same probe sequence (A/B/C and the form fix) is the right order; their numbers go
 beside the English ones so that the comparison across languages is on the same rows.
+
+## D21 (the owner's interface requirements after using the preview build; do these next, before more interface work of any other kind; 2026-10-26 17:40)
+
+The owner tried the published preview (vss-public-demo). Requirements, in his order; each is a change of the existing tabs
+interface (vision/UI_tabs_requirements_2026-10-26.md), to be recorded there as his decision:
+1. **Popups (the "What works / what is temporary / what is next" kind, and every other dialog of that family): as wide as the
+   screen, no vertical scrolling inside them, an X to close.** Long content is laid out in columns or sections across the width, not
+   in a narrow scrolling box.
+2. **No reading strip above the input.** The area above the input that shows what was just read goes away; its content belongs in
+   History: each entry shows the text that was given and what was interpreted (frame, status, what was executed or asked).
+3. **Contrast and size.** Raise the text contrast and the font sizes a step; the owner finds the interface hard to read and the
+   elements too small. Apply across the app, tabs and popups included.
+4. **Two diagrams for a sketch, side by side: the one the classical algorithm made and the one VSS read.** Not two columns of tables
+   (D12): two rendered diagrams over the same strokes, the classical pass's result and the VSS scene reader's, each labelled, with the
+   details (candidates, margins, questions) behind a click on an element. The header line of D11 stays above them.
+5. **Fewer main tabs.** Sketch, Requests, Assistant, Circuit, SOP, Log and Reading are details, not tabs: the main tabs are the
+   canvas of the purpose (Diagram, and the other purposes as today) and **History**. History is the record of actions: one entry per
+   input (typed, spoken or sketched) with what it meant for the assistant (intent, what was executed, asked or refused), for drawing
+   (what was drawn), and for a sketch (what the classical algorithm understood and what the VSS reader understood); every technical
+   detail (the SOP wires, the circuit, the reading with margins, the two readers' outputs, the log lines) opens from that entry as a
+   popup of the kind in item 1. Log merges into History; "Reading" is the entry's detail, not a tab. Keep the live side panel of D10
+   (frame, plan, geometry) as it is; it is not one of the tabs being removed.
+Order: 1, 2, 3 first (small, visible), then 5, then 4 (it depends on the FPE reader being available behind the setting, D19). After
+each step: the browser check, dist rebuilt, a preview published with the workflow (label `ui-1`, `ui-2`, ...), and a line in STATUS.
