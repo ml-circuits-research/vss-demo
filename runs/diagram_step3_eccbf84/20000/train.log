@@ -1,0 +1,61 @@
+[splits] written to /home/salboaie/vss-demo/runs/diagram_step3_eccbf84/20000/splits.json before training: calibration_heldout_formulations 222, heldout_formulations 178, heldout_sentences 1992, new_identities 400, train 18008
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (3041 training rows (16.9%) fill two roles with the same kind; in 1594 of them neither word is cued, so only the order relative to the verb separates them); selection rows 1938 (of which with same-kind competition 307); trials trained on 16292 rows
+[guard] cuda allocator capped at 18% of 120 GB; watchdog: exit if MemAvailable < 16.0 GB or after 12.0 h
+[train] seed 0: 16292 training rows x 1 epoch(s) -> 16292 steps' sentences; D=1024; kinds 49; vocab 389; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: lets move the gray caption third to the top_edge .
+[trace] tokens/kinds: lets/FILLER move/VERB the/the gray/COLOR caption/COMPONENT third/FRACTION to/to the/the top_edge/ANCHOR ./.
+[trace] gold frame: {"event": "move", "lemma": "move", "neg": false, "roles": {"anchor": ["word", "top_edge"], "fraction": ["word", "third"], "object": ["entity", "caption", ["word", "gray"], null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 88.99 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 1.45 GB | torch alloc 0.32 GB reserved 0.39 GB | MemAvailable 84.4 GB
+[train seed 0] step 500 sent 4000/16292 loss -0.718 (129s) | RSS 2.49 GB | torch alloc 0.55 GB reserved 0.90 GB | MemAvailable 81.7 GB
+[train seed 0] step 1000 sent 8000/16292 loss -0.817 (351s) | RSS 2.49 GB | torch alloc 0.55 GB reserved 0.90 GB | MemAvailable 80.1 GB
+[train seed 0] step 1500 sent 12000/16292 loss -0.867 (586s) | RSS 2.49 GB | torch alloc 0.55 GB reserved 0.90 GB | MemAvailable 77.2 GB
+[train seed 0] step 2000 sent 16000/16292 loss -0.829 (842s) | RSS 2.49 GB | torch alloc 0.55 GB reserved 0.90 GB | MemAvailable 83.2 GB
+[train seed 0] end: RSS 2.49 GB | torch alloc 0.55 GB reserved 0.61 GB | MemAvailable 83.1 GB (857s)
+[export] numpy reader vs torch states: max relative difference 6.15e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.687 on 1938 selection rows, 0.495 on the 307 with same-kind competition | calibration_heldout_formulations 0.653 train 0.692
+[train] seed 0: 16292 training rows x 1 epoch(s) -> 16292 steps' sentences; D=1024; kinds 49; vocab 389; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[train] verb-order route (reader.codes / --codes): verb kinds ['VERB']; cue kinds ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: lets move the gray caption third to the top_edge .
+[trace] tokens/kinds: lets/FILLER move/VERB the/the gray/COLOR caption/COMPONENT third/FRACTION to/to the/the top_edge/ANCHOR ./.
+[trace] gold frame: {"event": "move", "lemma": "move", "neg": false, "roles": {"anchor": ["word", "top_edge"], "fraction": ["word", "third"], "object": ["entity", "caption", ["word", "gray"], null]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 88.99 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.85 GB | torch alloc 0.53 GB reserved 0.80 GB | MemAvailable 82.2 GB
+[train seed 0] step 500 sent 4000/16292 loss -0.748 (423s) | RSS 2.85 GB | torch alloc 1.14 GB reserved 1.46 GB | MemAvailable 48.4 GB
+[train seed 0] step 1000 sent 8000/16292 loss -0.847 (958s) | RSS 2.85 GB | torch alloc 1.14 GB reserved 1.46 GB | MemAvailable 44.5 GB
+[train seed 0] step 1500 sent 12000/16292 loss -0.906 (1495s) | RSS 2.85 GB | torch alloc 1.14 GB reserved 1.46 GB | MemAvailable 34.6 GB
+[train seed 0] step 2000 sent 16000/16292 loss -0.835 (2047s) | RSS 2.85 GB | torch alloc 1.14 GB reserved 1.46 GB | MemAvailable 35.1 GB
+[train seed 0] end: RSS 2.85 GB | torch alloc 1.14 GB reserved 1.17 GB | MemAvailable 35.4 GB (2089s)
+[export] numpy reader vs torch states: max relative difference 6.03e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.671 on 1938 selection rows, 0.570 on the 307 with same-kind competition | calibration_heldout_formulations 0.604 train 0.680
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 155 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train] seed 0: 18008 training rows x 1 epoch(s) -> 18008 steps' sentences; D=1024; kinds 49; vocab 389; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: could you link each dotted title to_next .
+[trace] tokens/kinds: could/FILLER you/FILLER link/VERB each/QUANT dotted/STYLE title/COMPONENT to_next/PAIR ./.
+[trace] gold frame: {"event": "connect", "lemma": "link", "neg": false, "roles": {"pairing": ["word", "to_next"], "source": ["entity", "title", ["word", "dotted"], "each"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 84.62 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.88 GB | torch alloc 0.41 GB reserved 1.18 GB | MemAvailable 38.5 GB
+[train seed 0] step 500 sent 4000/18008 loss -0.710 (436s) | RSS 2.88 GB | torch alloc 0.58 GB reserved 1.19 GB | MemAvailable 36.6 GB
+[train seed 0] step 1000 sent 8000/18008 loss -0.841 (874s) | RSS 2.88 GB | torch alloc 0.58 GB reserved 1.19 GB | MemAvailable 38.2 GB
+[train seed 0] step 1500 sent 12000/18008 loss -0.792 (1305s) | RSS 2.88 GB | torch alloc 0.58 GB reserved 1.19 GB | MemAvailable 39.0 GB
+[train seed 0] step 2000 sent 16000/18008 loss -0.864 (1731s) | RSS 2.88 GB | torch alloc 0.58 GB reserved 1.19 GB | MemAvailable 36.8 GB
+[train seed 0] end: RSS 2.88 GB | torch alloc 0.58 GB reserved 0.63 GB | MemAvailable 37.6 GB (1949s)
+[export] numpy reader vs torch states: max relative difference 5.71e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.770 | experiment candidates 0.528 | residual 0.281
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.782 | experiment candidates 0.583 | residual 0.236
+[eval] seed 0 new_identities: FULL catalog candidates 0.825 | experiment candidates 0.580 | residual 0.233
+[eval] seed 0 train (sample): FULL catalog candidates 0.837 | residual 0.220
+[mem] after seed 0: RSS 2.72 GB | torch alloc 0.06 GB reserved 0.63 GB | MemAvailable 40.0 GB
+[train] seed 1: 18008 training rows x 1 epoch(s) -> 18008 steps' sentences; D=1024; kinds 49; vocab 389; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: could you link each dotted title to_next .
+[trace] tokens/kinds: could/FILLER you/FILLER link/VERB each/QUANT dotted/STYLE title/COMPONENT to_next/PAIR ./.
+[trace] gold frame: {"event": "connect", "lemma": "link", "neg": false, "roles": {"pairing": ["word", "to_next"], "source": ["entity", "title", ["word", "dotted"], "each"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 83.45 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 1] start: RSS 3.08 GB | torch alloc 0.41 GB reserved 0.63 GB | MemAvailable 39.4 GB
+[train seed 1] step 500 sent 4000/18008 loss -0.711 (433s) | RSS 3.08 GB | torch alloc 0.58 GB reserved 0.92 GB | MemAvailable 35.8 GB
+[train seed 1] step 1000 sent 8000/18008 loss -0.841 (860s) | RSS 3.08 GB | torch alloc 0.58 GB reserved 0.92 GB | MemAvailable 39.6 GB

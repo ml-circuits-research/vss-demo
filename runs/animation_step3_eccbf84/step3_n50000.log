@@ -1,0 +1,6 @@
+unpacked animation/n50000 -> /tmp/animation_step3_LFE5/50000: 8 files, sha256 verified
+3/3 files OK against legend(s) animation sha256:04ecad9f34cb…
+## size 50000: sop train /tmp/animation_step3_LFE5/50000/animation --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/animation_step3_eccbf84/50000/splits.json before training: calibration_heldout_formulations 207, heldout_formulations 193, heldout_sentences 5052, new_identities 400, train 44948
+[schema] roles ['object', 'color', 'relation', 'landmark', 'region', 'direction', 'distance', 'angle', 'traveller', 'source', 'via', 'target', 'path', 'start', 'tempo', 'ref', 'offset', 'trigger', 'duration', 'unit', 'per', 'speed', 'easing', 'repeat'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (25066 training rows (55.8%) fill two roles with the same kind; in 16622 of them neither word is cued, so only the order relative to the verb separates them); selection rows 4729 (of which with same-kind competition 2488); trials trained on 40426 rows

@@ -1,0 +1,49 @@
+unpacked diagram_ro/n1000 -> /tmp/diagram_ro_step3_TpFA/1000: 10 files, sha256 verified
+4/4 files OK against legend(s) diagram_ro sha256:1a43ffc61bd5…
+## size 1000: sop train /tmp/diagram_ro_step3_TpFA/1000/diagram_ro --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500  --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_ro_step3_eccbf84/1000/splits.json before training: calibration_heldout_formulations 194, heldout_formulations 206, heldout_sentences 94, mixed 400, new_identities 400, train 906
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (149 training rows (16.4%) fill two roles with the same kind; in 140 of them neither word is cued, so only the order relative to the verb separates them); selection rows 279 (of which with same-kind competition 15); trials trained on 821 rows
+[train seed 0] end: RSS 2.19 GB | torch alloc 0.42 GB reserved 0.49 GB | MemAvailable 89.6 GB (53s)
+[export] numpy reader vs torch states: max relative difference 7.99e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.283 on 279 selection rows, 0.067 on the 15 with same-kind competition | calibration_heldout_formulations 0.289 train 0.271
+[train seed 0] end: RSS 2.47 GB | torch alloc 1.27 GB reserved 1.35 GB | MemAvailable 85.0 GB (69s)
+[export] numpy reader vs torch states: max relative difference 6.96e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.358 on 279 selection rows, 0.067 on the 15 with same-kind competition | calibration_heldout_formulations 0.381 train 0.306
+[activate] accepted ['vorder']: codes ['path', 'chainL', 'bigram', 'vorder']; diagnostics: 14 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.43 GB | torch alloc 1.27 GB reserved 1.33 GB | MemAvailable 83.0 GB (90s)
+[export] numpy reader vs torch states: max relative difference 6.88e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.379 | experiment candidates 0.039 | residual 0.599
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.468 | experiment candidates 0.043 | residual 0.581
+[eval] seed 0 mixed: FULL catalog candidates 0.398 | experiment candidates 0.040 | residual 0.615
+[eval] seed 0 new_identities: FULL catalog candidates 0.455 | experiment candidates 0.020 | residual 0.589
+[eval] seed 0 train (sample): FULL catalog candidates 0.457 | residual 0.620
+[train seed 1] end: RSS 3.15 GB | torch alloc 1.27 GB reserved 1.33 GB | MemAvailable 80.1 GB (86s)
+[export] numpy reader vs torch states: max relative difference 6.82e-08 (float32 phases in the route book)
+[eval] seed 1 heldout_formulations: FULL catalog candidates 0.461 | experiment candidates 0.097 | residual 0.589
+[eval] seed 1 heldout_sentences: FULL catalog candidates 0.532 | experiment candidates 0.064 | residual 0.593
+[eval] seed 1 mixed: FULL catalog candidates 0.403 | experiment candidates 0.052 | residual 0.627
+[eval] seed 1 new_identities: FULL catalog candidates 0.490 | experiment candidates 0.058 | residual 0.587
+[eval] seed 1 train (sample): FULL catalog candidates 0.510 | residual 0.611
+[train seed 2] end: RSS 3.05 GB | torch alloc 1.27 GB reserved 1.33 GB | MemAvailable 80.0 GB (65s)
+[export] numpy reader vs torch states: max relative difference 6.47e-08 (float32 phases in the route book)
+[eval] seed 2 heldout_formulations: FULL catalog candidates 0.471 | experiment candidates 0.150 | residual 0.609
+[eval] seed 2 heldout_sentences: FULL catalog candidates 0.532 | experiment candidates 0.117 | residual 0.563
+[eval] seed 2 mixed: FULL catalog candidates 0.403 | experiment candidates 0.130 | residual 0.620
+[eval] seed 2 new_identities: FULL catalog candidates 0.517 | experiment candidates 0.060 | residual 0.594
+[eval] seed 2 train (sample): FULL catalog candidates 0.510 | residual 0.602
+[train seed 3] end: RSS 3.29 GB | torch alloc 1.27 GB reserved 1.33 GB | MemAvailable 79.9 GB (80s)
+[export] numpy reader vs torch states: max relative difference 6.81e-08 (float32 phases in the route book)
+[eval] seed 3 heldout_formulations: FULL catalog candidates 0.447 | experiment candidates 0.073 | residual 0.599
+[eval] seed 3 heldout_sentences: FULL catalog candidates 0.521 | experiment candidates 0.064 | residual 0.574
+[eval] seed 3 mixed: FULL catalog candidates 0.415 | experiment candidates 0.077 | residual 0.621
+[eval] seed 3 new_identities: FULL catalog candidates 0.432 | experiment candidates 0.040 | residual 0.612
+[eval] seed 3 train (sample): FULL catalog candidates 0.473 | residual 0.619
+[train seed 4] end: RSS 3.13 GB | torch alloc 1.27 GB reserved 1.33 GB | MemAvailable 83.6 GB (41s)
+[export] numpy reader vs torch states: max relative difference 6.94e-08 (float32 phases in the route book)
+[eval] seed 4 heldout_formulations: FULL catalog candidates 0.388 | experiment candidates 0.044 | residual 0.594
+[eval] seed 4 heldout_sentences: FULL catalog candidates 0.479 | experiment candidates 0.074 | residual 0.568
+[eval] seed 4 mixed: FULL catalog candidates 0.400 | experiment candidates 0.060 | residual 0.618
+[eval] seed 4 new_identities: FULL catalog candidates 0.463 | experiment candidates 0.048 | residual 0.593
+[eval] seed 4 train (sample): FULL catalog candidates 0.473 | residual 0.616
+[done] model written to /tmp/diagram_ro_step3_TpFA/1000/diagram_ro/model; REPORT.md and metrics.json there; run log /home/salboaie/vss-demo/runs/diagram_ro_step3_eccbf84/1000/train.log

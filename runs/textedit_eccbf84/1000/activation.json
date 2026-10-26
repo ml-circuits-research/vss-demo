@@ -1,0 +1,112 @@
+{
+ "rule": "a candidate route is on iff its need signal fires and, on selection rows its trials did not train on, it loses no split by more than tol and wins the rows its need signal marked (or all rows) by more than tol; tol = max(eps=0.01, one row of the split)",
+ "profile": {
+  "n_train_rows": 891,
+  "order_dependent": {
+   "n": 35,
+   "share": 0.03928170594837262
+  },
+  "same_kind_pairs": {
+   "n": 98,
+   "share": 0.10998877665544332
+  },
+  "rigid_order": {
+   "per_core_role": {
+    "unit": 0.24196277495769883,
+    "ordinal": 0.29896907216494845,
+    "match": 0.22916666666666666,
+    "format": 0.22377622377622378,
+    "value": 0.26373626373626374,
+    "position": 0.2553191489361702,
+    "new_text": 0.20725388601036268,
+    "widget": 0.3333333333333333
+   },
+   "min": 0.20725388601036268
+  },
+  "depth": {
+   "n": 0,
+   "share": 0.0,
+   "level_openers_declared": false
+  },
+  "cues_declared": [
+   ",",
+   ".",
+   "and",
+   "as",
+   "at",
+   "by",
+   "for",
+   "from",
+   "in",
+   "into",
+   "of",
+   "on",
+   "to",
+   "with"
+  ],
+  "unknown_share": 0.0,
+  "kinds_source": "lexicon",
+  "verb_tokens_per_row": 1.0
+ },
+ "need_signals": {
+  "vorder": {
+   "fires": true,
+   "reason": "98 training rows (11.0%) fill two roles with the same kind; in 35 of them neither word is cued, so only the order relative to the verb separates them"
+  },
+  "pos": {
+   "fires": false,
+   "reason": "the most frequent absolute position of a core role's head covers only 21% of the rows: the order is not rigid"
+  }
+ },
+ "declared_codes": [
+  "path",
+  "chainL",
+  "bigram"
+ ],
+ "candidates": [
+  "vorder"
+ ],
+ "trials": {
+  "path+chainL+bigram+vorder": {
+   "FULL": 0.7215568862275449,
+   "FULL_marked": 0.9166666666666666,
+   "n": 334,
+   "n_marked": 12,
+   "by_split": {
+    "calibration_heldout_formulations": 0.7214611872146118,
+    "train": 0.7217391304347827
+   },
+   "n_split": {
+    "calibration_heldout_formulations": 219,
+    "train": 115
+   },
+   "residual_mean": 0.4839437851884589,
+   "loses": [],
+   "wins_marked_rows": false,
+   "wins_all": false,
+   "accepted": false
+  },
+  "path+chainL+bigram": {
+   "FULL": 0.718562874251497,
+   "FULL_marked": 1.0,
+   "n": 334,
+   "n_marked": 12,
+   "by_split": {
+    "calibration_heldout_formulations": 0.7123287671232876,
+    "train": 0.7304347826086957
+   },
+   "n_split": {
+    "calibration_heldout_formulations": 219,
+    "train": 115
+   },
+   "residual_mean": 0.5104924953846255
+  }
+ },
+ "accepted": [],
+ "codes": [
+  "path",
+  "chainL",
+  "bigram"
+ ],
+ "diagnostics": []
+}

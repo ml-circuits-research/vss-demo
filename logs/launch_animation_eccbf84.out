@@ -1,0 +1,6 @@
+# animation step 3, commit eccbf84, 2026-10-26T12:42:32+01:00; worlds in /tmp/animation_step3_LFE5; runs in /home/salboaie/vss-demo/runs/animation_step3_eccbf84; sizes 1000 5000 20000 50000; jobs 2
+[size 1000 done 2026-10-26T13:04:31+01:00]
+Terminated
+Terminated
+Terminated
+done: commit /home/salboaie/vss-demo/runs/animation_step3_eccbf84 (git add runs/animation_step3_eccbf84); then step 5 (export and parity) on runs/animation_step3_eccbf84/model_<shipped size>

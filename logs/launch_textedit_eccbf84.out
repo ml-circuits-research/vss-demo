@@ -1,0 +1,109 @@
+# textedit, commit eccbf84, 2026-10-26T12:42:32+01:00; worlds in /tmp/textedit_KkjY; runs in /home/salboaie/vss-demo/runs/textedit_eccbf84; sizes 1000 5000 20000 50000; shipped size 50000
+unpacked textedit/n1000 -> /tmp/textedit_KkjY/1000: 9 files, sha256 verified
+3/3 files OK against legend(s) textedit sha256:4c42eb08b9dd…
+## size 1000: sop train /tmp/textedit_KkjY/1000/textedit --D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --seeds 5
+[splits] written to /home/salboaie/vss-demo/runs/textedit_eccbf84/1000/splits.json before training: calibration_heldout_formulations 219, heldout_formulations 181, heldout_sentences 109, new_identities 400, train 891
+[schema] roles ['unit', 'ordinal', 'match', 'format', 'value', 'position', 'new_text', 'widget'] (core []), max depth 0, event negation False
+[activate] candidates ['vorder'] (98 training rows (11.0%) fill two roles with the same kind; in 35 of them neither word is cued, so only the order relative to the verb separates them); selection rows 334 (of which with same-kind competition 12); trials trained on 776 rows
+[train seed 0] end: RSS 2.02 GB | torch alloc 0.20 GB reserved 0.28 GB | MemAvailable 88.9 GB (18s)
+[export] numpy reader vs torch states: max relative difference 7.78e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.719 on 334 selection rows, 1.000 on the 12 with same-kind competition | calibration_heldout_formulations 0.712 train 0.730
+[train seed 0] end: RSS 2.22 GB | torch alloc 0.52 GB reserved 0.61 GB | MemAvailable 89.8 GB (34s)
+[export] numpy reader vs torch states: max relative difference 7.17e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.722 on 334 selection rows, 0.917 on the 12 with same-kind competition | calibration_heldout_formulations 0.721 train 0.722
+[activate] accepted none: codes ['path', 'chainL', 'bigram']
+[train seed 0] end: RSS 2.25 GB | torch alloc 0.21 GB reserved 0.29 GB | MemAvailable 84.9 GB (38s)
+[export] numpy reader vs torch states: max relative difference 7.72e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.718 | experiment candidates 0.326 | residual 0.499
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.743 | experiment candidates 0.275 | residual 0.478
+[eval] seed 0 new_identities: FULL catalog candidates 0.665 | experiment candidates 0.260 | residual 0.523
+[eval] seed 0 train (sample): FULL catalog candidates 0.787 | residual 0.478
+[train seed 1] end: RSS 2.37 GB | torch alloc 0.21 GB reserved 0.26 GB | MemAvailable 84.1 GB (29s)
+[export] numpy reader vs torch states: max relative difference 7.76e-08 (float32 phases in the route book)
+[eval] seed 1 heldout_formulations: FULL catalog candidates 0.713 | experiment candidates 0.359 | residual 0.497
+[eval] seed 1 heldout_sentences: FULL catalog candidates 0.817 | experiment candidates 0.349 | residual 0.471
+[eval] seed 1 new_identities: FULL catalog candidates 0.688 | experiment candidates 0.265 | residual 0.510
+[eval] seed 1 train (sample): FULL catalog candidates 0.807 | residual 0.476
+[train seed 2] end: RSS 2.40 GB | torch alloc 0.21 GB reserved 0.28 GB | MemAvailable 82.5 GB (38s)
+[export] numpy reader vs torch states: max relative difference 7.61e-08 (float32 phases in the route book)
+[eval] seed 2 heldout_formulations: FULL catalog candidates 0.729 | experiment candidates 0.414 | residual 0.505
+[eval] seed 2 heldout_sentences: FULL catalog candidates 0.798 | experiment candidates 0.404 | residual 0.479
+[eval] seed 2 new_identities: FULL catalog candidates 0.675 | experiment candidates 0.310 | residual 0.523
+[eval] seed 2 train (sample): FULL catalog candidates 0.803 | residual 0.471
+[train seed 3] end: RSS 2.42 GB | torch alloc 0.21 GB reserved 0.26 GB | MemAvailable 82.8 GB (13s)
+[export] numpy reader vs torch states: max relative difference 8.00e-08 (float32 phases in the route book)
+[eval] seed 3 heldout_formulations: FULL catalog candidates 0.691 | experiment candidates 0.387 | residual 0.507
+[eval] seed 3 heldout_sentences: FULL catalog candidates 0.835 | experiment candidates 0.422 | residual 0.460
+[eval] seed 3 new_identities: FULL catalog candidates 0.682 | experiment candidates 0.318 | residual 0.516
+[eval] seed 3 train (sample): FULL catalog candidates 0.780 | residual 0.468
+[train seed 4] end: RSS 2.39 GB | torch alloc 0.21 GB reserved 0.24 GB | MemAvailable 80.5 GB (29s)
+[export] numpy reader vs torch states: max relative difference 7.78e-08 (float32 phases in the route book)
+[eval] seed 4 heldout_formulations: FULL catalog candidates 0.718 | experiment candidates 0.348 | residual 0.498
+[eval] seed 4 heldout_sentences: FULL catalog candidates 0.807 | experiment candidates 0.376 | residual 0.472
+[eval] seed 4 new_identities: FULL catalog candidates 0.693 | experiment candidates 0.328 | residual 0.505
+[eval] seed 4 train (sample): FULL catalog candidates 0.783 | residual 0.475
+[done] model written to /tmp/textedit_KkjY/1000/textedit/model; REPORT.md and metrics.json there; run log /home/salboaie/vss-demo/runs/textedit_eccbf84/1000/train.log
+unpacked textedit/n5000 -> /tmp/textedit_KkjY/5000: 9 files, sha256 verified
+3/3 files OK against legend(s) textedit sha256:4c42eb08b9dd…
+## size 5000: sop train /tmp/textedit_KkjY/5000/textedit --D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --seeds 5
+[splits] written to /home/salboaie/vss-demo/runs/textedit_eccbf84/5000/splits.json before training: calibration_heldout_formulations 219, heldout_formulations 181, heldout_sentences 478, new_identities 400, train 4522
+[schema] roles ['unit', 'ordinal', 'match', 'format', 'value', 'position', 'new_text', 'widget'] (core []), max depth 0, event negation False
+[activate] candidates ['vorder'] (491 training rows (10.9%) fill two roles with the same kind; in 129 of them neither word is cued, so only the order relative to the verb separates them); selection rows 714 (of which with same-kind competition 59); trials trained on 4027 rows
+[train seed 0] end: RSS 2.09 GB | torch alloc 0.25 GB reserved 0.31 GB | MemAvailable 78.6 GB (131s)
+[export] numpy reader vs torch states: max relative difference 7.32e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.913 on 714 selection rows, 0.932 on the 59 with same-kind competition | calibration_heldout_formulations 0.945 train 0.899
+[train seed 0] end: RSS 2.30 GB | torch alloc 0.57 GB reserved 0.61 GB | MemAvailable 81.4 GB (144s)
+[export] numpy reader vs torch states: max relative difference 7.14e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.902 on 714 selection rows, 0.932 on the 59 with same-kind competition | calibration_heldout_formulations 0.927 train 0.891
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 4 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.36 GB | torch alloc 0.26 GB reserved 0.29 GB | MemAvailable 85.1 GB (141s)
+[export] numpy reader vs torch states: max relative difference 7.39e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.923 | experiment candidates 0.801 | residual 0.255
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.902 | experiment candidates 0.753 | residual 0.270
+[eval] seed 0 new_identities: FULL catalog candidates 0.825 | experiment candidates 0.718 | residual 0.340
+[eval] seed 0 train (sample): FULL catalog candidates 0.893 | residual 0.282
+[train seed 1] end: RSS 2.52 GB | torch alloc 0.26 GB reserved 0.31 GB | MemAvailable 82.1 GB (113s)
+[export] numpy reader vs torch states: max relative difference 7.31e-08 (float32 phases in the route book)
+[eval] seed 1 heldout_formulations: FULL catalog candidates 0.961 | experiment candidates 0.768 | residual 0.230
+[eval] seed 1 heldout_sentences: FULL catalog candidates 0.906 | experiment candidates 0.755 | residual 0.270
+[eval] seed 1 new_identities: FULL catalog candidates 0.840 | experiment candidates 0.665 | residual 0.333
+[eval] seed 1 train (sample): FULL catalog candidates 0.920 | residual 0.274
+[train seed 2] end: RSS 2.54 GB | torch alloc 0.26 GB reserved 0.31 GB | MemAvailable 80.0 GB (148s)
+[export] numpy reader vs torch states: max relative difference 7.10e-08 (float32 phases in the route book)
+[eval] seed 2 heldout_formulations: FULL catalog candidates 0.928 | experiment candidates 0.823 | residual 0.237
+[eval] seed 2 heldout_sentences: FULL catalog candidates 0.902 | experiment candidates 0.755 | residual 0.264
+[eval] seed 2 new_identities: FULL catalog candidates 0.825 | experiment candidates 0.595 | residual 0.339
+[eval] seed 2 train (sample): FULL catalog candidates 0.897 | residual 0.271
+[train seed 3] end: RSS 2.54 GB | torch alloc 0.26 GB reserved 0.31 GB | MemAvailable 78.8 GB (163s)
+[export] numpy reader vs torch states: max relative difference 7.52e-08 (float32 phases in the route book)
+[eval] seed 3 heldout_formulations: FULL catalog candidates 0.923 | experiment candidates 0.751 | residual 0.233
+[eval] seed 3 heldout_sentences: FULL catalog candidates 0.912 | experiment candidates 0.732 | residual 0.256
+[eval] seed 3 new_identities: FULL catalog candidates 0.863 | experiment candidates 0.655 | residual 0.314
+[eval] seed 3 train (sample): FULL catalog candidates 0.917 | residual 0.258
+[train seed 4] end: RSS 2.54 GB | torch alloc 0.26 GB reserved 0.31 GB | MemAvailable 78.0 GB (196s)
+[export] numpy reader vs torch states: max relative difference 7.28e-08 (float32 phases in the route book)
+[eval] seed 4 heldout_formulations: FULL catalog candidates 0.956 | experiment candidates 0.801 | residual 0.226
+[eval] seed 4 heldout_sentences: FULL catalog candidates 0.935 | experiment candidates 0.741 | residual 0.250
+[eval] seed 4 new_identities: FULL catalog candidates 0.855 | experiment candidates 0.662 | residual 0.320
+[eval] seed 4 train (sample): FULL catalog candidates 0.923 | residual 0.258
+[done] model written to /tmp/textedit_KkjY/5000/textedit/model; REPORT.md and metrics.json there; run log /home/salboaie/vss-demo/runs/textedit_eccbf84/5000/train.log
+unpacked textedit/n20000 -> /tmp/textedit_KkjY/20000: 9 files, sha256 verified
+3/3 files OK against legend(s) textedit sha256:4c42eb08b9dd…
+## size 20000: sop train /tmp/textedit_KkjY/20000/textedit --D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --seeds 5
+[splits] written to /home/salboaie/vss-demo/runs/textedit_eccbf84/20000/splits.json before training: calibration_heldout_formulations 219, heldout_formulations 181, heldout_sentences 1965, new_identities 400, train 18035
+[schema] roles ['unit', 'ordinal', 'match', 'format', 'value', 'position', 'new_text', 'widget'] (core []), max depth 0, event negation False
+[activate] candidates ['vorder'] (1851 training rows (10.3%) fill two roles with the same kind; in 489 of them neither word is cued, so only the order relative to the verb separates them); selection rows 2105 (of which with same-kind competition 185); trials trained on 16149 rows
+[train seed 0] end: RSS 2.37 GB | torch alloc 0.44 GB reserved 0.47 GB | MemAvailable 44.6 GB (887s)
+[export] numpy reader vs torch states: max relative difference 7.21e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.927 on 2105 selection rows, 0.914 on the 185 with same-kind competition | calibration_heldout_formulations 0.954 train 0.924
+[train seed 0] end: RSS 2.65 GB | torch alloc 0.76 GB reserved 0.80 GB | MemAvailable 37.1 GB (1343s)
+[export] numpy reader vs torch states: max relative difference 6.98e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.938 on 2105 selection rows, 0.930 on the 185 with same-kind competition | calibration_heldout_formulations 0.963 train 0.935
+[activate] accepted ['vorder']: codes ['path', 'chainL', 'bigram', 'vorder']; diagnostics: 13 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.67 GB | torch alloc 0.79 GB reserved 0.84 GB | MemAvailable 38.2 GB (1517s)
+[export] numpy reader vs torch states: max relative difference 6.99e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.961 | experiment candidates 0.818 | residual 0.159
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.908 | experiment candidates 0.850 | residual 0.211
+[eval] seed 0 new_identities: FULL catalog candidates 0.853 | experiment candidates 0.767 | residual 0.277
+[eval] seed 0 train (sample): FULL catalog candidates 0.927 | residual 0.189
+Terminated

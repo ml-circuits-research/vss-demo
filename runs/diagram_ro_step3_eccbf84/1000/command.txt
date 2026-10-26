@@ -1,0 +1,2 @@
+sop train /tmp/diagram_ro_step3_TpFA/1000/diagram_ro --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --run_dir /home/salboaie/vss-demo/runs/diagram_ro_step3_eccbf84/1000
+commit eccbf84

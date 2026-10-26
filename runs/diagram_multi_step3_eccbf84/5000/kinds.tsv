@@ -1,0 +1,1251 @@
+# word	kind	lemma: the diagram world's categories for Romanian, English and mixed sentences (GIVEN, rule 20; training/worlds/diagram_ro/lexicon_ro.py); the lemma is the canonical English token a Romanian form stands for (legend reader.identity = lemma); English words have no lemma
+,	,
+-i	PRON	them
+-l	PRON	it
+-le	PRON	them
+-o	PRON	it
+.	.
+a	a
+above	REL
+accounts	LABEL
+acea	DEM	that
+aceasta	DEM	this
+aceea	DEM	that
+acei	DEM	those
+acel	DEM	that
+acela	DEM	that
+acele	DEM	those
+acest	DEM	this
+acesta	DEM	this
+aceste	DEM	these
+acestea	DEM	these
+acesti	DEM	these
+acestia	DEM	these
+acolo	FILLER
+actor	COMPONENT
+actor-ul	COMPONENT	actor
+actor-ului	COMPONENT	actor
+actor-urile	COMPONENT	actors
+actor-urilor	COMPONENT	actors
+actori	COMPONENT	actors
+actorii	COMPONENT	actors
+actorilor	COMPONENT	actors
+actors	COMPONENT
+actorul	COMPONENT	actor
+actorului	COMPONENT	actor
+acum	FILLER
+adauga	VERB	add
+adaugam	VERB	add
+adaugati	VERB	add
+adaugi	VERB	add
+add	VERB
+admin	LABEL
+adu	VERB	bring
+aduce	VERB	bring
+aducem	VERB	bring
+aduceti	VERB	bring
+aduci	VERB	bring
+ahead	FILLER
+ai	FILLER
+aici	FILLER
+alb	COLOR	white
+alba	COLOR	white
+albastra	COLOR	blue
+albastre	COLOR	blue
+albastri	COLOR	blue
+albastru	COLOR	blue
+albe	COLOR	white
+albi	COLOR	white
+align	VERB
+alinia	VERB	align
+aliniati	VERB	align
+aliniaza	VERB	align
+aliniem	VERB	align
+aliniezi	VERB	align
+all	QUANT
+alpha	LABEL
+also	FILLER
+am	FILLER
+ambele	QUANT	both
+an	a
+analytics	LABEL
+and	and
+anna	LABEL
+anula	VERB	undo
+anulam	VERB	undo
+anulati	VERB	undo
+anuleaza	VERB	undo
+anulezi	VERB	undo
+any	QUANT
+apart	apart
+api	COMPONENT
+api-ul	COMPONENT	api
+api-ului	COMPONENT	api
+api-uri	COMPONENT	apis
+api-urile	COMPONENT	apis
+api-urilor	COMPONENT	apis
+apis	COMPONENT
+apoi	CONN
+approval	LABEL
+aranja	VERB	arrange
+aranjam	VERB	arrange
+aranjati	VERB	arrange
+aranjeaza	VERB	arrange
+aranjezi	VERB	arrange
+arbore	LAYOUT	tree
+archive	LABEL
+are	are
+arrange	VERB
+arrow	COMPONENT
+arrow-ul	COMPONENT	arrow
+arrow-ului	COMPONENT	arrow
+arrow-urile	COMPONENT	arrows
+arrow-urilor	COMPONENT	arrows
+arrows	COMPONENT
+as	as
+as_dori	FILLER
+as_vrea	FILLER
+asaza	VERB	place
+asemenea	FILLER
+aseza	VERB	place
+asezam	VERB	place
+asezati	VERB	place
+asezi	VERB	place
+asta	DEM	this
+at	at
+atasa	VERB	attach
+atasam	VERB	attach
+atasati	VERB	attach
+ataseaza	VERB	attach
+atasezi	VERB	attach
+ati	FILLER
+attach	VERB
+auth	LABEL
+back	back
+backend	LABEL
+banda	COMPONENT	lane
+baza_de_date	COMPONENT	database
+baze_de_date	COMPONENT	databases
+bazei_de_date	COMPONENT	database
+bazele_de_date	COMPONENT	databases
+bazelor_de_date	COMPONENT	databases
+below	REL
+benzi	COMPONENT	lanes
+benzii	COMPONENT	lane
+benzile	COMPONENT	lanes
+benzilor	COMPONENT	lanes
+beta	LABEL
+bigger	SIZE
+billing	LABEL
+bine	FILLER
+black	COLOR
+blue	COLOR
+both	QUANT
+bottom	REGION
+bottom_edge	ANCHOR
+bottom_left	REGION
+bottom_right	REGION
+box	COMPONENT
+box-ul	COMPONENT	box
+box-ului	COMPONENT	box
+box-urile	COMPONENT	boxes
+box-urilor	COMPONENT	boxes
+boxes	COMPONENT
+bring	VERB
+broker	LABEL
+brown	COLOR
+by	by
+ca	as	as
+cache	COMPONENT
+cache-ul	COMPONENT	cache
+cache-ului	COMPONENT	cache
+cache-uri	COMPONENT	caches
+cache-urile	COMPONENT	caches
+cache-urilor	COMPONENT	caches
+caches	COMPONENT
+call	VERB
+called	INTRO
+can	FILLER
+cand	CONN
+canvas	COMPONENT
+canvas-ul	COMPONENT	canvas
+canvas-ului	COMPONENT	canvas
+caption	COMPONENT
+caption-ul	COMPONENT	caption
+caption-ului	COMPONENT	caption
+caption-urile	COMPONENT	captions
+caption-urilor	COMPONENT	captions
+captions	COMPONENT
+care	care
+cart	LABEL
+caseta_de_text	COMPONENT	textbox
+casete_de_text	COMPONENT	textboxes
+casetei_de_text	COMPONENT	textbox
+casetele_de_text	COMPONENT	textboxes
+casetelor_de_text	COMPONENT	textboxes
+catalog	LABEL
+catre	spre
+center	REGION
+centru	REGION	center
+centrul	REGION	center
+cerc	LAYOUT	circle
+cercul	LAYOUT	circle
+cercului	LAYOUT	circle
+cercuri	COMPONENT	circles
+cercurile	COMPONENT	circles
+cercurilor	COMPONENT	circles
+change	VERB
+checkout	LABEL
+chestia	COMPONENT	thing
+chestie	COMPONENT	thing
+chestiei	COMPONENT	thing
+chestii	COMPONENT	things
+chestiile	COMPONENT	things
+chestiilor	COMPONENT	things
+circle	LAYOUT
+circle-ul	LAYOUT	circle
+circle-ului	LAYOUT	circle
+circle-urile	COMPONENT	circles
+circle-urilor	COMPONENT	circles
+circles	COMPONENT
+clear	VERB
+client	COMPONENT
+client-ul	COMPONENT	client
+client-ului	COMPONENT	client
+client-urile	COMPONENT	clients
+client-urilor	COMPONENT	clients
+clienti	COMPONENT	clients
+clientii	COMPONENT	clients
+clientilor	COMPONENT	clients
+clients	COMPONENT
+clientul	COMPONENT	client
+clientului	COMPONENT	client
+clona	VERB	clone
+clonam	VERB	clone
+clonati	VERB	clone
+clone	VERB
+cloneaza	VERB	clone
+clonezi	VERB	clone
+cloud	COMPONENT
+cloud-ul	COMPONENT	cloud
+cloud-ului	COMPONENT	cloud
+cloud-urile	COMPONENT	clouds
+cloud-urilor	COMPONENT	clouds
+clouds	COMPONENT
+coada	COMPONENT	queue
+coloana	LAYOUT	column
+color	color
+colora	VERB	turn
+coloram	VERB	turn
+colorati	VERB	turn
+coloreaza	VERB	turn
+colorezi	VERB	turn
+column	LAYOUT
+comentarii	COMPONENT	comments
+comentariile	COMPONENT	comments
+comentariilor	COMPONENT	comments
+comentariu	COMPONENT	comment
+comentariul	COMPONENT	comment
+comentariului	COMPONENT	comment
+comment	COMPONENT
+comment-ul	COMPONENT	comment
+comment-ului	COMPONENT	comment
+comment-urile	COMPONENT	comments
+comment-urilor	COMPONENT	comments
+comments	COMPONENT
+component	COMPONENT
+component-ul	COMPONENT	component
+component-ului	COMPONENT	component
+component-urile	COMPONENT	components
+component-urilor	COMPONENT	components
+componenta	COMPONENT	component
+componente	COMPONENT	components
+componentei	COMPONENT	component
+componentele	COMPONENT	components
+componentelor	COMPONENT	components
+components	COMPONENT
+conecta	VERB	connect
+conectam	VERB	connect
+conectati	VERB	connect
+conecteaza	VERB	connect
+conectezi	VERB	connect
+conector	COMPONENT	connector
+conectori	COMPONENT	connectors
+conectorii	COMPONENT	connectors
+conectorilor	COMPONENT	connectors
+conectorul	COMPONENT	connector
+conectorului	COMPONENT	connector
+connect	VERB
+connector	COMPONENT
+connector-ul	COMPONENT	connector
+connector-ului	COMPONENT	connector
+connector-urile	COMPONENT	connectors
+connector-urilor	COMPONENT	connectors
+connectors	COMPONENT
+container	COMPONENT
+container-ul	COMPONENT	container
+container-ului	COMPONENT	container
+container-urile	COMPONENT	containers
+container-urilor	COMPONENT	containers
+containere	COMPONENT	containers
+containerele	COMPONENT	containers
+containerelor	COMPONENT	containers
+containers	COMPONENT
+containerul	COMPONENT	container
+containerului	COMPONENT	container
+continua	STYLE	solid
+continue	STYLE	solid
+continui	STYLE	solid
+continuu	STYLE	solid
+copia	VERB	copy
+copiati	VERB	copy
+copiaza	VERB	copy
+copiem	VERB	copy
+copiezi	VERB	copy
+copy	VERB
+could	FILLER
+cozi	COMPONENT	queues
+cozii	COMPONENT	queue
+cozile	COMPONENT	queues
+cozilor	COMPONENT	queues
+crawler	LABEL
+crea	VERB	create
+cream	VERB	create
+create	VERB
+creati	VERB	create
+creeaza	VERB	create
+creezi	VERB	create
+creste	VERB	grow
+crestem	VERB	grow
+cresteti	VERB	grow
+cresti	VERB	grow
+cu	cu
+cu_numele	INTRO
+culoarea	color	color
+cumparator	COMPONENT	customer
+cumparatori	COMPONENT	customers
+cumparatorii	COMPONENT	customers
+cumparatorilor	COMPONENT	customers
+cumparatorul	COMPONENT	customer
+cumparatorului	COMPONENT	customer
+curata	VERB	clear
+curatam	VERB	clear
+curatati	VERB	clear
+cureti	VERB	clear
+customer	COMPONENT
+customer-ul	COMPONENT	customer
+customer-ului	COMPONENT	customer
+customer-urile	COMPONENT	customers
+customer-urilor	COMPONENT	customers
+customers	COMPONENT
+cutia	COMPONENT	box
+cutie	COMPONENT	box
+cutiei	COMPONENT	box
+cutii	COMPONENT	boxes
+cutiile	COMPONENT	boxes
+cutiilor	COMPONENT	boxes
+daca	CONN
+dar	CONN
+dashboard	LABEL
+dashed	STYLE
+database	COMPONENT
+database-ul	COMPONENT	database
+database-ului	COMPONENT	database
+database-urile	COMPONENT	databases
+database-urilor	COMPONENT	databases
+databases	COMPONENT
+de	de
+deasupra	REL	above
+deci	FILLER
+decision	COMPONENT
+decision-ul	COMPONENT	decision
+decision-ului	COMPONENT	decision
+decision-urile	COMPONENT	decisions
+decision-urilor	COMPONENT	decisions
+decisions	COMPONENT
+decizia	COMPONENT	decision
+decizie	COMPONENT	decision
+deciziei	COMPONENT	decision
+decizii	COMPONENT	decisions
+deciziile	COMPONENT	decisions
+deciziilor	COMPONENT	decisions
+dedesubtul	REL	below
+degrupa	VERB	ungroup
+degrupam	VERB	ungroup
+degrupati	VERB	ungroup
+degrupeaza	VERB	ungroup
+degrupezi	VERB	ungroup
+deja	FILLER
+delete	VERB
+delta	LABEL
+denumeste	VERB	call
+denumesti	VERB	call
+denumi	VERB	call
+denumim	VERB	call
+denumit	INTRO
+denumita	INTRO
+denumite	INTRO
+denumiti	VERB	call
+deoarece	CONN
+deplasa	VERB	shift
+deplasam	VERB	shift
+deplasati	VERB	shift
+deplaseaza	VERB	shift
+deplasezi	VERB	shift
+depozit	COMPONENT	store
+depozite	COMPONENT	stores
+depozitele	COMPONENT	stores
+depozitelor	COMPONENT	stores
+depozitul	COMPONENT	store
+depozitului	COMPONENT	store
+desena	VERB	draw
+desenam	VERB	draw
+desenati	VERB	draw
+deseneaza	VERB	draw
+desenezi	VERB	draw
+diamond	COMPONENT
+diamond-ul	COMPONENT	diamond
+diamond-ului	COMPONENT	diamond
+diamond-urile	COMPONENT	diamonds
+diamond-urilor	COMPONENT	diamonds
+diamonds	COMPONENT
+dimensiunea	dimensiunea
+din	din
+distanta	apart	apart
+distribui	VERB	distribute
+distribuie	VERB	distribute
+distribuim	VERB	distribute
+distribuiti	VERB	distribute
+distribute	VERB
+do	do
+doar	FILLER
+document	COMPONENT
+document-ul	COMPONENT	document
+document-ului	COMPONENT	document
+document-urile	COMPONENT	documents
+document-urilor	COMPONENT	documents
+documente	COMPONENT	documents
+documentele	COMPONENT	documents
+documentelor	COMPONENT	documents
+documents	COMPONENT
+documentul	COMPONENT	document
+documentului	COMPONENT	document
+done	LABEL
+dori	FILLER
+dotted	STYLE
+down	DIR
+draft	LABEL
+drag	VERB
+draw	VERB
+dreapta	DIR	right
+dreptunghi	COMPONENT	rectangle
+dreptunghiul	COMPONENT	rectangle
+dreptunghiului	COMPONENT	rectangle
+dreptunghiuri	COMPONENT	rectangles
+dreptunghiurile	COMPONENT	rectangles
+dreptunghiurilor	COMPONENT	rectangles
+dupa	CONN
+duplica	VERB	duplicate
+duplicam	VERB	duplicate
+duplicate	VERB
+duplicati	VERB	duplicate
+duplici	VERB	duplicate
+e	is	is
+each	QUANT
+ecran	COMPONENT	screen
+ecranul	COMPONENT	screen
+ecranului	COMPONENT	screen
+element	COMPONENT
+element-ul	COMPONENT	element
+element-ului	COMPONENT	element
+element-urile	COMPONENT	elements
+element-urilor	COMPONENT	elements
+elemente	COMPONENT	elements
+elementele	COMPONENT	elements
+elementelor	COMPONENT	elements
+elements	COMPONENT
+elementul	COMPONENT	element
+elementului	COMPONENT	element
+elena	LABEL
+elimina	VERB	remove
+eliminam	VERB	remove
+eliminati	VERB	remove
+elimini	VERB	remove
+elipsa	COMPONENT	ellipse
+elipse	COMPONENT	ellipses
+elipsei	COMPONENT	ellipse
+elipsele	COMPONENT	ellipses
+elipselor	COMPONENT	ellipses
+ellipse	COMPONENT
+ellipse-ul	COMPONENT	ellipse
+ellipse-ului	COMPONENT	ellipse
+ellipse-urile	COMPONENT	ellipses
+ellipse-urilor	COMPONENT	ellipses
+ellipses	COMPONENT
+end	COMPONENT
+end-ul	COMPONENT	end
+end-ului	COMPONENT	end
+end-urile	COMPONENT	ends
+end-urilor	COMPONENT	ends
+ends	COMPONENT
+enlarge	VERB
+epsilon	LABEL
+erase	VERB
+este	is	is
+eticheta	VERB	label
+etichetam	VERB	label
+etichetat	INTRO
+etichetata	INTRO
+etichetati	VERB	label
+eticheteaza	VERB	label
+etichetezi	VERB	label
+evenly	evenly
+every	QUANT
+everything	PRON
+fa	VERB	make
+face	VERB	make
+facem	VERB	make
+faceti	VERB	make
+faci	VERB	make
+fata	front	front
+fiecare	QUANT	each
+file	COMPONENT
+file-ul	COMPONENT	file
+file-ului	COMPONENT	file
+file-urile	COMPONENT	files
+file-urilor	COMPONENT	files
+files	COMPONENT
+fill	VERB
+final	LABEL
+fisier	COMPONENT	file
+fisiere	COMPONENT	files
+fisierele	COMPONENT	files
+fisierelor	COMPONENT	files
+fisierul	COMPONENT	file
+fisierului	COMPONENT	file
+flow	flow
+flow_lr	LAYOUT
+flow_td	LAYOUT
+flux	flow	flow
+forma	COMPONENT	shape
+forme	COMPONENT	shapes
+formei	COMPONENT	shape
+formele	COMPONENT	shapes
+formelor	COMPONENT	shapes
+from	from
+front	front
+frontend	LABEL
+galben	COLOR	yellow
+galbena	COLOR	yellow
+galbene	COLOR	yellow
+galbeni	COLOR	yellow
+gamma	LABEL
+gamma_ray	LABEL
+gateway	COMPONENT
+gateway-ul	COMPONENT	gateway
+gateway-ului	COMPONENT	gateway
+gateway-urile	COMPONENT	gateways
+gateway-urilor	COMPONENT	gateways
+gateways	COMPONENT
+glisa	VERB	slide
+glisam	VERB	slide
+glisati	VERB	slide
+gliseaza	VERB	slide
+glisezi	VERB	slide
+go	FILLER
+goleste	VERB	clear
+golesti	VERB	clear
+goli	VERB	clear
+golim	VERB	clear
+goliti	VERB	clear
+gray	COLOR
+green	COLOR
+gri	COLOR	gray
+grid	LAYOUT
+grila	LAYOUT	grid
+groasa	STYLE	thick
+groase	STYLE	thick
+gros	STYLE	thick
+grosi	STYLE	thick
+group	VERB
+group-urile	COMPONENT	groups
+group-urilor	COMPONENT	groups
+groups	COMPONENT
+grow	VERB
+grupa	VERB	group
+grupam	VERB	group
+grupati	VERB	group
+grupeaza	VERB	group
+grupezi	VERB	group
+grupuri	COMPONENT	groups
+grupurile	COMPONENT	groups
+grupurilor	COMPONENT	groups
+hai	FILLER
+half	FRACTION
+here	FILLER
+hexagoane	COMPONENT	hexagons
+hexagoanele	COMPONENT	hexagons
+hexagoanelor	COMPONENT	hexagons
+hexagon	COMPONENT
+hexagon-ul	COMPONENT	hexagon
+hexagon-ului	COMPONENT	hexagon
+hexagon-urile	COMPONENT	hexagons
+hexagon-urilor	COMPONENT	hexagons
+hexagons	COMPONENT
+hexagonul	COMPONENT	hexagon
+hexagonului	COMPONENT	hexagon
+hey	FILLER
+horizontally	AXIS
+huge	SIZE
+i	FILLER
+impinge	VERB	push
+impingem	VERB	push
+impingeti	VERB	push
+impingi	VERB	push
+impreuna	together	together
+in	in
+in_chain	PAIR
+inainte	CONN
+inauntrul	REL	inside
+incadra	VERB	wrap
+incadram	VERB	wrap
+incadrati	VERB	wrap
+incadreaza	VERB	wrap
+incadrezi	VERB	wrap
+inceput	COMPONENT	start
+inceputul	COMPONENT	start
+inceputului	COMPONENT	start
+inceputuri	COMPONENT	starts
+inceputurile	COMPONENT	starts
+inceputurilor	COMPONENT	starts
+indexer	LABEL
+ingest	LABEL
+insa	CONN
+insera	VERB	insert
+inseram	VERB	insert
+inserati	VERB	insert
+insereaza	VERB	insert
+inserezi	VERB	insert
+insert	VERB
+inside	REL
+intitulat	INTRO
+intitulata	INTRO
+into	into
+intrerupt	STYLE	dashed
+intrerupta	STYLE	dashed
+intrerupte	STYLE	dashed
+intrerupti	STYLE	dashed
+inventory	LABEL
+invoices	LABEL
+irina	LABEL
+is	is
+it	PRON
+item	COMPONENT
+item-ul	COMPONENT	item
+item-ului	COMPONENT	item
+item-urile	COMPONENT	items
+item-urilor	COMPONENT	items
+items	COMPONENT
+join	VERB
+jos	DIR	down
+just	FILLER
+kafka	LABEL
+kindly	FILLER
+la	la
+label	VERB
+labelled	INTRO
+lane	COMPONENT
+lane-ul	COMPONENT	lane
+lane-ului	COMPONENT	lane
+lane-urile	COMPONENT	lanes
+lane-urilor	COMPONENT	lanes
+lanes	COMPONENT
+langa	REL	next_to
+large	SIZE
+largeste	VERB	enlarge
+largesti	VERB	enlarge
+largi	VERB	enlarge
+largim	VERB	enlarge
+largiti	VERB	enlarge
+le	PRON	them
+leaga	VERB	link
+ledger	LABEL
+left	DIR
+left_edge	ANCHOR
+left_of	REL
+left_side	REGION
+lega	VERB	link
+legam	VERB	link
+legati	VERB	link
+legenda	COMPONENT	caption
+legende	COMPONENT	captions
+legendei	COMPONENT	caption
+legendele	COMPONENT	captions
+legendelor	COMPONENT	captions
+legi	VERB	link
+lets	FILLER
+like	FILLER
+line	COMPONENT
+line-ul	COMPONENT	line
+line-ului	COMPONENT	line
+line-urile	COMPONENT	lines
+line-urilor	COMPONENT	lines
+lines	COMPONENT
+linia	COMPONENT	line
+linie	COMPONENT	line
+liniei	COMPONENT	line
+linii	COMPONENT	lines
+liniile	COMPONENT	lines
+liniilor	COMPONENT	lines
+link	VERB
+logger	LABEL
+login	LABEL
+loyalty	LABEL
+lui	lui
+mailer	LABEL
+make	VERB
+mare	SIZE	large
+mari	SIZE	large
+maria	LABEL
+marimea	dimensiunea
+mark	LABEL
+maro	COLOR	brown
+maybe	FILLER
+me	FILLER
+medie	SIZE	medium
+medii	SIZE	medium
+mediu	SIZE	medium
+medium	SIZE
+mersi	FILLER
+metrics	LABEL
+mic	SIZE	small
+mica	SIZE	small
+mici	SIZE	small
+micsora	VERB	shrink
+micsoram	VERB	shrink
+micsorati	VERB	shrink
+micsoreaza	VERB	shrink
+micsorezi	VERB	shrink
+mijloc	REGION	center
+minuscul	SIZE	tiny
+minuscula	SIZE	tiny
+minuscule	SIZE	tiny
+minusculi	SIZE	tiny
+mov	COLOR	purple
+move	VERB
+multumesc	FILLER
+muta	VERB	move
+mutam	VERB	move
+mutati	VERB	move
+muti	VERB	move
+name	VERB
+named	INTRO
+neagra	COLOR	black
+need	FILLER
+negre	COLOR	black
+negri	COLOR	black
+negru	COLOR	black
+never	never
+nevoie	FILLER
+next_to	REL
+nginx	LABEL
+niciodata	never	never
+nor	COMPONENT	cloud
+nori	COMPONENT	clouds
+norii	COMPONENT	clouds
+norilor	COMPONENT	clouds
+norul	COMPONENT	cloud
+norului	COMPONENT	cloud
+not	not
+note	COMPONENT
+note-ul	COMPONENT	note
+note-ului	COMPONENT	note
+note-urile	COMPONENT	notes
+note-urilor	COMPONENT	notes
+notes	COMPONENT
+notifications	LABEL
+notita	COMPONENT	note
+notite	COMPONENT	notes
+notitei	COMPONENT	note
+notitele	COMPONENT	notes
+notitelor	COMPONENT	notes
+now	FILLER
+nu	not	not
+numeste	VERB	name
+numesti	VERB	name
+numi	VERB	name
+numim	VERB	name
+numit	INTRO
+numita	INTRO
+numite	INTRO
+numiti	INTRO
+o	a	a
+obiect	COMPONENT	item
+obiecte	COMPONENT	items
+obiectele	COMPONENT	items
+obiectelor	COMPONENT	items
+obiectul	COMPONENT	item
+obiectului	COMPONENT	item
+of	of
+okay	FILLER
+omega	LABEL
+on	on
+orange	COLOR
+orders	LABEL
+ordona	VERB	tidy
+ordonam	VERB	tidy
+ordonati	VERB	tidy
+ordoneaza	VERB	tidy
+ordonezi	VERB	tidy
+organiza	VERB	organize
+organizam	VERB	organize
+organizati	VERB	organize
+organize	VERB
+organizeaza	VERB	organize
+organizezi	VERB	organize
+orice	QUANT	any
+orizontal	AXIS	horizontally
+orizontala	AXIS	horizontally
+paint	VERB
+pana	spre
+partner	LABEL
+pas	COMPONENT	step
+pasi	COMPONENT	steps
+pasii	COMPONENT	steps
+pasilor	COMPONENT	steps
+pasul	COMPONENT	step
+pasului	COMPONENT	step
+patrat	COMPONENT	square
+patrate	COMPONENT	squares
+patratele	COMPONENT	squares
+patratelor	COMPONENT	squares
+patratul	COMPONENT	square
+patratului	COMPONENT	square
+paul	LABEL
+payments	LABEL
+payroll	LABEL
+pe	pe
+pending	LABEL
+pentru	CONN
+percent	UNIT
+peter	LABEL
+pink	COLOR
+place	VERB
+plansa	COMPONENT	canvas
+plansei	COMPONENT	canvas
+plasa	VERB	place
+plasam	VERB	place
+plasati	VERB	place
+plaseaza	VERB	place
+plasezi	VERB	place
+please	FILLER
+poarta	COMPONENT	gateway
+porti	COMPONENT	gateways
+portii	COMPONENT	gateway
+portile	COMPONENT	gateways
+portilor	COMPONENT	gateways
+portocalie	COLOR	orange
+portocalii	COLOR	orange
+portocaliu	COLOR	orange
+postgres	LABEL
+poti	FILLER
+pricing	LABEL
+procent	UNIT	percent
+procente	UNIT	percent
+proces	COMPONENT	process
+procese	COMPONENT	processes
+procesele	COMPONENT	processes
+proceselor	COMPONENT	processes
+process	COMPONENT
+process-ul	COMPONENT	process
+process-ului	COMPONENT	process
+process-urile	COMPONENT	processes
+process-urilor	COMPONENT	processes
+processes	COMPONENT
+procesul	COMPONENT	process
+procesului	COMPONENT	process
+profile	LABEL
+pui	VERB	put
+punctat	STYLE	dotted
+punctata	STYLE	dotted
+punctate	STYLE	dotted
+punctati	STYLE	dotted
+pune	VERB	put
+punem	VERB	put
+puneti	VERB	put
+purple	COLOR
+push	VERB
+put	VERB
+putea	FILLER
+puteti	FILLER
+px	UNIT
+quarter	FRACTION
+queue	COMPONENT
+queue-ul	COMPONENT	queue
+queue-ului	COMPONENT	queue
+queue-urile	COMPONENT	queues
+queue-urilor	COMPONENT	queues
+queues	COMPONENT
+quickly	FILLER
+radia	VERB	erase
+radiati	VERB	erase
+radiaza	VERB	erase
+radiem	VERB	erase
+radiezi	VERB	erase
+rand	LAYOUT	row
+rapoarte	COMPONENT	reports
+rapoartele	COMPONENT	reports
+rapoartelor	COMPONENT	reports
+raport	COMPONENT	report
+raportul	COMPONENT	report
+raportului	COMPONENT	report
+recommendations	LABEL
+rectangle	COMPONENT
+rectangle-ul	COMPONENT	rectangle
+rectangle-ului	COMPONENT	rectangle
+rectangle-urile	COMPONENT	rectangles
+rectangle-urilor	COMPONENT	rectangles
+rectangles	COMPONENT
+red	COLOR
+redenumeste	VERB	rename
+redenumesti	VERB	rename
+redenumi	VERB	rename
+redenumim	VERB	rename
+redenumiti	VERB	rename
+redimensiona	VERB	resize
+redimensionam	VERB	resize
+redimensionati	VERB	resize
+redimensioneaza	VERB	resize
+redimensionezi	VERB	resize
+redis	LABEL
+redo	VERB
+refa	VERB	redo
+reface	VERB	redo
+refacem	VERB	redo
+refaceti	VERB	redo
+refaci	VERB	redo
+refunds	LABEL
+registry	LABEL
+remove	VERB
+rename	VERB
+repede	FILLER
+report	COMPONENT
+report-ul	COMPONENT	report
+report-ului	COMPONENT	report
+report-urile	COMPONENT	reports
+report-urilor	COMPONENT	reports
+reports	COMPONENT
+reports_db	LABEL
+resize	VERB
+returns	LABEL
+review	LABEL
+right	DIR
+right_edge	ANCHOR
+right_of	REL
+right_side	REGION
+rog	FILLER
+romb	COMPONENT	diamond
+rombul	COMPONENT	diamond
+rombului	COMPONENT	diamond
+romburi	COMPONENT	diamonds
+romburile	COMPONENT	diamonds
+romburilor	COMPONENT	diamonds
+rosie	COLOR	red
+rosii	COLOR	red
+rosu	COLOR	red
+routing	LABEL
+row	LAYOUT
+roz	COLOR	pink
+sa	to
+sageata	COMPONENT	arrow
+sageti	COMPONENT	arrows
+sagetii	COMPONENT	arrow
+sagetile	COMPONENT	arrows
+sagetilor	COMPONENT	arrows
+sara	LABEL
+sarcina	COMPONENT	task
+sarcini	COMPONENT	tasks
+sarcinii	COMPONENT	task
+sarcinile	COMPONENT	tasks
+sarcinilor	COMPONENT	tasks
+scala	VERB	scale
+scalam	VERB	scale
+scalati	VERB	scale
+scale	VERB
+scaleaza	VERB	scale
+scalezi	VERB	scale
+scheduler	LABEL
+schimba	VERB	change
+schimbam	VERB	change
+schimbati	VERB	change
+schimbi	VERB	change
+schita	VERB	sketch
+schitam	VERB	sketch
+schitati	VERB	sketch
+schiteaza	VERB	sketch
+schitezi	VERB	sketch
+screen	COMPONENT
+screen-ul	COMPONENT	screen
+screen-ului	COMPONENT	screen
+search	LABEL
+send	VERB
+server	COMPONENT
+server-ul	COMPONENT	server
+server-ului	COMPONENT	server
+server-urile	COMPONENT	servers
+server-urilor	COMPONENT	servers
+servere	COMPONENT	servers
+serverele	COMPONENT	servers
+serverelor	COMPONENT	servers
+servers	COMPONENT
+serverul	COMPONENT	server
+serverului	COMPONENT	server
+service	COMPONENT
+service-ul	COMPONENT	service
+service-ului	COMPONENT	service
+service-urile	COMPONENT	services
+service-urilor	COMPONENT	services
+services	COMPONENT
+servicii	COMPONENT	services
+serviciile	COMPONENT	services
+serviciilor	COMPONENT	services
+serviciu	COMPONENT	service
+serviciul	COMPONENT	service
+serviciului	COMPONENT	service
+sessions	LABEL
+set	VERB
+seta	VERB	set
+setam	VERB	set
+setati	VERB	set
+seteaza	VERB	set
+setezi	VERB	set
+settings	LABEL
+sfarsit	COMPONENT	end
+sfarsitul	COMPONENT	end
+sfarsitului	COMPONENT	end
+sfarsituri	COMPONENT	ends
+sfarsiturile	COMPONENT	ends
+sfarsiturilor	COMPONENT	ends
+shape	COMPONENT
+shape-ul	COMPONENT	shape
+shape-ului	COMPONENT	shape
+shape-urile	COMPONENT	shapes
+shape-urilor	COMPONENT	shapes
+shapes	COMPONENT
+shift	VERB
+shipping	LABEL
+should	FILLER
+shrink	VERB
+si	and	and
+signup	LABEL
+sketch	VERB
+slide	VERB
+small	SIZE
+smaller	SIZE
+so	FILLER
+solid	STYLE
+space	VERB
+spate	back	back
+spatia	VERB	space
+spatiati	VERB	space
+spatiaza	VERB	space
+spatiem	VERB	space
+spatiezi	VERB	space
+spre	spre
+spune	CONN
+square	COMPONENT
+square-ul	COMPONENT	square
+square-ului	COMPONENT	square
+square-urile	COMPONENT	squares
+square-urilor	COMPONENT	squares
+squares	COMPONENT
+stanga	DIR	left
+star	COMPONENT
+star-ul	COMPONENT	star
+star-ului	COMPONENT	star
+star-urile	COMPONENT	stars
+star-urilor	COMPONENT	stars
+stars	COMPONENT
+start	COMPONENT
+start-ul	COMPONENT	start
+start-ului	COMPONENT	start
+start-urile	COMPONENT	starts
+start-urilor	COMPONENT	starts
+starts	COMPONENT
+stea	COMPONENT	star
+steaua	COMPONENT	star
+stele	COMPONENT	stars
+stelei	COMPONENT	star
+stelele	COMPONENT	stars
+stelelor	COMPONENT	stars
+step	COMPONENT
+step-ul	COMPONENT	step
+step-ului	COMPONENT	step
+step-urile	COMPONENT	steps
+step-urilor	COMPONENT	steps
+steps	COMPONENT
+sterge	VERB	delete
+stergem	VERB	delete
+stergeti	VERB	delete
+stergi	VERB	delete
+storage	LABEL
+store	COMPONENT
+store-ul	COMPONENT	store
+store-ului	COMPONENT	store
+store-urile	COMPONENT	stores
+store-urilor	COMPONENT	stores
+stores	COMPONENT
+sub	REL	below
+subtire	STYLE	thin
+subtiri	STYLE	thin
+sunt	are	are
+supplier	LABEL
+sus	DIR	up
+task	COMPONENT
+task-ul	COMPONENT	task
+task-ului	COMPONENT	task
+task-urile	COMPONENT	tasks
+task-urilor	COMPONENT	tasks
+tasks	COMPONENT
+te	FILLER
+teal	COLOR
+textbox	COMPONENT
+textbox-ul	COMPONENT	textbox
+textbox-ului	COMPONENT	textbox
+textbox-urile	COMPONENT	textboxes
+textbox-urilor	COMPONENT	textboxes
+textboxes	COMPONENT
+thank	FILLER
+thanks	FILLER
+that	DEM
+the	the
+them	PRON
+there	FILLER
+these	DEM
+theta	LABEL
+thick	STYLE
+thin	STYLE
+thing	COMPONENT
+thing-ul	COMPONENT	thing
+thing-ului	COMPONENT	thing
+thing-urile	COMPONENT	things
+thing-urilor	COMPONENT	things
+things	COMPONENT
+third	FRACTION
+this	DEM
+those	DEM
+tidy	VERB
+tiny	SIZE
+title	COMPONENT
+title-ul	COMPONENT	title
+title-ului	COMPONENT	title
+title-urile	COMPONENT	titles
+title-urilor	COMPONENT	titles
+titled	INTRO
+titles	COMPONENT
+titlu	COMPONENT	title
+titlul	COMPONENT	title
+titlului	COMPONENT	title
+titluri	COMPONENT	titles
+titlurile	COMPONENT	titles
+titlurilor	COMPONENT	titles
+to	to
+to_next	PAIR
+toate	QUANT	all
+together	together
+tom	LABEL
+top	REGION
+top_edge	ANCHOR
+top_left	REGION
+top_right	REGION
+toti	QUANT	all
+totul	PRON	everything
+tracking	LABEL
+trage	VERB	drag
+tragem	VERB	drag
+trageti	VERB	drag
+tragi	VERB	drag
+tree	LAYOUT
+triangle	COMPONENT
+triangle-ul	COMPONENT	triangle
+triangle-ului	COMPONENT	triangle
+triangle-urile	COMPONENT	triangles
+triangle-urilor	COMPONENT	triangles
+triangles	COMPONENT
+trimite	VERB	send
+trimitem	VERB	send
+trimiteti	VERB	send
+trimiti	VERB	send
+triunghi	COMPONENT	triangle
+triunghiul	COMPONENT	triangle
+triunghiului	COMPONENT	triangle
+triunghiuri	COMPONENT	triangles
+triunghiurile	COMPONENT	triangles
+triunghiurilor	COMPONENT	triangles
+turcoaz	COLOR	teal
+turn	VERB
+uh	FILLER
+um	FILLER
+umple	VERB	fill
+umplem	VERB	fill
+umpleti	VERB	fill
+umpli	VERB	fill
+un	a	a
+undo	VERB
+uneste	VERB	join
+unesti	VERB	join
+ungroup	VERB
+uni	VERB	join
+uniform	evenly	evenly
+unim	VERB	join
+uniti	VERB	join
+up	DIR
+urias	SIZE	huge
+uriasa	SIZE	huge
+uriase	SIZE	huge
+uriasi	SIZE	huge
+us	FILLER
+user	COMPONENT
+user-ul	COMPONENT	user
+user-ului	COMPONENT	user
+user-urile	COMPONENT	users
+user-urilor	COMPONENT	users
+users	COMPONENT
+utilizator	COMPONENT	user
+utilizatori	COMPONENT	users
+utilizatorii	COMPONENT	users
+utilizatorilor	COMPONENT	users
+utilizatorul	COMPONENT	user
+utilizatorului	COMPONENT	user
+va	FILLER
+vault	LABEL
+verde	COLOR	green
+vertical	AXIS	vertically
+verticala	AXIS	vertically
+vertically	AXIS
+verzi	COLOR	green
+victor	LABEL
+vopseste	VERB	paint
+vopsesti	VERB	paint
+vopsi	VERB	paint
+vopsim	VERB	paint
+vopsiti	VERB	paint
+vrea	FILLER
+vreau	FILLER
+vrei	FILLER
+vreti	FILLER
+want	FILLER
+warehouse	LABEL
+we	FILLER
+white	COLOR
+will	FILLER
+with	with
+worker	LABEL
+would	FILLER
+wrap	VERB
+yellow	COLOR
+you	FILLER
+zeta	LABEL
+zoom	VERB
+zoom_in	DIR
+zoom_out	DIR

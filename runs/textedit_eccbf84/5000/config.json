@@ -1,0 +1,205 @@
+{
+ "world": "textedit",
+ "D": 1024,
+ "seed": 0,
+ "star_version": 2,
+ "language": "en",
+ "legend_sha256": "sha256:4c42eb08b9dd51b958b09338798336accc00cfc7d2efb6aae0d88b4749e5c5cd",
+ "legend_version": 1,
+ "training_code_commit": "eccbf84",
+ "trained": "2026-10-26T12:56:09",
+ "codes": [
+  "path",
+  "chainL",
+  "bigram"
+ ],
+ "gate_init": "closed",
+ "depth_estimator": "kinds",
+ "presence_readout": "decided",
+ "batch": 8,
+ "lr": 0.02,
+ "epochs": 1,
+ "n_train_steps_sentences": 4522,
+ "decoder": "contract",
+ "candidates": "sentence",
+ "undecided_adjacent": true,
+ "residual": "explained",
+ "activation": {
+  "rule": "a candidate route is on iff its need signal fires and, on selection rows its trials did not train on, it loses no split by more than tol and wins the rows its need signal marked (or all rows) by more than tol; tol = max(eps=0.01, one row of the split)",
+  "profile": {
+   "n_train_rows": 4522,
+   "order_dependent": {
+    "n": 129,
+    "share": 0.028527200353825742
+   },
+   "same_kind_pairs": {
+    "n": 491,
+    "share": 0.10858027421494913
+   },
+   "rigid_order": {
+    "per_core_role": {
+     "unit": 0.23640507977857375,
+     "ordinal": 0.2866368604073522,
+     "match": 0.23512544802867383,
+     "format": 0.20640569395017794,
+     "value": 0.23732718894009217,
+     "position": 0.2471264367816092,
+     "new_text": 0.20297555791710944,
+     "widget": 0.2777777777777778
+    },
+    "min": 0.20297555791710944
+   },
+   "depth": {
+    "n": 0,
+    "share": 0.0,
+    "level_openers_declared": false
+   },
+   "cues_declared": [
+    ",",
+    ".",
+    "and",
+    "as",
+    "at",
+    "by",
+    "for",
+    "from",
+    "in",
+    "into",
+    "of",
+    "on",
+    "to",
+    "with"
+   ],
+   "unknown_share": 0.0,
+   "kinds_source": "lexicon",
+   "verb_tokens_per_row": 1.0
+  },
+  "need_signals": {
+   "vorder": {
+    "fires": true,
+    "reason": "491 training rows (10.9%) fill two roles with the same kind; in 129 of them neither word is cued, so only the order relative to the verb separates them"
+   },
+   "pos": {
+    "fires": false,
+    "reason": "the most frequent absolute position of a core role's head covers only 20% of the rows: the order is not rigid"
+   }
+  },
+  "declared_codes": [
+   "path",
+   "chainL",
+   "bigram"
+  ],
+  "candidates": [
+   "vorder"
+  ],
+  "trials": {
+   "path+chainL+bigram+vorder": {
+    "FULL": 0.9019607843137255,
+    "FULL_marked": 0.9322033898305084,
+    "n": 714,
+    "n_marked": 59,
+    "by_split": {
+     "calibration_heldout_formulations": 0.9269406392694064,
+     "train": 0.8909090909090909
+    },
+    "n_split": {
+     "calibration_heldout_formulations": 219,
+     "train": 495
+    },
+    "residual_mean": 0.25224510846530324,
+    "loses": [
+     "calibration_heldout_formulations"
+    ],
+    "wins_marked_rows": false,
+    "wins_all": false,
+    "accepted": false
+   },
+   "path+chainL+bigram": {
+    "FULL": 0.9131652661064426,
+    "FULL_marked": 0.9322033898305084,
+    "n": 714,
+    "n_marked": 59,
+    "by_split": {
+     "calibration_heldout_formulations": 0.9452054794520548,
+     "train": 0.898989898989899
+    },
+    "n_split": {
+     "calibration_heldout_formulations": 219,
+     "train": 495
+    },
+    "residual_mean": 0.2739386603389109
+   }
+  },
+  "accepted": [],
+  "codes": [
+   "path",
+   "chainL",
+   "bigram"
+  ],
+  "diagnostics": [
+   {
+    "signal": "competition",
+    "value": 4,
+    "message": "4 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split"
+   }
+  ]
+ },
+ "thresholds": {
+  "tau": 0.05,
+  "tau_source": "stated (the repository's v16 value), not fitted on any rows",
+  "no_sense_share": 0.5,
+  "no_sense_source": "stated",
+  "no_fit_residual": 0.9,
+  "no_fit_source": "stated (dispatcher only, spec section 9)",
+  "presence": {
+   "unit": 0.37905810891691655,
+   "ordinal": 0.4247994775574868,
+   "match": 0.286917525069583,
+   "format": 0.15467693640118563,
+   "value": 0.16397243958916335,
+   "position": 0.19801981976298788,
+   "new_text": 0.22430736386600514,
+   "widget": 0.4455894077724146
+  },
+  "attr_presence": {},
+  "det_presence": {},
+  "scope_term": null,
+  "set_member": {},
+  "calibration_split": "train (a sample of 400 training sentences, rng 1234+seed) + the CALIBRATION half of the held-out formulations (219 sentences, splits calibration_*), disjoint from the reported half (rule 25)",
+  "rule": "FITTED: per role, the threshold that maximises the balanced present / absent accuracy on the calibration rows (judgment 752853c \u00a72); the pooled midpoint of the same rows is kept as thresholds_pooled_midpoint, the comparison",
+  "presence_margin": "|presence ratio - threshold| (ratio units), on the wire as _presence_margin.<role> (SOP Lang keys carry one dot); the role's _margin = min(identity margin, presence margin): a near-threshold reading abstains"
+ },
+ "thresholds_training_rows_only": {
+  "presence": {
+   "unit": 0.37905810891691655,
+   "ordinal": 0.40909261710396205,
+   "match": 0.286917525069583,
+   "format": 0.15426214748596073,
+   "value": 0.17730257575205435,
+   "position": 0.19801981976298788,
+   "new_text": 0.22430736386600514,
+   "widget": 0.483012122022636
+  },
+  "attr_presence": {},
+  "det_presence": {},
+  "scope_term": null,
+  "set_member": {},
+  "calibration_split": "train (a sample of 400 training sentences, rng 1234+seed); never the scored rows (rule 25)"
+ },
+ "thresholds_pooled_midpoint": {
+  "presence": {
+   "unit": 0.5320476188571951,
+   "ordinal": 0.4682913989956913,
+   "match": 0.3794736680141634,
+   "format": 0.3913941257705913,
+   "value": 0.2058510265413211,
+   "position": 0.3706658076739739,
+   "new_text": 0.32971461606070207,
+   "widget": 0.4824128937394964
+  },
+  "attr_presence": {},
+  "det_presence": {},
+  "scope_term": null,
+  "set_member": {}
+ }
+}

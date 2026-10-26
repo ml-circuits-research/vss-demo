@@ -1,0 +1,9 @@
+unpacked diagram_ro/n50000 -> /tmp/diagram_ro_step3_TpFA/50000: 10 files, sha256 verified
+4/4 files OK against legend(s) diagram_ro sha256:1a43ffc61bd5…
+## size 50000: sop train /tmp/diagram_ro_step3_TpFA/50000/diagram_ro --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500  --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_ro_step3_eccbf84/50000/splits.json before training: calibration_heldout_formulations 194, heldout_formulations 206, heldout_sentences 5083, mixed 400, new_identities 400, train 44917
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (7587 training rows (16.9%) fill two roles with the same kind; in 7014 of them neither word is cued, so only the order relative to the verb separates them); selection rows 4708 (of which with same-kind competition 727); trials trained on 40403 rows
+[train seed 0] end: RSS 3.23 GB | torch alloc 1.04 GB reserved 1.10 GB | MemAvailable 78.1 GB (4367s)
+[export] numpy reader vs torch states: max relative difference 5.88e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.629 on 4708 selection rows, 0.495 on the 727 with same-kind competition | calibration_heldout_formulations 0.619 train 0.629

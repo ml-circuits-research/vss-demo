@@ -1,0 +1,6 @@
+unpacked diagram_multi/n50000 -> /tmp/diagram_multi_step3_JVN9/50000: 12 files, sha256 verified
+6/6 files OK against legend(s) diagram_multi sha256:1a43ffc61bd5…
+## size 50000: sop train /tmp/diagram_multi_step3_JVN9/50000/diagram_multi --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500  --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_multi_step3_eccbf84/50000/splits.json before training: calibration_heldout_formulations 194, calibration_heldout_formulations_en 222, heldout_formulations 206, heldout_formulations_en 178, heldout_sentences 5159, mixed 400, new_identities 400, new_identities_en 400, train 44841
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (7789 training rows (17.4%) fill two roles with the same kind; in 6075 of them neither word is cued, so only the order relative to the verb separates them); selection rows 4945 (of which with same-kind competition 792); trials trained on 40312 rows

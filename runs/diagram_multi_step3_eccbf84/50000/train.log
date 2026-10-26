@@ -1,0 +1,20 @@
+[splits] written to /home/salboaie/vss-demo/runs/diagram_multi_step3_eccbf84/50000/splits.json before training: calibration_heldout_formulations 194, calibration_heldout_formulations_en 222, heldout_formulations 206, heldout_formulations_en 178, heldout_sentences 5159, mixed 400, new_identities 400, new_identities_en 400, train 44841
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (7789 training rows (17.4%) fill two roles with the same kind; in 6075 of them neither word is cued, so only the order relative to the verb separates them); selection rows 4945 (of which with same-kind competition 792); trials trained on 40312 rows
+[guard] cuda allocator capped at 18% of 120 GB; watchdog: exit if MemAvailable < 16.0 GB or after 12.0 h
+[train] seed 0: 40312 training rows x 1 epoch(s) -> 40312 steps' sentences; D=1024; kinds 59; vocab 1274; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'of', 'in', 'on', 'at', 'by', 'from', 'with', 'into', 'as', 'and', ',', '.']
+[trace] text: poti sa creezi un comentariu punctat denumit mark
+[trace] tokens/kinds: poti/FILLER sa/to creezi/VERB un/a comentariu/COMPONENT punctat/STYLE denumit/INTRO mark/LABEL
+[trace] gold frame: {"event": "create", "lemma": "create", "neg": false, "roles": {"object": ["entity", "comment", ["word", "dotted"], "a"], "text": ["word", "mark"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 85.49 (sqrt(D) per unit term = 32.0); initial gates all 1.00 (closed start)
+[train seed 0] start: RSS 2.40 GB | torch alloc 0.73 GB reserved 0.82 GB | MemAvailable 44.2 GB
+[train seed 0] step 500 sent 4000/40312 loss -0.724 (553s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 35.1 GB
+[train seed 0] step 1000 sent 8000/40312 loss -0.850 (1092s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 35.1 GB
+[train seed 0] step 1500 sent 12000/40312 loss -0.829 (1638s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 36.1 GB
+[train seed 0] step 2000 sent 16000/40312 loss -0.863 (2179s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 39.7 GB
+[train seed 0] step 2500 sent 20000/40312 loss -0.827 (2708s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 36.8 GB
+[train seed 0] step 3000 sent 24000/40312 loss -0.919 (3242s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 34.8 GB
+[train seed 0] step 3500 sent 28000/40312 loss -0.855 (3782s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 37.0 GB
+[train seed 0] step 4000 sent 32000/40312 loss -0.838 (4169s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 63.9 GB
+[train seed 0] step 4500 sent 36000/40312 loss -0.893 (4400s) | RSS 3.24 GB | torch alloc 1.04 GB reserved 1.39 GB | MemAvailable 84.7 GB

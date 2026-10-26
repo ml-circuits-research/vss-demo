@@ -16,3 +16,5 @@ training/parity/out/
 app/tests/out/
 runs/**/*.pt
 runs/**/seed*/model/
+runs/**/model_*/
+runs/**/splits.json

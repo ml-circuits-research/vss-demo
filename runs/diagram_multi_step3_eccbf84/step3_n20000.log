@@ -1,0 +1,13 @@
+unpacked diagram_multi/n20000 -> /tmp/diagram_multi_step3_JVN9/20000: 12 files, sha256 verified
+6/6 files OK against legend(s) diagram_multi sha256:1a43ffc61bd5…
+## size 20000: sop train /tmp/diagram_multi_step3_JVN9/20000/diagram_multi --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500  --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_multi_step3_eccbf84/20000/splits.json before training: calibration_heldout_formulations 194, calibration_heldout_formulations_en 222, heldout_formulations 206, heldout_formulations_en 178, heldout_sentences 2048, mixed 400, new_identities 400, new_identities_en 400, train 17952
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (3130 training rows (17.4%) fill two roles with the same kind; in 2433 of them neither word is cued, so only the order relative to the verb separates them); selection rows 2138 (of which with same-kind competition 297); trials trained on 16230 rows
+[train seed 0] end: RSS 2.62 GB | torch alloc 0.66 GB reserved 0.74 GB | MemAvailable 46.0 GB (1325s)
+[export] numpy reader vs torch states: max relative difference 7.58e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.649 on 2138 selection rows, 0.458 on the 297 with same-kind competition | calibration_heldout_formulations 0.629 calibration_heldout_formulations_en 0.653 train 0.650
+[train seed 0] end: RSS 3.03 GB | torch alloc 1.51 GB reserved 1.60 GB | MemAvailable 38.0 GB (2656s)
+[export] numpy reader vs torch states: max relative difference 6.49e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.666 on 2138 selection rows, 0.492 on the 297 with same-kind competition | calibration_heldout_formulations 0.655 calibration_heldout_formulations_en 0.662 train 0.668
+[activate] accepted ['vorder']: codes ['path', 'chainL', 'bigram', 'vorder']; diagnostics: 151 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split

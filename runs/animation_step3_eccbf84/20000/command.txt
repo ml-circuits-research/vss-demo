@@ -1,0 +1,2 @@
+sop train /tmp/animation_step3_LFE5/20000/animation --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --run_dir /home/salboaie/vss-demo/runs/animation_step3_eccbf84/20000
+commit dbfb7f0

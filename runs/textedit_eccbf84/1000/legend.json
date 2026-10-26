@@ -1,0 +1,193 @@
+{
+ "version": 1,
+ "roles": [
+  {
+   "id": "unit",
+   "question": "which unit of text?"
+  },
+  {
+   "id": "ordinal",
+   "question": "which one, counted how?"
+  },
+  {
+   "id": "match",
+   "question": "which piece of text?"
+  },
+  {
+   "id": "format",
+   "question": "which format?"
+  },
+  {
+   "id": "value",
+   "question": "which colour, size or alignment?"
+  },
+  {
+   "id": "position",
+   "question": "where, relative to the target?"
+  },
+  {
+   "id": "new_text",
+   "question": "with what text?"
+  },
+  {
+   "id": "widget",
+   "question": "in which text widget?"
+  }
+ ],
+ "events": [
+  {
+   "id": "select",
+   "verbs": [
+    "select",
+    "choose",
+    "mark"
+   ]
+  },
+  {
+   "id": "format",
+   "verbs": [
+    "make",
+    "turn",
+    "set",
+    "format",
+    "convert",
+    "embolden",
+    "italicise",
+    "underline",
+    "strike",
+    "highlight",
+    "color"
+   ]
+  },
+  {
+   "id": "unformat",
+   "verbs": [
+    "unformat"
+   ]
+  },
+  {
+   "id": "insert",
+   "verbs": [
+    "insert",
+    "add",
+    "type",
+    "put"
+   ]
+  },
+  {
+   "id": "delete",
+   "verbs": [
+    "delete",
+    "remove",
+    "erase",
+    "cut"
+   ]
+  },
+  {
+   "id": "replace",
+   "verbs": [
+    "replace",
+    "change",
+    "correct",
+    "swap"
+   ]
+  },
+  {
+   "id": "move_cursor",
+   "verbs": [
+    "go",
+    "jump",
+    "move"
+   ]
+  },
+  {
+   "id": "capitalise",
+   "verbs": [
+    "capitalise",
+    "uppercase"
+   ]
+  },
+  {
+   "id": "make_list",
+   "verbs": [
+    "bullet",
+    "number",
+    "enumerate",
+    "itemise"
+   ]
+  },
+  {
+   "id": "make_heading",
+   "verbs": [
+    "promote",
+    "demote"
+   ]
+  },
+  {
+   "id": "align",
+   "verbs": [
+    "align",
+    "centre",
+    "justify"
+   ]
+  },
+  {
+   "id": "undo",
+   "verbs": [
+    "undo"
+   ]
+  },
+  {
+   "id": "redo",
+   "verbs": [
+    "redo"
+   ]
+  },
+  {
+   "id": "read_back",
+   "verbs": [
+    "read"
+   ]
+  }
+ ],
+ "operators": [],
+ "moods": [
+  "command"
+ ],
+ "kinds": {
+  "source": "lexicon",
+  "lexicon": "kinds.tsv"
+ },
+ "values": [
+  {
+   "kind": "MATCH",
+   "pattern": "[a-z0-9][a-z0-9']*(_[a-z0-9']+)*"
+  }
+ ],
+ "reader": {
+  "predicate_role": true,
+  "occupancy_marker": true,
+  "definite_dets": [
+   "the"
+  ],
+  "gates_given": {
+   "open": [
+    "to",
+    "of",
+    "in",
+    "on",
+    "at",
+    "with",
+    "into",
+    "as",
+    "from",
+    "by",
+    "for",
+    "and",
+    ",",
+    "."
+   ],
+   "closed": []
+  }
+ }
+}

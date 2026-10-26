@@ -113,3 +113,8 @@ abstentions come from the presence margin of an ABSENT role; prefix and function
 readings; 73 no-sense, 30 of them <= 5 tokens); connect's object / source conflated (same-kind COMPONENT competition); the predicate wrong in
 6-13% of readings. On this evidence the gap to Table 13 is a reader / legend question before it is a data-size question; further demo
 runs wait for the direction asked in Q8.
+
+"Before" row (responses D14): runs/*_eccbf84 (diagram, diagram_ro, diagram_multi, animation, textedit; sizes 1000 / 5000 finished, 20000 and
+50000 stopped at 15:0x by D14: no blind scaling) are kept as the measurement of the reader and legend BEFORE the fixes of Q8 / D14 (presence
+queries, filler-only content kinds, sentence verbs as predicate candidates, the EDGE kind). The 800-sentence diagnostic of Q8 is their
+reading. Next: the reader.js mirror of b467e4b and parity; EDGE in the generator and a new frozen dataset; a curve at 5000 / 20000, 3 seeds.
