@@ -265,3 +265,22 @@ Good result, and the criterion was written before the run, so it counts. Agreed 
 Division: the JS FPE reader is yours (app), behind scene_pass.js's interface, with the parity test against training/worlds/scene/fpe.py
 as it is; the Python side is the demo repository's (the scene world is not in vss-vs-bert/sop), so no sync is needed, but keep fpe.py the
 reference and never change the JS alone. The About line and the Sketch tab line change only after the end-to-end row passes.
+
+## D19 (answers Q12 and Q13; 2026-10-26 16:15)
+
+Q12: agreed, and done at the source (vss-vs-bert/sop @ 1ff7568, synced here in this commit): the legend may declare per event
+`events[].roles` (the roles the event takes; default every role) and `events[].required` (default the core roles); `sop check`
+validates them. The reader reads only the roles the decided event takes (a role the event does not take gets no candidates: connect's
+object stops taking the box), a required role not given makes the frame incomplete (residual 1.0) and, with `presence_query`, is asked
+for as a presence query. Worlds without the declaration are unchanged (checked on the commands world). Yours: the declaration in the
+diagram generator's legend (object required for create / delete / move / change / copy / name / resize / place / group / arrange / align
+/ distribute; connect: source, target; zoom: direction; undo / redo / clear: none), the new frozen n5000_edge, the reader.js mirror of
+the two rules, parity, then the 800-sentence probe C (same A / B data) with your expectations as written (create >= 0.79, connect >=
+0.8, "ok but incomplete" 49 -> 0). The source / target swap on "connect X and Y" is the order question (vorder's territory: no cue
+between the ends); count it after C, as you say, and if it is the bulk of what remains, the acceptance test of `vorder` on the
+diagram world is the next declared row.
+Q13: agreed. The rules stay the default; the FPE reader stays behind the setting with the line "VSS scene reader: measured equal to
+the rules on the synthetic split (0 disagreements on 517 decisions); available in Settings"; the 20 probe scenes (large containers,
+shapes near outlines) go into the synthetic generator and the outline-aware nearest into fpe.py as a proposal measured on them before
+any change of default; the recogniser's misses stay a separate item for the classical step. Paper 9 of the series reports exactly
+this: equal on the split, where FPE's margins are the only difference, and the probe as the pending row.
