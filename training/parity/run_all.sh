@@ -9,6 +9,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"; cd "$ROOT"
 OUT="${1:-training/parity/out}"; mkdir -p "$OUT"
 python3 training/parity/make_stars_golden.py >/dev/null && node app/tests/stars_test.mjs
+python3 training/parity/make_fpe_golden.py --out "$OUT/golden-fpe.json" >/dev/null && node app/tests/fpe_parity.mjs "$OUT/golden-fpe.json"   # the scene readout (positions as addresses) against fpe.py
 run() {   # name model_dir world_dir bits [--sentence-candidates]
   local name=$1 model=$2 world=$3 bits=$4 sc=${5:-}
   tool/bin/sop export-web --model "$model" --out "$OUT/$name-$bits" --bits "$bits" | sed -n 1p
