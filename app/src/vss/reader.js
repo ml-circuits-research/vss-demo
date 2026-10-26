@@ -188,7 +188,10 @@ export class Reader {
     return Reader.best(cmul(Sn, key), this.cands(rs.main === "entity" ? rs.head_kinds : rs.kinds));
   }
   structureScore(Sn, K) {
-    const tops = this.schema.core_roles.map((r) => this.fillerTop(Sn, cmulc(K, this.st.role(r)), r)[2]);
+    // the structure anchor (infer.py structure_score, vss-vs-bert 7ce5c50 / R79): the core roles, or with neither core roles nor a predicate
+    // role every role of the schema (weak when most roles are absent)
+    const core = (this.schema.core_roles || []).length ? this.schema.core_roles : (this.legend.reader.predicate_role ? [] : (this.schema.role_order || []));
+    const tops = core.map((r) => this.fillerTop(Sn, cmulc(K, this.st.role(r)), r)[2]);
     if (this.legend.reader.predicate_role) tops.push(Reader.best(cmulc(cmul(Sn, K), this.st.op("pred")), this.verbCands())[2]);
     return tops.length ? tops.reduce((a, b) => a + b, 0) / tops.length : 0;
   }
