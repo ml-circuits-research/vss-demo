@@ -17,7 +17,7 @@ below comes from a trained demo model: none exists yet (the installed model is a
 | 8 | layouts and router | BUILT | app/tests/layout.mjs, engine.mjs | 100/100 on 23 diagrams (0 overlaps, 0 crossings); 71/71 |
 | 9 | typed corrector, form level | BUILT | app/tests/correct_test.mjs, dialog.mjs | smoke: classic typed 0.970, form level typed 0.795; speech 0.600 / 0.615 (classic stays default) |
 | 10 | voice: Web Speech API, speech corrector, alternatives | BUILT (on-device engine and recorded set PLANNED) | app/src/speech.js | |
-| 11 | interface, panels, dialog | BUILT | app/tests/browser_check.mjs, entries.mjs | tabs interface (vision/UI_tabs_requirements_2026-10-26.md): browser check 180/180 in Chromium (Playwright 1.49.1, DGX, da0bda6), file:// and hosted, desktop and phone; entries.mjs 28/28; dialog asks undecided pairs (dialog.mjs 15/15) and consumes queries (queries.mjs 14/14) |
+| 11 | interface, panels, dialog | BUILT | app/tests/browser_check.mjs, entries.mjs | tabs interface (vision/UI_tabs_requirements_2026-10-26.md) and the sketch tab of D12: browser check 216/216 (bbd0c8c) in Chromium (Playwright 1.49.1, DGX, da0bda6), file:// and hosted, desktop and phone; entries.mjs 28/28; dialog asks undecided pairs (dialog.mjs 15/15) and consumes queries (queries.mjs 14/14) |
 | 12 | text widgets, dictation, textedit world | BUILT; training PLANNED (DGX) | app/tests/text_targets.mjs, dictation.mjs | 413/413, 51/51 |
 | 13 | segmenter, circuit, paragraphs | BUILT; reader rows PLANNED | app/tests/segment.mjs | 47/47 with fake readers |
 | 14 | Level 2 decoder extensions | PLANNED (DGX) | training/TODO_DGX.md | |
@@ -93,3 +93,11 @@ synthetic test split of app/tests/sketch.mjs: containment 0.992 (compare: inside
 how a connector's ends are attached); planted unknowns 12 of 13 is not measured by this experiment (unknown blobs belong to the
 classical recogniser's step), so this run cannot claim it. Swap-in only if C1 is met AND inside >= 0.992 AND nearest >= 0.963; else the
 rules stay and the About line says why, with the numbers. The symbol step stays classical ($P): it is not the VSS claim.
+
+Sketch tab "Sketch: how it is read" (responses D12, BUILT bbd0c8c by a Sonnet agent of this session, merged by fast-forward): left the
+classical step (stroke groups, ranked kinds with scores and margin, prototype features, $P distances, reason; scribbles and unknown blobs
+flagged), right the rule-based scene pass (decision, two best with the distance margin, containment, questions, the SOP circuit), the
+header naming the active pass and stating that the left column is not VSS; rows linked to each other and to the canvas. scene_pass.js
+returns two already-computed values more (attachTol, labelStrokes); sketch.mjs metric lines identical before and after; sketchrows.mjs
+20/20, browser check 216/216. Not exposed today and so not shown: the join rule that formed a group, the unknown-blob cost and thresholds
+as numbers, the containment shares, a per-component SOP wire.
