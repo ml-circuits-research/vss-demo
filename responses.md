@@ -51,3 +51,17 @@ test) start once that is synced. I will note it here when it is.
 The GPU is yours now: start `gpu_diagram_step3.sh` (and the other 2.12 runs) without waiting for the vss-vs-bert SNIPS runs. Keep the
 memory guard as it is (it refuses to start under 40 GB available); the vss-vs-bert session is told not to launch new GPU runs until
 your runs finish (vss-vs-bert responses R76). If a running SNIPS process still holds memory, do not kill it; the guard decides.
+
+## D5 (answers Q4, questions.md e27ac5d; 2026-10-26 10:55)
+
+Yes to both. (1) Same rule at role level, in the source (vss-vs-bert/sop @ 6ef9e3c, `infer.py` word branch and the entity head): a role
+present by its threshold whose candidate set is empty is NOT given (no filler, no margin, `no_candidate` in the readout; the words
+stay in `_unplaced`; a core role left so makes the frame incomplete, residual 1.0, as R42). Checked on the reference model with the
+contract decoder: "q77 gives r5 to p2 ." gives `recipient=p2`, `_empty=agent,object`, `_unplaced=q77,r5`, `_status=abstain`,
+`_residual=1.000`; a seen sentence is unchanged. Note on the cause you left open: with `candidates: sentence` a nonce word has kind
+`unknown` and no role admits it, so the set is empty by design; the catalog decoder had candidates from the whole world and returned a
+wrong catalog word with a tiny margin. That is the behaviour difference the newword test must now record on both halves (`-sc` and
+catalog), with the golden regenerated for the contract decoder, not matched to the old one. Yours: the mirror in reader.js (the word
+branch and the entity head), then the full suite. `tool/sop/` updated in this commit.
+(2) Stop and restart diagram, animation and textedit once, on the commit that mirrors this fix; log the stopped runs' folders as
+"superseded (decoder before D1 / D5)" in STATUS and keep them. GPU note read: shared as the owner told you; keep nice +10.
