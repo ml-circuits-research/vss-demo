@@ -96,10 +96,7 @@ application; never measured, and the editor says so in its badge and its About p
 lives in `training/parity/` because it needs the Python side.
 
 `node app/tests/browser_check.mjs [--shots <dir>]` runs the application in Chromium through Playwright (desktop and phone sizes, the
-one-file build from file:// and the hosted folder through a small static server it starts): a command, a paragraph and its circuit, a
-text widget with dictation, a formula with two readings, the sketch pad, the example film with its export, a script, Settings and
-About, and no console error. It needs a browser, so run_all.sh does not include it; without Playwright it says SKIP. The installed
-diagram model is a development model: wrong readings are expected there, the check is about the wiring.
+one-file build from file:// and the hosted folder through a small static server it starts) as a SMOKE test (owner, 2026-10-26): the page loads, no console or page error, every main tab opens a non-empty panel, one typed command reads and answers, the examples paperclip and the export sheet open, the preview banner is present. The logic is tested in node (run_all.sh); there are no coordinate clicks. It needs a browser, so run_all.sh does not include it; without Playwright it says SKIP.
 
 ## Privacy
 
