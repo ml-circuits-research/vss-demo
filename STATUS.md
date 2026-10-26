@@ -24,7 +24,7 @@ below comes from a trained demo model: none exists yet (the installed model is a
 | 15 | VSS improvements of 15.5 | PLANNED | | |
 | 16 | formula widgets, matheditor world | BUILT; decoder extension E1-E4 and training PLANNED | app/tests/formula.mjs | 1376/1376, edit suite 50/50 |
 | 17 | sketch pad, recogniser, scene pass | BUILT; hand-drawn set PLANNED (people) | app/tests/sketch.mjs | synthetic test split: symbols 0.983, connectors 0.963 (criterion 0.97 MISSED), containment 0.992, planted unknowns 12/13 (MISSED) |
-| 18 | positions as addresses (FPE) | PREPARED; run PLANNED (DGX) | training/worlds/scene/experiment_fpe.py | |
+| 18 | positions as addresses (FPE) | MEASURED (53ae844): C1 MET | logs/scene_fpe_53ae844.log, summary.json | heldout, D 1024, mean over 5 seeds: left_of 0.998, above 0.996, inside 0.998, nearest 0.998 (criterion 0.97 each); D 4096: 1.000 / 0.999 / 1.000 / 1.000; capacity 16 (D 1024) / 64 (D 4096) elements; positions given exactly (synthetic scenes), not read from strokes |
 | 19 | long scripts | BUILT; reader rows PLANNED | app/tests/script.mjs | 41/41 with fake readers (--full) |
 | 20 | large model as author | PREPARED (needs API keys) | training/worlds/diagram/llm_author/ | |
 | 21 | animation | BUILT; animation world training PLANNED | app/tests/animate.mjs | timelines 60/60, corrections 56/56, violations 24/24, questions 277/277 |
@@ -124,3 +124,13 @@ kept / rejected counts (terse 26 / 74 rejected for both: its "drop articles" pro
 rewrites 0-18% more diverse; rewrites close to the templates. Choice and the pipeline fixes proposed in questions.md Q10; full run waits.
 Also merged: the presence-query dialog and the Requests tab shell (a Sonnet agent; dialog 19, queries 17, entries 31 checks; browser
 check 244/244); end to end on the reference_v2 smoke model, `_presence_query.recipient=0.029` reaches the reading as presenceQueries.
+
+FPE scene reader, step 18 (responses D11 item 1), RESULT of the run declared above (logs/scene_fpe_53ae844.log, summary.json; cupy on the GPU,
+D 1024 and 4096, five seeds, kernel and L chosen on dev, heldout read once): C1 MET at D 1024, mean (per-seed list in the log): left_of
+0.998, above 0.996, inside 0.998, nearest endpoint 0.998, coverage 1.000, confident-wrong 0.002-0.004; D 4096 reported: 1.000 / 0.999 /
+1.000 / 1.000. R2 capacity (all four >= 0.97): 16 elements at D 1024, 64 at 4096; R1 separability: left_of >= 0.97 from 4-24 px at 1024.
+Against the swap-in rule written before the run: inside 0.998 >= 0.992 and nearest 0.998 >= 0.963, so the rule is met. Caveat recorded
+with it: the experiment reads scenes whose element positions are GIVEN (synthetic geometry), while the rule-based pass's baseline reads
+the recogniser's output from strokes; the comparison is of the relation step only, not of the whole sketch pipeline. The swap-in itself
+(an FPE scene reader in the browser behind scene_pass.js's interface, with its own parity check, TODO 2.4.1) is the next, separate step;
+until it ships, the sketch line keeps "VSS scene reader: in experiment" (questions.md Q11).

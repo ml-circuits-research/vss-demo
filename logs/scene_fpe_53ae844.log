@@ -1,0 +1,154 @@
+experiment_fpe [RUN] readout decoded D [1024, 4096] seeds [0, 1, 2, 3, 4] dev 100 heldout 400 kernels ['gaussian', 'sinc'] L [16.0, 24.0, 32.0, 48.0, 64.0, 96.0] out logs/scene_fpe_53ae844
+criteria (written before the run): C1 heldout left_of, above, inside, nearest each >= 0.97 at D = 1024 (mean over seeds); C2 the same at 4096 reported; R1 separability reported; R2 capacity reported
+  D 1024 seed 0 dev kernel gaussian L 16.0: mean 0.865 left_of 0.968 above 0.663 inside 0.979 nearest 0.850
+  D 1024 seed 0 dev kernel gaussian L 24.0: mean 0.992 left_of 1.000 above 0.975 inside 0.999 nearest 0.995
+  D 1024 seed 0 dev kernel gaussian L 32.0: mean 0.997 left_of 0.997 above 0.993 inside 0.998 nearest 1.000
+  D 1024 seed 0 dev kernel gaussian L 48.0: mean 0.999 left_of 0.997 above 0.997 inside 1.000 nearest 1.000
+  D 1024 seed 0 dev kernel gaussian L 64.0: mean 0.997 left_of 0.997 above 0.996 inside 0.996 nearest 0.998
+  D 1024 seed 0 dev kernel gaussian L 96.0: mean 0.990 left_of 0.991 above 0.988 inside 0.996 nearest 0.986
+  D 1024 seed 0 dev kernel sinc L 16.0: mean 0.666 left_of 0.762 above 0.786 inside 0.898 nearest 0.220
+  D 1024 seed 0 dev kernel sinc L 24.0: mean 0.713 left_of 0.760 above 0.820 inside 0.931 nearest 0.339
+  D 1024 seed 0 dev kernel sinc L 32.0: mean 0.776 left_of 0.807 above 0.808 inside 0.918 nearest 0.570
+  D 1024 seed 0 dev kernel sinc L 48.0: mean 0.816 left_of 0.678 above 0.733 inside 0.931 nearest 0.923
+  D 1024 seed 0 dev kernel sinc L 64.0: mean 0.966 left_of 0.940 above 0.953 inside 0.978 nearest 0.993
+  D 1024 seed 0 dev kernel sinc L 96.0: mean 0.995 left_of 0.996 above 0.991 inside 0.998 nearest 0.995
+  D 1024 seed 0: kernel gaussian L 48.0 (chosen on dev), 4950 s, max RSS 865 MB
+  D 1024 seed 1 dev kernel gaussian L 16.0: mean 0.854 left_of 0.704 above 0.990 inside 0.889 nearest 0.832
+  D 1024 seed 1 dev kernel gaussian L 24.0: mean 0.974 left_of 0.899 above 1.000 inside 1.000 nearest 0.998
+  D 1024 seed 1 dev kernel gaussian L 32.0: mean 0.999 left_of 0.997 above 1.000 inside 0.998 nearest 1.000
+  D 1024 seed 1 dev kernel gaussian L 48.0: mean 0.998 left_of 0.998 above 0.998 inside 0.998 nearest 0.998
+  D 1024 seed 1 dev kernel gaussian L 64.0: mean 0.991 left_of 0.998 above 0.980 inside 0.994 nearest 0.993
+  D 1024 seed 1 dev kernel gaussian L 96.0: mean 0.993 left_of 0.994 above 0.988 inside 0.993 nearest 0.995
+  D 1024 seed 1 dev kernel sinc L 16.0: mean 0.715 left_of 0.931 above 0.741 inside 0.887 nearest 0.302
+  D 1024 seed 1 dev kernel sinc L 24.0: mean 0.770 left_of 0.888 above 0.849 inside 0.979 nearest 0.362
+  D 1024 seed 1 dev kernel sinc L 32.0: mean 0.848 left_of 0.890 above 0.907 inside 0.996 nearest 0.597
+  D 1024 seed 1 dev kernel sinc L 48.0: mean 0.899 left_of 0.763 above 0.972 inside 0.925 nearest 0.938
+  D 1024 seed 1 dev kernel sinc L 64.0: mean 0.976 left_of 0.927 above 0.984 inside 1.000 nearest 0.993
+  D 1024 seed 1 dev kernel sinc L 96.0: mean 0.996 left_of 0.997 above 0.995 inside 0.992 nearest 1.000
+  D 1024 seed 1: kernel gaussian L 32.0 (chosen on dev), 147 s, max RSS 865 MB
+  D 1024 seed 2 dev kernel gaussian L 16.0: mean 0.686 left_of 0.590 above 0.544 inside 0.863 nearest 0.746
+  D 1024 seed 2 dev kernel gaussian L 24.0: mean 0.825 left_of 0.769 above 0.586 inside 0.955 nearest 0.990
+  D 1024 seed 2 dev kernel gaussian L 32.0: mean 0.936 left_of 0.936 above 0.851 inside 0.959 nearest 0.995
+  D 1024 seed 2 dev kernel gaussian L 48.0: mean 0.998 left_of 0.997 above 0.997 inside 0.998 nearest 1.000
+  D 1024 seed 2 dev kernel gaussian L 64.0: mean 0.995 left_of 0.995 above 0.995 inside 0.999 nearest 0.993
+  D 1024 seed 2 dev kernel gaussian L 96.0: mean 0.991 left_of 0.993 above 0.982 inside 0.995 nearest 0.995
+  D 1024 seed 2 dev kernel sinc L 16.0: mean 0.529 left_of 0.472 above 0.511 inside 0.872 nearest 0.259
+  D 1024 seed 2 dev kernel sinc L 24.0: mean 0.614 left_of 0.835 above 0.454 inside 0.808 nearest 0.357
+  D 1024 seed 2 dev kernel sinc L 32.0: mean 0.827 left_of 0.964 above 0.823 inside 0.981 nearest 0.540
+  D 1024 seed 2 dev kernel sinc L 48.0: mean 0.974 left_of 0.995 above 0.991 inside 0.999 nearest 0.911
+  D 1024 seed 2 dev kernel sinc L 64.0: mean 0.993 left_of 0.996 above 0.986 inside 0.998 nearest 0.990
+  D 1024 seed 2 dev kernel sinc L 96.0: mean 0.998 left_of 0.997 above 0.997 inside 0.999 nearest 1.000
+  D 1024 seed 2: kernel sinc L 96.0 (chosen on dev), 152 s, max RSS 866 MB
+  D 1024 seed 3 dev kernel gaussian L 16.0: mean 0.808 left_of 0.677 above 0.854 inside 0.979 nearest 0.724
+  D 1024 seed 3 dev kernel gaussian L 24.0: mean 0.953 left_of 0.949 above 0.894 inside 0.980 nearest 0.991
+  D 1024 seed 3 dev kernel gaussian L 32.0: mean 0.997 left_of 0.991 above 0.998 inside 1.000 nearest 1.000
+  D 1024 seed 3 dev kernel gaussian L 48.0: mean 0.996 left_of 0.991 above 0.998 inside 0.997 nearest 0.998
+  D 1024 seed 3 dev kernel gaussian L 64.0: mean 0.995 left_of 0.994 above 0.995 inside 0.999 nearest 0.993
+  D 1024 seed 3 dev kernel gaussian L 96.0: mean 0.988 left_of 0.994 above 0.988 inside 0.989 nearest 0.981
+  D 1024 seed 3 dev kernel sinc L 16.0: mean 0.680 left_of 0.644 above 0.998 inside 0.836 nearest 0.244
+  D 1024 seed 3 dev kernel sinc L 24.0: mean 0.758 left_of 0.861 above 0.896 inside 0.938 nearest 0.335
+  D 1024 seed 3 dev kernel sinc L 32.0: mean 0.752 left_of 0.689 above 0.905 inside 0.845 nearest 0.567
+  D 1024 seed 3 dev kernel sinc L 48.0: mean 0.958 left_of 0.946 above 0.969 inside 0.999 nearest 0.918
+  D 1024 seed 3 dev kernel sinc L 64.0: mean 0.992 left_of 0.999 above 0.979 inside 1.000 nearest 0.991
+  D 1024 seed 3 dev kernel sinc L 96.0: mean 0.998 left_of 0.998 above 0.993 inside 1.000 nearest 1.000
+  D 1024 seed 3: kernel sinc L 96.0 (chosen on dev), 153 s, max RSS 866 MB
+  D 1024 seed 4 dev kernel gaussian L 16.0: mean 0.787 left_of 0.600 above 0.826 inside 0.935 nearest 0.788
+  D 1024 seed 4 dev kernel gaussian L 24.0: mean 0.848 left_of 0.584 above 0.987 inside 0.828 nearest 0.992
+  D 1024 seed 4 dev kernel gaussian L 32.0: mean 0.981 left_of 0.932 above 0.999 inside 0.995 nearest 1.000
+  D 1024 seed 4 dev kernel gaussian L 48.0: mean 0.997 left_of 0.995 above 0.995 inside 0.997 nearest 1.000
+  D 1024 seed 4 dev kernel gaussian L 64.0: mean 0.995 left_of 0.994 above 0.995 inside 0.993 nearest 0.997
+  D 1024 seed 4 dev kernel gaussian L 96.0: mean 0.989 left_of 0.986 above 0.990 inside 0.992 nearest 0.990
+  D 1024 seed 4 dev kernel sinc L 16.0: mean 0.572 left_of 0.536 above 0.648 inside 0.845 nearest 0.258
+  D 1024 seed 4 dev kernel sinc L 24.0: mean 0.647 left_of 0.632 above 0.715 inside 0.926 nearest 0.317
+  D 1024 seed 4 dev kernel sinc L 32.0: mean 0.757 left_of 0.598 above 0.949 inside 0.953 nearest 0.527
+  D 1024 seed 4 dev kernel sinc L 48.0: mean 0.924 left_of 0.795 above 0.999 inside 0.999 nearest 0.903
+  D 1024 seed 4 dev kernel sinc L 64.0: mean 0.996 left_of 0.989 above 0.998 inside 1.000 nearest 0.997
+  D 1024 seed 4 dev kernel sinc L 96.0: mean 0.999 left_of 0.998 above 0.997 inside 0.999 nearest 1.000
+  D 1024 seed 4: kernel sinc L 96.0 (chosen on dev), 147 s, max RSS 866 MB
+  D 4096 seed 0 dev kernel gaussian L 16.0: mean 0.963 left_of 1.000 above 0.966 inside 1.000 nearest 0.886
+  D 4096 seed 0 dev kernel gaussian L 24.0: mean 1.000 left_of 1.000 above 0.998 inside 1.000 nearest 1.000
+  D 4096 seed 0 dev kernel gaussian L 32.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 0 dev kernel gaussian L 48.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 0 dev kernel gaussian L 64.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 0 dev kernel gaussian L 96.0: mean 0.998 left_of 0.999 above 0.997 inside 0.998 nearest 1.000
+  D 4096 seed 0 dev kernel sinc L 16.0: mean 0.632 left_of 0.587 above 0.663 inside 0.952 nearest 0.325
+  D 4096 seed 0 dev kernel sinc L 24.0: mean 0.730 left_of 0.619 above 0.927 inside 0.947 nearest 0.425
+  D 4096 seed 0 dev kernel sinc L 32.0: mean 0.875 left_of 0.943 above 0.948 inside 0.999 nearest 0.610
+  D 4096 seed 0 dev kernel sinc L 48.0: mean 0.987 left_of 0.999 above 0.998 inside 1.000 nearest 0.951
+  D 4096 seed 0 dev kernel sinc L 64.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 0 dev kernel sinc L 96.0: mean 0.999 left_of 1.000 above 0.997 inside 1.000 nearest 1.000
+  D 4096 seed 0: kernel gaussian L 48.0 (chosen on dev), 198 s, max RSS 867 MB
+  D 4096 seed 1 dev kernel gaussian L 16.0: mean 0.977 left_of 1.000 above 1.000 inside 1.000 nearest 0.906
+  D 4096 seed 1 dev kernel gaussian L 24.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 1 dev kernel gaussian L 32.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 1 dev kernel gaussian L 48.0: mean 0.999 left_of 0.997 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 1 dev kernel gaussian L 64.0: mean 0.999 left_of 1.000 above 0.999 inside 1.000 nearest 0.998
+  D 4096 seed 1 dev kernel gaussian L 96.0: mean 0.999 left_of 1.000 above 0.998 inside 0.999 nearest 0.998
+  D 4096 seed 1 dev kernel sinc L 16.0: mean 0.742 left_of 0.961 above 0.687 inside 0.925 nearest 0.396
+  D 4096 seed 1 dev kernel sinc L 24.0: mean 0.841 left_of 1.000 above 0.969 inside 1.000 nearest 0.396
+  D 4096 seed 1 dev kernel sinc L 32.0: mean 0.911 left_of 0.998 above 1.000 inside 1.000 nearest 0.647
+  D 4096 seed 1 dev kernel sinc L 48.0: mean 0.988 left_of 1.000 above 0.999 inside 1.000 nearest 0.954
+  D 4096 seed 1 dev kernel sinc L 64.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 1 dev kernel sinc L 96.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 1: kernel gaussian L 24.0 (chosen on dev), 245 s, max RSS 867 MB
+  D 4096 seed 2 dev kernel gaussian L 16.0: mean 0.956 left_of 0.941 above 0.984 inside 1.000 nearest 0.897
+  D 4096 seed 2 dev kernel gaussian L 24.0: mean 0.999 left_of 1.000 above 0.996 inside 1.000 nearest 1.000
+  D 4096 seed 2 dev kernel gaussian L 32.0: mean 0.999 left_of 0.999 above 0.997 inside 1.000 nearest 1.000
+  D 4096 seed 2 dev kernel gaussian L 48.0: mean 0.999 left_of 0.999 above 0.997 inside 1.000 nearest 1.000
+  D 4096 seed 2 dev kernel gaussian L 64.0: mean 0.999 left_of 0.998 above 0.997 inside 1.000 nearest 1.000
+  D 4096 seed 2 dev kernel gaussian L 96.0: mean 0.998 left_of 0.997 above 0.999 inside 0.999 nearest 0.998
+  D 4096 seed 2 dev kernel sinc L 16.0: mean 0.727 left_of 0.814 above 0.789 inside 0.979 nearest 0.326
+  D 4096 seed 2 dev kernel sinc L 24.0: mean 0.780 left_of 0.969 above 0.779 inside 0.965 nearest 0.408
+  D 4096 seed 2 dev kernel sinc L 32.0: mean 0.870 left_of 0.985 above 0.904 inside 0.999 nearest 0.592
+  D 4096 seed 2 dev kernel sinc L 48.0: mean 0.982 left_of 1.000 above 0.992 inside 1.000 nearest 0.935
+  D 4096 seed 2 dev kernel sinc L 64.0: mean 0.998 left_of 0.999 above 0.998 inside 0.999 nearest 0.998
+  D 4096 seed 2 dev kernel sinc L 96.0: mean 0.999 left_of 0.997 above 0.998 inside 1.000 nearest 1.000
+  D 4096 seed 2: kernel gaussian L 48.0 (chosen on dev), 200 s, max RSS 867 MB
+  D 4096 seed 3 dev kernel gaussian L 16.0: mean 0.923 left_of 0.792 above 1.000 inside 0.975 nearest 0.923
+  D 4096 seed 3 dev kernel gaussian L 24.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 3 dev kernel gaussian L 32.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 3 dev kernel gaussian L 48.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 3 dev kernel gaussian L 64.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 3 dev kernel gaussian L 96.0: mean 0.999 left_of 0.999 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 3 dev kernel sinc L 16.0: mean 0.704 left_of 0.687 above 0.875 inside 0.958 nearest 0.297
+  D 4096 seed 3 dev kernel sinc L 24.0: mean 0.801 left_of 0.836 above 0.991 inside 0.971 nearest 0.407
+  D 4096 seed 3 dev kernel sinc L 32.0: mean 0.897 left_of 1.000 above 0.999 inside 1.000 nearest 0.590
+  D 4096 seed 3 dev kernel sinc L 48.0: mean 0.984 left_of 1.000 above 0.999 inside 1.000 nearest 0.937
+  D 4096 seed 3 dev kernel sinc L 64.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 3 dev kernel sinc L 96.0: mean 0.999 left_of 1.000 above 0.997 inside 1.000 nearest 1.000
+  D 4096 seed 3: kernel gaussian L 24.0 (chosen on dev), 246 s, max RSS 867 MB
+  D 4096 seed 4 dev kernel gaussian L 16.0: mean 0.972 left_of 1.000 above 0.997 inside 1.000 nearest 0.893
+  D 4096 seed 4 dev kernel gaussian L 24.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 4 dev kernel gaussian L 32.0: mean 1.000 left_of 1.000 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 4 dev kernel gaussian L 48.0: mean 1.000 left_of 1.000 above 0.999 inside 1.000 nearest 1.000
+  D 4096 seed 4 dev kernel gaussian L 64.0: mean 1.000 left_of 0.999 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 4 dev kernel gaussian L 96.0: mean 0.998 left_of 0.994 above 0.998 inside 1.000 nearest 1.000
+  D 4096 seed 4 dev kernel sinc L 16.0: mean 0.795 left_of 0.926 above 0.939 inside 0.984 nearest 0.330
+  D 4096 seed 4 dev kernel sinc L 24.0: mean 0.749 left_of 0.827 above 0.923 inside 0.870 nearest 0.376
+  D 4096 seed 4 dev kernel sinc L 32.0: mean 0.850 left_of 0.935 above 0.933 inside 0.929 nearest 0.604
+  D 4096 seed 4 dev kernel sinc L 48.0: mean 0.956 left_of 0.932 above 0.995 inside 0.974 nearest 0.923
+  D 4096 seed 4 dev kernel sinc L 64.0: mean 0.999 left_of 0.998 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 4 dev kernel sinc L 96.0: mean 1.000 left_of 0.999 above 1.000 inside 1.000 nearest 1.000
+  D 4096 seed 4: kernel gaussian L 24.0 (chosen on dev), 239 s, max RSS 867 MB
+
+heldout relation readout [RUN] (mean +- sd over seeds; per-seed list; chance; majority; coverage and confident-wrong at tau set on dev)
+  D  1024 left_of  0.998 +- 0.000 [0.998, 0.998, 0.998, 0.997, 0.998] n 13548 chance 0.500 majority 0.509 coverage 1.000 confident-wrong 0.002 margin q10/50/90 [0.063, 0.083, 0.107] MET
+  D  1024 above    0.996 +- 0.003 [0.998, 0.999, 0.996, 0.99, 0.996] n 13423 chance 0.500 majority 0.508 coverage 1.000 confident-wrong 0.004 margin q10/50/90 [0.073, 0.097, 0.11] MET
+  D  1024 inside   0.998 +- 0.000 [0.999, 0.998, 0.999, 0.998, 0.998] n 3397 chance 0.500 majority 0.843 coverage 1.000 confident-wrong 0.002 margin q10/50/90 [0.057, 0.09, 0.109] MET
+  D  1024 nearest  0.998 +- 0.001 [0.998, 0.999, 0.997, 0.999, 0.996] n 1654 chance 0.111 majority nan coverage 1.000 confident-wrong 0.002 margin q10/50/90 [0.473, 0.726, 0.902] MET
+  D  1024 chosen (kernel, L) per seed: [('gaussian', 48.0), ('gaussian', 32.0), ('sinc', 96.0), ('sinc', 96.0), ('sinc', 96.0)]; mean terms per heldout scene 30.6
+  D  1024 capacity (mean over seeds): n 4: placed 4 left_of 1.00 above 1.00 inside 1.00 nearest 1.00; n 8: placed 8 left_of 1.00 above 1.00 inside 1.00 nearest 1.00; n 16: placed 16 left_of 1.00 above 0.99 inside 1.00 nearest 0.99; n 32: placed 32 left_of 0.94 above 0.94 inside 0.98 nearest 0.83; n 64: placed 64 left_of 0.78 above 0.77 inside 0.94 nearest 0.36; n 128: placed 128 left_of 0.63 above 0.63 inside 0.93 nearest 0.08
+  D  1024 capacity (largest n with all relations >= 0.97): 16
+  D  1024 separability: smallest d for left_of >= 0.97: per seed [12.0, 4.0, 24.0, 12.0, 12.0]; two peaks of one identity: per seed [128.0, 96.0, None, None, None]
+  D  4096 left_of  1.000 +- 0.000 [1.0, 1.0, 0.999, 1.0, 1.0] n 13548 chance 0.500 majority 0.509 coverage 1.000 confident-wrong 0.000 margin q10/50/90 [0.065, 0.078, 0.088] reported
+  D  4096 above    0.999 +- 0.001 [1.0, 1.0, 0.998, 1.0, 1.0] n 13423 chance 0.500 majority 0.508 coverage 1.000 confident-wrong 0.001 margin q10/50/90 [0.067, 0.085, 0.098] reported
+  D  4096 inside   1.000 +- 0.000 [1.0, 1.0, 1.0, 1.0, 1.0] n 3397 chance 0.500 majority 0.843 coverage 1.000 confident-wrong 0.000 margin q10/50/90 [0.06, 0.082, 0.095] reported
+  D  4096 nearest  1.000 +- 0.000 [0.999, 1.0, 1.0, 1.0, 1.0] n 1654 chance 0.111 majority nan coverage 1.000 confident-wrong 0.000 margin q10/50/90 [0.541, 0.747, 0.903] reported
+  D  4096 chosen (kernel, L) per seed: [('gaussian', 48.0), ('gaussian', 24.0), ('gaussian', 48.0), ('gaussian', 24.0), ('gaussian', 24.0)]; mean terms per heldout scene 30.6
+  D  4096 capacity (mean over seeds): n 4: placed 4 left_of 1.00 above 1.00 inside 1.00 nearest 1.00; n 8: placed 8 left_of 1.00 above 1.00 inside 1.00 nearest 1.00; n 16: placed 16 left_of 1.00 above 1.00 inside 1.00 nearest 1.00; n 32: placed 32 left_of 1.00 above 1.00 inside 1.00 nearest 1.00; n 64: placed 64 left_of 1.00 above 1.00 inside 1.00 nearest 0.99; n 128: placed 128 left_of 0.94 above 0.93 inside 0.98 nearest 0.76
+  D  4096 capacity (largest n with all relations >= 0.97): 64
+  D  4096 separability: smallest d for left_of >= 0.97: per seed [8.0, 2.0, 8.0, 4.0, 4.0]; two peaks of one identity: per seed [128.0, 64.0, 128.0, 64.0, 64.0]
+
+max RSS 867 MB; results in logs/scene_fpe_53ae844
+
+checklist: [x] criteria written before the run (docstring, README, printed) [x] world addresses: positions, given; identities and roles from tool/sop/world.py star [x] chance and majority printed [x] margins and confident-wrong at tau [x] tau and (kernel, L) set on dev, reported on heldout (25) [x] same evaluation function for every variant (8) [x] per-seed list beside the mean (27) [x] >= 3 seeds [x] memory logged (21) [x] resumable per (D, seed) [x] trivial control: chance (a reader that ignores positions answers at chance)

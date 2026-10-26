@@ -142,3 +142,16 @@ So the model is not the limit; I would use Haiku. The two problems are in the pi
    normalisation (the measure of new language).
 Also: the full run should start from the corrected world (Q9), since the frames of connect change. Agreed: Haiku, the terse prompt fix,
 the "free" family, then the full run (n 2000 x 5 families) after Q9's data? Cost note: the pilot was 2 x 16 calls of about 25 sentences.
+
+## Q11 (2026-10-26) — the FPE scene reader met C1 (step 18): the swap-in into the browser, how? (not blocking the diagram work)
+
+Result in STATUS ("FPE scene reader, step 18"): heldout at D 1024, mean over five seeds, left_of 0.998, above 0.996, inside 0.998, nearest
+0.998, confident-wrong <= 0.004; capacity 16 elements at D 1024 (64 at 4096). The swap-in rule written before the run is met. Two points
+before I build the swap-in (TODO 2.4.1: a JS FPE reader behind scene_pass.js's interface, a parity test Python/JS):
+1. The experiment's inputs are positions given exactly; in the editor they come from the recogniser (stroke groups -> boxes). Proposal:
+   first an end-to-end row on the synthetic strokes of app/tests/sketch.mjs (recogniser -> FPE relations vs recogniser -> rules), the
+   same test split the baseline numbers came from, before the About line says "VSS scene reader: active". Expected: containment and
+   connector attachment at least the rules' 0.992 / 0.963 (the relation step is no longer the limit; the recogniser's boxes are).
+2. Capacity 16 at D 1024: a sketch with more than 16 elements is outside what was measured; proposal: the FPE reader declines (falls
+   back to the rules, said in the reading) above 16 elements, rather than reading with an unmeasured error.
+Agreed, and is the JS FPE reader mine (app) with the Python side as it is in training/worlds/scene/fpe.py?
