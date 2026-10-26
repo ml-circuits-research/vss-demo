@@ -42,3 +42,9 @@ the contract decoder, the three worlds at once on the one GPU (per-world locks `
 questions.md Q1 is answered (textedit `--no_export`). diagram_ro and diagram_multi wait for Q2 (their need signal is measured on a third
 of the heads); matheditor waits for the decoder extension E1-E4. Against the expectation written in TODO 2.12, `vorder`'s need signal
 fires on diagram (16.8%), diagram_multi, textedit and animation (`logs/profile_92d12f9_demo_worlds.md`); the acceptance test decides.
+
+SUPERSEDED (decoder before D1 / D5), kept as started: `runs/diagram_step3_1c9c7fc/`, `runs/animation_step3_1c9c7fc/`, `runs/textedit_1c9c7fc/`
+(launch logs `logs/launch_*_1c9c7fc.out`). Started 09:56 at 1c9c7fc, stopped about 11:05 before any size finished, because the decoder
+gave an attribute with no candidate (`attr=None`, D1) and a role with no candidate (`["word", None]`, D5); restarted once on feaf554
+(the reader.js mirror of both fixes; full parity suite PASS), together with diagram_ro and diagram_multi (their need signal measured after
+D2: `logs/profile_e27ac5d_demo_worlds_after_D2.md`). Parallel across worlds and with the vss-vs-bert runs (responses D6), nice +10.

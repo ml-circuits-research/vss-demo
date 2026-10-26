@@ -1,0 +1,11 @@
+unpacked animation/n5000 -> /tmp/animation_step3_ORGG/5000: 8 files, sha256 verified
+3/3 files OK against legend(s) animation sha256:04ecad9f34cb…
+## size 5000: sop train /tmp/animation_step3_ORGG/5000/animation --D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/animation_step3_1c9c7fc/5000/splits.json before training: calibration_heldout_formulations 207, heldout_formulations 193, heldout_sentences 505, new_identities 400, train 4495
+[schema] roles ['object', 'color', 'relation', 'landmark', 'region', 'direction', 'distance', 'angle', 'traveller', 'source', 'via', 'target', 'path', 'start', 'tempo', 'ref', 'offset', 'trigger', 'duration', 'unit', 'per', 'speed', 'easing', 'repeat'] (core ['object']), max depth 0, event negation True
+[activate] candidates ['vorder'] (2520 training rows (56.1%) fill two roles with the same kind; in 2185 of them neither word is cued, so only the order relative to the verb separates them); selection rows 682 (of which with same-kind competition 285); trials trained on 4020 rows
+[train seed 0] end: RSS 2.23 GB | torch alloc 0.41 GB reserved 0.49 GB | MemAvailable 95.9 GB (237s)
+[export] numpy reader vs torch states: max relative difference 7.09e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.342 on 682 selection rows, 0.246 on the 285 with same-kind competition | calibration_heldout_formulations 0.338 train 0.343
+[train seed 0] end: RSS 2.59 GB | torch alloc 1.12 GB reserved 1.23 GB | MemAvailable 73.8 GB (257s)
+[export] numpy reader vs torch states: max relative difference 6.52e-08 (float32 phases in the route book)

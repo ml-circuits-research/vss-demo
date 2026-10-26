@@ -1,0 +1,2 @@
+sop train /tmp/textedit_DqlB/1000/textedit --D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --seeds 5 --run_dir /home/salboaie/vss-demo/runs/textedit_1c9c7fc/1000
+commit 1c9c7fc

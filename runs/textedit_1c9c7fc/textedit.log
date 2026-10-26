@@ -1,0 +1,22 @@
+# textedit, commit 1c9c7fc, 2026-10-26T09:56:48+01:00; worlds in /tmp/textedit_DqlB; runs in /home/salboaie/vss-demo/runs/textedit_1c9c7fc; sizes 1000 5000 20000 50000; shipped size 50000
+unpacked textedit/n1000 -> /tmp/textedit_DqlB/1000: 9 files, sha256 verified
+3/3 files OK against legend(s) textedit sha256:4c42eb08b9dd…
+## size 1000: sop train /tmp/textedit_DqlB/1000/textedit --D 1024 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto --seeds 5
+[splits] written to /home/salboaie/vss-demo/runs/textedit_1c9c7fc/1000/splits.json before training: calibration_heldout_formulations 219, heldout_formulations 181, heldout_sentences 109, new_identities 400, train 891
+[schema] roles ['unit', 'ordinal', 'match', 'format', 'value', 'position', 'new_text', 'widget'] (core ['unit']), max depth 0, event negation False
+[activate] candidates ['vorder'] (98 training rows (11.0%) fill two roles with the same kind; in 38 of them neither word is cued, so only the order relative to the verb separates them); selection rows 334 (of which with same-kind competition 12); trials trained on 776 rows
+[train seed 0] end: RSS 2.02 GB | torch alloc 0.20 GB reserved 0.28 GB | MemAvailable 91.2 GB (21s)
+[export] numpy reader vs torch states: max relative difference 7.78e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.302 on 334 selection rows, 0.333 on the 12 with same-kind competition | calibration_heldout_formulations 0.329 train 0.252
+[train seed 0] end: RSS 2.22 GB | torch alloc 0.52 GB reserved 0.61 GB | MemAvailable 91.2 GB (27s)
+[export] numpy reader vs torch states: max relative difference 7.17e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.263 on 334 selection rows, 0.083 on the 12 with same-kind competition | calibration_heldout_formulations 0.292 train 0.209
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 8 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.25 GB | torch alloc 0.21 GB reserved 0.29 GB | MemAvailable 95.1 GB (14s)
+[export] numpy reader vs torch states: max relative difference 7.72e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.392 | experiment candidates 0.304 | residual 0.732
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.358 | experiment candidates 0.358 | residual 0.705
+[eval] seed 0 new_identities: FULL catalog candidates 0.310 | experiment candidates 0.260 | residual 0.819
+[eval] seed 0 train (sample): FULL catalog candidates 0.360 | residual 0.726
+[train seed 1] end: RSS 2.38 GB | torch alloc 0.21 GB reserved 0.26 GB | MemAvailable 72.0 GB (25s)
+[export] numpy reader vs torch states: max relative difference 7.76e-08 (float32 phases in the route book)
