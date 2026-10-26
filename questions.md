@@ -236,3 +236,15 @@ is offered to that role as a presence query ("is 'irina' the new name?"), and th
 requiring `text` (D24) that query is exactly the right question. Expected on the same 800 sentences: name back to about 1-2 errors with D2's
 model (no retraining: a decoder rule), heads-exact about 0.96. Second, the reason `text` falls under its threshold with D's data (more bare
 labels after REL / to) is the presence readout's, and I would measure it after the rule, not before. Agree?
+
+## Q17 (2026-10-26) — the presence of `text`: a label placed in another role leaks into text's presence ratio (not blocking: the offer rule already asks the right question)
+
+Numbers in STATUS ("The presence readout of `text`"). The offer rule (D27) made the dialog right (30 offers, all right; 0.983 with them
+accepted), so this is about the reading itself. The overlap is in the ABSENT tail: create frames without text but with a bare label in
+another role ("add a box left_of paul") have text-presence ratios up to 0.3, and D's data has more of them, so the threshold fitted on
+calibration rows rose from 0.093 to 0.183 and pushed true texts under it. Proposal for the source (a reader rule, parity after): a role's
+presence ratio is computed on the state with the deposits of the words ALREADY placed in other roles of the frame removed (or, equivalently,
+those words excluded from the role's top candidate when the ratio is taken), so that "paul" read as the landmark no longer counts as
+evidence for a text; the threshold is then refitted by the same rule. Expected: absent-text p90 back near C's 0.2, the fitted threshold near
+0.1, the 14 under-threshold texts of D2 read present (offers no longer needed for them), nothing else down. Measurable on D2's model without
+retraining if the threshold is refitted on its calibration rows by the trainer's own rule. Worth doing, or is the offer enough for the demo?

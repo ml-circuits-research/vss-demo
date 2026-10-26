@@ -287,3 +287,10 @@ in 7 goldens): D2's model re-reading the same 800 sentences (decoder rule, no re
 not a filled role); with the offers accepted 0.983; 30 offers, all 30 right; name errors 14 -> 0 when the offers are answered "yes".
 Expected "name back to 1-2, heads-exact about 0.96": met in the sense that matters (the right question is asked every time); the
 dialog consuming the offer (yes / no in the chat reply) is next.
+
+The presence readout of `text` (D27's second point), measured on the 800 sentences' create / name / group frames, seed 0 models: C2
+threshold 0.093, text present mean 0.551 (p10 0.188, 1 under the threshold), text absent mean 0.097 (p90 0.217, 40 over); D2 threshold
+0.183, present mean 0.514 (p10 0.223, 14 under), absent mean 0.130 (p90 0.305, 25 over). The two populations separate on their means but
+their tails overlap; with D's data the absent tail is heavier (more bare labels in the landmark and target positions of the same
+sentences), the fitted threshold doubles, and 14 true texts fall under it: the 14 name errors of D2, which the offer rule now turns into
+the right question. questions.md Q17.
