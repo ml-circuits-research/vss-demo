@@ -28,6 +28,9 @@ export class Legend {
   constructor(model) {
     const d = model.legend; this.raw = d; this.sha = model.legend_sha256;
     this.roles = (d.roles || []).map((r) => r.id); this.events = {}; for (const e of d.events || []) this.events[e.id] = e.verbs || [];
+    // per-event role sets (infer.py / legend.py, Q12 / D19): roles = the roles the event takes, required = the roles it cannot do without
+    this.eventRoles = {}; this.eventRequired = {};
+    for (const e of d.events || []) { if (e.roles != null) this.eventRoles[e.id] = [...e.roles]; if (e.required != null) this.eventRequired[e.id] = [...e.required]; }
     this.operators = d.operators || []; this.moods = d.moods || ["statement"]; this.reader = model.reader;
     this.values = (d.values || []).map((v) => [v.kind, new RegExp("^(?:" + v.pattern + ")$")]);
     this.lexicon = new Map(); this.lemmaMap = new Map();
@@ -291,7 +294,9 @@ export class Reader {
       f.event = sch.single_event || null;
       if (!f.event) for (const t of tokens) { const e = this.legend.eventOfLemma(this.lemma(t)); if (e) { f.event = e; break; } }
     }
+    const taken = f.event ? this.legend.eventRoles[f.event] : undefined;      // Q12 / D19: the roles the decided event takes
     for (const r of sch.role_order) {
+      if (taken !== undefined && !taken.includes(r)) { f.presence[r] = 0.0; continue; }      // not a role of this event: not read, no candidate
       const o = this.readRole(Sn, K, r, core, presence); f.presence[r] = o.presence;
       for (const part of ["attr", "det"]) if ((part + "_ratio") in o) f.presence[r + "." + part] = o[part + "_ratio"];
       if ("presence_margin" in o) {
@@ -310,6 +315,11 @@ export class Reader {
       }
     }
     if (this.filt && this.cfg.candidates === "sentence") this.oneToOne(Sn, K, core, f, this.filt, presence);
+    if (this.cfg.presence_query && f.event && Object.hasOwn(this.legend.eventRequired, f.event)) {      // Q12 / D19: a required role not given is asked for
+      for (const r of this.legend.eventRequired[f.event]) if (f.roles[r] === undefined || f.roles[r] === null) {
+        const m = (r + ".presence") in f.margins ? f.margins[r + ".presence"] : 0.0; delete f.margins[r + ".presence"]; (f.presence_queries = f.presence_queries || {})[r] = m;
+      }
+    }
     if (this.legend.reader.scope_terms) this.readScope(Sn, K, core, f);
     if (f.event === null) f.shape = "unknown";
     return f;
@@ -481,7 +491,8 @@ export class Reader {
   /** the explained-tokens residual (infer.Reader.residual_explained): rec' = the chart of the explained tokens only */
   /** infer.Reader.frame_incomplete: a core question or a speaker of the depth not answered -> the explained residual is 1.0 */
   frameIncomplete(f) {
-    if ((this.schema.core_roles || []).some((r) => f.roles[r] === undefined || f.roles[r] === null || Reader.headOf(f.roles[r]) === null || Reader.headOf(f.roles[r]) === undefined)) return true;
+    const req = f.event && Object.hasOwn(this.legend.eventRequired, f.event) ? this.legend.eventRequired[f.event] : (this.schema.core_roles || []);   // Q12 / D19
+    if (req.some((r) => f.roles[r] === undefined || f.roles[r] === null || Reader.headOf(f.roles[r]) === null || Reader.headOf(f.roles[r]) === undefined)) return true;
     return (f.speakers || []).some((sp) => sp === null || sp === undefined);
   }
   residualExplained(S, tokens, kept, placed) {
