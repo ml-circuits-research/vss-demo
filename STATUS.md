@@ -83,3 +83,13 @@ working tree at about 13:15 with a pull of the interface merge, against the rule
 the pull). Sizes started before (all 1000 / 5000, diagram 20000) imported train.py without it, later sizes with it. For the demo worlds
 it changes nothing: none of their frozen examples carries `_negative` (checked: 0 files), so the targets, the calibration rows (the same
 draw over the same rows) and the schema are identical. The pull is now guarded by a check that stops it.
+
+Step 18, the FPE scene reader (responses D11 item 1), declared before the run: `training/worlds/scene/experiment_fpe.py` as TODO 2.4.1
+(D 1024 and 4096, seeds 0-4, n_dev 100, n_heldout 400, kernels gaussian / sinc, L 16-96, capacity 4-128, separability sweep), `--xp cupy`
+on the GPU (cupy 14.2.0 in .venv; on the smoke set cupy and numpy give identical numbers). Criterion as written in the script before any
+run: C1 heldout left_of, above, inside, nearest endpoint each >= 0.97 at D 1024, mean over five seeds with the per-seed list; C2 the same at
+4096 reported; R1 separability and R2 capacity reported. Baseline the VSS pass must meet or beat (D11), the rule-based pass on the
+synthetic test split of app/tests/sketch.mjs: containment 0.992 (compare: inside), connectors 0.963 (compare: nearest endpoint, which is
+how a connector's ends are attached); planted unknowns 12 of 13 is not measured by this experiment (unknown blobs belong to the
+classical recogniser's step), so this run cannot claim it. Swap-in only if C1 is met AND inside >= 0.992 AND nearest >= 0.963; else the
+rules stay and the About line says why, with the numbers. The symbol step stays classical ($P): it is not the VSS claim.
