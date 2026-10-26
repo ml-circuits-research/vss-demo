@@ -153,3 +153,12 @@ on the same 800-sentence diagnostic): A: abstentions on absent roles 450 -> 0 (t
 accuracy from about 0.39 to >= 0.8 on the 800, connect leaves the worst-formulation lists, heads-exact up by about 0.05 (connect's 24.8% of
 the errors, at least half removed); same-kind competition rows in training 762 -> 691 (sop profile); the 388 order-dependent rows are
 not connect rows and are not expected to move. If a number does not move as stated, the next step is a diagnostic, not a larger size.
+
+## Proposal (D16 rule), before the run: the end-to-end sketch row, FPE relations against the rules (responses D18)
+
+What fails: on the synthetic test split of app/tests/sketch.mjs the rule-based pass reads connectors 0.963 (criterion 0.97) and 12 of 13
+planted unknowns. Where the cause may be: the relation step (rules on outline distance) or the recogniser's boxes; this row separates
+them. Change: the FPE relations (a JS reader of training/worlds/scene/fpe.py, parity-tested against it) behind scene_pass.js's interface,
+on the recogniser's boxes, same split. Expected: containment >= 0.992 and connector attachment >= 0.963 (the rules' numbers), and the
+connector miss unchanged if it comes from the recogniser; the two readers' disagreements listed one by one. Above 16 elements (the
+measured capacity at D 1024) the FPE reader declines and the rules read. The About line and the sketch line change only if the row passes.
