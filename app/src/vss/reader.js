@@ -100,22 +100,29 @@ export class Reader {
   /** the one-to-one rule of the sentence-candidates decoder (infer.Reader.one_to_one): a word fills at most one role */
   oneToOne(Sn, K, core, f, filt, presence) {
     const toks = this.sentTokens, occ = (h) => Math.max(1, toks.filter((t) => t === h || t.toLowerCase() === String(h).toLowerCase()).length);
-    const rep = cconj(this.st.op("says.scope")), spk = this.st.op("says.speaker");
-    for (let round = 0; round < 4; round++) {
+    const rep = cconj(this.st.op("says.scope")), spk = this.st.op("says.speaker"), excl = new Map();   // per question, the words it lost (accumulated)
+    const clear = (kind, r) => {
+      if (kind === "role") { delete f.roles[r]; delete f.margins[r]; (f.one_to_one = f.one_to_one || {})[r] = "not given"; }
+      else { f.speakers[r] = null; f.margins[`speaker.${r}`] = 0; (f.one_to_one = f.one_to_one || {})[`speaker.${r}`] = "not given"; }
+    };
+    for (let round = 0; round < 5; round++) {
       const heads = new Map(), add = (h, x) => { if (!heads.has(h)) heads.set(h, []); heads.get(h).push(x); };
       for (const [r, fl] of Object.entries(f.roles)) { const h = Reader.headOf(fl); if (h !== null) add(h, ["role", r, f.margins[r] || 0]); }
       f.speakers.forEach((sp, k) => { if (sp !== null && sp !== undefined) add(sp, ["speaker", k, f.margins[`speaker.${k}`] || 0]); });
       const dup = [...heads].filter(([h, sl]) => sl.length > occ(h));
       if (!dup.length) return;
+      const last = round === 4;
       for (const [h, sl0] of dup) {
         const sl = [...sl0].sort((a, b) => b[2] - a[2]);
-        const sub = new Set([...filt].filter((w) => w !== h && w.toLowerCase() !== String(h).toLowerCase()));
         for (const [kind, r] of sl.slice(occ(h))) {
+          const key = `${kind}:${r}`; if (!excl.has(key)) excl.set(key, new Set()); const ex = excl.get(key); ex.add(String(h).toLowerCase());
+          if (last) { clear(kind, r); continue; }
+          const sub = new Set([...filt].filter((w) => !ex.has(w.toLowerCase())));
           const saved = this.filt; this.filt = sub;
           if (kind === "role") {
             const o = this.readRole(Sn, K, r, core, presence); this.filt = saved;
             if (o.present && o.filler && Reader.headOf(o.filler) !== null) { f.roles[r] = o.filler; Object.assign(f.margins, o.margins); (f.one_to_one = f.one_to_one || {})[r] = "re-read"; }
-            else { delete f.roles[r]; delete f.margins[r]; (f.one_to_one = f.one_to_one || {})[r] = "not given"; }
+            else clear(kind, r);
           } else {
             const [w, mg] = Reader.best(cmulc(cmul(Sn, cpow(rep, r)), spk), this.cands(this.schema.speaker_kinds)); this.filt = saved;
             f.speakers[r] = w; f.margins[`speaker.${r}`] = w !== null ? mg : 0; (f.one_to_one = f.one_to_one || {})[`speaker.${r}`] = w !== null ? "re-read" : "not given";
