@@ -219,3 +219,17 @@ if that figure was seen, it is in an untracked run folder or on the DGX, not in 
 `app/build.sh` on demand; say in app/README.md how). Do not rewrite history. Keep `app/model/*` tracked (small, and the app loads them).
 In `runs/`, commit metrics.json, REPORT.md, activation.json, config.json, PROFILE.md and the log; not splits.json (regenerable from the
 seed and the hints) and never a model folder.
+
+## D16 (standing rule from the owner, applies to every training from now on; the D15 cleanup checked; 2026-10-26 15:20)
+
+Checked the two cleanup commits (28b2944, 9372016): only app/dist/vss-editor.html left tracking, the run folders kept metrics, reports,
+activation, config and logs, the README says how to rebuild; nothing removed that should have stayed.
+
+**Rule, from the owner, for every world and every iteration.** Before training a model on more of the same generated data, find the
+cause of what fails and fix it where it is: in the reader (a rule of the contract, a route by its acceptance test), in the world (a
+question the legend conflates, a kind the lexicon lacks, a cue the generator never writes), or in the examples (a form that is missing
+or too rare, then add THAT form, a few examples of it, not more of everything). Our reader is not a classical ML model: its addresses
+are learned from kinds and positions, so more instances of the same templates teach nothing new and only memorise; the curve over
+sizes is a check, never the remedy. Concretely, every training proposal in STATUS states, before the run: what fails (the worst
+formulations, the activation diagnostics, the unplaced words, the presence queries), where the cause is, what is changed, and the
+number expected to move. A run without that paragraph does not start. I will hold both sessions to it at every iteration.
