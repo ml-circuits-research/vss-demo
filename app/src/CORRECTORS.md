@@ -1,11 +1,19 @@
 # Correctors (spec sections 12 and 13.2)
 
 `app/src/normalize.js` is the exact port of `training/worlds/diagram/normalize.py` (one table: `training/worlds/diagram/normalize.json`);
-`app/src/correct.js` is the typed and speech corrector. Order in the editor: normalizer, corrector, reader. The corrector never decides a
-homophone or a valid English word that is close to a word of the world: it returns them as alternatives, and the reader keeps the
-alternative whose frame is clearest (spec 12.3; to be wired in the editor once vss.js is in place).
+`app/src/correct.js` is the typed and speech corrector. Order in the editor: normalizer, corrector, reader. The corrector runs by itself,
+always, before the reader (D29 / D30): no "did you mean" interface, no buttons, no variants shown. A token that is not a lexicon word but is
+within cost 1 (OSA) of lexicon words is replaced by the nearest when it is not an English word, and ALSO offered as variants (the other
+words within cost 1) when it is an English word ("crate" beside "create"); homophones are variants too. `correct()` returns
+`alternatives` (token sequences) and `alternativeCorrections` (the corrections each variant applies); `routes.js` reads every variant and
+keeps the clearest, whose corrections go with the reading. The chat reply says it in one sentence ("Done: create a blue box (I read 'creat'
+as 'create')."); the corrected words (underlined as in Table 8) and the variants that were read are in the History entry of that message
+(row line "Corrected", detail "Reading with margins" and "Variants read"), nothing else in the chat.
 
 ## Tests (CPU, no download)
+
+`node app/tests/typos.mjs` (in run_all.sh): one cost-1 typo per legend verb (deletion, transposition, substitution), the prefix families and
+"crate", all checked on the corrected variant set, not on the reader.
 
 ```
 python3 training/worlds/diagram/normalize_golden.py > /tmp/ngold.jsonl && node app/tests/normalize_test.mjs /tmp/ngold.jsonl

@@ -52,13 +52,15 @@ export function plainReply(d) {
     else if ((m = /^I can't do that( \(.*?\))?: it is not something this editor understands\.\s*(?:I can: (.*)\.)?\s*$/.exec(l))) first = `I can't do that${m[1] || ""}.${m[2] ? ` What I can do here: ${m[2].replace(/_/g, " ")}.` : ""}`;
     else first = sentence(l);
   }
+  // D30: the corrector runs by itself; when something was done, the sentence says in brackets what was read differently from what was typed
+  const fixes = (d.notes || []).filter((n) => n.kind === "correction").map((n) => /^read "?(.*?)"? as "?(.*?)"?$/.exec(String(n.text))).filter(Boolean).map((m) => `'${m[1]}' as '${m[2]}'`);
+  if (d.action === "execute" && fixes.length) first = `${first.replace(/\.$/, "")} (I read ${fixes.join(", ")}).`;
   const extra = [];
   const FILLER = /^(a|an|the|called|named|it|its|to|of|and|please|then|with|in|on)$/i;
   // while the editor asks, the question is the whole reply; the notes are said after something was done or refused
   for (const n of d.action === "ask" ? [] : d.notes || []) {
     if (n.kind === "presence") { if (!questions.some((q) => q.role === n.role)) extra.push(sentence(n.text)); }
     else if (n.kind === "unplaced") { const w = unq(String(n.text).replace(/ was not used$/, "")); if (d.action === "execute" && !FILLER.test(w)) extra.push(`I did not use ${w}.`); }
-    else if (n.kind === "correction") extra.push(sentence(unq(String(n.text)).replace(/^read (.*) as (.*)$/, "I read $1 as $2")));
     else if (n.kind === "blocked" && n.text) extra.push(sentence(n.text));
   }
   // a question with choices whose text is not already in the line is said after it

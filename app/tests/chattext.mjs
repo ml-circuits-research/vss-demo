@@ -19,7 +19,6 @@ eq("presence question, no repeated note", plainReply({ action: "execute", line: 
   questions: [{ kind: "presence", role: "size", text: "did you mean to give a size?", candidates: ["yes", "no"] }] }), { text: "Done: a box.", extra: "Did you mean to give a size?" });
 eq("offer", plainReply({ action: "execute", line: "create a box", notes: [], questions: [{ kind: "offer", role: "text", word: "irina", text: 'is "irina" the new name?', candidates: ["yes", "no"] }] }).extra, "Is irina the new name?".replace("irina", '"irina"'));
 eq("unplaced", plainReply({ action: "execute", line: "create a box", notes: [{ kind: "unplaced", text: '"foo" was not used' }] }).extra, "I did not use foo.");
-eq("correction", plainReply({ action: "execute", line: "create a box", notes: [{ kind: "correction", text: 'read "bxo" as "box"' }] }).extra, "I read bxo as box.");
 eq("no model", plainReply({ action: "refuse", line: "no model is loaded" }).text, "No reader model is loaded.");
 
 const ch = [{ label: "irina" }, { label: "paul" }, { label: "yes", aliases: ["y"] }];

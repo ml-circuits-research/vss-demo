@@ -171,6 +171,9 @@ function readVariants(alternatives, source) {
   return readRoutes({ routes: activeRoutes(), pipes: S.pipes, alternatives, mode: source === "speech" ? "speech" : "typed", corrector: S.settings.corrector, labels: labelsInScene() });
 }
 
+// the variants the reader read for one input (spelling corrections, homophones), for the History detail only; nothing of this is shown in the chat (D30)
+const variantsRead = (choice) => { const seen = new Set(); return (choice.ranked || []).filter((r) => !seen.has(r.input) && seen.add(r.input)).map((r) => ({ input: r.input, status: r.result.status, chosen: r === choice.best, corrections: (r.corrections || []).map((c) => ({ from: c.from, to: c.to })) })); };
+
 function handle(alternatives, source = "typed", { quiet = false } = {}) {
   const text = alternatives[0]?.text?.trim(); if (!text) return;
   if (!quiet) {
@@ -201,7 +204,8 @@ function handle(alternatives, source = "typed", { quiet = false } = {}) {
   let ex = null;
   if (d.action === "execute") { ex = execute(S.scene, p); }
   S.last = { kind: "diagram", input: text, best, choice, plan: p, decision: d, execution: ex };
-  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, last: S.last, routeLabel: best.route ? routeTag(best.route) : "", ...historyExtras(best.result, W.name) });
+  pushHistory({ input: text, source, used: best.input, status: best.result.status, line: d.line, action: d.action, sop: best.result.sop, last: S.last, routeLabel: best.route ? routeTag(best.route) : "",
+    variants: variantsRead(choice), ...historyExtras(best.result, W.name) });
   recordGap({ result: best.result, route: best.route, tokens: best.tokens, info: best.info, decision: d, world: W.name });
   refresh(); showAnswer(d, { decided: true });
   if (S.settings.speakback && d.action === "execute" && globalThis.speechSynthesis) speechSynthesis.speak(new SpeechSynthesisUtterance(d.line));
@@ -617,7 +621,6 @@ function showAnswer(d, { decided = false } = {}) {
   if (entry) entry.reply = id;
   S.pq = choices.length ? { id, choices } : null;
   const host = answerHost();
-  for (const n of d.notes || []) if (n.kind === "correction") host.append(chip("use what I typed", () => runRaw(S.last.input, { corrector: "off" })));
   if (S.lastGapId && d.action === "refuse" && S.settings.gaps_collect) host.append(chip("this should have worked", () => markGap(S.lastGapId)));
 }
 const answerHost = () => S.chat.actions();
@@ -638,7 +641,6 @@ function rerunLast() { if (S.last) handle([{ text: S.last.input }], "typed", { q
 function rerunWith(role, value) { if (!S.last) return; runText(`${S.last.input} ${String(value).replace(/_/g, " ")}`); }
 function rerunWithout(word) { if (!S.last) return; runText(dropWord(S.last.input, word)); }      // an undecided pair: the word not chosen filled no role
 function runText(t) { $("input").value = ""; handle([{ text: t }], "typed", { quiet: true }); }
-function runRaw(t, over) { const keep = S.settings.corrector; S.settings.corrector = over.corrector; handle([{ text: t }], "typed", { quiet: true }); S.settings.corrector = keep; }
 
 function updateMode() {
   const chipEl = $("mode-chip"); chipEl.className = "mode-chip"; const inp = $("input");

@@ -21,7 +21,7 @@ export function readRoutes({ routes, pipes, alternatives, mode = "typed", correc
         const c = corr ? corr.correct(n.tokens, { mode }) : { tokens: n.tokens, corrections: [], alternatives: [n.tokens] };
         c.alternatives.forEach((v, i) => {
           const input = v.join(" "), key = `${route.world}|${input}`; if (seen.has(key)) return; seen.add(key);
-          readings.push({ input, tokens: v, info: n.info, corrections: i === 0 ? c.corrections : [], heard: alt.text, route,
+          readings.push({ input, tokens: v, info: n.info, corrections: c.alternativeCorrections ? c.alternativeCorrections[i] : i === 0 ? c.corrections : [], heard: alt.text, route,
             translated: route.kind === "dictionary" ? t : null, result: P.world.vss.read(input) });
         });
       }

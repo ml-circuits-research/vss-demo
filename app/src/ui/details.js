@@ -26,7 +26,12 @@ export function renderDetail(body, kind, h, ctx = {}) {
     if (!rows.length) m.append(el("p", "muted", "No margin was reported."));
     for (const [k, v] of rows) { const r = el("div", "mrow"); r.append(el("span", null, k.replace(/_/g, " ")), el("span", v < (ctx.tauOf?.(world) ?? 0.05) ? "low" : null, v.toFixed(3))); m.append(r); }
     const note = el("p", "muted small", `status ${res.status}; residual ${(res.residual ?? 0).toFixed(3)}; ${(best.corrections || []).length ? `corrected: ${best.corrections.map((c) => `${c.from} to ${c.to}`).join(", ")}` : "no word was corrected"}; tau ${ctx.tauOf?.(world) ?? 0.05}.`);
-    body.append(sec("The words", words), sec("The frame", frame), sec("Margins", m, note));
+    const vs = h.variants || []; const read = el("div");
+    if (vs.length > 1 || (vs[0]?.corrections || []).length) {
+      read.append(el("p", "muted small", "The editor read these variants of what was typed and kept the clearest."));
+      for (const v of vs) read.append(el("div", v.chosen ? "variant chosen" : "variant", `${v.chosen ? "kept: " : ""}${v.input} (${v.status})${v.corrections.length ? `; ${v.corrections.map((c) => `${c.from} read as ${c.to}`).join(", ")}` : ""}`));
+    }
+    body.append(sec("The words", words), sec("The frame", frame), sec("Margins", m, note), ...(read.childNodes.length ? [sec("Variants read", read)] : []));
   } else if (kind === "call") {
     const lines = h.rec ? assistantLines(h.rec) : [];
     const list = el("div");

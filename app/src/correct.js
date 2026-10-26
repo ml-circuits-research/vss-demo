@@ -9,7 +9,9 @@
 // the labels of the diagram by the optimal string alignment (OSA) variant of Damerau-Levenshtein, with substitutions between neighbouring
 // QWERTY keys costing NEIGHBOUR_COST; tokens of up to 4 letters are corrected at cost <= 1, longer ones at cost <= 2; ties by frequency.
 // A token that splits into two lexicon words is split; two tokens that join into a lexicon word are joined. A token that is a valid
-// English word but not in the world is NOT corrected (it is reported as unknown by the reader, which is the honest answer); the English
+// English word but not in the world is not replaced, but a lexicon word within cost 1 of it is ALSO offered as a variant (D29.1: "crate"
+// beside "create"); the reader reads both and keeps the clearest. A variant carries its own corrections (alternativeCorrections[i]) so that
+// whichever wins is recorded. The correction is automatic and silent (D30): no choice is shown. The English
 // check is an injected function (isEnglish), served by Typo.js with the en_US Hunspell dictionary in the browser (app/vendor/typo/).
 //
 // speech mode (spec 13.2): the same, but candidates are matched by phonetic key (Double Metaphone, app/vendor/double-metaphone.js) and
@@ -92,16 +94,16 @@ export function createCorrector({ lexicon, labels = [], isEnglish = () => false,
     return null;
   }
 
-  function correct(tokens, { mode = "typed", maxVariants = 4 } = {}) {
+  function correct(tokens, { mode = "typed", maxVariants = 6 } = {}) {
     const out = []; const corrections = []; const options = [];          // options: {pos, span, alt: [tokens]} applied to `out` for the variants
     const cand = candFn ? (t) => candFn(t, mode) : (t) => (mode === "speech" ? phoneticCandidates(t) : []).concat(mode === "speech" && phoneticCandidates(t).length ? [] : typedCandidates(t)).sort((a, b) => a.cost - b.cost);
     for (let i = 0; i < tokens.length; i++) {
       const t = tokens[i], prev = tokens[i - 1];
       if (known(t) || isNumber(t) || /^[.,;:!?]$/.test(t) || (prev && intro.has(prev))) {
-        if (mode === "speech" && HOMOPHONES[t]) for (const h of HOMOPHONES[t].filter((h) => known(h) || isNumber(h))) options.push({ pos: out.length, span: 1, alt: [h] });
+        if (mode === "speech" && HOMOPHONES[t]) for (const h of HOMOPHONES[t].filter((h) => known(h) || isNumber(h))) options.push({ pos: out.length, span: 1, alt: [h], from: t, op: "homophone", cost: 0.5 });
         if (mode === "speech" && known(t) && i + 1 < tokens.length && known(tokens[i + 1])) {   // a wrong boundary between two known words ("a row")
           const cat = t + tokens[i + 1]; const pc = phoneticCandidates(cat).filter((c) => c.word.length >= cat.length - 1 && c.word !== t && c.word !== tokens[i + 1] && !c.word.startsWith(tokens[i + 1]) && !c.word.endsWith(tokens[i + 1]));
-          if (pc.length && pc[0].cost <= 0.6) options.push({ pos: out.length, span: 2, alt: [pc[0].word] });
+          if (pc.length && pc[0].cost <= 0.6) options.push({ pos: out.length, span: 2, alt: [pc[0].word], from: t + " " + tokens[i + 1], op: "boundary", cost: pc[0].cost });
         }
         out.push(t); continue;
       }
@@ -116,26 +118,33 @@ export function createCorrector({ lexicon, labels = [], isEnglish = () => false,
       if (joined) { corrections.push({ pos: out.length, from: tokens.slice(i, i + joined.span).join(" "), to: joined.word, op: "join", cost: joined.cost, candidates: [] }); out.push(joined.word); i += joined.span - 1; continue; }
       const cands = cand(t);
       if (isEnglish(t)) {                                            // a real word outside the world: not corrected (spec 12.1) ...
-        for (const c of cands.filter((c) => c.cost <= 1).slice(0, 2)) options.push({ pos: out.length, span: 1, alt: [c.word] });   // ... a close lexicon word is offered: the reader decides (12.3)
+        for (const c of cands.filter((c) => c.cost <= 1).slice(0, 4)) options.push({ pos: out.length, span: 1, alt: [c.word], from: t, op: "variant", cost: c.cost });   // ... a close lexicon word is offered: the reader decides (12.3)
         out.push(t); continue;
       }
       const sp = split(t);
       if (sp) { corrections.push({ pos: out.length, from: t, to: sp.join(" "), op: "split", cost: 0.25, candidates: [] }); out.push(...sp); continue; }
       if (cands.length) {
-        const best = cands[0]; const tie = cands.filter((c) => c.cost === best.cost).map((c) => c.word);
+        const best = cands[0]; const tie = cands.filter((c) => c.cost === best.cost || c.cost <= 1).map((c) => c.word);   // ties, and every other word within cost 1: the reader decides (D29)
         corrections.push({ pos: out.length, from: t, to: best.word, op: "substitute", cost: best.cost, candidates: cands });
-        for (const w of tie.slice(1, 3)) options.push({ pos: out.length, span: 1, alt: [w] });
+        for (const w of tie.slice(1, 4)) options.push({ pos: out.length, span: 1, alt: [w], from: t, op: "variant", cost: cands.find((c) => c.word === w).cost });
         out.push(best.word);
       } else out.push(t);                                          // left as it is: the reader reports it as unknown
     }
-    // variants: the corrected sequence, then each option alone, then pairs, up to maxVariants (the reader decides, spec 12.3)
+    // variants: the corrected sequence, then each option alone (cheapest first, so a cost-1 typo variant is never crowded out by a homophone),
+    // then pairs, up to maxVariants (the reader decides, spec 12.3). Each variant carries its own corrections: the ones applied to `out`
+    // plus the options it took (D29 / D30: whatever variant wins, its corrections are recorded in History).
     const apply = (opts) => { const v = out.slice(); for (const o of [...opts].sort((a, b) => b.pos - a.pos)) v.splice(o.pos, o.span, ...o.alt); return v; };
-    const variants = [out];
-    for (const o of options) { if (variants.length >= maxVariants) break; variants.push(apply([o])); }
-    for (let x = 0; x < options.length && variants.length < maxVariants; x++)
-      for (let y = x + 1; y < options.length && variants.length < maxVariants; y++)
-        if (options[x].pos + options[x].span <= options[y].pos) variants.push(apply([options[x], options[y]]));
-    return { tokens: out, corrections, alternatives: variants };
+    const recorded = (opts) => [...corrections.filter((c) => !opts.some((o) => o.pos === c.pos)), ...opts.map((o) => ({ pos: o.pos, from: o.from, to: o.alt.join(" "), op: o.op, cost: o.cost, candidates: [] }))].sort((a, b) => a.pos - b.pos);
+    const byCost = options.map((o, i) => [o, i]).sort((a, b) => a[0].cost - b[0].cost || a[1] - b[1]).map((x) => x[0]);
+    const variants = [out], variantCorrections = [corrections];
+    const add = (opts) => { variants.push(apply(opts)); variantCorrections.push(recorded(opts)); };
+    for (const o of byCost) { if (variants.length >= maxVariants) break; add([o]); }
+    for (let x = 0; x < byCost.length && variants.length < maxVariants; x++)
+      for (let y = x + 1; y < byCost.length && variants.length < maxVariants; y++) {
+        const [a, b] = byCost[x].pos <= byCost[y].pos ? [byCost[x], byCost[y]] : [byCost[y], byCost[x]];
+        if (a.pos + a.span <= b.pos) add([a, b]);
+      }
+    return { tokens: out, corrections, alternatives: variants, alternativeCorrections: variantCorrections };
   }
   return { correct, setLabels(ls) { labelSet = new Set(ls); for (const l of labelSet) indexWord(l); }, typedCandidates, phoneticCandidates };
 }

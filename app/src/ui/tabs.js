@@ -32,6 +32,8 @@ export function renderHistory(host, history, { onPick, onDetail, onRequests, has
     if (r.status) top.append(el("span", `chip st-${r.status.replace(/\s.*/, "")}`, r.status));
     li.append(top);
     if (r.read) li.append(el("div", "hist-line muted", `read as: ${r.read}`));
+    const fixes = (h.variants || []).find((v) => v.chosen)?.corrections || [];
+    if (fixes.length) { const d = el("div", "hist-line"); d.append(el("span", "hist-label", "Corrected")); fixes.forEach((c, i) => { if (i) d.append(", "); d.append(el("span", "hist-corr", c.to), ` (typed ${c.from})`); }); li.append(d); }
     if (m.meant) { const d = el("div", "hist-line"); d.append(el("span", "hist-label", "Meant"), el("code", "hist-meant", m.meant)); li.append(d); }
     if (m.did) {
       const d = el("div", "hist-line"); d.append(el("span", "hist-label", m.kind === "sketch" ? "Drew" : "Did"));
