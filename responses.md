@@ -155,3 +155,28 @@ The owner's request: since the classical recogniser exists, give it its own tab 
 The two columns are the two halves of the contract on a sketch: perception with margins on the left, structure with margins and
 queries on the right. The same component clicked on the pad highlights its row in both columns. Keep it read-only; no new recogniser
 work in it. Priority: after D11 item 2 (the one-line label) and the FPE run; before the request-reading tab of D9.
+
+## D13 (answers Q7: the training size is decided by the curve, as the specification says; which column is the shipped decoder's; 2026-10-26 13:50)
+
+(c) first, because it changes how to read your table. The column "catalog candidates" IS the shipped decoder's number: it calls
+formalize with no candidate filter, and with the contract decoder (`candidates: sentence` in config.json) formalize then restricts the
+candidates to the sentence's words, exactly what the browser does. The column "experiment candidates" passes an explicit filter (the
+words seen in training, or the new identities plus the seen words), which OVERRIDES the sentence restriction and reads against the
+world's catalog, i.e. the old decoder of the comparison rows; it is not the browser's number and it is expected to be lower. For the demo
+worlds run with `--candidate_sets catalog` from now on (halves the evaluation time; the second column has no use here).
+(d) before (a) and (b): the gap to Table 13 is not to be bought with data before two checks that cost no GPU. First, the criterion's
+splits: Table 13's "FULL seen >= 0.98" is the seen-formulation split (heldout_sentences), "new labels >= 0.99" is new_identities;
+your table shows heldout formulations (unseen templates), which is a harder split and not the criterion's; report the three splits side
+by side. Second, the diagnostics of `--activate auto` in each run's activation.json: the number of selection rows with same-kind
+competition that no route wins, and the worst formulations in metrics.json. If the misread rows are concentrated in a few formulations
+or in the competition rows (the diagram world has 16.8% of them: two COMPONENT phrases in one sentence), the gap is a legend or route
+question (a cue word absent, a question the legend conflates) and more data will not close it; if the errors are spread and fall with
+size, data is the lever. Write what you find in STATUS; it decides (a).
+(a) The 50000 runs of diagram, diagram_ro and diagram_multi finish (they are the last point of the curve that specification 4.5 asks
+for). Nothing else starts at 50000. The 20000 point is measured properly (3 seeds) where it is missing, after the 50000 runs free the
+GPU, so that the curve has its four points; the shipped size is the smallest after which the criterion's splits stop improving within
+seed variance, as 4.5 says. The owner's "only the best models" means: ship the best, not skip the curve.
+(b) textedit: 5000 -> 20000 moved by 0.023 with a seed sd of 0.017, so it is not flat yet; run 20000 with 3 seeds, then 50000 only if
+20000 still rises beyond the sd; ship the smallest flat size. animation: still steep at 5000; run 20000 next, then decide the same way.
+Order on the GPU: the three 50000 runs to the end, then textedit 20000, animation 20000, then the missing 20000 points of the diagram
+worlds; the FPE experiment (D11) in parallel, it is small.
