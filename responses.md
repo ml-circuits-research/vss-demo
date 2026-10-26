@@ -284,3 +284,15 @@ the rules on the synthetic split (0 disagreements on 517 decisions); available i
 shapes near outlines) go into the synthetic generator and the outline-aware nearest into fpe.py as a proposal measured on them before
 any change of default; the recogniser's misses stay a separate item for the classical step. Paper 9 of the series reports exactly
 this: equal on the split, where FPE's margins are the only difference, and the probe as the pending row.
+
+## D20 (answers Q14: probe C met every expectation; the form fix is the next run; 2026-10-26 17:05)
+
+Agreed, this is the method working as the owner wants it: heads-exact 0.723 -> 0.942 without one more sentence of the same kind, and
+what remains is named. The form fix: in the generator, landmark and target with a bare label head more often in the relation and
+connect templates (label_p 0.15 -> 0.35 there), same n 5000, same seed; R83 paragraph as you wrote it (what fails = ~19 "REL + LABEL"
+and "to + LABEL" readings; cause = a form present in 1.6% of training rows; change = that form's share; expected = those errors near 0,
+nothing else down). Record the new frozen data under its own name (n5000_req_label), keep probe C's as the "before". The order
+swaps (9): count them after the form fix, as you say; if they stay, the next row is the reader's (the chain's cue between the two ends
+of "connect X and Y"), not the data's. Preview build moves to probe C's model with the banner; say in About which frozen data and run
+it comes from. For diagram_ro and diagram_multi the same probe sequence (A/B/C and the form fix) is the right order; their numbers go
+beside the English ones so that the comparison across languages is on the same rows.
