@@ -1,0 +1,45 @@
+[splits] written to /tmp/claude-0/-home-claude/b829d1cc-3db1-519f-a5a5-7dc6f2233a0c/scratchpad/act/ref_run/splits.json before training: calibration_heldout_formulations_role_cues_seen 16, calibration_heldout_formulations_seen_transitions 19, calibration_heldout_formulations_unseen_transitions 60, heldout_depth3 80, heldout_formulations_role_cues_seen 24, heldout_formulations_seen_transitions 21, heldout_formulations_unseen_transitions 60, heldout_sentences 195, new_identities 160, train 1805
+[schema] roles ['agent', 'object', 'recipient'] (core ['agent', 'object']), max depth 2, event negation False
+[activate] candidates ['vorder'] (1414 training rows (78.3%) fill two roles with the same kind; in 0 of them neither word is cued, so only the order relative to the verb separates them); selection rows 268 (of which with same-kind competition 138); trials trained on 1632 rows
+[train] seed 0: 1632 training rows x 1 epoch(s) -> 1632 steps' sentences; D=1024; kinds 33; vocab 67; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'by', 'from']
+[trace] text: to p7 , p9 sells o3 .
+[trace] tokens/kinds: to/to p7/P ,/, p9/P sells/sells o3/O ./.
+[trace] gold frame: {"event": "sale", "lemma": "sell", "neg": false, "roles": {"agent": ["word", "p9"], "object": ["word", "o3"], "recipient": ["word", "p7"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 85.43 (sqrt(D) per unit term = 32.0); initial gates all 0.12 (closed start)
+[train seed 0] start: RSS 0.77 GB | cpu | MemAvailable 6.7 GB
+[train seed 0] end: RSS 1.01 GB | cpu | MemAvailable 6.4 GB (110s)
+[export] numpy reader vs torch states: max relative difference 7.77e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.869 on 268 selection rows, 0.913 on the 138 with same-kind competition | calibration_heldout_formulations_role_cues_seen 1.000 calibration_heldout_formulations_seen_transitions 0.526 calibration_heldout_formulations_unseen_transitions 0.783 train 0.925
+[train] seed 0: 1632 training rows x 1 epoch(s) -> 1632 steps' sentences; D=1024; kinds 33; vocab 67; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'by', 'from']
+[train] verb-order route (reader.codes / --codes): verb kinds ['accepts', 'borrows', 'buys', 'claims', 'gets', 'given', 'gives', 'lends', 'lent', 'offered', 'offers', 'receives', 'says', 'sees', 'sells', 'sends', 'sent', 'shown', 'shows', 'sold']; cue kinds ['to', 'by', 'from']
+[trace] text: to p7 , p9 sells o3 .
+[trace] tokens/kinds: to/to p7/P ,/, p9/P sells/sells o3/O ./.
+[trace] gold frame: {"event": "sale", "lemma": "sell", "neg": false, "roles": {"agent": ["word", "p9"], "object": ["word", "o3"], "recipient": ["word", "p7"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 85.43 (sqrt(D) per unit term = 32.0); initial gates all 0.12 (closed start)
+[train seed 0] start: RSS 1.02 GB | cpu | MemAvailable 6.5 GB
+[train seed 0] end: RSS 1.36 GB | cpu | MemAvailable 6.1 GB (136s)
+[export] numpy reader vs torch states: max relative difference 6.68e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.892 on 268 selection rows, 0.928 on the 138 with same-kind competition | calibration_heldout_formulations_role_cues_seen 1.000 calibration_heldout_formulations_seen_transitions 0.789 calibration_heldout_formulations_unseen_transitions 0.767 train 0.936
+[activate] accepted ['vorder']: codes ['path', 'chainL', 'bigram', 'vorder']; diagnostics: 10 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train] seed 0: 1805 training rows x 1 epoch(s) -> 1805 steps' sentences; D=1024; kinds 33; vocab 67; predicate lemma not found in 0 targets
+[train] gates GIVEN open (legend reader.gates_given, rule 20, not learned): ['to', 'by', 'from']
+[train] verb-order route (reader.codes / --codes): verb kinds ['accepts', 'borrows', 'buys', 'claims', 'gets', 'given', 'gives', 'lends', 'lent', 'offered', 'offers', 'receives', 'says', 'sees', 'sells', 'sends', 'sent', 'shown', 'shows', 'sold']; cue kinds ['to', 'by', 'from']
+[trace] text: to p7 , p9 sells o3 .
+[trace] tokens/kinds: to/to p7/P ,/, p9/P sells/sells o3/O ./.
+[trace] gold frame: {"event": "sale", "lemma": "sell", "neg": false, "roles": {"agent": ["word", "p9"], "object": ["word", "o3"], "recipient": ["word", "p7"]}, "scope": null, "shape": "ok", "speakers": []}
+[trace] target |S_world| = 85.43 (sqrt(D) per unit term = 32.0); initial gates all 0.12 (closed start)
+[train seed 0] start: RSS 1.01 GB | cpu | MemAvailable 6.5 GB
+[train seed 0] end: RSS 1.34 GB | cpu | MemAvailable 6.1 GB (150s)
+[export] numpy reader vs torch states: max relative difference 7.06e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_depth3: FULL catalog candidates 0.188 | residual 0.044
+[eval] seed 0 heldout_formulations_role_cues_seen: FULL catalog candidates 1.000 | residual 0.000
+[eval] seed 0 heldout_formulations_seen_transitions: FULL catalog candidates 0.857 | residual 0.000
+[eval] seed 0 heldout_formulations_unseen_transitions: FULL catalog candidates 0.683 | residual 0.123
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.933 | residual 0.013
+[eval] seed 0 new_identities: FULL catalog candidates 0.925 | residual 0.022
+[eval] seed 0 train (sample): FULL catalog candidates 0.920 | residual 0.017
+[mem] after seed 0: RSS 1.01 GB | cpu | MemAvailable 6.6 GB
+[done] model written to /tmp/claude-0/-home-claude/b829d1cc-3db1-519f-a5a5-7dc6f2233a0c/scratchpad/act/ref_model; REPORT.md and metrics.json there; run log /tmp/claude-0/-home-claude/b829d1cc-3db1-519f-a5a5-7dc6f2233a0c/scratchpad/act/ref_run/train.log
+checklist: [x] addresses from the world [x] shared identities [x] chance printed [x] seen/unseen axes separated [x] margin [ ] >=3 seeds [x] trivial control (lexical order baseline) [x] calibration (18) [x] memory logged (21) [x] thresholds on calibration rows (25) [x] given vs learned stated (20)

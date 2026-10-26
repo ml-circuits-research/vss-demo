@@ -1,0 +1,2 @@
+sop train worlds/reference --activate auto --no_ckpt --eval_modes primary --candidate_sets catalog --out /tmp/claude-0/-home-claude/b829d1cc-3db1-519f-a5a5-7dc6f2233a0c/scratchpad/act/ref_model --run_dir /tmp/claude-0/-home-claude/b829d1cc-3db1-519f-a5a5-7dc6f2233a0c/scratchpad/act/ref_run
+commit bb6db1b-dirty

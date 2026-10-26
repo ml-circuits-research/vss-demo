@@ -101,4 +101,4 @@ reported as the exploratory set they are.
 - `tool/sop/train.py`: `--decoder {contract,paper}` (default contract; the keys go into `config.json`), `--activate {off,auto}`,
   `--activate_eps`; `config.json` carries `decoder` and `activation`.
 - `tool/sop/cli.py`: `sop profile <world> [--json]`.
-- First run (reference world, CPU, seed 0): see the run folder cited in the commit that follows this note.
+- First run (reference world, CPU, seed 0, decoder contract): `tool/runs/activation_reference_28db081/`. Need signal 78.3%; base FULL 0.869 on 268 selection rows, with `vorder` 0.892 (seen transitions 0.526 -> 0.789 on 19 rows; unseen transitions one row of 60 lost, within tolerance): `vorder` accepted; 10 of 138 competing rows still misread with the accepted bundle (diagnostic). `activation_first_run_flat_eps.json` is the same trial under the flat eps = 0.01, which rejected the route on that one row; the tolerance was set to at least one row per split before the vorder trial was seen.
