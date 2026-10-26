@@ -222,3 +222,9 @@ identities; order swaps of two same-kind fillers ("connect X and Y" 5, object / 
 
 What fails / cause / change: as probe C above (per-event role sets; the two worlds share the legend). Expected: the same direction as
 the English world (heads-exact up, create and connect up, no 'ok' frame without its required role), read on their trainer splits.
+
+RESULT of diagram_ro / diagram_multi probe C (runs/{diagram_ro,diagram_multi}_step3_C_2bae649; trainer FULL, catalog, mean of 3 seeds,
+before = runs/*_eccbf84/5000): diagram_ro heldout formulations 0.524 -> 0.822, heldout sentences 0.586 -> 0.833, mixed 0.571 -> 0.829, new
+identities 0.639 -> 0.868; diagram_multi heldout formulations 0.510 -> 0.810 (English 0.592 -> 0.863), heldout sentences 0.583 -> 0.815,
+mixed 0.574 -> 0.810, new identities 0.628 -> 0.853 (English 0.548 -> 0.832). Same direction as the English world, as expected; `vorder`
+not accepted in either. Table 13 not met. The Romanian preview model is not swapped into the build (the build would pass 50 MB).

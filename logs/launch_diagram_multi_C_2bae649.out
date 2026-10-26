@@ -1,0 +1,3 @@
+# diagram_multi step 3, commit 2bae649, 2026-10-26T16:48:49+01:00; worlds in /tmp/diagram_multi_step3_Ck7K; runs in /home/salboaie/vss-demo/runs/diagram_multi_step3_C_2bae649; sizes 5000; jobs 1
+[size 5000 done 2026-10-26T16:56:56+01:00]
+done: commit /home/salboaie/vss-demo/runs/diagram_multi_step3_C_2bae649 (git add runs/diagram_multi_step3_2bae649); then step 5 (export and parity) on runs/diagram_multi_step3_2bae649/model_<shipped size>

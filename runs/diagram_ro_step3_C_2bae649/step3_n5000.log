@@ -1,0 +1,35 @@
+unpacked diagram_ro/n5000_req -> /tmp/diagram_ro_step3_j72A/5000: 10 files, sha256 verified
+4/4 files OK against legend(s) diagram_ro sha256:d361fbea318b…
+## size 5000: sop train /tmp/diagram_ro_step3_j72A/5000/diagram_ro --D 1024 --seeds 3 --device cuda --candidate_sets catalog --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto
+[splits] written to /home/salboaie/vss-demo/runs/diagram_ro_step3_C_2bae649/5000/splits.json before training: calibration_heldout_formulations 200, heldout_formulations 200, heldout_sentences 512, mixed 400, new_identities 400, train 4488
+[schema] roles ['object', 'color', 'size', 'style', 'text', 'relation', 'landmark', 'region', 'anchor', 'fraction', 'amount', 'unit', 'direction', 'axis', 'layout', 'pairing', 'source', 'target', 'edge', 'quantity'] (core []), max depth 0, event negation True
+[activate] candidates ['vorder'] (713 training rows (15.9%) fill two roles with the same kind; in 596 of them neither word is cued, so only the order relative to the verb separates them); selection rows 609 (of which with same-kind competition 61); trials trained on 4079 rows
+[train seed 0] end: RSS 2.29 GB | torch alloc 0.48 GB reserved 0.61 GB | MemAvailable 109.3 GB (65s)
+[export] numpy reader vs torch states: max relative difference 7.52e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram: FULL 0.829 on 609 selection rows, 0.557 on the 61 with same-kind competition | calibration_heldout_formulations 0.845 train 0.822
+[train seed 0] end: RSS 2.59 GB | torch alloc 1.36 GB reserved 1.45 GB | MemAvailable 107.1 GB (88s)
+[export] numpy reader vs torch states: max relative difference 6.28e-08 (float32 phases in the route book)
+[activate] trial path+chainL+bigram+vorder: FULL 0.803 on 609 selection rows, 0.574 on the 61 with same-kind competition | calibration_heldout_formulations 0.780 train 0.814
+[activate] accepted none: codes ['path', 'chainL', 'bigram']; diagnostics: 27 selection rows with same-kind competition are still misread with the accepted bundle: no route separates them; a question is missing from the legend or this world should be split
+[train seed 0] end: RSS 2.53 GB | torch alloc 0.49 GB reserved 0.55 GB | MemAvailable 108.2 GB (68s)
+[export] numpy reader vs torch states: max relative difference 7.02e-08 (float32 phases in the route book)
+[eval] seed 0 heldout_formulations: FULL catalog candidates 0.825 | residual 0.078
+[eval] seed 0 heldout_sentences: FULL catalog candidates 0.822 | residual 0.098
+[eval] seed 0 mixed: FULL catalog candidates 0.823 | residual 0.092
+[eval] seed 0 new_identities: FULL catalog candidates 0.865 | residual 0.076
+[eval] seed 0 train (sample): FULL catalog candidates 0.860 | residual 0.055
+[train seed 1] end: RSS 2.74 GB | torch alloc 0.49 GB reserved 0.57 GB | MemAvailable 108.5 GB (57s)
+[export] numpy reader vs torch states: max relative difference 6.76e-08 (float32 phases in the route book)
+[eval] seed 1 heldout_formulations: FULL catalog candidates 0.825 | residual 0.067
+[eval] seed 1 heldout_sentences: FULL catalog candidates 0.854 | residual 0.064
+[eval] seed 1 mixed: FULL catalog candidates 0.853 | residual 0.073
+[eval] seed 1 new_identities: FULL catalog candidates 0.870 | residual 0.071
+[eval] seed 1 train (sample): FULL catalog candidates 0.887 | residual 0.040
+[train seed 2] end: RSS 2.81 GB | torch alloc 0.49 GB reserved 0.57 GB | MemAvailable 108.4 GB (46s)
+[export] numpy reader vs torch states: max relative difference 6.90e-08 (float32 phases in the route book)
+[eval] seed 2 heldout_formulations: FULL catalog candidates 0.815 | residual 0.077
+[eval] seed 2 heldout_sentences: FULL catalog candidates 0.824 | residual 0.089
+[eval] seed 2 mixed: FULL catalog candidates 0.810 | residual 0.093
+[eval] seed 2 new_identities: FULL catalog candidates 0.868 | residual 0.074
+[eval] seed 2 train (sample): FULL catalog candidates 0.860 | residual 0.061
+[done] model written to /tmp/diagram_ro_step3_j72A/5000/diagram_ro/model; REPORT.md and metrics.json there; run log /home/salboaie/vss-demo/runs/diagram_ro_step3_C_2bae649/5000/train.log
