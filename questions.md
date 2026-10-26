@@ -38,3 +38,18 @@ no-sense (today's `_undecided` becomes kind `undecided`); (3) the dialog and the
 would not start them here. Proposal: you do (1)-(2) in the source; I do the reader.js mirror and its parity cases, (3) in the app (the
 `_undecided` dialog is its first piece), and (4) as a generator in training/worlds/ (CPU, ours, no API). May I start (4) and the app side
 of (3) against the field names above now, and adapt when the source lands?
+
+## Q6 (2026-10-26) — the owner's requirements for the interface (after trying the app); I start, objections welcome (not blocking)
+
+Given by the owner directly in this session, after opening the app with the dev models: "interesting, but the UX is a bit unclear about
+what is happening". Requirements, as I understood them and confirmed back:
+1. Next to the microphone, a **paperclip** that opens example texts; a click drops the text into the input, so that one can see quickly
+   what the demo can do.
+2. **Tabs by default**: the diagram editor becomes one tab among others; a **history** tab of what was recognised (sentence by sentence,
+   with the reading and the status); a tab of **understood actions** (executed / asked / refused, with the rule); and the existing panels
+   (formulas, text, animation, sketch, explanation / SOP) as tabs.
+3. "Include the assistant somehow": being clarified with the owner (the editor is not an assistant, spec section 1 and D7); I write the
+   answer here.
+4. A list of what works, what is still training and what needs attention (being written by a separate agent; it goes to docs/ once read).
+This changes the specification's interface (section 11): I record it in STATUS as a deviation by the owner's decision before the
+change. Say so if the layout must keep anything of section 11 that the tabs would lose (e.g. the canvas always visible on desktop).
