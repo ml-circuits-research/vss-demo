@@ -124,6 +124,10 @@
       <label><input type="radio" name="corrector" value="form"> VSS form level: letter patterns, the same algebra as the reader</label>
       <label><input type="radio" name="corrector" value="off"> Off</label>
     </fieldset>
+    <fieldset><legend>Sketch: how the scene is read</legend>
+      <label><input type="radio" name="sketch_reader" value="rules" checked> Rules on boxes and outlines (the shapes are always read by the classical recogniser)</label>
+      <label><input type="radio" name="sketch_reader" value="fpe"> VSS scene reader (experimental): containment and connector ends read from positions as addresses; above 16 components the rules read</label>
+    </fieldset>
     <fieldset><legend>Voice</legend>
       <p class="muted" id="voice-info"></p>
       <label class="select-row">Speech language

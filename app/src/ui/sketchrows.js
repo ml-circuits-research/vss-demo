@@ -73,10 +73,10 @@ export function buildSketchRows({ rec, res, map = new Map(), low = 0.2, circuit 
   }
   for (const k of res.connectors) {
     const side = (which) => (k.candidates?.[which] || []).slice(0, 2).map((x) => ({ name: nm(x.ref), d: x.d }));
-    const mg = k.margin || {};
+    const mg = k.margin || {}; const fp = k.fpe || null;
     right.push({ side: "right", type: "connector", id: k.tmp, keys: keysOf(k.tmp), title: `${k.kind} ${k.tmp}`,
       decision: `${k.kind} from ${nm(k.source)} to ${nm(k.target)}${k.heads === 2 ? " (heads at both ends)" : ""}`,
-      ends: [{ end: "start", chosen: nm(k.source), candidates: side("source"), margin: mg.source }, { end: "end", chosen: nm(k.target), candidates: side("target"), margin: mg.target }],
+      ends: [{ end: "start", chosen: nm(k.source), candidates: side("source"), margin: mg.source, fpe: fp ? fp.source : null }, { end: "end", chosen: nm(k.target), candidates: side("target"), margin: mg.target, fpe: fp ? fp.target : null }],
       kindMargin: mg.kind ?? null, attachTol: k.attachTol ?? null, questions: qOf(k.tmp) });
   }
   for (const d of res.deletions?.components || []) {
@@ -93,7 +93,7 @@ export function buildSketchRows({ rec, res, map = new Map(), low = 0.2, circuit 
       decision: g && qs.some((q) => q.kind === "dangling") ? "no connector made: asked instead of guessed" : "asked",
       questions: qs.map((q) => ({ kind: q.kind, text: q.text })) });
   }
-  return { pass: passName(res), active: res.active, notVss: NOT_VSS, header: `Active scene pass: ${passName(res)}. ${NOT_VSS}`,
+  return { pass: passName(res), active: res.active, notVss: NOT_VSS, header: `Active scene pass: ${passName(res)}${/\(FPE declined[^)]*\)/.test(res.active || "") ? " " + res.active.match(/\(FPE declined[^)]*\)/)[0] : /^VSS/.test(res.active || "") ? " (containment and connector ends are read from positions as addresses; the shapes are not)" : ""}. ${NOT_VSS}`,
     left, right, circuit: circuit ?? toCircuit(res), layoutHint: res.layoutHint || null, explain: res.explain || [] };
 }
 

@@ -1,5 +1,5 @@
 {
- "id": "89f24898f34d",
+ "id": "f4af03a7ddbd",
  "files": [
   "./",
   "index.html",
@@ -47,8 +47,10 @@
   "src/segment/circuit.js",
   "src/segment/segment.js",
   "src/segment/view.js",
+  "src/sketch/fpe.js",
   "src/sketch/pad.js",
   "src/sketch/recognise.js",
+  "src/sketch/scene_fpe.js",
   "src/sketch/scene_pass.js",
   "src/sketch/strokes.js",
   "src/sketch/templates.js",

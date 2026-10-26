@@ -13,6 +13,8 @@ classical and deterministic; reading the scene is the rule-based geometry pass u
 | `strokes.js` | resampling ($1 style), smoothing, ShortStraw corners, turning and reversals, convex hull, distances | no |
 | `templates.js` | the point-cloud templates of the closed kinds, generated here from ideal geometry | no |
 | `recognise.js` | grouping of strokes into symbols, features, the $P matcher, ranked candidates with scores and margins | no |
+| `fpe.js` | positions as addresses (spec 17.3): the JS port of the scene readout of `training/worlds/scene/fpe.py` and `experiment_fpe.py` (kernel, L, identities, the scene as one superposition, decode, left_of, above, inside, nearest, margins); parity-tested by `app/tests/fpe_parity.mjs` against `training/parity/make_fpe_golden.py` | no |
+| `scene_fpe.js` | the VSS scene pass behind `scene_pass.js`'s interface: `sceneFpe(rec, {scene, D})`; containment and connector ends read by `fpe.js`; declines above 16 components (D 1024) or 64 (D 4096) | no |
 | `scene_pass.js` | the rule-based geometry pass: scribbles, containment, connector ends, clean-up, unknown blobs, ambiguity, the SOP circuit, `applyToScene` through `editor/ops.js` (one undo entry) | no |
 
 Pipeline: `recognise(strokes)` -> `scenePass(rec, {scene})` -> `applyToScene(scene, res)` (and `toCircuit(res)` for the circuit view).
@@ -77,3 +79,16 @@ Causes located: five of the six connector misses follow from three polygons draw
 to be grouped (the shape is split, so its connectors have no component to attach to); one follows a rectangle read as unknown.
 Triangle and diamond are confused three times; the missed unknown is a wave read as a scribble. The hand-drawn set (spec 17.5) is
 not collected yet: see training/TODO_DGX.md.
+
+## The VSS scene pass (scene_fpe.js), OFF by default (responses D18)
+
+Settings > "Sketch: how the scene is read" > "VSS scene reader (experimental)" turns it on; the default stays the rules until the end-to-end
+row (`node app/tests/sketch_fpe.mjs`) is judged. It is `scenePass` with a relation reader: scribbles, clean-up, unknown blobs, ambiguity and
+the circuit are the same code; only rule 2 (containment) and rule 3 (which component a connector end touches) are read from positions as
+addresses. All components of the sketch (and the connector ends) are bound to their identities and superposed into one vector (D 1024,
+Gaussian kernel, L 48 px); `inside(a, c)` reads the four corner sides of every candidate container (a rectangle or rounded rectangle) against
+the decoded centre of every smaller component, and a connector end goes to the non-container component whose decoded centre address is most
+similar to the decoded end. The tolerance gate of rule 3 (an end near nothing is a question) stays the outline distance; an end beyond it, or on
+a container's outline, is read by the outline rule. Above 16 components the reader declines, and `active` says
+`rule-based pass (FPE declined: N elements > 16 measured)`. The shapes (left column of the Sketch tab) are never VSS.
+Randomness is portable (star_version 2 stars; phases from the same generator), not the NumPy draw of `fpe.py`: see the header of `fpe.js`.

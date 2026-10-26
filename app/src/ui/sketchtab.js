@@ -39,7 +39,8 @@ function rightItem(r) {
   if (r.type === "connector") {
     for (const e of r.ends) {
       const c = e.candidates.map((x) => `${x.name} ${x.d} px`).join(", then ");
-      li.append(el("div", "sk-line", `${e.end}: ${e.chosen} (nearest outlines: ${c}${e.candidates.length > 1 ? `; distance margin ${isFinite(e.margin) ? Math.round(e.margin) + " px" : "-"}` : "; no second candidate"}${r.attachTol != null ? `; tolerance ${Math.round(r.attachTol)} px` : ""})`));
+      if (e.fpe && !e.fpe.fallback) { li.append(el("div", "sk-line", `${e.end}: ${e.chosen} (VSS: the component whose address is most similar to the decoded end; similarity margin ${num(e.fpe.margin, 3)}${e.fpe.agrees ? "; the nearest outline agrees" : "; the nearest outline is another component"}; tolerance ${r.attachTol != null ? Math.round(r.attachTol) : "-"} px on the outline: ${c})`)); continue; }
+      li.append(el("div", "sk-line", `${e.end}: ${e.chosen}${e.fpe?.fallback ? " (outline rule: the scene reader's choice was beyond the tolerance)" : ""} (nearest outlines: ${c}${e.candidates.length > 1 ? `; distance margin ${isFinite(e.margin) ? Math.round(e.margin) + " px" : "-"}` : "; no second candidate"}${r.attachTol != null ? `; tolerance ${Math.round(r.attachTol)} px` : ""})`));
     }
     if (r.kindMargin != null) li.append(el("div", "sk-line muted", `line or arrow: margin ${num(r.kindMargin)} (left column)`));
   }

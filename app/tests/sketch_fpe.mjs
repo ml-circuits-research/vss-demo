@@ -10,6 +10,7 @@ import { fromDeltas } from "../src/sketch/strokes.js";
 import { recognise } from "../src/sketch/recognise.js";
 import { scenePass } from "../src/sketch/scene_pass.js";
 import { sceneFpe } from "../src/sketch/scene_fpe.js";
+import { buildSketchRows } from "../src/ui/sketchrows.js";
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i >= 0 ? process.argv[i + 1] : d; };
 const D = +arg("--D", 1024), LIMIT = +arg("--limit", 1e9);
@@ -142,6 +143,8 @@ try {
     check("1 active", r.active === "VSS scene reader (FPE, D 1024)", r.active);
     check("1 same connector", r.connectors.length === 1 && r.connectors[0].source === q.connectors[0].source && r.connectors[0].target === q.connectors[0].target && !!r.connectors[0].fpe, JSON.stringify(r.connectors[0]?.fpe));
     check("1 deterministic", JSON.stringify(sceneFpe(rec)) === JSON.stringify(r), "two runs differ");
+    const mr = buildSketchRows({ rec, res: r });
+    check("1 tab names the VSS pass and keeps the classical column marked", /^Active scene pass: VSS scene reader/.test(mr.header) && /NOT VSS/.test(mr.header) && mr.right.find((x) => x.type === "connector").ends[0].fpe.margin > 0, mr.header);
     check("1 D 4096", sceneFpe(rec, { D: 4096 }).active === "VSS scene reader (FPE, D 4096)", sceneFpe(rec, { D: 4096 }).active);
   }
   { // 2. a container around two shapes: parents read from the corners
@@ -154,6 +157,7 @@ try {
     const r = sceneFpe({ groups: gs }), q = scenePass({ groups: gs });
     check("3 declines", r.active === "rule-based pass (FPE declined: 17 elements > 16 measured)", r.active);
     check("3 same as rules", JSON.stringify({ ...r, active: 0, explain: 0 }) === JSON.stringify({ ...q, active: 0, explain: 0 }), "the declined result differs from the rules'");
+    check("3 tab says declined", /rule-based pass \(FPE declined: 17 elements > 16 measured\)/.test(buildSketchRows({ rec: { groups: gs }, res: r }).header), buildSketchRows({ rec: { groups: gs }, res: r }).header);
     const ok16 = sceneFpe({ groups: gs.slice(0, 16) }); check("3 16 is read", ok16.active === "VSS scene reader (FPE, D 1024)", ok16.active);
     check("3 D 4096 reads 17", sceneFpe({ groups: gs }, { D: 4096 }).active === "VSS scene reader (FPE, D 4096)", "");
   }

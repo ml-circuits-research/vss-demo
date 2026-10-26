@@ -47,6 +47,7 @@ import { mountFormula } from "./formula/view.js";
 // sketch (spec 17)
 import { recognise } from "./sketch/recognise.js";
 import { scenePass, applyToScene, toCircuit, WORD_OF, PASS_OPTIONS } from "./sketch/scene_pass.js";
+import { sceneFpe } from "./sketch/scene_fpe.js";   // the VSS scene pass (positions as addresses): behind the "sketch_reader" setting, off by default (responses D18)
 // long input and scripts (spec 15, 18)
 import { segment, readerAdapter, candidateCuts } from "./segment/segment.js";
 import { buildCircuit, unitsFromSegments, executeCircuit } from "./segment/circuit.js";
@@ -58,7 +59,7 @@ import { answer as answerFilm } from "./animate/questions.js";
 import { exportJSON as filmJSON, exportSVG as filmSVG, exportWebM, capabilities as filmCaps, importTimeline } from "./animate/export.js";
 
 const $ = (id) => document.getElementById(id);
-const DEFAULTS = { corrector: "classic", theme: "auto", speakback: false, lang: "en-US", gaps_collect: true, gaps_endpoint: "", gaps_consent: false };
+const DEFAULTS = { sketch_reader: "rules", corrector: "classic", theme: "auto", speakback: false, lang: "en-US", gaps_collect: true, gaps_endpoint: "", gaps_consent: false };
 const S = {
   assets: createAssets(), worlds: new Map(), diagram: null, normalize: null, corr: { classic: null, form: null }, formIndex: null,
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
@@ -416,7 +417,7 @@ function onStrokes(strokes, { stay }) {
   if (!strokes.length) { if (!stay) showAnswer({ action: "execute", line: "Nothing was drawn." }); return; }
   const v = S.scene.view; const z = v.zoom || 1;
   const toScene = strokes.map((s) => ({ ...s, points: s.points.map((p) => ({ ...p, x: (p.x - (v.x || 0)) / z, y: (p.y - (v.y || 0)) / z })) }));
-  const rec = recognise(toScene); const res = scenePass(rec, { scene: S.scene }); const ap = applyToScene(S.scene, res);
+  const rec = recognise(toScene); const res = S.settings.sketch_reader === "fpe" ? sceneFpe(rec, { scene: S.scene }) : scenePass(rec, { scene: S.scene }); const ap = applyToScene(S.scene, res);
   const counts = {}; for (const c of res.components) counts[c.word] = (counts[c.word] || 0) + 1; for (const k of res.connectors) counts[k.kind] = (counts[k.kind] || 0) + 1;
   const what = Object.entries(counts).map(([w, n]) => `${n} ${w}${n > 1 ? (w.endsWith("x") ? "es" : "s") : ""}`).join(", ") || "nothing I can build";
   const del = res.deletions.components.length + (res.deletions.connectors?.length || 0);
