@@ -113,12 +113,32 @@ PREFIXES = [("bare", ""), ("please", "please"), ("could", "could you"), ("can", 
             ("need", "i need you to"), ("lets", "let's"), ("now", "now"), ("okay", "okay so"), ("tail", "")]   # 'tail' = trailing 'please'
 
 
+# per-event role sets (questions.md Q12, responses D19; a declaration of the legend, rule 20): `roles` = the roles an event's templates
+# ever fill (sampled from the templates themselves, deterministic), `required` = the roles the event cannot do without. The reader reads
+# only the roles of the decided event, and a required role not given makes the frame incomplete (a presence query).
+REQUIRED = {e: ["object"] for e in ("create", "delete", "move", "change", "copy", "name", "resize", "place", "group", "arrange", "align", "distribute", "front", "back", "ungroup")}
+# connect requires only source: its pairing form ("connect the boxes in a chain") has a source set and no target (D19 named both)
+REQUIRED.update({"connect": ["source"], "zoom": ["direction"], "undo": [], "redo": [], "clear": []})
+_EVENT_ROLES = None
+def event_roles():
+    global _EVENT_ROLES
+    if _EVENT_ROLES is None:
+        g = Gen(np.random.default_rng(12345), LABELS_TRAIN, NUMS_TRAIN); out = {}
+        for ev in EVENTS:
+            rs = set()
+            for _, f in TEMPLATES[ev]:
+                for _ in range(200): rs |= set(f(g)[1])
+            out[ev] = [r for r, _ in ROLES if r in rs]
+        _EVENT_ROLES = out
+    return _EVENT_ROLES
+
+
 def legend_dict():
     """the diagram legend, shared by every language of the diagram world (training/worlds/diagram_ro imports it): the same events, roles,
     operators and values, so a reading in any language is a circuit of this one English legend (same sha256). reader.identity = "lemma":
     a token is read by the identity of its lexicon lemma (kinds.tsv third column), which maps the surface forms of other languages to the
     canonical English values; English words have no lemma column here, so for English this is the token itself."""
-    return {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs} for e, vs in EVENTS.items()],
+    return {"version": 1, "roles": [{"id": r, "question": q} for r, q in ROLES], "events": [{"id": e, "verbs": vs, "roles": event_roles()[e], "required": REQUIRED[e]} for e, vs in EVENTS.items()],
             "operators": ["not", "then", "but", "so", "because"], "moods": ["command"], "kinds": {"source": "lexicon", "lexicon": "kinds.tsv"},
             "values": [{"kind": "NUM", "pattern": "\\d+"}, {"kind": "LABEL", "pattern": "[a-z0-9]+(_[a-z0-9]+)+"}],
             "reader": {"predicate_role": True, "occupancy_marker": True, "definite_dets": ["the"], "identity": "lemma",

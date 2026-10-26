@@ -195,3 +195,16 @@ the row does not show FPE doing better. A constructed probe shows where they can
 and 40 px from a small ellipse whose centre is nearer: the rules attach the box (right), FPE the ellipse (margin 0.364), because FPE's
 nearest compares centres. Cost: about 106 ms per scene at D 1024 (rules 0.3 ms). FPE is behind a setting (Settings, off by default);
 the About line and the sketch line are unchanged; the decision on the default is asked in questions.md Q13.
+
+## Proposal (D16 rule), before the run: diagram probe C, per-event role sets (Q12 / D19)
+
+What fails (probe B, 800 sentences, seed 0): create read without its object while status ok (49 of 189 create readings, residual about
+0.7, because the diagram world has no core role: object rate 0.861); connect reads object = the first end ("link the teal box to the
+caption with an edge"), connect heads-exact 0.764. Cause: the legend did not say which roles an event takes or needs. Change: the
+generator declares `events[].roles` (sampled from each event's own templates) and `events[].required` (object for the object events,
+direction for zoom, none for undo / redo / clear; connect: source only, not source and target as D19 listed, because the pairing form
+"connect the boxes in a chain" has a source set and no target), data n5000_req (legend sha256:d361fbea318b...), the reader rule mirrored
+(98ffe04). Run C: diagram, n5000_req, D 1024, 3 seeds, --activate auto, --candidate_sets catalog; compare with B (same data otherwise).
+Expected on the 800 sentences: create readings without their object and status ok 49 -> 0 (they become incomplete frames with a presence
+query on object); connect heads-exact >= 0.8 (object no longer a candidate for connect); heads-exact >= 0.723 (no fall); the order swap of
+"connect X and Y" counted after the run.

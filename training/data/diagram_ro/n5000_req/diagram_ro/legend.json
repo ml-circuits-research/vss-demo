@@ -1,0 +1,441 @@
+{
+ "version": 1,
+ "roles": [
+  {
+   "id": "object",
+   "question": "what is acted on or created?"
+  },
+  {
+   "id": "color",
+   "question": "to which colour?"
+  },
+  {
+   "id": "size",
+   "question": "to which size?"
+  },
+  {
+   "id": "style",
+   "question": "with which line style?"
+  },
+  {
+   "id": "text",
+   "question": "with which label?"
+  },
+  {
+   "id": "relation",
+   "question": "where, relative to what?"
+  },
+  {
+   "id": "landmark",
+   "question": "relative to which component?"
+  },
+  {
+   "id": "region",
+   "question": "where on the canvas?"
+  },
+  {
+   "id": "anchor",
+   "question": "towards which edge?"
+  },
+  {
+   "id": "fraction",
+   "question": "what part of the way?"
+  },
+  {
+   "id": "amount",
+   "question": "how much?"
+  },
+  {
+   "id": "unit",
+   "question": "in what unit?"
+  },
+  {
+   "id": "direction",
+   "question": "in which direction?"
+  },
+  {
+   "id": "axis",
+   "question": "along which axis?"
+  },
+  {
+   "id": "layout",
+   "question": "in which arrangement?"
+  },
+  {
+   "id": "pairing",
+   "question": "connected how?"
+  },
+  {
+   "id": "source",
+   "question": "from what?"
+  },
+  {
+   "id": "target",
+   "question": "to what?"
+  },
+  {
+   "id": "edge",
+   "question": "with which line?"
+  },
+  {
+   "id": "quantity",
+   "question": "how many?"
+  }
+ ],
+ "events": [
+  {
+   "id": "create",
+   "verbs": [
+    "draw",
+    "add",
+    "create",
+    "insert",
+    "sketch"
+   ],
+   "roles": [
+    "object",
+    "text",
+    "relation",
+    "landmark",
+    "region",
+    "amount",
+    "unit",
+    "quantity"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "place",
+   "verbs": [
+    "put",
+    "place"
+   ],
+   "roles": [
+    "object",
+    "relation",
+    "landmark",
+    "region",
+    "amount",
+    "unit"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "delete",
+   "verbs": [
+    "delete",
+    "remove",
+    "erase"
+   ],
+   "roles": [
+    "object"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "move",
+   "verbs": [
+    "move",
+    "shift",
+    "drag",
+    "push",
+    "slide"
+   ],
+   "roles": [
+    "object",
+    "relation",
+    "landmark",
+    "region",
+    "anchor",
+    "fraction",
+    "amount",
+    "unit",
+    "direction"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "change",
+   "verbs": [
+    "make",
+    "turn",
+    "paint",
+    "fill",
+    "set",
+    "change"
+   ],
+   "roles": [
+    "object",
+    "color",
+    "size",
+    "style",
+    "amount",
+    "unit"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "resize",
+   "verbs": [
+    "resize",
+    "enlarge",
+    "shrink",
+    "grow",
+    "scale"
+   ],
+   "roles": [
+    "object",
+    "size"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "connect",
+   "verbs": [
+    "connect",
+    "link",
+    "join",
+    "attach"
+   ],
+   "roles": [
+    "pairing",
+    "source",
+    "target",
+    "edge"
+   ],
+   "required": [
+    "source"
+   ]
+  },
+  {
+   "id": "name",
+   "verbs": [
+    "name",
+    "call",
+    "rename",
+    "label"
+   ],
+   "roles": [
+    "object",
+    "text"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "copy",
+   "verbs": [
+    "copy",
+    "duplicate",
+    "clone"
+   ],
+   "roles": [
+    "object",
+    "relation",
+    "landmark",
+    "region",
+    "amount",
+    "unit"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "group",
+   "verbs": [
+    "group",
+    "wrap"
+   ],
+   "roles": [
+    "object",
+    "text"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "ungroup",
+   "verbs": [
+    "ungroup"
+   ],
+   "roles": [
+    "object"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "arrange",
+   "verbs": [
+    "arrange",
+    "organize",
+    "tidy"
+   ],
+   "roles": [
+    "object",
+    "layout"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "align",
+   "verbs": [
+    "align"
+   ],
+   "roles": [
+    "object",
+    "direction",
+    "axis"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "distribute",
+   "verbs": [
+    "distribute",
+    "space"
+   ],
+   "roles": [
+    "object",
+    "amount",
+    "unit",
+    "axis"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "front",
+   "verbs": [
+    "bring"
+   ],
+   "roles": [
+    "object"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "back",
+   "verbs": [
+    "send"
+   ],
+   "roles": [
+    "object"
+   ],
+   "required": [
+    "object"
+   ]
+  },
+  {
+   "id": "zoom",
+   "verbs": [
+    "zoom"
+   ],
+   "roles": [
+    "direction"
+   ],
+   "required": [
+    "direction"
+   ]
+  },
+  {
+   "id": "undo",
+   "verbs": [
+    "undo"
+   ],
+   "roles": [],
+   "required": []
+  },
+  {
+   "id": "redo",
+   "verbs": [
+    "redo"
+   ],
+   "roles": [],
+   "required": []
+  },
+  {
+   "id": "clear",
+   "verbs": [
+    "clear"
+   ],
+   "roles": [
+    "object"
+   ],
+   "required": []
+  }
+ ],
+ "operators": [
+  "not",
+  "then",
+  "but",
+  "so",
+  "because"
+ ],
+ "moods": [
+  "command"
+ ],
+ "kinds": {
+  "source": "lexicon",
+  "lexicon": "kinds.tsv"
+ },
+ "values": [
+  {
+   "kind": "NUM",
+   "pattern": "\\d+"
+  },
+  {
+   "kind": "LABEL",
+   "pattern": "[a-z0-9]+(_[a-z0-9]+)+"
+  }
+ ],
+ "reader": {
+  "predicate_role": true,
+  "occupancy_marker": true,
+  "definite_dets": [
+   "the"
+  ],
+  "identity": "lemma",
+  "gates_given": {
+   "open": [
+    "to",
+    "of",
+    "in",
+    "on",
+    "at",
+    "by",
+    "from",
+    "with",
+    "into",
+    "as",
+    "and",
+    ",",
+    "."
+   ],
+   "closed": []
+  }
+ }
+}

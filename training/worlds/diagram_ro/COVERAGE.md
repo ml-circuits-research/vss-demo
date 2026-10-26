@@ -1,6 +1,6 @@
 # Coverage of the diagram_ro world, Level 1 (generate.py --languages ro --mix 0.0 seed 0, 5000 training sentences)
 
-Legend sha256:0fcc87608bb4fb2f864069550b637274d2b411a4f5b3f26e8a1d560b455f292f (the English diagram world's, byte-identical). Templates 40 (every English template has a Romanian realiser), prefixes 11, combinations 440, held out 46. Lexicon 1262 entries (831 with a lemma). Dictionary translate_en.json 11186 keys (313 with alternatives).
+Legend sha256:d361fbea318b20d14d401d9e64aeb918628843cd366fcb1cbfe644915e48c6a9 (the English diagram world's, byte-identical). Templates 40 (every English template has a Romanian realiser), prefixes 11, combinations 440, held out 46. Lexicon 1262 entries (831 with a lemma). Dictionary translate_en.json 11186 keys (313 with alternatives).
 
 Training sentences by language: ro 5000.
 
