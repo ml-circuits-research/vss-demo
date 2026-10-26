@@ -27,6 +27,8 @@ import { createScriptDialog } from "./ui/script.js";
 import { renderRows, renderLines } from "./ui/info.js";
 import { renderHistory, renderActions, renderAssistant, renderExamples } from "./ui/tabs.js";
 import { historyExtras, readingRecord } from "./ui/entries.js";
+import { buildSketchRows, keysForSceneIds, sceneIdsForKeys } from "./ui/sketchrows.js";
+import { createSketchTab } from "./ui/sketchtab.js";
 import { availableExamples, hintExamples } from "./examples.js";
 import { formulaPhrase, textCapable, findTextWidget, textHeight, looksLikeScript } from "./widgets.js";
 // text widgets and dictation (spec 14)
@@ -62,7 +64,7 @@ const S = {
   scene: createScene(), view: null, speech: null, settings: loadSettings(), history: [], last: null,
   gaps: null, lastGapId: null,
   mode: "command", active: null, texts: new Map(), formulas: new Map(), dict: null, textedit: null, textNorm: null, calibration: null,
-  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", readings: [], recorded: null, seen: {},
+  formulaView: null, matheditor: null, animation: null, animNorm: null, segReader: null, script: null, panelTab: "diagram", readings: [], recorded: null, seen: {}, sketchRead: null, sketchShown: null, nSketch: 0, sketchTab: null,
 };
 
 // the history of inputs; an entry also carries when it was made and, where the handler has them, world, frame, minMargin, residual
@@ -420,6 +422,7 @@ function onStrokes(strokes, { stay }) {
   const del = res.deletions.components.length + (res.deletions.connectors?.length || 0);
   const line = `Recognised ${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}. One undo takes it back.`;
   S.last = { kind: "sketch", input: "(sketch)", rec, res, map: ap.map, line };
+  S.sketchRead = { rec, res, map: ap.map }; S.nSketch++;
   pushHistory({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res) });
   refresh(); const first = [...ap.map.values()].find((x) => S.scene.components.has(x)); if (first) { reveal(first); S.slots.sync(); }
   showAnswer({ action: ap.applied ? "execute" : "refuse", line });
@@ -462,6 +465,7 @@ function showScript() {
 // ------------------------------------------------------------------ manual changes, selection
 function onManualChange(kind, detail) { pushHistory({ input: `(${kind}) ${detail?.op || ""}`, source: "pointer", used: "", status: "", line: detail?.op || detail?.text || "", action: "manual" }); if (kind === "blocked") showAnswer({ action: "refuse", line: detail.text }); refresh(); }
 function onSelect(ids) {
+  if (S.sketchRead && S.sketchTab) S.sketchTab.highlight(keysForSceneIds(ids, S.sketchRead.map));   // a component picked on the canvas lights its rows in the Sketch tab
   if (S.mode !== "command" || ids.length !== 1) return;
   const c = S.scene.components.get(ids[0]); if (!c) return;
   if (c.formula != null) { showAnswer({ action: "execute", line: `${nameOf(c.id)} is a formula.` }); $("answer").append(chip("edit this formula", () => startFormula(c.id))); }
@@ -499,6 +503,14 @@ function refresh() {
   wTab.hidden = !(S.mode === "dictation" || S.mode === "formula" || L?.kind === "text" || L?.kind === "formula");
   tTab.hidden = !S.film?.timeline;
   if ((wTab.hidden && S.panelTab === "widget") || (tTab.hidden && S.panelTab === "timeline")) selectTab("diagram");
+  // the Sketch: how it is read tab: shown once a sketch has been read, never switched to by itself
+  const skTab = document.querySelector('.tabs [data-tab="sketchread"]');
+  if (S.sketchRead && S.sketchShown !== S.sketchRead) {
+    S.sketchShown = S.sketchRead;
+    if (!S.sketchTab) S.sketchTab = createSketchTab($("tab-sketchread"), { onPick: (keys) => { const ids = sceneIdsForKeys(keys, S.sketchRead.map).filter((id) => S.scene.components.has(id)); S.scene.selection = ids; S.view.render(); } });
+    S.sketchTab.show(buildSketchRows({ rec: S.sketchRead.rec, res: S.sketchRead.res, map: S.sketchRead.map, low: PASS_OPTIONS.ambiguousMargin }));
+  }
+  skTab.hidden = !S.sketchRead;
   const log = $("tab-log"); log.replaceChildren();
   for (const h of S.history.slice().reverse()) { const d = document.createElement("div"); d.className = "log-item"; const a = document.createElement("div"); a.className = "log-in"; a.textContent = h.input; const b = document.createElement("div"); b.className = "log-out"; b.textContent = `${h.action}${h.status ? ", " + h.status : ""}: ${h.line}`; d.append(a, b); log.append(d); }
   if (S.last && S.last !== S.recorded) {
@@ -566,7 +578,7 @@ function updateMode() {
 // The main tabs (Diagram, History, Actions, Assistant, ...) replace the canvas only on a click; a command never switches the tab.
 // On a wide screen the live panel (Reading, Plan, Geometry) stays beside whatever tab is active; on a phone those three are tabs.
 const LIVE_TABS = ["frame", "plan", "geometry"];
-const COUNTED = { history: () => S.history.length, actions: () => S.readings.length, assistant: () => S.readings.length };
+const COUNTED = { history: () => S.history.length, actions: () => S.readings.length, assistant: () => S.readings.length, sketchread: () => S.nSketch };
 const isWide = () => matchMedia("(min-width: 821px)").matches;
 function openPanel(tab) { selectTab(tab); }
 function selectTab(tab) {

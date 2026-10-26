@@ -147,6 +147,32 @@ async function session(browser, url, label, size) {
   check(`${tag} sketch recognised`, /Recognised/.test(sa) && (await comps()) > before, `${sa}; ${before} -> ${await comps()}`);
   await panel("plan"); check(`${tag} sketch candidates listed`, (await page.locator("#tab-plan .rec-list li").count()) >= 2);
   await shot("sketch-result"); await closePanel();
+  // the "Sketch: how it is read" tab: appears after a sketch, with a count badge, never switched to; two columns over the same strokes
+  const skTab = '.tabs [data-tab="sketchread"]';
+  check(`${tag} sketch tab: appears after a sketch, with a count badge, and is not switched to`, await page.isVisible(skTab) && (await tabOf()) === "diagram" && await page.isVisible(`${skTab} .badge`) && /^[1-9]/.test(await page.textContent(`${skTab} .badge`)));
+  await panel("sketchread");
+  const skHead = await page.textContent("#tab-sketchread .sk-pass");
+  check(`${tag} sketch tab: header names the active pass and says the left column is not VSS`, /rule-based pass/.test(skHead) && /NOT VSS/.test(skHead), skHead);
+  check(`${tag} sketch tab: the badge is cleared when opened`, await page.isHidden(`${skTab} .badge`));
+  const nL = await page.locator("#tab-sketchread .sk-left").count(), nR = await page.locator("#tab-sketchread .sk-right").count();
+  check(`${tag} sketch tab: both columns have rows (groups left, components and connectors right)`, nL >= 3 && nR >= 3, `${nL} / ${nR}`);
+  const lt = await page.textContent("#tab-sketchread .sk-left"), rt = await page.textContent("#tab-sketchread .sk-right");
+  check(`${tag} sketch tab: left shows ranked kinds, margin, features, $P and reason; right shows two best, margin, circuit`, /ranked:/.test(lt) && /margin/.test(lt) && /hull fill/.test(lt) && /\$P distance/.test(lt) && /Reason:/.test(lt) && /two best:/.test(rt) && /@w\d+ create/.test(await page.textContent("#tab-sketchread .sk-circuit")), `${lt.slice(0, 200)} // ${rt.slice(0, 200)}`);
+  check(`${tag} sketch tab: a connector row lists the candidates and the distance margin`, /distance margin/.test(await page.textContent("#tab-sketchread .sk-connector")));
+  await page.click("#tab-sketchread .sk-left >> nth=0"); await page.waitForTimeout(100);
+  const hl = await page.evaluate(() => [...document.querySelectorAll("#tab-sketchread .sk-hl")].map((e) => e.dataset.side));
+  check(`${tag} sketch tab: a click on a left row highlights it and the same component on the right`, hl.includes("left") && hl.includes("right"), hl.join());
+  await page.click("#tab-sketchread .sk-right >> nth=1"); await page.waitForTimeout(100);
+  const hl2 = await page.evaluate(() => [...document.querySelectorAll("#tab-sketchread .sk-hl")].map((e) => e.dataset.side));
+  check(`${tag} sketch tab: a click on a right row highlights the left one (and moves the highlight)`, hl2.includes("left") && hl2.includes("right") && hl2.length <= 3, hl2.join());
+  await closePanel();
+  // a component picked on the canvas lights its rows in the tab
+  await page.evaluate(() => { document.querySelectorAll("#tab-sketchread .sk-hl").forEach((e) => e.classList.remove("sk-hl")); });
+  const cbox = await page.locator("#canvas .vss-layer-components > g >> nth=-1").boundingBox();
+  await page.mouse.click(cbox.x + cbox.width / 2, cbox.y + cbox.height / 2); await page.waitForTimeout(150);
+  await panel("sketchread");
+  check(`${tag} sketch tab: a component selected on the canvas lights its row in both columns`, (await page.locator("#tab-sketchread .sk-hl").count()) >= 2, String(await page.locator("#tab-sketchread .sk-hl").count()));
+  await closePanel();
 
   // 5. the example film: timeline strip, play, scrub, Timeline tab, animated SVG export
   await page.click("#btn-export"); await page.click("#x-example"); await page.waitForTimeout(600);

@@ -117,7 +117,7 @@ export function scenePass(rec, { scene = null, options = {} } = {}) {
       questions.push({ kind: "self", ref: g.id, strokes: g.strokes, text: `this ${g.kind} starts and ends at the same ${nice(a.it.shape)}: is that intended?` });
     }
     const c = { tmp: g.id, source: a.it.tmp, target: b.it.tmp, kind: g.kind === "line" ? "line" : "arrow", style: "solid", label: null, heads: g.ends.heads, strokes: g.strokes,
-      margin: { source: marginA, target: marginB, kind: g.margin }, candidates: { source: A.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })), target: B.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })) } };
+      margin: { source: marginA, target: marginB, kind: g.margin }, attachTol: tol, candidates: { source: A.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })), target: B.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })) } };
     connectors.push(c);
     explain.push(`${g.kind} from the ${nice(a.it.container ? "container" : a.it.shape)} (end ${Math.round(a.d)} px from its outline${isFinite(marginA) ? `, next ${Math.round(marginA)} px further` : ""}) to the ${nice(b.it.container ? "container" : b.it.shape)} (${Math.round(b.d)} px${isFinite(marginB) ? `, next ${Math.round(marginB)} px further` : ""})`);
   }
@@ -158,7 +158,7 @@ export function scenePass(rec, { scene = null, options = {} } = {}) {
   for (const it of fresh) {
     const wk = it.container ? { word: "container", kind: "container" } : WORD_OF[it.shape];
     const comp = { tmp: it.tmp, word: wk.word, kind: wk.kind, label: null, color: null, size: null, style: it.container ? "dashed" : null, box: it.out, parent: it.parent || null,
-      shape: it.container ? it.shape : it.shape, strokes: it.strokes, labelMark: it.labelMark, margin: it.margin, candidates: it.candidates.slice(0, 3).map((c) => ({ kind: c.kind, score: +c.score.toFixed(3) })) };
+      shape: it.container ? it.shape : it.shape, strokes: it.strokes, labelMark: it.labelMark, labelStrokes: it.labelStrokes, margin: it.margin, candidates: it.candidates.slice(0, 3).map((c) => ({ kind: c.kind, score: +c.score.toFixed(3) })) };
     if (it.orient === "down") comp.orient = "down";
     if (!it.container && it.margin < o.ambiguousMargin && it.candidates[1]) {
       comp.alternatives = it.candidates.slice(0, 2).map((c) => ({ kind: c.kind, word: WORD_OF[c.kind]?.word, score: +c.score.toFixed(3) }));
