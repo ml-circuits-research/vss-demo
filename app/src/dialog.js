@@ -27,7 +27,7 @@ function decideWith({ result, plan = null, corrections = [], tau = 0.05, legend 
   if (!result) return { action: "refuse", line: "no model is loaded", questions: [], notes, rule: "no reader" };
   if (result.status === "no-sense" || result.status === "unknown-event") {
     const unk = (result.unplaced || []).filter((t) => !/^[.,;:!?]$/.test(t));
-    const qs = unk.length ? [{ kind: "unknown-word", words: unk, text: `I don't know ${unk.length === 1 ? "the word" : "the words"} ${unk.map((w) => `"${w}"`).join(", ")}. Use ${unk.length === 1 ? "it" : "them"} as a label?` }] : [];
+    const qs = [];      // D25 / D29.3: a no-sense reading lists what the editor can do and nothing else (no "use it as a label" offer)
     return { action: "refuse", line: `I did not understand that (${result.status}). ${capabilities(legend)}`.trim(), questions: qs, notes,
       rule: "Table 8: unknown-event or no-sense -> say what was not understood, list what the editor can do" };
   }

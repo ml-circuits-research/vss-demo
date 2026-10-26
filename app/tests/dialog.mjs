@@ -27,7 +27,7 @@ const ud2 = decide({ result: R({ status: "abstain", margins: { object: 0, color:
 check("undecided first, other roles still asked", ud2.questions.map((q) => q.kind + ":" + q.role).join(",") === "undecided:object,role:color", JSON.stringify(ud2.questions));
 check("dropWord", dropWord("connect p3 p5 to p2", "p5") === "connect p3 to p2" && dropWord("Link Billing payments to db.", "billing") === "Link payments to db." && dropWord("add reports db now", "reports_db") === "add now" && dropWord("add a box", "cache") === "add a box" && dropWord("add p55 p5", "p5") === "add p55", "");
 const ns = decide({ result: R({ status: "no-sense", unplaced: ["frobnicate"] }), legend: { events: [{ id: "create" }] } });
-check("refuse no-sense", ns.action === "refuse" && ns.questions[0].kind === "unknown-word" && /I can: create/.test(ns.line), ns.line);
+check("refuse no-sense: what the editor can do, no other offer (D25 / D29.3)", ns.action === "refuse" && ns.questions.length === 0 && /I can: create/.test(ns.line), ns.line);
 const amb = decide({ result: R(), plan: { ...okPlan, steps: [], questions: [{ kind: "which", text: "which circle?", candidates: ["c1", "c2"] }] } });
 check("ask which", amb.action === "ask" && amb.line === "which circle?", amb.line);
 const lk = decide({ result: R(), plan: { ...okPlan, steps: [], blocked: [{ text: "locked: never move the title" }] } });

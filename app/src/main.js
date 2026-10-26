@@ -571,12 +571,26 @@ function choicesOf(q) {
   if (q.kind === "unsupported") return yn(() => { if (S.last) runText(q.words.reduce((t, w) => dropWord(t, w), S.last.input)); }, dismiss);
   if (q.kind === "which" && cands.length) return q.candidates.map((id, i) => ({ label: `${i + 1}: ${describeId(id)}`, aliases: [String(i + 1), describeId(id)], run: () => { S.scene.selection = [id]; rerunLast(); } }));
   if (q.kind === "unknown-word") return [{ label: `use "${q.words.join(" ")}" as a label`, aliases: ["yes", "y"], run: () => runText(`${S.last.input} called ${q.words.join(" ")}`) }];
+  // an offer (D27): yes = the offered word fills the role and the command is planned again; no = the command stays unanswered
+  if (q.kind === "offer") return yn(() => applyOffer(q.role, q.word), dismiss);
   // presence, offer and any kind that offers candidates: yes = accept (the last input goes back to the input bar to be completed), no = dismiss
   if (q.candidates?.length) return q.candidates.map((c, i) => {
     const label = String(c).replace(/_/g, " "), yes = /^yes$/i.test(label), no = /^no$/i.test(label);
     return { label, aliases: yes ? ["y", "yeah", "yes please"] : no ? ["n", "nope", "no thanks"] : [], run: yes ? acceptOffer : dismiss };
   });
   return [];
+}
+// the person accepted an offered word (D27): the same reading with that word as the role's filler, planned and decided again
+function applyOffer(role, word) {
+  const L = S.last; if (!L?.best?.result) return dismiss();
+  const r0 = L.best.result, frame = JSON.parse(JSON.stringify(r0.frame)); frame.roles = frame.roles || {}; frame.roles[role] = ["word", word];
+  const offers = { ...(r0.offers || {}) }; delete offers[role]; const pq = { ...(r0.presenceQueries || {}) }; delete pq[role];
+  const result = { ...r0, frame, offers, presenceQueries: pq, unplaced: (r0.unplaced || []).filter((t) => t !== word), status: r0.status === "abstain" ? "ok" : r0.status };
+  const W = S.worlds.get(L.best.route?.world) || S.diagram;
+  const p = makePlan(S.scene, frame, L.best.info); const dd = decide({ result, plan: p, tau: W.tau, legend: W.legend });
+  let ex = null; if (dd.action === "execute") ex = execute(S.scene, p);
+  S.last = { ...L, best: { ...L.best, result }, plan: p, decision: dd, execution: ex };
+  refresh(); showAnswer(dd);
 }
 function acceptOffer() { if (S.last?.input) { putInInput(S.last.input); say("Add what you meant to the command and press Run."); } }
 function dismiss() { say("Okay."); }
