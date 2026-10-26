@@ -78,3 +78,8 @@ evaluation crawled (diagram n1000 at seed 2 of 5 after 1 h 54). Their activation
 as results. Restarted at the current commit with `OMP_NUM_THREADS=MKL_NUM_THREADS=OPENBLAS_NUM_THREADS=2` per process (10 processes x 2
 threads = the 20 cores), all five worlds through `training/gpu_step3.sh` (every size's model copied; `--keep_seed_models` for diagram_ro
 and diagram_multi) and textedit through its own script; every size now runs on one code version (tool/sop at a9fa51d).
+A second tool/sop sync (543c9d5, vss-vs-bert 82585ea, R81: negative examples marked `_negative=true` in training) entered the runs'
+working tree at about 13:15 with a pull of the interface merge, against the rule written above (the check printed it and did not stop
+the pull). Sizes started before (all 1000 / 5000, diagram 20000) imported train.py without it, later sizes with it. For the demo worlds
+it changes nothing: none of their frozen examples carries `_negative` (checked: 0 files), so the targets, the calibration rows (the same
+draw over the same rows) and the schema are identical. The pull is now guarded by a check that stops it.
