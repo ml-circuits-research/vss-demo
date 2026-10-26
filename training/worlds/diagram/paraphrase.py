@@ -80,6 +80,7 @@ def main():
                     out.wires.append(nw)
                 kept += 1
         fname = f"para_{fam}.sop"; open(os.path.join(wd, "examples", fname), "w").write(soplang.write(out))
+        os.makedirs(os.path.join(wd, "audit"), exist_ok=True)      # a world unpacked from training/data has no audit/ folder
         with open(os.path.join(wd, "audit", f"para_{fam}_prompts.txt"), "w") as f: f.write("\n\n----\n\n".join(prompts))
         if fam in a.heldout_families.split(","): hints.setdefault("file_splits", {})[f"examples/{fname}"] = "heldout_formulations_para"
         stats[fam] = {"kept": kept, "rejected_filler_changed_or_missing": rejected}
