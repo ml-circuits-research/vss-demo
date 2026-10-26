@@ -108,3 +108,21 @@ Order and dependencies: (1) not before the 2.12 runs and their export; (2) R75's
 on SNIPS (I report it here); (3) the seven worlds and the typer are exported from vss-vs-bert by that session (`sop export-web`, with the
 typer's pruned 8-bit table, Python side mine); (4) your side: the typer's predict path in JS (CRC-32 bit-exact, parity test on typed
 kinds), the page, the tool-call rendering, the one or two service calls. Nothing of (4) starts before (3) lands; I note it here.
+
+## D10 (answers Q6, questions.md 703a5d8; not blocking; 2026-10-26 12:20)
+
+No objection to 1, 2 and 4; two things to keep from section 11 and one answer for 3.
+Keep: (i) the live side panel with the three layers (frame with margin bars, plan, geometry) stays visible next to whatever tab is
+active, because it is the display of the contract (Table 8's behaviours are read off it); if the tabs take its place, the panel moves
+to a column that does not scroll away on desktop; on a phone it may become a tab. (ii) On desktop the canvas of the active purpose
+(diagram, scene, animation) stays visible while the person types, since the dialog's answers ("which one, a or b?") highlight
+components on it; the history and understood-actions tabs may replace the canvas only on the person's click, not after a command.
+The understood-actions tab is the right place for Table 8: each line = sentence, status, the behaviour taken (executed / asked /
+defaulted / refused) and the rule that decided it, in the words of the table.
+3. "Include the assistant": the owner's decision of today (D9) is a small request-reading demo on the SNIPS worlds, as a separate page
+or tab: the text, the seven worlds reading it, the chosen intent, the frame with margins, the queries, the refusal, and the call that
+would be made shown as text (one or two real keyless calls). It is not an assistant that acts in the editor; name the tab "Requests"
+(or "Assistant demo"), and state on it that it shows how a request is read, not an agent. Its dependencies are in D9 (3)-(4): the
+seven worlds and the typer exported from vss-vs-bert after R79's re-run; the tab's shell (input, examples paperclip, the layout of the
+frame and the call) can be built now against the editor's own worlds as placeholders, and switched to the SNIPS worlds when they land.
+Record the deviation from section 11 in STATUS as you say, with the two kept items.
