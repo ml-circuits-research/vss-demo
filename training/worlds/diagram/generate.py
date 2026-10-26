@@ -21,7 +21,7 @@ from sop.legend import sha256_file
 from normalize import normalize
 
 # ------------------------------------------------------------------ vocabulary (spec Tables 2-4, Level 1)
-COMPONENTS = {   # singular -> plural; the kind is COMPONENT for both (the resolver maps plurals)
+COMPONENTS = {   # singular -> plural; the kind is COMPONENT for both (EDGE for the line words, D17) (the resolver maps plurals)
     "box": "boxes", "process": "processes", "step": "steps", "task": "tasks", "decision": "decisions", "diamond": "diamonds",
     "start": "starts", "end": "ends", "database": "databases", "store": "stores", "cache": "caches", "queue": "queues",
     "document": "documents", "file": "files", "report": "reports", "user": "users", "actor": "actors", "customer": "customers",
@@ -29,9 +29,9 @@ COMPONENTS = {   # singular -> plural; the kind is COMPONENT for both (the resol
     "group": "groups", "container": "containers", "lane": "lanes", "note": "notes", "comment": "comments", "textbox": "textboxes",
     "title": "titles", "caption": "captions", "circle": "circles", "ellipse": "ellipses", "square": "squares", "rectangle": "rectangles",
     "triangle": "triangles", "star": "stars", "hexagon": "hexagons", "line": "lines", "arrow": "arrows", "connector": "connectors",
-    "shape": "shapes", "component": "components", "element": "elements", "item": "items", "thing": "things"}
-NODE_HEADS = [c for c in COMPONENTS if c not in ("line", "arrow", "connector", "group", "container", "lane")]
-EDGE_HEADS = ["line", "arrow", "connector"]
+    "edge": "edges", "shape": "shapes", "component": "components", "element": "elements", "item": "items", "thing": "things"}
+NODE_HEADS = [c for c in COMPONENTS if c not in ("line", "arrow", "connector", "edge", "group", "container", "lane")]
+EDGE_HEADS = ["line", "arrow", "connector", "edge"]   # not "link": it is a connect verb, and a word has one kind
 COLORS = ["red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "brown", "gray", "black", "white"]
 SIZES = ["tiny", "small", "medium", "large", "huge"]
 SIZE_CHANGE = ["bigger", "smaller"]
@@ -69,14 +69,15 @@ ROLES = [("object", "what is acted on or created?"), ("color", "to which colour?
          ("text", "with which label?"), ("relation", "where, relative to what?"), ("landmark", "relative to which component?"),
          ("region", "where on the canvas?"), ("anchor", "towards which edge?"), ("fraction", "what part of the way?"), ("amount", "how much?"),
          ("unit", "in what unit?"), ("direction", "in which direction?"), ("axis", "along which axis?"), ("layout", "in which arrangement?"),
-         ("pairing", "connected how?"), ("source", "from what?"), ("target", "to what?"), ("quantity", "how many?")]
+         ("pairing", "connected how?"), ("source", "from what?"), ("target", "to what?"), ("edge", "with which line?"), ("quantity", "how many?")]
 
 FUNCTION_WORDS = ["a", "an", "the", "all", "every", "each", "this", "that", "these", "those", "any", "to", "of", "in", "on", "at", "by", "from",
                   "with", "into", "as", "and", "it", "them", "please", "can", "could", "would", "you", "i", "want", "need", "lets", "now",
                   "okay", "so", "do", "not", "never", "is", "are", "color", "flow", "together", "apart", "canvas", "everything", "screen", "front", "back",
                   "evenly", ",", "."] + ["called", "named", "labelled", "titled"]
 KINDS = {}
-for c, pl in COMPONENTS.items(): KINDS[c] = "COMPONENT"; KINDS[pl] = "COMPONENT"
+for c, pl in COMPONENTS.items():
+    k = "EDGE" if c in EDGE_HEADS else "COMPONENT"; KINDS[c] = k; KINDS[pl] = k   # D17: the line words are their own kind
 for w in COLORS: KINDS[w] = "COLOR"
 for w in SIZES + SIZE_CHANGE: KINDS[w] = "SIZE"
 for w in STYLES: KINDS[w] = "STYLE"
@@ -285,11 +286,11 @@ def k_pair(g):
 @T("connect")
 def k_pair_with(g):
     a, sa = g.entity(attr_p=0.2, neg_p=0); b, sb = g.entity(attr_p=0.2, neg_p=0); e, se = g.entity(det_choices=("a",), heads=EDGE_HEADS, attr_p=0.7, neg_p=0, allow_label_head=False)
-    return [g.pick(EVENTS["connect"])] + a + ["to"] + b + ["with"] + e, {"source": sa, "target": sb, "object": se}
+    return [g.pick(EVENTS["connect"])] + a + ["to"] + b + ["with"] + e, {"source": sa, "target": sb, "edge": se}
 @T("connect")
 def k_draw_arrow(g):
     e, se = g.entity(det_choices=("a",), heads=EDGE_HEADS, attr_p=0.5, neg_p=0, allow_label_head=False); a, sa = g.entity(attr_p=0.2, neg_p=0); b, sb = g.entity(attr_p=0.2, neg_p=0)
-    return ["connect"] + a + ["and"] + b + ["with"] + e, {"source": sa, "target": sb, "object": se}
+    return ["connect"] + a + ["and"] + b + ["with"] + e, {"source": sa, "target": sb, "edge": se}
 @T("connect")
 def k_pairing(g):
     w, s = g.entity(det_choices=("each", "every"), attr_p=0.3, neg_p=0, allow_label_head=False); p = g.pick(PAIRINGS)

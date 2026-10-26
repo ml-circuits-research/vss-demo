@@ -1,30 +1,30 @@
-# Coverage of the diagram world, Level 1 (generate.py seed 0, 50000 training sentences)
+# Coverage of the diagram world, Level 1 (generate.py seed 0, 5000 training sentences)
 
-Legend sha256:3439ef232c21cd58e19eb203c74efec0f77c09e9a63fba66d3c25802cfa25bce. Templates 40, prefixes 11, combinations 440, held out 46.
+Legend sha256:0fcc87608bb4fb2f864069550b637274d2b411a4f5b3f26e8a1d560b455f292f. Templates 40, prefixes 11, combinations 440, held out 46.
 
 Sentences per event and role (training file):
 
-| event | n | object | color | size | style | text | relation | landmark | region | anchor | fraction | amount | unit | direction | axis | layout | pairing | source | target | quantity | PROHIBITION |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| create | 8621 | 8621 |  |  |  | 3063 | 2643 | 2643 | 1746 |  |  | 392 | 392 |  |  |  |  |  |  | 1204 |  |
-| place | 2732 | 2732 |  |  |  |  | 1620 | 1620 | 1112 |  |  | 409 | 409 |  |  |  |  |  |  |  |  |
-| delete | 2698 | 2698 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 128 |
-| move | 6450 | 6450 |  |  |  |  | 991 | 991 | 694 | 3093 | 1394 | 1068 | 1068 | 1672 |  |  |  |  |  |  | 324 |
-| change | 4578 | 4578 | 1894 | 1964 | 720 |  |  |  |  |  |  | 918 | 918 |  |  |  |  |  |  |  | 236 |
-| resize | 2678 | 2678 |  | 1123 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 175 |
-| connect | 5607 | 2390 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 1495 | 5607 | 4112 |  | 298 |
-| name | 3132 | 3132 |  |  |  | 3132 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 200 |
-| copy | 1420 | 1420 |  |  |  |  | 460 | 460 | 325 |  |  | 118 | 118 |  |  |  |  |  |  |  | 70 |
-| group | 2388 | 2388 |  |  |  | 1255 |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 110 |
-| ungroup | 831 | 831 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| arrange | 2488 | 2488 |  |  |  |  |  |  |  |  |  |  |  |  |  | 2488 |  |  |  |  |  |
-| align | 1519 | 1519 |  |  |  |  |  |  |  |  |  |  |  | 756 | 763 |  |  |  |  |  |  |
-| distribute | 1606 | 1606 |  |  |  |  |  |  |  |  |  | 800 | 800 |  | 806 |  |  |  |  |  |  |
-| front | 713 | 713 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| back | 843 | 843 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| zoom | 609 |  |  |  |  |  |  |  |  |  |  |  |  | 609 |  |  |  |  |  |  |  |
-| undo | 419 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| redo | 335 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| clear | 333 | 333 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| event | n | object | color | size | style | text | relation | landmark | region | anchor | fraction | amount | unit | direction | axis | layout | pairing | source | target | edge | quantity | PROHIBITION |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| create | 853 | 853 |  |  |  | 297 | 254 | 254 | 189 |  |  | 39 | 39 |  |  |  |  |  |  |  | 104 |  |
+| place | 258 | 258 |  |  |  |  | 147 | 147 | 111 |  |  | 38 | 38 |  |  |  |  |  |  |  |  |  |
+| delete | 269 | 269 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 10 |
+| move | 600 | 600 |  |  |  |  | 93 | 93 | 62 | 287 | 121 | 86 | 86 | 158 |  |  |  |  |  |  |  | 23 |
+| change | 472 | 472 | 194 | 208 | 70 |  |  |  |  |  |  | 119 | 119 |  |  |  |  |  |  |  |  | 29 |
+| resize | 294 | 294 |  | 147 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 17 |
+| connect | 575 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 156 | 575 | 419 | 252 |  | 34 |
+| name | 320 | 320 |  |  |  | 320 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 20 |
+| copy | 150 | 150 |  |  |  |  | 54 | 54 | 31 |  |  | 21 | 21 |  |  |  |  |  |  |  |  | 9 |
+| group | 243 | 243 |  |  |  | 138 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 9 |
+| ungroup | 83 | 83 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| arrange | 217 | 217 |  |  |  |  |  |  |  |  |  |  |  |  |  | 217 |  |  |  |  |  |  |
+| align | 163 | 163 |  |  |  |  |  |  |  |  |  |  |  | 75 | 88 |  |  |  |  |  |  |  |
+| distribute | 188 | 188 |  |  |  |  |  |  |  |  |  | 90 | 90 |  | 98 |  |  |  |  |  |  |  |
+| front | 78 | 78 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| back | 74 | 74 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| zoom | 58 |  |  |  |  |  |  |  |  |  |  |  |  | 58 |  |  |  |  |  |  |  |  |
+| undo | 41 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| redo | 34 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| clear | 30 | 30 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
 Evaluation files: eval_new_identities.sop 400 sentences; eval_heldout_formulations.sop 400 sentences.

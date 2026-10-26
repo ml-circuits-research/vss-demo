@@ -7,7 +7,7 @@ export const KIND_OF = {
   user: "actor", actor: "actor", customer: "actor", service: "system", server: "system", api: "system", gateway: "system", client: "system",
   cloud: "system", container: "container", lane: "container", note: "note", comment: "note", textbox: "note", title: "text", caption: "text",
   circle: "shape", ellipse: "shape", square: "shape", rectangle: "shape", triangle: "shape", star: "shape", hexagon: "shape",
-  line: "connector", arrow: "connector", connector: "connector", shape: "generic", component: "generic", element: "generic", item: "generic",
+  line: "connector", arrow: "connector", connector: "connector", edge: "connector", shape: "generic", component: "generic", element: "generic", item: "generic",
   thing: "generic", canvas: "canvas", screen: "canvas", card: "note", formula: "formula", equation: "formula",
   // characters and travellers of the animation world (src/animate/README.md): components the resolver must find by their word
   robot: "character", figure: "character", person: "character", car: "character",
@@ -16,7 +16,7 @@ export const KIND_OF = {
 // words that name the same thing when resolving a reference ("the box" finds a component added as "a step"); other words of one kind
 // stay distinct ("the cache" does not find a database)
 export const SAME = [["box", "process", "step", "task"], ["decision", "diamond"], ["user", "actor", "customer"], ["note", "comment", "textbox", "card"],
-  ["line", "arrow", "connector"], ["container", "lane"], ["service", "server", "api"], ["document", "file"], ["formula", "equation"], ["figure", "person"]];
+  ["line", "arrow", "connector", "edge"], ["container", "lane"], ["service", "server", "api"], ["document", "file"], ["formula", "equation"], ["figure", "person"]];
 export const sameWord = (a, b) => a === b || SAME.some((g) => g.includes(a) && g.includes(b));
 const PLURALS = { boxes: "box", processes: "process", caches: "cache", ellipses: "ellipse", textboxes: "textbox", statuses: "status" };
 export function singular(w) {

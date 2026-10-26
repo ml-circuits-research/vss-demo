@@ -62,6 +62,7 @@ NOUNS = {
     "hexagon": ("n", "hexagon", "hexagonul", "hexagoane", "hexagoanele", "hexagonului", "hexagoanelor"),
     "line": ("f", "linie", "linia", "linii", "liniile", "liniei", "liniilor"),
     "arrow": ("f", "săgeată", "săgeata", "săgeți", "săgețile", "săgeții", "săgeților"),
+    "edge": ("f", "muchie", "muchia", "muchii", "muchiile", "muchiei", "muchiilor"),   # the line word added by D17 (kind EDGE)
     "connector": ("m", "conector", "conectorul", "conectori", "conectorii", "conectorului", "conectorilor"),
     "shape": ("f", "formă", "forma", "forme", "formele", "formei", "formelor"),
     "component": ("f", "componentă", "componenta", "componente", "componentele", "componentei", "componentelor"),

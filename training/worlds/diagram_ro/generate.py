@@ -314,11 +314,11 @@ def _(r, ro, lem, ew):
     a, _ = _obj(r, ro, "source"); b, _ = _obj(r, ro, "target"); return [V(lem)] + a + [r.pick(PAIR_PREP.get(lem, ["la"]))] + b
 @R("k_pair_with")
 def _(r, ro, lem, ew):
-    a, _ = _obj(r, ro, "source"); b, _ = _obj(r, ro, "target"); e, _ = _obj(r, ro, "object")
+    a, _ = _obj(r, ro, "source"); b, _ = _obj(r, ro, "target"); e, _ = _obj(r, ro, "edge")
     return [V(lem)] + a + [r.pick(PAIR_PREP.get(lem, ["la"]))] + b + ["cu"] + e
 @R("k_draw_arrow")
 def _(r, ro, lem, ew):
-    a, _ = _obj(r, ro, "source"); b, _ = _obj(r, ro, "target"); e, _ = _obj(r, ro, "object"); return [V(lem)] + a + ["și"] + b + ["cu"] + e
+    a, _ = _obj(r, ro, "source"); b, _ = _obj(r, ro, "target"); e, _ = _obj(r, ro, "edge"); return [V(lem)] + a + ["și"] + b + ["cu"] + e
 @R("k_pairing")
 def _(r, ro, lem, ew):
     w, i = _obj(r, ro, "source"); p = ro["pairing"]

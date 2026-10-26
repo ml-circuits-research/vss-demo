@@ -74,7 +74,11 @@ export function plan(scene, frame, info = {}) {
     }
     case "connect": {
       const src = need("source"); if (!src || src.status === "none") break;
-      const edge = describe(r.object); const kindE = edge ? singular(edge.head) : "arrow"; const style = edge && edge.attr ? edge.attr.value : null;
+      // the line comes from the role `edge` ("with which line?", legend of D17). Fallback for models trained on the older legend, which put
+      // the line in `object`: used ONLY when r.object's head is an edge word, so a stray object of another kind is never taken as a line.
+      const EDGE_WORDS = ["line", "arrow", "connector", "edge"];
+      const objD = describe(r.object); const objIsEdge = objD && EDGE_WORDS.includes(singular(objD.head));
+      const edge = describe(r.edge) || (objIsEdge ? objD : null); const kindE = edge ? singular(edge.head) : "arrow"; const style = edge && edge.attr ? edge.attr.value : null;
       if (s.pairing) {                                                // each to the next / in a chain, over the set ordered by creation (8.1)
         const ids = [...src.ids].sort((a, b) => scene.components.get(a).order - scene.components.get(b).order);
         for (let i = 0; i + 1 < ids.length; i++) out.steps.push({ op: "connect", source: ids[i], target: ids[i + 1], kind: kindE, style, explain: `connect ${ids[i]} to ${ids[i + 1]}` });

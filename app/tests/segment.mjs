@@ -127,7 +127,7 @@ function handCases() {
     check("spec example: one undo entry", sc.undo.length === 1);
   }
   { // a conjunction inside an entity is not a cut; a weak comma repaired by the reading
-    const rd = H([["connect the box and the cache with a line", F("connect", { source: E("box"), target: E("cache"), object: E("line", null, "a") })],
+    const rd = H([["connect the box and the cache with a line", F("connect", { source: E("box"), target: E("cache"), edge: E("line", null, "a") })],
       ["add a box", F("create", { object: E("box", null, "a") })], ["in the top_left , add a circle .", F("create", { object: E("circle", null, "a"), region: W("top_left") })]]);
     const s1 = segment(tok("connect the box and the cache with a line"), { reader: rd });
     check("and inside an entity: no cut", s1.segments.length === 1 && !s1.segments[0].poor, JSON.stringify(s1.segments.map((x) => x.text)));

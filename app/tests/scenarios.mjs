@@ -99,5 +99,15 @@ const run = (s, f, info) => { const p = plan(s, f, info); const r = execute(s, p
   const w0 = byLabel(s, "auth").box.w; run(s, F("change", { object: ["entity", "auth", null, null], amount: W("50"), unit: W("percent"), size: W("bigger") }), { numbers: { 50: 50 } });
   check("15 percent + label head", byLabel(s, "auth").box.w === Math.round(w0 * 1.5), `${byLabel(s, "auth").box.w} vs ${w0 * 1.5}`);
 }
-console.log(`scenarios: ${pass} checks passed, ${fail} failed`);
+{ // 16. connect with the line in its own role `edge` (D17): "connect the box to the cache with a dashed arrow"; the older frame (line in `object`) still works
+  const s = createScene(); run(s, F("create", { object: E("box", null, "a") })); run(s, F("create", { object: E("cache", null, "a") }));
+  run(s, F("connect", { source: E("box"), target: E("cache"), edge: E("arrow", "dashed", "a") }));
+  const k = [...s.connectors.values()];
+  check("16 edge role", k.length === 1 && k[0].style === "dashed" && k[0].kind === "arrow", JSON.stringify(k));
+  run(s, F("connect", { source: E("cache"), target: E("box"), object: E("line", "dotted", "a") }));
+  check("16 older frame: the line in object", s.connectors.size === 2 && [...s.connectors.values()][1].style === "dotted", JSON.stringify([...s.connectors.values()]));
+  const n = s.connectors.size; run(s, F("connect", { source: E("cache"), target: E("box"), object: E("box", null, "a") }));
+  check("16 object that is not an edge word is not a line", s.connectors.size === n + 1 && [...s.connectors.values()][n].kind === "arrow", JSON.stringify([...s.connectors.values()][n]));
+}
+console.log(`scenarios:${pass} checks passed, ${fail} failed`);
 if (fail) { console.log(failures.join("\n")); process.exit(1); }
