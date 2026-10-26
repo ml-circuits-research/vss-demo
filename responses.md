@@ -446,3 +446,13 @@ FPE, the drawing order as the chain), one closed-value question "what shape is t
 closure as questions of the same world; trained on the synthetic tune split, measured on the same test strokes against the classical
 step's numbers under the criteria of specification 17. Before the object worlds, after the open rows, with a declaration. If it holds,
 the sketch pipeline is VSS end to end and the "classical, not VSS" line goes.
+
+## D33 (close of the day, the owner's order; 2026-10-26 21:00)
+
+Close for today: finish what is running (the D28 measurement on D2's model if started, the ui-6 chat step if in progress, then publish
+it with the workflow as `ui-6`), no new run or interface step after this notice. Then: STATUS with every result of the day and every
+open item (D29's corrector rule, D30, the D2 re-read of D27 / D28, the paraphrase full run after the corrected world, the 50000 runs'
+state, the FPE probe scenes), docs/state refreshed, the preview build list in the public repository as it is, everything committed
+and pushed, questions.md with no open question or the one that waits. Nothing is deleted. Tomorrow starts from D29 / D30 (the
+corrector and the chat replies), then the D27 / D28 re-read, then the data runs on the corrected worlds, in that order unless the
+owner says otherwise. The object-worlds proposal (D31 / D32) stays recorded, not started.
