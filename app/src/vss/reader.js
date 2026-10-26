@@ -280,7 +280,12 @@ export class Reader {
       f.speakers.push(sp); f.margins[`speaker.${k}`] = mg;
     }
     if (this.legend.reader.predicate_role) {
-      const [lem, mg] = Reader.best(cmulc(cmul(Sn, K), this.st.op("pred")), this.verbCands());
+      let vc = this.verbCands();
+      if (this.cfg.candidates === "sentence") {      // D14 item 4 (infer.py): the predicate's candidates are the sentence's verbs
+        const inv = new Map(vc[0].map((w, i) => [w, i])); const js = [...new Set(tokens.map((t) => this.lemma(t)).filter((l) => inv.has(l)).map((l) => inv.get(l)))].sort((x, y) => x - y);
+        if (js.length) vc = [js.map((j) => vc[0][j]), js.map((j) => vc[1][j])];
+      }
+      const [lem, mg] = Reader.best(cmulc(cmul(Sn, K), this.st.op("pred")), vc);
       f.lemma = lem; f.event = this.legend.eventOfLemma(lem); f.margins.event = mg;
     } else {
       f.event = sch.single_event || null;
@@ -289,7 +294,10 @@ export class Reader {
     for (const r of sch.role_order) {
       const o = this.readRole(Sn, K, r, core, presence); f.presence[r] = o.presence;
       for (const part of ["attr", "det"]) if ((part + "_ratio") in o) f.presence[r + "." + part] = o[part + "_ratio"];
-      if ("presence_margin" in o) f.margins[r + ".presence"] = o.presence_margin;
+      if ("presence_margin" in o) {
+        if (o.present || !this.cfg.presence_query) f.margins[r + ".presence"] = o.presence_margin;
+        else if (o.presence_margin < this.tau) (f.presence_queries = f.presence_queries || {})[r] = o.presence_margin;   // D14 item 1: an absent role near its threshold is a query, not an abstention of the frame
+      }
       if (o.present && o.filler) {
         f.roles[r] = o.filler; Object.assign(f.margins, o.margins);
         if ("presence_margin" in o) {
@@ -366,6 +374,7 @@ export class Reader {
     for (const r of this.legend.roles) {
       if (r in mg) ev.set(`_margin.${r}`, fmt(mg[r]));
       if ((r + ".presence") in mg) ev.set(`_presence_margin.${r}`, fmt(mg[r + ".presence"]));
+      if (f.presence_queries && r in f.presence_queries) ev.set(`_presence_query.${r}`, fmt(f.presence_queries[r]));   // absent, near threshold: "is there a <r>?"
     }
     if ("event" in mg) ev.set("_margin.event", fmt(mg.event));
     if ("scope" in mg) ev.set("_margin.scope", fmt(mg.scope));
