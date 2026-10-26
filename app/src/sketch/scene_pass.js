@@ -41,7 +41,10 @@ export function outlineOf(shape, box, orient = "up") {
 
 function shapeOfExisting(c) { return c.shape || ({ decision: "diamond", data: "cylinder" }[c.kind]) || (c.word === "ellipse" || c.word === "circle" ? "ellipse" : "rectangle"); }
 
-export function scenePass(rec, { scene = null, options = {} } = {}) {
+/** `reader` (optional): the relation reader of rules 2 and 3, `reader.read({items, conns}, options)` -> {declined, active} or {active, containers: Set(tmp),
+ * parent: Map(tmp -> tmp | null), attach: Map(`${connector id}:tail|tip` -> {id, margin, sim}), contain: Map(tmp -> {margin})}. scene_fpe.js is the one that is
+ * given (the VSS scene reader, positions as addresses); without it, or when it declines, the rules below read. */
+export function scenePass(rec, { scene = null, options = {}, reader = null } = {}) {
   const o = { ...PASS_OPTIONS, ...options };
   const explain = [], questions = [];
   const groups = rec.groups || [];
@@ -79,18 +82,36 @@ export function scenePass(rec, { scene = null, options = {} } = {}) {
     extra.push({ tmp: g.id, word: "caption", kind: "text", shape: "text", box: { ...s }, strokes: g.strokes, labelMark: true, why: "a scribble on its own: a text placeholder" });
     explain.push(`a text placeholder at ${fmt(s)}: a scribble on its own`);
   }
-  // ---- 2. containment
+  // ---- 2. containment (by the relation reader when one is given and does not decline, else by boxes)
   const L = live();
-  for (const it of L) {
-    if (!it.isNew || !(it.shape === "rectangle" || it.shape === "rounded_rectangle")) continue;
-    const inner = L.filter((x) => x !== it && insideShare(x.box, it.box) >= o.containShare && boxArea(x.box) < 0.8 * boxArea(it.box));
-    if (inner.length) { it.container = true; explain.push(`the ${nice(it.shape)} at ${fmt(it.box)} encloses ${inner.length} component(s): a container`); }
-  }
-  for (const it of L) {
-    if (!it.isNew) continue;
-    const par = L.filter((c) => c !== it && c.container && insideShare(it.box, c.box) >= o.containShare && boxArea(it.box) < boxArea(c.box)).sort((a, b) => boxArea(a.box) - boxArea(b.box))[0];
-    it.parent = par ? par.tmp : null;
-    if (par) explain.push(`${nice(it.container ? "container" : it.shape)} ${fmt(it.box)} is inside the container ${fmt(par.box)}`);
+  const fr = reader ? reader.read({ items: L.map((it) => ({ tmp: it.tmp, shape: it.shape, box: it.box, isNew: it.isNew, container: it.container })),
+    conns: connGroups.filter((c) => !c.deleted).map((c) => ({ id: c.g.id, tail: c.g.ends.tail, tip: c.g.ends.tip })) }, o) : null;
+  const fpe = fr && !fr.declined ? fr : null;
+  if (fr && fr.declined) explain.push(`the VSS scene reader declined (${fr.why}): the rules read`);
+  if (fpe) {
+    const byTmp = new Map(L.map((it) => [it.tmp, it]));
+    for (const it of L) {
+      if (!it.isNew || !(it.shape === "rectangle" || it.shape === "rounded_rectangle")) continue;
+      if (fpe.containers.has(it.tmp)) { it.container = true; explain.push(`the ${nice(it.shape)} at ${fmt(it.box)} is a container: the scene reader finds ${fpe.members.get(it.tmp)} component(s) inside it (positions as addresses)`); }
+    }
+    for (const it of L) {
+      if (!it.isNew) continue;
+      const par = fpe.parent.get(it.tmp) ? byTmp.get(fpe.parent.get(it.tmp)) : null;
+      it.parent = par ? par.tmp : null;
+      if (par) explain.push(`${nice(it.container ? "container" : it.shape)} ${fmt(it.box)} is inside the container ${fmt(par.box)} (scene reader margin ${fpe.contain.get(it.tmp).margin.toFixed(3)})`);
+    }
+  } else {
+    for (const it of L) {
+      if (!it.isNew || !(it.shape === "rectangle" || it.shape === "rounded_rectangle")) continue;
+      const inner = L.filter((x) => x !== it && insideShare(x.box, it.box) >= o.containShare && boxArea(x.box) < 0.8 * boxArea(it.box));
+      if (inner.length) { it.container = true; explain.push(`the ${nice(it.shape)} at ${fmt(it.box)} encloses ${inner.length} component(s): a container`); }
+    }
+    for (const it of L) {
+      if (!it.isNew) continue;
+      const par = L.filter((c) => c !== it && c.container && insideShare(it.box, c.box) >= o.containShare && boxArea(it.box) < boxArea(c.box)).sort((a, b) => boxArea(a.box) - boxArea(b.box))[0];
+      it.parent = par ? par.tmp : null;
+      if (par) explain.push(`${nice(it.container ? "container" : it.shape)} ${fmt(it.box)} is inside the container ${fmt(par.box)}`);
+    }
   }
   // ---- 3. connectors
   const connectors = [];
@@ -104,9 +125,18 @@ export function scenePass(rec, { scene = null, options = {} } = {}) {
   for (const { g, deleted } of connGroups) {
     if (deleted) continue;
     const span = Math.hypot(g.ends.tip.x - g.ends.tail.x, g.ends.tip.y - g.ends.tail.y); const tol = Math.max(o.attachTol, 0.12 * span);
-    const A = attach(g.ends.tail), B = attach(g.ends.tip);
+    let A = attach(g.ends.tail), B = attach(g.ends.tip);
+    // the scene reader's choice (the component whose address is most similar to the decoded end) goes first when its outline is within the tolerance;
+    // otherwise (an end on a container's outline, or near nothing) the outline rule above decides
+    const pick = (R, end) => {
+      const f = fpe && fpe.attach.get(`${g.id}:${end}`); if (!f) return { R, fpe: null };
+      const w = R.find((x) => x.it.tmp === f.id);
+      if (w && w.d <= tol) return { R: [w, ...R.filter((x) => x !== w)], fpe: { margin: f.margin, sim: f.sim, agrees: R[0] === w } };
+      return { R, fpe: { fallback: true } };
+    };
+    const pa = pick(A, "tail"), pb = pick(B, "tip"); A = pa.R; B = pb.R;
     const a = A[0], b = B[0];
-    const marginA = A[1] ? A[1].d - a.d : Infinity, marginB = B[1] ? B[1].d - b.d : Infinity;
+    const marginA = pa.fpe && !pa.fpe.fallback ? pa.fpe.margin : (A[1] ? A[1].d - a.d : Infinity), marginB = pb.fpe && !pb.fpe.fallback ? pb.fpe.margin : (B[1] ? B[1].d - b.d : Infinity);
     if (!a || !b || a.d > tol || b.d > tol) {
       const which = !a || a.d > tol ? (!b || b.d > tol ? "either end" : "its start") : "its end";
       questions.push({ kind: "dangling", ref: g.id, strokes: g.strokes, text: `this ${g.kind} touches nothing at ${which}: where does it go?` });
@@ -117,9 +147,10 @@ export function scenePass(rec, { scene = null, options = {} } = {}) {
       questions.push({ kind: "self", ref: g.id, strokes: g.strokes, text: `this ${g.kind} starts and ends at the same ${nice(a.it.shape)}: is that intended?` });
     }
     const c = { tmp: g.id, source: a.it.tmp, target: b.it.tmp, kind: g.kind === "line" ? "line" : "arrow", style: "solid", label: null, heads: g.ends.heads, strokes: g.strokes,
-      margin: { source: marginA, target: marginB, kind: g.margin }, attachTol: tol, candidates: { source: A.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })), target: B.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })) } };
+      margin: { source: marginA, target: marginB, kind: g.margin }, attachTol: tol, ...(fpe ? { fpe: { source: pa.fpe, target: pb.fpe } } : {}), candidates: { source: A.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })), target: B.slice(0, 2).map((x) => ({ ref: x.it.tmp, d: Math.round(x.d) })) } };
     connectors.push(c);
-    explain.push(`${g.kind} from the ${nice(a.it.container ? "container" : a.it.shape)} (end ${Math.round(a.d)} px from its outline${isFinite(marginA) ? `, next ${Math.round(marginA)} px further` : ""}) to the ${nice(b.it.container ? "container" : b.it.shape)} (${Math.round(b.d)} px${isFinite(marginB) ? `, next ${Math.round(marginB)} px further` : ""})`);
+    const mtxt = (m, f) => (f && !f.fallback ? `, scene reader margin ${m.toFixed(3)}` : isFinite(m) ? `, next ${Math.round(m)} px further` : "");
+    explain.push(`${g.kind} from the ${nice(a.it.container ? "container" : a.it.shape)} (end ${Math.round(a.d)} px from its outline${mtxt(marginA, pa.fpe)}) to the ${nice(b.it.container ? "container" : b.it.shape)} (${Math.round(b.d)} px${mtxt(marginB, pb.fpe)})`);
   }
   // ---- 4. clean-up of the new components: grid, rows and columns, containers around members
   const fresh = live().filter((it) => it.isNew);
@@ -184,7 +215,7 @@ export function scenePass(rec, { scene = null, options = {} } = {}) {
     }
     if (layoutHint) explain.push(`layout hint: ${layoutHint}`);
   }
-  return { components, connectors, deletions, questions, explain, layoutHint, active: "rule-based geometry pass (spec 17.3: the FPE scene reader is not active until its criterion is met)" };
+  return { components, connectors, deletions, questions, explain, layoutHint, active: fpe ? fpe.active : fr?.declined ? fr.active : "rule-based geometry pass (spec 17.3: the FPE scene reader is not active until its criterion is met)" };
 }
 
 /** the result as the SOP circuit of spec 15.2: one create wire per component, one connect wire per connector, one group wire per
