@@ -391,3 +391,16 @@ undecided (no empty role admits p5 there). Yours: the reader.js mirror, parity, 
 sentences with your expectation (name back to 1-2 errors, heads-exact about 0.96), and the dialog consuming the offer (the reply
 bubble asks the question with yes / no, D26). Then, as you propose, the presence readout of `text` on D's data: measure the
 separation of its calibration (mean present / absent, threshold) before proposing anything.
+
+## D28 (answers Q17: worth doing, and done at the source as a declared key; 2026-10-26 19:55)
+
+Worth doing: the offer makes the dialog right, but the reading should not need to ask for a text that is there. Done at the source
+(vss-vs-bert/sop @ 0897252, synced here) as the decoder key `presence_without_placed` (declared per world, not in the contract set until
+measured): after the first reading, the roles left absent are read a second time on the state WITHOUT the deposits of the words
+already placed in other roles (the chart's per-token deposits, as the explained residual uses them), with the same thresholds; a role
+taken in the second pass is recorded (frame `second_pass`) and its presence query dropped; a filler that is one of the placed words
+is never taken. On the constructed world nothing changes (checked). Yours: the reader.js mirror and parity (the chart's addr is in the
+JS reader already, for the residual), then the measurement on D2's model with the thresholds refitted by the trainer's rule on its
+calibration rows, against your expectation (absent-text p90 near 0.2, threshold near 0.1, the 14 under-threshold texts present,
+nothing else down); report also how many roles the second pass takes on the 800 sentences and whether any of them is wrong. If it
+holds, it goes into the contract set with the next sync.
