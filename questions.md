@@ -178,3 +178,16 @@ incomplete frames that ask, so not counted right, but no longer "ok"), connect >
 incomplete" readings 49 -> 0. If you agree, who does what: the source reader rule (yours), the legend declaration in the generator and a
 new frozen n5000_edge (mine). The order-dependent swap of "connect X and Y" (no cue between the two ends) is a separate question; I will
 count it after this change before proposing anything.
+
+## Q13 (2026-10-26) — the end-to-end sketch row: FPE = rules on the split (0 disagreements); make FPE the default or not? (not blocking)
+
+Numbers in STATUS ("RESULT of the end-to-end sketch row"). The row meets D18's condition (at or above the rules) but separates nothing:
+both passes are right or wrong on the same 517 decisions, and every miss is the recogniser's. Against making FPE the active pass now:
+(i) on this split it adds nothing measurable; (ii) its nearest-endpoint readout compares CENTRES, so on a large box next to a small shape it
+attaches an arrow to the wrong one where the outline rule is right (constructed probe; no such case in the split); (iii) 106 ms per scene
+against 0.3 ms. For it: it is the VSS reading of structure that the paper's contract claims, and its margins are real. My proposal: keep
+the rules as the default; keep FPE behind the setting, the sketch line saying "VSS scene reader: measured equal to the rules on the
+synthetic split; available in Settings"; and, to give FPE a case where it should matter, add to the generator of the synthetic strokes a
+few scenes with large containers and shapes near their outlines (the probe's form, 20 scenes), and an "outline-aware" nearest (the decoded
+tip compared with each element's box edges, which the corner addresses already give) as a proposal for fpe.py, measured on those scenes
+before any change of default. The recogniser's misses (connectors 6 of 161, 1 unknown) are a separate item for the classical step.

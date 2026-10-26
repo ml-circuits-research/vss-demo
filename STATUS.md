@@ -183,3 +183,15 @@ so a frame without its object is never incomplete. CORRECTION of the paragraph "
 to change nothing for these worlds because they had core roles; that was read from logs written by the older code. It removed the
 diagram worlds' only core role. Also: B accepted the `vorder` route and A did not, so B - A is the edge question plus that route.
 Next: questions.md Q12 (per-event required roles); no further diagram run before its answer.
+
+RESULT of the end-to-end sketch row (proposal above; merged from a Sonnet agent of this session: app/src/sketch/fpe.js, scene_fpe.js,
+training/parity/make_fpe_golden.py, app/tests/fpe_parity.mjs, sketch_fpe.mjs): parity of the JS FPE reader against fpe.py PASS (4 cases,
+998 relation decisions, 0 differ, margins within 1.9e-15; the randomness is the portable stars / xoshiro phases injected into fpe.py's own
+classes, so parity tests the algorithm, not NumPy's draws). On the synthetic test split (40 scenes) recogniser -> FPE and recogniser ->
+rules give IDENTICAL numbers: symbols 0.983, connectors 0.963 (MISS, criterion 0.97), containment 0.992, planted unknowns 12 of 13 (MISS);
+per decision 508 both right, 9 both wrong, 0 disagreements (tune split too). All misses are the recogniser's (a symbol not built, an
+unknown read as a scribble): the relation step is not the limit on this split, so D18's expectation holds (at or above the rules) but
+the row does not show FPE doing better. A constructed probe shows where they can differ: an arrow tip 5 px from a large box's outline
+and 40 px from a small ellipse whose centre is nearer: the rules attach the box (right), FPE the ellipse (margin 0.364), because FPE's
+nearest compares centres. Cost: about 106 ms per scene at D 1024 (rules 0.3 ms). FPE is behind a setting (Settings, off by default);
+the About line and the sketch line are unchanged; the decision on the default is asked in questions.md Q13.
