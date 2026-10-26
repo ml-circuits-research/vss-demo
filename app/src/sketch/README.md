@@ -92,3 +92,13 @@ similar to the decoded end. The tolerance gate of rule 3 (an end near nothing is
 a container's outline, is read by the outline rule. Above 16 components the reader declines, and `active` says
 `rule-based pass (FPE declined: N elements > 16 measured)`. The shapes (left column of the Sketch tab) are never VSS.
 Randomness is portable (star_version 2 stars; phases from the same generator), not the NumPy draw of `fpe.py`: see the header of `fpe.js`.
+
+## The probe split and the outline-aware nearest (responses D19, Q13; a proposal, not the default)
+
+`sketch_synth.json` has a third split, `probe` (20 scenes, seed 2017, `synth_strokes.py`; never mixed into tune or test, no criterion): ten
+scenes with a large box and a connector end 3 to 8 px outside its outline while a small shape's centre is nearer to the end, ten with a large
+container, a small shape just inside its outline and one just outside. `fpe.js` has a second nearest readout, `new Reader(fpe, alg, W, H,
+{ nearest: "outline" })` (and `sceneFpe(rec, { nearest: "outline" })`): every element then also carries its corner addresses (tl, br) and the
+decoded end is compared with each element's BOX edges instead of its centre; parity-tested against `fpe.py` (`nearest_outline`,
+`experiment_fpe.Reader(nearest="outline")`). `node app/tests/sketch_fpe.mjs` prints rules, FPE (centre) and FPE (outline) on test and probe
+(`--tune` adds tune) with the list of disagreements. The default pass, the setting and the default readout are unchanged.
