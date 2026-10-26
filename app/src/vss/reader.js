@@ -218,13 +218,14 @@ export class Reader {
         let a1 = Reader.best(cmul(Sn, ka), ca), neg = false;
         if (rs.attr_neg) { const a2 = Reader.best(cmulc(cmul(Sn, ka), this.st.op("not")), ca); if (a2[2] > a1[2]) { a1 = a2; neg = true; } }
         const aratio = top > 1e-9 ? a1[2] / top : 0, athr = (this.th.attr_presence || {})[r]; out.attr_ratio = aratio;
-        if ((athr !== undefined && athr !== null) ? aratio >= athr : (rs.attr_rate || 0) >= 0.5) { attr = [neg ? "negword" : "word", a1[0]]; out.margins[r + ".attr"] = a1[1]; }
+        // vss-demo Q1 / D1 (infer.py): an attribute (or determiner) is given only when a candidate exists
+        if (a1[0] !== null && a1[0] !== undefined && ((athr !== undefined && athr !== null) ? aratio >= athr : (rs.attr_rate || 0) >= 0.5)) { attr = [neg ? "negword" : "word", a1[0]]; out.margins[r + ".attr"] = a1[1]; }
       }
       let det = null;
       if (rs.det_kinds && rs.det_kinds.length) {
         const d1 = Reader.best(cmulc(cmul(Sn, key), this.st.op("det")), this.cands(rs.det_kinds));
         const dratio = top > 1e-9 ? d1[2] / top : 0, dthr = (this.th.det_presence || {})[r]; out.det_ratio = dratio; out.det_best = [d1[0], d1[1]];
-        if ((dthr !== undefined && dthr !== null) ? dratio >= dthr : (rs.det_rate || 0) >= 0.5) { det = d1[0]; out.margins[r + ".det"] = d1[1]; }
+        if (d1[0] !== null && d1[0] !== undefined && ((dthr !== undefined && dthr !== null) ? dratio >= dthr : (rs.det_rate || 0) >= 0.5)) { det = d1[0]; out.margins[r + ".det"] = d1[1]; }
       }
       out.filler = ["entity", h, attr, det];
     } else {
