@@ -13,6 +13,9 @@ structured form of the gold circuit (one create wire per element, one connect wi
 `--sop` also writes it as SOP Lang wires.
 
 Two splits with different seeds: `tune` (for adjusting the recogniser's thresholds) and `test` (reported only, never tuned on).
+A third split, `probe` (20 scenes, seed + 2000, never mixed into the two): scenes built to separate the scene readers, in two families:
+(A) a large box with a connector end 3 to 8 px outside its outline and a small shape 14 to 22 px further out whose centre is nearer to the
+end than the box's centre; (B) a large container with a small shape just inside its outline and one just outside it. Gold as above.
 Run: python3 synth_strokes.py --out ../../../app/tests/data/sketch_synth.json [--n_tune 24] [--n_test 40] [--seed 17]
 """
 import argparse, json, math, os, sys
@@ -353,6 +356,99 @@ def make_scene(r, sid):
     return {"id": sid, "width": W, "height": H, "strokes": enc, "gold": gold}
 
 
+# ------------------------------------------------------------------ the probe split (responses D19, Q13): scenes built to separate the readers
+PROBE_SMALL = ["ellipse", "diamond", "rectangle", "rounded_rectangle", "cylinder"]
+PROBE_LARGE = ["rectangle", "rounded_rectangle"]
+
+
+def _probe_draw(r, parts, conns):
+    """parts: [(id, kind, box)] drawn in random order; conns: [(id, kind, path)] drawn after the shapes -> (encoded strokes, {id: stroke indices})"""
+    hand = Hand(r); items = [("el", p) for p in parts]; r.shuffle(items)
+    late = [("conn", c) for c in conns]; r.shuffle(late); items += late
+    strokes, t, idx_of = [], 0, {}
+    for typ, it in items:
+        S = shape_strokes(it[1], it[2], r) if typ == "el" else connector_strokes(it[2], it[1] == "arrow", r)
+        idx = []; t += int(r.uniform(250, 1400)) if strokes else 0
+        for s in S:
+            pts, t = hand.draw(s, t); idx.append(len(strokes)); strokes.append(pts); t += int(r.uniform(80, 350))
+        idx_of[it[0]] = idx
+    return [{"p": delta(s)} for s in strokes], idx_of
+
+
+def _fits(boxes, margin=12):
+    return all(b[0] >= margin and b[1] >= margin and b[0] + b[2] <= W - margin and b[1] + b[3] <= H - margin for b in boxes)
+
+
+def probe_outline_scene(r, sid, side, big_is_target):
+    """family A: a large box; a connector end lands 3 to 8 px outside its outline, a small shape is 14 to 22 px further along the same
+    normal and a little to one side (so its CENTRE is nearer to the end than the large box's centre, its outline is farther); the other end
+    is on a small source shape 230 to 340 px away (the span keeps the attach tolerance, 12% of it, above the small shape's distance). Gold: the end belongs to the large box."""
+    nrm = [np.array(v, float) for v in ((1, 0), (0, 1), (-1, 0), (0, -1))][side]; tan = np.array([-nrm[1], nrm[0]])
+    for _ in range(200):
+        kind = PROBE_LARGE[int(r.integers(len(PROBE_LARGE)))]; bw, bh = r.uniform(260, 380), r.uniform(180, 260)
+        cen = np.array([600.0, 400.0]) - nrm * r.uniform(120, 200) + tan * r.uniform(-50, 50); box = [cen[0] - bw / 2, cen[1] - bh / 2, bw, bh]
+        he, ht = (bw / 2, bh / 2) if side % 2 == 0 else (bh / 2, bw / 2)
+        tip = cen + nrm * (he + r.uniform(3, 8)) + tan * r.uniform(-0.55, 0.55) * ht
+        dk = PROBE_SMALL[int(r.integers(len(PROBE_SMALL)))]; dw, dh = r.uniform(50, 80), r.uniform(36, 56)
+        dhn, dht = (dw / 2, dh / 2) if side % 2 == 0 else (dh / 2, dw / 2)
+        sgn = 1 if r.random() < 0.5 else -1
+        dc = tip + nrm * (r.uniform(14, 22) + dhn) + tan * sgn * (dht + r.uniform(8, 12))
+        sk = PROBE_SMALL[int(r.integers(len(PROBE_SMALL)))]; sw, sh = r.uniform(50, 80), r.uniform(36, 56)
+        shn = sw / 2 if side % 2 == 0 else sh / 2
+        sc = tip + nrm * (r.uniform(280, 340) if side % 2 == 0 else r.uniform(230, 300) + shn)
+        dbox = [dc[0] - dw / 2, dc[1] - dh / 2, dw, dh]; sbox = [sc[0] - sw / 2, sc[1] - sh / 2, sw, sh]
+        if _fits([box, dbox, sbox]): break
+    else: raise RuntimeError("probe A does not fit")
+    ps = boundary_point(sk, sbox, tip) + nrm * r.uniform(-4, 6)          # the source end, on the small shape's outline (+- a few px)
+    path = [ps, tip] if big_is_target else [tip, ps]
+    parts = [("e1", kind, box), ("e2", dk, dbox), ("e3", sk, sbox)]
+    strokes, idx = _probe_draw(r, parts, [("k1", "arrow", path)])
+    rnd = lambda b: [int(round(v)) for v in b]
+    els = [{"id": i, "kind": k, "box": rnd(b), "strokes": idx[i], "parent": None, "container": False} for i, k, b in parts]
+    gold = {"elements": els, "connectors": [{"id": "k1", "kind": "arrow", "source": "e3" if big_is_target else "e1", "target": "e1" if big_is_target else "e3", "strokes": idx["k1"]}], "marks": [], "unknowns": []}
+    return {"id": sid, "family": "outline-end", "width": W, "height": H, "strokes": strokes, "gold": gold}
+
+
+def probe_container_scene(r, sid):
+    """family B: a large container with a small shape 10 to 16 px inside its left outline, a large inner shape, and a small shape 10 to 16 px
+    OUTSIDE its right outline (not a member); arrows from the outside shape to the inner one and from the near-outline one to the inner one."""
+    for _ in range(200):
+        ck = PROBE_LARGE[int(r.integers(len(PROBE_LARGE)))]; cw, chh = r.uniform(420, 520), r.uniform(280, 360)
+        cx0, cy0 = r.uniform(40, 330), r.uniform(60, 220); cbox = [cx0, cy0, cw, chh]
+        ak = PROBE_SMALL[int(r.integers(len(PROBE_SMALL)))]; aw, ah = r.uniform(50, 76), r.uniform(36, 52)
+        abox = [cx0 + r.uniform(10, 16), cy0 + chh * r.uniform(0.35, 0.55), aw, ah]
+        bk = PROBE_SMALL[int(r.integers(len(PROBE_SMALL)))]; bw, bh = r.uniform(100, 140), r.uniform(60, 90)
+        bbox = [cx0 + cw * 0.55, cy0 + chh * r.uniform(0.25, 0.45), bw, bh]
+        ok_ = PROBE_SMALL[int(r.integers(len(PROBE_SMALL)))]; ow, oh = r.uniform(50, 76), r.uniform(36, 52)
+        obox = [cx0 + cw + r.uniform(10, 16), cy0 + chh * r.uniform(0.3, 0.6), ow, oh]
+        if _fits([cbox, abox, bbox, obox]) and abox[0] + aw < bbox[0] - 40 and bbox[0] + bw < cx0 + cw - 20: break
+    else: raise RuntimeError("probe B does not fit")
+    def end(kind, box, toward, out): return boundary_point(kind, box, toward) + out * r.uniform(-4, 6)
+    cen = lambda b: np.array(b[:2]) + np.array(b[2:]) / 2
+    bc, oc, ac = cen(bbox), cen(obox), cen(abox)
+    u1 = (oc - bc) / np.linalg.norm(oc - bc); u2 = (ac - bc) / np.linalg.norm(ac - bc)
+    p1 = [end(ok_, obox, bc, -u1), end(bk, bbox, oc, u1)]; p2 = [end(ak, abox, bc, -u2), end(bk, bbox, ac, u2)]
+    parts = [("g1", ck, cbox), ("e1", ak, abox), ("e2", bk, bbox), ("e3", ok_, obox)]
+    strokes, idx = _probe_draw(r, parts, [("k1", "arrow", p1), ("k2", "arrow", p2)])
+    rnd = lambda b: [int(round(v)) for v in b]
+    els = [{"id": "e1", "kind": ak, "box": rnd(abox), "strokes": idx["e1"], "parent": "g1", "container": False},
+           {"id": "e2", "kind": bk, "box": rnd(bbox), "strokes": idx["e2"], "parent": "g1", "container": False},
+           {"id": "e3", "kind": ok_, "box": rnd(obox), "strokes": idx["e3"], "parent": None, "container": False},
+           {"id": "g1", "kind": ck, "box": rnd(cbox), "strokes": idx["g1"], "parent": None, "container": True}]
+    cons = [{"id": "k1", "kind": "arrow", "source": "e3", "target": "e2", "strokes": idx["k1"]}, {"id": "k2", "kind": "arrow", "source": "e1", "target": "e2", "strokes": idx["k2"]}]
+    return {"id": sid, "family": "container-near-outline", "width": W, "height": H, "strokes": strokes, "gold": {"elements": els, "connectors": cons, "marks": [], "unknowns": []}}
+
+
+def probe_split(seed, n=20):
+    """n probe scenes, deterministic for the seed: even index = family A (sides cycle; the arrow ends on the large box for i < 8 and 16+,
+    starts there for 8 to 15), odd = family B"""
+    r = np.random.default_rng(seed); out = []
+    for i in range(n):
+        sid = f"probe-{i:03d}"
+        out.append(probe_outline_scene(r, sid, (i // 2) % 4, (i // 8) % 2 == 0) if i % 2 == 0 else probe_container_scene(r, sid))
+    return out
+
+
 def delta(pts):
     """[x0, y0, t0, dx1, dy1, dt1, ...]: the first point absolute, the next ones as differences (small integers, a smaller file)"""
     d = np.vstack([pts[:1], np.diff(pts, axis=0)]); return [int(v) for v in d.reshape(-1)]
@@ -387,12 +483,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "app", "tests", "data", "sketch_synth.json"))
     ap.add_argument("--n_tune", type=int, default=24); ap.add_argument("--n_test", type=int, default=40); ap.add_argument("--seed", type=int, default=17)
+    ap.add_argument("--n_probe", type=int, default=20, help="scenes of the `probe` split (seed + 2000); 0 omits it")
     ap.add_argument("--sop", default=None, help="also write the gold circuit of every test scene as SOP Lang, one file per scene, into this folder")
     a = ap.parse_args()
     out = {"generator": "training/worlds/scene/synth_strokes.py", "seed": a.seed, "format": "strokes[i].p = [x0, y0, t0_ms, dx1, dy1, dt1, ...] (first point absolute, then differences); box = [x, y, w, h]",
            "splits": {}}
     for name, n, s in [("tune", a.n_tune, a.seed), ("test", a.n_test, a.seed + 1000)]:
         r = np.random.default_rng(s); out["splits"][name] = [make_scene(r, f"{name}-{i:03d}") for i in range(n)]
+    if a.n_probe: out["splits"]["probe"] = probe_split(a.seed + 2000, a.n_probe)       # its own rng: tune and test are byte-identical with or without it
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     txt = json.dumps(out, separators=(",", ":"))
     open(a.out, "w").write(txt)
