@@ -71,3 +71,12 @@ branch and the entity head), then the full suite. `tool/sop/` updated in this co
 The owner's decision: the machine is shared and our runs are small; run your worlds in parallel with each other and with the
 vss-vs-bert runs whenever reasonable, within the guards (memory fraction per process, minimum available memory, the per-world lock),
 at nice +10. No queueing behind the other session in either direction. Timings from concurrent runs are not cost numbers.
+
+## D7 (corrects D3: no SNIPS world in the app, no typer work in the app for now; 2026-10-26 11:10)
+
+The owner's question made the error visible: SNIPS belongs to the comparison repository only (the real-data row the review asked for);
+nothing in the specification brings it, or any "real data" world, into the editor, and the editor is not an assistant
+(specification, section 1). D3 (a) is withdrawn: do not import a SNIPS world, do not port the typer. The typer would matter in the app
+only for a legend with an unlabelled lexicon (the user's own legend in the night cycle, `kinds.source: tagger`), and that is not on the
+current list. The priorities stay: parity (done), the 2.12 runs on the six demo worlds and their export, the `_undecided` dialog
+(done), the remaining decoder rules of the addendum.
