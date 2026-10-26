@@ -30,14 +30,14 @@ echo $$ > "$LOCK"; trap 'rm -f "$LOCK"' EXIT
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True VSA_MEM_FRACTION=${VSA_MEM_FRACTION:-0.5} VSA_MIN_AVAILABLE_GB=${VSA_MIN_AVAILABLE_GB:-16} VSA_MAX_HOURS=${VSA_MAX_HOURS:-6}
 mkdir -p "$OUT"; WORK="$(mktemp -d "${TMPDIR:-/tmp}/diagram_step3_XXXX")"; LOG="$OUT/step3.log"
 echo "# diagram step 3, commit $COMMIT, $(date -Iseconds); worlds in $WORK; runs in $OUT; sizes $SIZES" | tee "$LOG"
-COMMON="--D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit"
+COMMON="--D 1024 --seeds 5 --device cuda --n_eval 600 --log_every 500 --no_ckpt --star_version 2 --calibrate_on_heldout_formulations --threshold_rule fit --activate auto"   # routes selected from the world's nature (tool/sop/activate.py); decoder contract is the default
 for n in $SIZES; do
   mkdir -p "$WORK/$n"
   if [ -d "$REPO/training/data/diagram/n$n" ]; then "$PY" "$REPO/training/data/unpack.py" "diagram/n$n" "$WORK/$n" | tee -a "$LOG"   # the frozen data (sha256 checked)
   else "$PY" "$REPO/training/worlds/diagram/generate.py" --out "$WORK/$n/diagram" --n "$n" --n_eval 400 --seed 0 | tee -a "$LOG"; fi
   "$SOP" check --legend "$WORK/$n/diagram/legend.json" "$WORK/$n/diagram"/examples/*.sop | tail -1 | tee -a "$LOG"
   echo "## size $n: sop train $WORK/$n/diagram $COMMON" | tee -a "$LOG"
-  "$SOP" train "$WORK/$n/diagram" $COMMON --run_dir "$OUT/$n" 2>&1 | grep "\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]" | tee -a "$LOG"
+  "$SOP" train "$WORK/$n/diagram" $COMMON --run_dir "$OUT/$n" 2>&1 | grep "\[eval\]\|\[done\]\|end:\|numpy reader\|\[splits\]\|\[schema\]\|\[activate\]" | tee -a "$LOG"
   cp "$WORK/$n/diagram/legend.json" "$WORK/$n/diagram/kinds.tsv" "$OUT/$n/"
   [ "$n" = "$(echo $SIZES | awk '{print $NF}')" ] && cp -r "$WORK/$n/diagram/model" "$OUT/model_$n"
 done

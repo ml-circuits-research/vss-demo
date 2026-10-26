@@ -25,6 +25,8 @@ echo "do not delete the unsaved files ." | tool/bin/sop formalize --model tool/w
 tool/bin/sop formalize --worlds tool/worlds sentences.txt            # every world's reader reads; the dispatcher picks by fit (section 9)
 tool/bin/sop diff a.sop b.sop [--model <dir>]     # verdict wires
 tool/bin/sop stats --model tool/worlds/commands/model
+tool/bin/sop profile tool/worlds/reference                        # the nature of the world: need signals of the routes, diagnostics (no training)
+tool/bin/sop train tool/worlds/reference --activate auto             # routes selected by need + acceptance on selection rows (activate.py); decoder contract by default
 node tool/server.js --root <DATA_ROOT> --port 8080 [--host 0.0.0.0]  # NO authentication; localhost by default
 tool/tests/run_all.sh                              # the six tests (CPU)
 tool/test_sop.sh                                   # the CPU smoke test: export, check, smoke train, formalize 3, diff 2, stats
@@ -43,6 +45,7 @@ Exit codes (spec 5): 0 ok; 1 input / validation error; 2 model missing or legend
 | `sop train` (spec 6.3-6.6: kinds with `unknown`, the four splits before training, V8 + trainer.train_loop, thresholds on calibration rows, metrics.json with every field of 6.6, REPORT.md, `--eval_only`, `--run_dir`, `--no_ckpt`) | `sop/train.py` | BUILT (tests 2, 5) |
 | `sop formalize` (numpy only; every wire with `_margin`, `_status`, `_empty`, `_depth`; `_residual`, `_unplaced`, `_world`, `_verb`, `_scope`; `--json`; `--worlds` / several `--model` = dispatcher by fit with `_world_margin`, `_world=none`) | `sop/infer.py`, `sop/cli.py` | BUILT (test 2) |
 | `sop diff` (four verdicts with margins; per world) and `sop stats` | `sop/diff.py`, `sop/cli.py` | BUILT (test 3) |
+| activation (vision/ACTIVATION_rules_and_worlds_2026-10-26.md): contract rules on in every model (`--decoder contract`), structural routes selected per world by a need signal on the annotation and an acceptance test on selection rows (`--activate auto`), diagnostics; `sop profile` | `sop/activate.py`, `sop/train.py`, `sop/cli.py` | BUILT (reference world run cited in the commit) |
 | the server (all routes of section 2, atomic writes, path normalization, two shell-outs, one page) | `server.js` | BUILT (tests 4, 6) |
 | the three constructed worlds as world folders; the quantifier world VERSION 2 (C2c) with v1 under `versions/v1/` | `export_worlds.py` (`sop export`) | BUILT (test 2) |
 | the train-world skill, spec 6 steps 1-8 and the acceptance of a training | `skills/train-world/` | BUILT offline (test 5); LLM steps PLANNED (no API) |

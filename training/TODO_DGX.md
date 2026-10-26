@@ -157,6 +157,20 @@ default of app/src/vss; expected cost: random in-vocabulary sentences filled int
 independently of the cue chain, learned like the others; needs retraining and a parity export; enters as its own row against the same
 seeds, never replacing the earlier models' rows.
 
+### 2.12 Route activation from the nature of the world (added 2026-10-26; vision/ACTIVATION_rules_and_worlds_2026-10-26.md)
+
+The rules of 2.9-2.11 are no longer switched per world by hand. `tool/sop/activate.py`: the CONTRACT rules (sentence candidates,
+one-to-one, undecided by adjacency, explained residual) are on in every model `sop train` writes (`--decoder contract`, the default;
+`--decoder paper` for the frozen rows); the structural routes (`vorder`, `pos`) are CANDIDATES selected by `sop train --activate auto`: a
+need signal measured on the training annotation (same-kind competition for `vorder`, rigid order for `pos`), then an acceptance test on
+selection rows the trial models did not train on (no split loses by more than eps, the marked rows win). The decision and its numbers go
+to `config.json` (`activation`) and to the run folder (`activation.json`, `PROFILE.md`). `sop profile <world>` prints the need signals
+without training. Step 3 (`gpu_diagram_step3.sh`) trains with `--activate auto`; the DGX task is to run it on every shipped world (diagram,
+diagram_ro, textedit, matheditor, animation, scene) and to keep, per world, the selected codes in `app/model/<world>/model.json` and the
+`[activate]` lines in the run log; 2.9 (gates given) stays a legend declaration, measured by the same acceptance test when it is declared.
+Expected (written before): the diagram worlds have little same-kind competition (the roles differ in kind), so `vorder` is not
+expected to fire there; on the quantifier and reference worlds it fires (`sop profile`: 100% and 78%).
+
 ## 3. The large model as the author (Table 13: "Large model as author"; protocol in training/worlds/diagram/llm_author/PROTOCOL.md)
 
 Needs API keys, not the GPU: `ANTHROPIC_API_KEY` (and `OPENAI_API_KEY` / `GEMINI_API_KEY` for other providers, with their model ids on

@@ -44,10 +44,11 @@ def main():
         norm = a.normalizer or NORMALIZERS.get(a.world) or os.path.join(HERE, "worlds", a.world, "normalize.json")
         if os.path.exists(norm): shutil.copy(norm, os.path.join(out, "normalize.json"))
         cfg = json.load(open(os.path.join(a.model, "config.json")))
-        # the decoder the demo ships (vss-vs-bert R46 / R42 / R54, claim set seeds 5-9): sentence candidates + one-to-one, the explained
-        # residual, the adjacency rule for 'undecided'. TODO_DGX 2.10 / 2.11 measure them on every shipped world; the paper's decoder stays the default of the tool.
+        # the decoder the demo ships: the CONTRACT rules (tool/sop/activate.py class 1; vss-vs-bert R46 / R42 / R54): sentence candidates +
+        # one-to-one, the explained residual, the adjacency rule for 'undecided'. Since 2026-10-26 `sop train` writes them itself (--decoder
+        # contract, the default); a model trained by an older tool (no "decoder" key) gets them here, so that every shipped world has them.
         mj = os.path.join(out, "model.json"); m = json.load(open(mj))
-        m["config"].update({"undecided_adjacent": True, "candidates": "sentence", "residual": "explained"})   # the demo's decoder (addendum q-formalisation 9-11)
+        if "decoder" not in m["config"]: m["config"].update({"decoder": "contract", "undecided_adjacent": True, "candidates": "sentence", "residual": "explained"})
         json.dump(m, open(mj, "w"), separators=(",", ":"))
         import hashlib; b = open(mj, "rb").read(); mp = os.path.join(out, "manifest.json"); man = json.load(open(mp))
         man["files"]["model.json"] = {"sha256": hashlib.sha256(b).hexdigest(), "bytes": len(b)}; json.dump(man, open(mp, "w"), indent=1)
