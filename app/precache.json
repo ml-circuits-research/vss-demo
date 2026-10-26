@@ -1,5 +1,5 @@
 {
- "id": "02634cb7ee4d",
+ "id": "cf67d2708f46",
  "files": [
   "./",
   "index.html",
@@ -77,6 +77,7 @@
   "src/ui/sketch.js",
   "src/ui/sketchrows.js",
   "src/ui/sketchtab.js",
+  "src/ui/sketchview.js",
   "src/ui/tabs.js",
   "src/ui/widgets.js",
   "src/vss/loader.js",

@@ -356,6 +356,35 @@ menu.inline { flex-direction: row; justify-content: flex-start; flex-wrap: wrap;
 .log-dl dt { color: var(--muted); font-weight: 600; } .log-dl dd { margin: 0; overflow-wrap: anywhere; }
 dialog .sop, dialog .sk-circuit { max-height: none; }
 
+/* the sketch preview: two rendered readings over the same strokes */
+.sk-who { margin: 0 0 8px; max-width: none; }
+.sk-same { margin: 0 0 8px; padding: 6px 10px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); max-width: none; }
+.sk-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: start; }
+.sk-fig { margin: 0; padding: 10px 12px 12px; border: 1px solid var(--line); border-radius: var(--r-m); background: var(--bg); min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.sk-fig.sk-chosen { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
+.sk-fig h3 { margin: 0; font-size: 18px; } .sk-fig figcaption p { margin: 2px 0 0; }
+.sk-svg { width: 100%; height: auto; max-height: 58dvh; background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-s); display: block; }
+.sk-svg .sk-stroke { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .55; vector-effect: non-scaling-stroke; }
+.sk-svg .sk-stroke.sk-del { stroke: var(--warn); stroke-dasharray: 5 4; opacity: .9; }
+.sk-svg .sk-ctx { fill: none; stroke: var(--line); stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.sk-svg .sk-comp > :not(text) { fill: color-mix(in srgb, var(--accent) 14%, var(--paper)); stroke: var(--fg); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.sk-svg .sk-comp.sk-container > rect { fill: none; stroke-dasharray: 7 5; }
+.sk-svg .sk-comp.sk-text > rect, .sk-svg .sk-comp.sk-sketch > rect { fill: none; stroke-dasharray: 3 4; }
+.sk-svg text { fill: var(--fg); font-family: var(--ui); pointer-events: none; }
+.sk-svg .sk-line { stroke: var(--fg); stroke-width: 2.4; fill: none; vector-effect: non-scaling-stroke; } .sk-svg .sk-line.sk-dashed { stroke-dasharray: 6 4; }
+.sk-svg .sk-fat { stroke: transparent; stroke-width: 18; fill: none; }
+.sk-svg .sk-head { fill: var(--fg); }
+.sk-svg .sk-q circle { fill: var(--unsure); stroke: var(--paper); stroke-width: 2; } .sk-svg .sk-q text { fill: var(--accent-ink); font-weight: 700; }
+.sk-svg .sk-delmark rect { fill: none; stroke: var(--warn); stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; } .sk-svg .sk-delmark text { fill: var(--warn); }
+.sk-svg .sk-hit { cursor: pointer; } .sk-svg .sk-hit:hover > :not(text), .sk-svg .sk-hit:focus-visible > :not(text) { stroke: var(--accent); }
+.sk-svg .sk-hit:focus-visible { outline: none; }
+.sk-sum { margin: 0; font-size: 14.5px; }
+.sk-use { align-self: flex-start; border: 1px solid var(--line); background: var(--paper); border-radius: var(--r-s); padding: 10px 22px; cursor: pointer; font-weight: 600; }
+.sk-use.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.sk-cancel-row { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.sk-cancel-row button { border: 1px solid var(--line); background: var(--bg); border-radius: var(--r-s); padding: 9px 16px; cursor: pointer; }
+@media (max-width: 820px) { .sk-pair { grid-template-columns: 1fr; } }
+
 /* the Requests popup */
 .req-form { display: flex; gap: 8px; align-items: center; margin: 8px 0 12px; max-width: 78ch; }
 .req-form input { flex: 1; min-width: 0; }

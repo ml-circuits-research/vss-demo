@@ -14,7 +14,7 @@ export const BUILD_STATUS = {
     "English diagram reader: in the preview build, probe model C (5000 sentences, D 1024, one seed of three): about 94% of test commands read exactly, Table 13 (98-99%) not met yet; a bare label right after a relation word (\"left_of paul\") is often missed (fix planned). In a build from the repository without a preview model: the older development model (D 512). The badge says which.",
     "Romanian diagram reader: the older development model (D 512); the Romanian route through the dictionary uses the English probe model.",
     "Text, formula and animation commands: no trained reader installed yet (widgets work; dictation writes text).",
-    "Sketch: shapes by the classical recogniser ($P), the scene by rules; the VSS scene reader is available in Settings (measured equal to the rules on the synthetic split).",
+    "Sketch: shapes by the classical recogniser ($P); Done opens a preview with two readings of the scene, what VSS read and what the classical rules would make (measured equal on the synthetic split), and you choose.",
     "Requests (a popup opened from History): reads with the editor's own worlds; the request worlds (weather, music, ...) come later.",
   ],
   next: [

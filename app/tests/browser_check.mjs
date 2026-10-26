@@ -97,6 +97,12 @@ async function session(browser, url, label, size) {
   check(`${tag} an example fills the input, does not run it`, (await page.inputValue("#input")) === ex && ex.length > 0 && (await page.locator("#tab-history .hist-row").count()) === nHist, ex);
   await page.fill("#input", "");
 
+  // the sketch element: it opens over the canvas (no tab); Done with nothing drawn opens no preview (the preview itself is checked by hand: it needs strokes)
+  await page.click("#btn-sketch"); await page.waitForTimeout(150);
+  check(`${tag} sketch strip opens (not a tab)`, await page.isVisible("#sketch-strip") && (await page.locator('#main-tabs [data-tab="sketch"]').count()) === 0);
+  await page.click("#btn-sketch-done"); await page.waitForTimeout(150);
+  check(`${tag} Done with nothing drawn: no preview, said so`, (await page.locator("dialog.sk-preview").count()) === 0 && /Nothing was drawn/.test(await page.textContent("#answer")));
+
   // the export sheet opens
   await page.click("#btn-export"); await page.waitForTimeout(150);
   check(`${tag} export sheet opens`, await page.evaluate(() => document.getElementById("dlg-export").open));

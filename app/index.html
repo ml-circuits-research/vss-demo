@@ -60,7 +60,7 @@
       </div>
       <div class="sketch-host" id="sketch-host" hidden></div>
       <div class="sketch-strip" id="sketch-strip" hidden>
-        <span class="muted">Draw boxes, circles, diamonds, cylinders and arrows.<br><span class="sketch-who" id="sketch-who">Shapes: classical recogniser ($P). Scene: rule-based pass. VSS scene reader: measured equal to the rules on the synthetic split (0 disagreements on 517 decisions); available in Settings.</span></span>
+        <span class="muted">Draw boxes, circles, diamonds, cylinders and arrows.<br><span class="sketch-who" id="sketch-who">Shapes: classical recogniser ($P). Done opens a preview of two readings of the scene, what VSS read and what the classical rules would make; you choose.</span></span>
         <button type="button" class="primary" id="btn-sketch-done">Done</button>
         <button type="button" id="btn-sketch-cancel">Cancel</button>
       </div>
@@ -105,10 +105,10 @@
       <label><input type="radio" name="corrector" value="form"> VSS form level: letter patterns, the same algebra as the reader</label>
       <label><input type="radio" name="corrector" value="off"> Off</label>
     </fieldset>
-    <fieldset><legend>Sketch: how the scene is read</legend>
-      <label><input type="radio" name="sketch_reader" value="rules" checked> Rules on boxes and outlines (the shapes are always read by the classical recogniser)</label>
+    <fieldset><legend>Sketch: which reading is preselected</legend>
+      <label><input type="radio" name="sketch_reader" value="rules" checked> The classical rules on boxes and outlines (the shapes are always read by the classical recogniser)</label>
       <label><input type="radio" name="sketch_reader" value="fpe"> VSS scene reader (experimental): containment and connector ends read from positions as addresses; above 16 components the rules read</label>
-      <p class="muted small">Whichever is chosen here, the preview that opens at Done shows both readings side by side and you choose.</p>
+      <p class="muted small">Pressing Done always opens a preview with both readings side by side; this only says which "Use this" button is highlighted.</p>
     </fieldset>
     <fieldset><legend>Voice</legend>
       <p class="muted" id="voice-info"></p>

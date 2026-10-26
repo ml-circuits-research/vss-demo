@@ -5,8 +5,7 @@ import { renderReading } from "./reading.js";
 import { renderFrame, renderPlan, renderGeometry, renderUnitsPlan } from "./panel.js";
 import { renderCircuit } from "../segment/view.js";
 import { callText, intentOf, assistantLines, formatTime, sourceIcon } from "./entries.js";
-import { createSketchTab } from "./sketchtab.js";
-import { buildSketchRows } from "./sketchrows.js";
+import { renderSketchReadings } from "./sketchview.js";
 import { PASS_OPTIONS } from "../sketch/scene_pass.js";
 
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -48,8 +47,8 @@ export function renderDetail(body, kind, h, ctx = {}) {
   } else if (kind === "circuit" && L?.circuit) {
     const host = el("div"); renderCircuit(host, L.circuit, {}); body.append(sec("The paragraph as a circuit of linked readings", host));
   } else if (kind === "sketch" && h.sketch) {
-    const host = el("div", "span-all"); body.classList.remove("sheet-grid");
-    const tab = createSketchTab(host, {}); tab.show(buildSketchRows({ rec: h.sketch.rec, res: h.sketch.res, map: h.sketch.map, low: PASS_OPTIONS.ambiguousMargin })); body.append(host);
+    body.classList.remove("sheet-grid"); const sk = h.sketch; const ctxMap = new Map((sk.context || []).map((c) => [c.ref, c]));
+    renderSketchReadings(body, { strokes: sk.strokes, rec: sk.rec, readings: sk.readings, chosen: sk.chosen, lookup: (r) => ctxMap.get(r) || null, context: sk.context, low: PASS_OPTIONS.ambiguousMargin });
   } else if (kind === "log") {
     const [, label] = sourceIcon(h.source);
     const dl = el("dl", "log-dl");

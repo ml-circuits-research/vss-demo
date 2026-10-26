@@ -29,6 +29,7 @@ import { renderBuildStatus } from "./ui/buildview.js";
 import { renderRows, renderLines } from "./ui/info.js";
 import { renderHistory, renderExamples, renderRequestResult } from "./ui/tabs.js";
 import { renderDetail, DETAIL_TITLES } from "./ui/details.js";
+import { renderSketchReadings } from "./ui/sketchview.js";
 import { historyExtras, readingRecord, requestView } from "./ui/entries.js";
 import { availableExamples, hintExamples, REQUEST_EXAMPLES } from "./examples.js";
 import { formulaPhrase, textCapable, findTextWidget, textHeight, looksLikeScript } from "./widgets.js";
@@ -420,19 +421,48 @@ function onFormulaChange(id, doc, r) {
 }
 
 // ------------------------------------------------------------------ sketch (spec 17)
-function onStrokes(strokes, { stay }) {
-  if (!strokes.length) { if (!stay) showAnswer({ action: "execute", line: "Nothing was drawn." }); return; }
-  const v = S.scene.view; const z = v.zoom || 1;
-  const toScene = strokes.map((s) => ({ ...s, points: s.points.map((p) => ({ ...p, x: (p.x - (v.x || 0)) / z, y: (p.y - (v.y || 0)) / z })) }));
-  const rec = recognise(toScene); const res = S.settings.sketch_reader === "fpe" ? sceneFpe(rec, { scene: S.scene }) : scenePass(rec, { scene: S.scene }); const ap = applyToScene(S.scene, res);
+// The strokes of a sketch (Done, or Clean up in the pad): both scene readings are computed on the same strokes and the same scene and shown side by
+// side in a preview (D23); the one the person chooses is applied to the canvas as one undo entry. Nothing is applied before the choice.
+const sceneSummary = (res) => {
   const counts = {}; for (const c of res.components) counts[c.word] = (counts[c.word] || 0) + 1; for (const k of res.connectors) counts[k.kind] = (counts[k.kind] || 0) + 1;
   const what = Object.entries(counts).map(([w, n]) => `${n} ${w}${n > 1 ? (w.endsWith("x") ? "es" : "s") : ""}`).join(", ") || "nothing I can build";
   const del = res.deletions.components.length + (res.deletions.connectors?.length || 0);
-  const line = `Recognised ${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}. One undo takes it back.`;
+  const q = res.questions.length;
+  return { what, text: `${what}${del ? `; ${del} deletion${del > 1 ? "s" : ""}` : ""}${q ? `; ${q} question${q > 1 ? "s" : ""}` : ""}` };
+};
+const sceneContext = () => [...S.scene.components.values()].map((c) => ({ ref: c.id, box: { ...c.box }, shape: c.shape || ({ decision: "diamond", data: "cylinder" }[c.kind]) || (c.word === "ellipse" || c.word === "circle" ? "ellipse" : "rectangle"), orient: c.orient }));
+function sketchReadings(rec) {
+  const vss = sceneFpe(rec, { scene: S.scene }), classical = scenePass(rec, { scene: S.scene });   // the VSS reader is computed for the comparison whichever the setting says
+  const vssDeclined = /FPE declined/.test(vss.active || "");
+  return [
+    { id: "vss", title: "What VSS read", sub: vssDeclined ? `${vss.active}: the rules read this one` : "the VSS scene reader: containment and connector ends read from positions as addresses", res: vss },
+    { id: "classical", title: "What the classical algorithm would make", sub: "the rule-based scene pass: boxes and outlines", res: classical },
+  ];
+}
+function onStrokes(strokes, { stay, accept, discard } = {}) {
+  if (!strokes.length) { if (accept) accept(); if (!stay) showAnswer({ action: "execute", line: "Nothing was drawn." }); return; }
+  const v = S.scene.view; const z = v.zoom || 1;
+  const toScene = strokes.map((s) => ({ ...s, points: s.points.map((p) => ({ ...p, x: (p.x - (v.x || 0)) / z, y: (p.y - (v.y || 0)) / z })) }));
+  const rec = recognise(toScene); const readings = sketchReadings(rec); const context = sceneContext();
+  const lookup = (ref) => context.find((c) => c.ref === ref) || null;
+  const preselect = S.settings.sketch_reader === "fpe" ? "vss" : "classical";
+  let chosen = false;
+  openPopup({ title: "Preview: how the sketch was read", className: "sk-preview",
+    render: (body, popup) => renderSketchReadings(body, { strokes: toScene, rec, readings, preselect, lookup, context, low: PASS_OPTIONS.ambiguousMargin,
+      onUse: (id) => { chosen = true; popup.close(); if (accept) accept(); applySketch({ rec, strokes: toScene, readings, context, chosen: id, stay }); },
+      onCancel: () => { chosen = true; popup.close(); if (discard) discard(); showAnswer({ action: "execute", line: "Sketch discarded; nothing was added." }); } }),
+    onClose: () => { if (!chosen) showAnswer({ action: "execute", line: "Preview closed; the strokes are still on the pad. Press Done again to choose." }); } });
+}
+function applySketch({ rec, strokes, readings, context, chosen, stay }) {
+  const res = readings.find((r) => r.id === chosen).res; const ap = applyToScene(S.scene, res);
+  const sums = Object.fromEntries(readings.map((r) => [r.id, sceneSummary(r.res)]));
+  const line = `Recognised ${sums[chosen].what}${res.deletions.components.length + (res.deletions.connectors?.length || 0) ? `; ${res.deletions.components.length + (res.deletions.connectors?.length || 0)} deletion(s)` : ""}. One undo takes it back.`;
   S.last = { kind: "sketch", input: "(sketch)", rec, res, map: ap.map, line };
-  const shapes = rec.groups.map((g) => String(g.kind).replace(/_/g, " ")); const kinds = {}; for (const k of shapes) kinds[k] = (kinds[k] || 0) + 1;
+  const shapes = {}; for (const g of rec.groups) { const k = String(g.kind).replace(/_/g, " "); shapes[k] = (shapes[k] || 0) + 1; }
   pushHistory({ input: "(sketch)", source: "sketch", used: "", status: `${rec.groups.length} groups`, line, action: ap.applied ? "execute" : "refuse", sop: toCircuit(res), last: S.last,
-    sketch: { rec, res, map: ap.map, active: res.active, summary: [["Classical step", Object.entries(kinds).map(([k, n]) => `${n} ${k}`).join(", ") || "no ink"], ["Scene reader", `${what} (${res.active})`]] } });
+    sketch: { rec, strokes, readings, context, chosen, map: ap.map, active: res.active,
+      summary: [["Shapes (classical recogniser)", Object.entries(shapes).map(([k, n]) => `${n} ${k}`).join(", ") || "no ink"], ["VSS reader", sums.vss.text], ["Classical algorithm", sums.classical.text],
+        ["Chosen", chosen === "vss" ? "what VSS read" : "what the classical algorithm made"]] } });
   refresh(); const first = [...ap.map.values()].find((x) => S.scene.components.has(x)); if (first) { reveal(first); S.slots.sync(); }
   showAnswer({ action: ap.applied ? "execute" : "refuse", line });
   const host = $("answer");
@@ -654,7 +684,7 @@ function showModelBadge(errors) {
     { name: "Segmenter and circuit", status: `rule-based cuts with the reader's ${S.segReader?.gates ? "gates" : "kinds (the model exposes no gates)"}; links by the stated rules (spec 15.5: the learned versions are not active)` },
     { name: "Text widgets", status: S.textedit ? `dictation with the textedit reader${S.calibration ? `, command threshold ${S.calibration.threshold}` : ", no calibrated threshold"}` : "dictation without a textedit reader: content only", dev: !S.textedit },
     { name: "Formula widgets", status: S.matheditor ? "matheditor reader, reference parser as fallback" : `${parsers.SOURCE} (no matheditor model); MathML rendering`, dev: !S.matheditor },
-    { name: "Sketch", status: "own $P recogniser and the rule-based geometry pass (spec 17.3: the scene reader is not active)" },
+    { name: "Sketch", status: "own $P recogniser; Done previews two readings of the scene, the VSS scene reader and the rule-based pass, and you choose (spec 17.2, 17.3)" },
     { name: "Scripts", status: "sections, checkpoints and the document view; references over distance by the rule" },
     { name: "Animation", status: S.animation ? "animation reader, timeline solver, player, invariants, export" : "no animation model: play and export a JSON timeline file; the solver, player, invariants and export are active", dev: !S.animation },
     { name: "Voice", status: sp ? sp.note : "not started" },
